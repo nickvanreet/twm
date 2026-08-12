@@ -258,12 +258,24 @@ function reconcile(cm,usd){
   if(cm&&te&&Math.abs(cm-te)>2&&(cm/te>4||te/cm>4)) return te;
   return cm||te||null;
 }
+/* The API 500s intermittently, so each page gets a few tries with backoff.
+   A page that never succeeds is skipped — those cards keep built-in prices. */
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function fetchPage(page){
+  for(let t=0;t<4;t++){
+    if(t) await wait(700*2**t);
+    try{
+      const r=await fetch(`https://api.pokemontcg.io/v2/cards?q=set.id:sv6&page=${page}&pageSize=50`);
+      if(r.ok) return (await r.json()).data||[];
+    }catch(e){}
+  }
+  return null;
+}
 async function fetchPrices(){
   const out={};
   for(let page=1;page<=5;page++){
-    const r=await fetch(`https://api.pokemontcg.io/v2/cards?q=set.id:sv6&page=${page}&pageSize=50`);
-    if(!r.ok) throw new Error(r.status);
-    const j=await r.json(); const batch=j.data||[];
+    const batch=await fetchPage(page);
+    if(batch===null) continue;
     if(!batch.length) break;
     for(const c of batch){
       const n=parseInt(c.number,10); if(!n) continue;
