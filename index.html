@@ -21,6 +21,7 @@
   --edge:rgba(139,107,199,.32);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0; min-height:100vh; min-height:100dvh;
@@ -64,8 +65,18 @@ select{flex:1;min-width:140px;appearance:none;
 }
 .seg button[aria-pressed="true"]{background:var(--lantern);color:var(--deep);font-weight:700}
 
-.grid{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(104px,1fr))}
-@media (min-width:520px){.grid{grid-template-columns:repeat(auto-fill,minmax(124px,1fr))}}
+.grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+@media (min-width:520px){.grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}}
+
+.sec{margin:0 0 6px}
+.sechead{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;
+  padding:12px 2px 8px;background:linear-gradient(180deg,var(--deep) 78%,transparent)}
+.sechead h2{font-family:'Fraunces',serif;font-size:16px;font-weight:700;margin:0}
+.secbar{flex:1;max-width:150px;height:5px;border-radius:99px;background:rgba(139,107,199,.22);overflow:hidden}
+.secbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--lantern));transition:width .4s}
+.seccount{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.sec.done .seccount{color:var(--lantern);font-weight:700}
+.sec.done h2::after{content:" ✦";color:var(--lantern)}
 
 .card{
   position:relative;display:block;width:100%;padding:0;cursor:pointer;
@@ -73,8 +84,10 @@ select{flex:1;min-width:140px;appearance:none;
   box-shadow:0 0 0 1px var(--edge); opacity:.6;
   transition:opacity .18s, box-shadow .18s, transform .12s;
   text-align:left;color:inherit;font:inherit;
-  content-visibility:auto; contain-intrinsic-size:auto 190px;
+  content-visibility:auto; contain-intrinsic-size:auto 250px;
 }
+.card.pop{animation:pop .45s ease}
+@keyframes pop{0%{transform:scale(.9)}55%{transform:scale(1.06)}100%{transform:scale(1)}}
 .card.have{opacity:1;box-shadow:0 0 0 2px var(--lantern)}
 .card:active{transform:scale(.96)}
 .card:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
@@ -90,10 +103,38 @@ select{flex:1;min-width:140px;appearance:none;
 .card.have .tick{display:flex}
 .revtag{position:absolute;top:4px;left:4px;background:var(--plum);color:var(--cream);
   font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 5px;border-radius:4px}
-.meta{padding:6px 7px 8px}
-.nm{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pr{font-size:10px;color:var(--mute);margin-top:1px}
+.meta{padding:7px 8px 9px}
+.nm{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr{font-size:11px;color:var(--mute);margin-top:2px}
 .pr.hot{color:var(--lantern)}
+.tr{font-size:9px;margin-left:3px;vertical-align:1px}
+.tr.up{color:#7CD9A5}
+.tr.down{color:#F09090}
+.zoom{position:absolute;bottom:5px;right:5px;width:30px;height:30px;border-radius:50%;
+  background:rgba(13,10,34,.75);display:flex;align-items:center;justify-content:center;
+  font-size:14px;line-height:1}
+
+#ov{position:fixed;inset:0;z-index:50;background:rgba(13,10,34,.92);
+  display:flex;align-items:center;justify-content:center;padding:14px}
+.ovbox{position:relative;width:min(420px,calc(100vw - 96px));max-height:100%;overflow-y:auto;text-align:center}
+@media (max-width:480px){.ovbox{width:min(420px,100%)}}
+.ovshot{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 14px 44px rgba(0,0,0,.55)}
+.ovshot img{width:100%;aspect-ratio:63/88;object-fit:cover;display:block;background:var(--panel2)}
+.ovnm{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin:14px 0 2px}
+.ovsub{font-size:13px;color:var(--mute)}
+.ovpr{font-size:16px;margin:8px 0 14px}
+.ovpr .tr{font-size:12px}
+#ovtick{font:inherit;font-size:16px;font-weight:700;min-height:50px;width:100%;
+  border:2px solid var(--lantern);border-radius:12px;background:transparent;color:var(--lantern);cursor:pointer}
+#ovtick.on{background:var(--lantern);color:var(--deep)}
+.ovnav{position:fixed;top:50%;transform:translateY(-50%);width:42px;height:56px;
+  border:0;border-radius:10px;background:rgba(30,24,70,.85);color:var(--cream);
+  font-size:26px;cursor:pointer;z-index:51}
+#ovprev{left:6px}#ovnext{right:6px}
+#ovclose{position:fixed;top:calc(10px + env(safe-area-inset-top));right:10px;width:44px;height:44px;
+  border:0;border-radius:50%;background:rgba(30,24,70,.85);color:var(--cream);
+  font-size:18px;cursor:pointer;z-index:51}
+body.lock{overflow:hidden}
 
 .note{font-size:11px;color:var(--mute);margin:18px 0 0}
 #install{display:none;font:inherit;font-size:14px;font-weight:700;min-height:44px;
@@ -138,14 +179,29 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 
   <button id="install" type="button">Install on this phone</button>
 
-  <div id="grid" class="grid"></div>
+  <div id="grid"></div>
   <div id="empty" class="empty" hidden><p>Nothing here</p><p class="sub" id="emptymsg"></p></div>
+
+  <div id="ov" hidden>
+    <button id="ovclose" type="button" aria-label="Close">✕</button>
+    <button id="ovprev" class="ovnav" type="button" aria-label="Previous card">‹</button>
+    <button id="ovnext" class="ovnav" type="button" aria-label="Next card">›</button>
+    <div class="ovbox">
+      <div class="ovshot"><img id="ovimg" alt=""><div id="ovsheen" class="rev-sheen" hidden></div></div>
+      <div class="ovnm" id="ovnm"></div>
+      <div class="ovsub" id="ovsub"></div>
+      <div class="ovpr" id="ovpr"></div>
+      <button id="ovtick" type="button"></button>
+    </div>
+  </div>
 
   <p class="note" id="pricenote">Checking today's prices…</p>
 
   <footer>
     Prices are Cardmarket 30-day averages, fetched from the Pokémon TCG API and refreshed once a day.
-    They are a rough guide, not a valuation. Card images load from the same API.
+    ▲ or ▼ means the last week's average sits at least 5% above or below the 30-day average —
+    that card is on the way up or down. They are a rough guide, not a valuation.
+    Card images load from the same API.
     Pokémon and all card artwork belong to The Pokémon Company, Nintendo and Creatures.
   </footer>
 </div>
@@ -161,7 +217,8 @@ for (const [num,name,rarity,base,rev] of RAW){
   if(rev!==null) SLOTS.push({id:num+"r",num,name,rarity,base:rev,rev:true,fallback:rev});
 }
 
-const KEY="twm:collection", PKEY="twm:prices", MAXAGE=864e5, USD_EUR=0.867;
+const KEY="twm:collection", PKEY="twm:prices2", MAXAGE=864e5, USD_EUR=0.867;
+try{ localStorage.removeItem("twm:prices"); }catch(e){}
 const img=n=>`https://images.pokemontcg.io/sv6/${n}.png`;
 const eur=n=>"€"+n.toFixed(2);
 
@@ -174,26 +231,48 @@ const priceOf=s=>{
   return (typeof v==="number"&&v>0)?v:s.fallback;
 };
 
+/* ---------- trends (7-day vs 30-day Cardmarket average) ---------- */
+const trendOf=s=>{
+  const l=live&&live[s.num]; if(!l) return null;
+  const t=s.rev?l.tr:l.tb;
+  return (typeof t==="number"&&Math.abs(t)>=0.05)?t:null;
+};
+const arrow=(s,pct)=>{
+  const t=trendOf(s);
+  if(t===null) return "";
+  const a=t>0?"▲":"▼", c=t>0?"up":"down";
+  return ` <span class="tr ${c}">${a}${pct?" "+Math.round(Math.abs(t)*100)+"%":""}</span>`;
+};
+
 /* ---------- render ---------- */
 const grid=document.getElementById("grid"), emptyEl=document.getElementById("empty");
-const nodes=new Map();
+const nodes=new Map(), secs=new Map(), byId=new Map(SLOTS.map(s=>[s.id,s]));
+const ORDER=[], visList=[];
 
 function build(){
-  const frag=document.createDocumentFragment();
-  for(const s of SLOTS){
-    const b=document.createElement("button");
-    b.className="card"; b.dataset.id=s.id; b.type="button";
-    b.setAttribute("aria-pressed","false");
-    b.setAttribute("aria-label",`${s.num} ${s.name}${s.rev?" reverse holo":""}`);
-    b.innerHTML=
-      `<div class="shot"><img loading="lazy" decoding="async" alt="" src="${img(s.num)}">`+
-      (s.rev?`<div class="rev-sheen"></div><div class="revtag">REV</div>`:``)+
-      `<div class="tick">✓</div></div>`+
-      `<div class="meta"><div class="nm">${s.num} ${s.name}</div>`+
-      `<div class="pr"></div></div>`;
-    nodes.set(s.id,b); frag.appendChild(b);
+  for(const r of RARITIES){
+    const list=SLOTS.filter(s=>s.rarity===r);
+    if(!list.length) continue;
+    const sec=document.createElement("section"); sec.className="sec";
+    sec.innerHTML=`<div class="sechead"><h2>${r}</h2><div class="secbar"><i></i></div><span class="seccount"></span></div><div class="grid"></div>`;
+    const g=sec.querySelector(".grid");
+    for(const s of list){
+      const b=document.createElement("button");
+      b.className="card"; b.dataset.id=s.id; b.type="button";
+      b.setAttribute("aria-pressed","false");
+      b.setAttribute("aria-label",`${s.num} ${s.name}${s.rev?" reverse holo":""}`);
+      b.innerHTML=
+        `<div class="shot"><img loading="lazy" decoding="async" alt="" src="${img(s.num)}">`+
+        (s.rev?`<div class="rev-sheen"></div><div class="revtag">REV</div>`:``)+
+        `<div class="tick">✓</div><span class="zoom" aria-hidden="true">🔍</span></div>`+
+        `<div class="meta"><div class="nm">${s.num} ${s.name}</div>`+
+        `<div class="pr"></div></div>`;
+      nodes.set(s.id,b); ORDER.push(s); g.appendChild(b);
+    }
+    secs.set(r,{sec,count:sec.querySelector(".seccount"),
+                fill:sec.querySelector(".secbar i"),total:list.length});
+    grid.appendChild(sec);
   }
-  grid.appendChild(frag);
 }
 
 function paint(){
@@ -201,11 +280,14 @@ function paint(){
   const q=document.getElementById("q").value.trim().toLowerCase();
   const view=document.querySelector('.seg button[aria-pressed="true"]').dataset.view;
   const rar=document.getElementById("rarity").value;
+  const per=new Map(); for(const r of secs.keys()) per.set(r,{have:0,vis:0});
+  visList.length=0;
 
-  for(const s of SLOTS){
+  for(const s of ORDER){
     const p=priceOf(s); totalV+=p;
     const has=owned.has(s.id);
-    if(has){haveN++; haveV+=p;}
+    const t=per.get(s.rarity);
+    if(has){haveN++; haveV+=p; t.have++;}
 
     let ok=true;
     if(view==="have"&&!has) ok=false;
@@ -214,12 +296,20 @@ function paint(){
     if(ok&&q&&!s.name.toLowerCase().includes(q)&&String(s.num)!==q) ok=false;
 
     const n=nodes.get(s.id);
-    n.hidden=!ok; if(ok) shown++;
+    n.hidden=!ok; if(ok){shown++; t.vis++; visList.push(s);}
     n.classList.toggle("have",has);
     n.setAttribute("aria-pressed",has?"true":"false");
     const pr=n.querySelector(".pr");
-    pr.textContent=eur(p);
+    pr.innerHTML=eur(p)+arrow(s,false);
     pr.classList.toggle("hot",p>=5);
+  }
+
+  for(const [r,o] of secs){
+    const t=per.get(r);
+    o.sec.hidden=t.vis===0;
+    o.count.textContent=`${t.have}/${o.total}`;
+    o.fill.style.width=(t.have/o.total*100)+"%";
+    o.sec.classList.toggle("done",t.have===o.total);
   }
 
   document.getElementById("have").textContent=haveN;
@@ -237,13 +327,22 @@ function paint(){
 }
 
 /* ---------- interaction ---------- */
-grid.addEventListener("click",e=>{
-  const b=e.target.closest(".card"); if(!b) return;
-  const id=b.dataset.id;
-  owned.has(id)?owned.delete(id):owned.add(id);
+function toggle(id){
+  const had=owned.has(id);
+  had?owned.delete(id):owned.add(id);
   try{ localStorage.setItem(KEY,JSON.stringify([...owned])); }
   catch(err){ document.getElementById("pricenote").textContent="That tick didn't save — your browser is blocking storage."; }
+  if(!had){
+    const n=nodes.get(id);
+    if(n){ n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop"); }
+  }
   paint();
+}
+grid.addEventListener("click",e=>{
+  const z=e.target.closest(".zoom");
+  if(z){ openOv(z.closest(".card").dataset.id); return; }
+  const b=e.target.closest(".card"); if(!b) return;
+  toggle(b.dataset.id);
 });
 document.getElementById("q").addEventListener("input",paint);
 document.getElementById("rarity").addEventListener("change",paint);
@@ -251,6 +350,59 @@ document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",(
   document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed","false"));
   b.setAttribute("aria-pressed","true"); paint();
 }));
+
+/* ---------- card viewer ---------- */
+const ov=document.getElementById("ov"), ovimg=document.getElementById("ovimg");
+let cur=null, lastIdx=0;
+
+function renderOv(){
+  ovimg.src=`https://images.pokemontcg.io/sv6/${cur.num}_hires.png`;
+  ovimg.onerror=()=>{ ovimg.onerror=null; ovimg.src=img(cur.num); };
+  ovimg.alt=cur.name;
+  document.getElementById("ovsheen").hidden=!cur.rev;
+  document.getElementById("ovnm").textContent=`${cur.num} · ${cur.name}`;
+  document.getElementById("ovsub").textContent=cur.rarity+(cur.rev?" · reverse holo":"");
+  document.getElementById("ovpr").innerHTML=eur(priceOf(cur))+arrow(cur,true);
+  paintOvTick();
+}
+function paintOvTick(){
+  const has=owned.has(cur.id);
+  const t=document.getElementById("ovtick");
+  t.textContent=has?"✓ Got it!":"Found it? Tap here";
+  t.classList.toggle("on",has);
+}
+function openOv(id){
+  cur=byId.get(id); if(!cur) return;
+  lastIdx=Math.max(0,visList.indexOf(cur));
+  renderOv();
+  ov.hidden=false; document.body.classList.add("lock");
+}
+function closeOv(){ ov.hidden=true; document.body.classList.remove("lock"); }
+function nav(d){
+  if(!visList.length) return;
+  let i=visList.indexOf(cur);
+  if(i<0) i=Math.min(lastIdx,visList.length-1);
+  else i=(i+d+visList.length)%visList.length;
+  cur=visList[i]; lastIdx=i; renderOv();
+}
+document.getElementById("ovclose").addEventListener("click",closeOv);
+document.getElementById("ovprev").addEventListener("click",()=>nav(-1));
+document.getElementById("ovnext").addEventListener("click",()=>nav(1));
+document.getElementById("ovtick").addEventListener("click",()=>{ toggle(cur.id); paintOvTick(); });
+ov.addEventListener("click",e=>{ if(e.target===ov) closeOv(); });
+let tx=null;
+ov.addEventListener("touchstart",e=>{ tx=e.touches[0].clientX; },{passive:true});
+ov.addEventListener("touchend",e=>{
+  if(tx===null) return;
+  const dx=e.changedTouches[0].clientX-tx; tx=null;
+  if(Math.abs(dx)>40) nav(dx<0?1:-1);
+},{passive:true});
+document.addEventListener("keydown",e=>{
+  if(ov.hidden) return;
+  if(e.key==="Escape") closeOv();
+  if(e.key==="ArrowRight") nav(1);
+  if(e.key==="ArrowLeft") nav(-1);
+});
 
 /* ---------- live prices ---------- */
 function reconcile(cm,usd){
@@ -282,8 +434,11 @@ async function fetchPrices(){
       const cm=(c.cardmarket&&c.cardmarket.prices)||{};
       const tp=(c.tcgplayer&&c.tcgplayer.prices)||{};
       const nm=tp.holofoil||tp.normal||{}, rv=tp.reverseHolofoil||{};
+      const pct=(a,b)=>(typeof a==="number"&&typeof b==="number"&&b>0)?(a-b)/b:null;
       out[n]={base:reconcile(cm.avg30,nm.market??nm.mid),
-              rev:reconcile(cm.reverseHoloAvg30,rv.market??rv.mid)};
+              rev:reconcile(cm.reverseHoloAvg30,rv.market??rv.mid),
+              tb:pct(cm.avg7,cm.avg30),
+              tr:pct(cm.reverseHoloAvg7,cm.reverseHoloAvg30)};
     }
     if(batch.length<50) break;
   }
