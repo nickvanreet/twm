@@ -221,7 +221,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 
   <footer>
     Tap a card to collect it — the message tells you which binder page and pocket it goes in
-    (24 sheets of 4×4, in card order). Tapping a collected card opens it big;
+    (pages of 4 pockets × 3 rows, in card order). Tapping a collected card opens it big;
     removing it happens there and asks twice. 🔍 previews any card without collecting it.<br><br>
     Prices are Cardmarket 30-day averages, fetched from the Pokémon TCG API and refreshed once a day.
     ▲ or ▼ means the last week's average sits at least 5% above or below the 30-day average —
@@ -354,11 +354,11 @@ function paint(){
     view==="need" ? "Every card in this filter is collected." : "Try a different search or rarity.";
 }
 
-/* ---------- binder position (24 A3 sheets, 4x4 pockets, numeric order) ---------- */
+/* ---------- binder position (pages of 4 pockets x 3 rows, numeric order) ---------- */
 const slotIdx=new Map(SLOTS.map((s,i)=>[s.id,i]));
 function binderPos(s){
-  const i=slotIdx.get(s.id), p=i%16;
-  return {page:Math.floor(i/16)+1, row:Math.floor(p/4)+1, pocket:p%4+1};
+  const i=slotIdx.get(s.id), p=i%12;
+  return {page:Math.floor(i/12)+1, row:Math.floor(p/4)+1, pocket:p%4+1};
 }
 const binderTxt=s=>{
   const b=binderPos(s);
