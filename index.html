@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0D0A22">
+<title>Twilight Masquerade — my collection</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700..800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#141033; --deep:#0D0A22; --panel:#1E1846; --panel2:#241C52;
+  --lantern:#F5B944; --teal:#4FBFA8; --plum:#8B6BC7; --cream:#F3EDE0; --mute:#9188B8;
+  --edge:rgba(139,107,199,.32);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100vh; min-height:100dvh;
+  background:radial-gradient(120% 80% at 50% 0%, var(--night) 0%, var(--deep) 70%) fixed;
+  color:var(--cream);
+  font-family:'Space Grotesk',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  -webkit-tap-highlight-color:transparent;
+  overscroll-behavior-y:contain;
+  padding:0 12px calc(40px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:1100px;margin:0 auto}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:800;font-size:clamp(22px,6.2vw,38px);line-height:1;margin:0}
+.sub{color:var(--mute);font-size:13px;margin:4px 0 0}
+
+header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px + env(safe-area-inset-top)) 0 14px}
+.grow{flex:1;min-width:150px}
+.count{font-family:'Fraunces',serif;font-weight:800;font-size:clamp(22px,6vw,30px);color:var(--lantern);line-height:1}
+.count span{color:var(--mute);font-size:.65em}
+.val{font-size:11px;color:var(--mute);margin-top:2px}
+
+.bar{height:8px;border-radius:99px;background:rgba(139,107,199,.22);overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--lantern));transition:width .45s ease}
+
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+input,select{
+  font:inherit;font-size:16px; /* 16px stops Android zooming on focus */
+  background:var(--panel);color:var(--cream);
+  border:1px solid var(--edge);border-radius:10px;padding:11px 12px;
+  min-height:44px;
+}
+input{flex:1;min-width:150px}
+input::placeholder{color:var(--mute)}
+select{flex:1;min-width:140px;appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);
+  background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;
+  background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+.seg{display:flex;border:1px solid var(--edge);border-radius:10px;overflow:hidden;width:100%}
+.seg button{
+  flex:1;font:inherit;font-size:14px;min-height:44px;padding:0 10px;
+  background:var(--panel);color:var(--cream);border:0;cursor:pointer;
+}
+.seg button[aria-pressed="true"]{background:var(--lantern);color:var(--deep);font-weight:700}
+
+.grid{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(104px,1fr))}
+@media (min-width:520px){.grid{grid-template-columns:repeat(auto-fill,minmax(124px,1fr))}}
+
+.card{
+  position:relative;display:block;width:100%;padding:0;cursor:pointer;
+  background:var(--panel);border:0;border-radius:12px;overflow:hidden;
+  box-shadow:0 0 0 1px var(--edge); opacity:.6;
+  transition:opacity .18s, box-shadow .18s, transform .12s;
+  text-align:left;color:inherit;font:inherit;
+  content-visibility:auto; contain-intrinsic-size:auto 190px;
+}
+.card.have{opacity:1;box-shadow:0 0 0 2px var(--lantern)}
+.card:active{transform:scale(.96)}
+.card:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.shot{position:relative;aspect-ratio:63/88;background:var(--panel2)}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:saturate(.3) brightness(.7);transition:filter .2s}
+.card.have .shot img{filter:none}
+.rev-sheen{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;
+  background:linear-gradient(115deg,rgba(255,120,180,.55),rgba(120,220,255,.55),rgba(255,240,140,.55),rgba(160,140,255,.55))}
+.tick{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;
+  background:var(--lantern);color:var(--deep);font-weight:700;font-size:14px;
+  display:none;align-items:center;justify-content:center}
+.card.have .tick{display:flex}
+.revtag{position:absolute;top:4px;left:4px;background:var(--plum);color:var(--cream);
+  font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 5px;border-radius:4px}
+.meta{padding:6px 7px 8px}
+.nm{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr{font-size:10px;color:var(--mute);margin-top:1px}
+.pr.hot{color:var(--lantern)}
+
+.note{font-size:11px;color:var(--mute);margin:18px 0 0}
+#install{display:none;font:inherit;font-size:14px;font-weight:700;min-height:44px;
+  padding:0 16px;border:0;border-radius:10px;background:var(--teal);color:var(--deep);
+  cursor:pointer;width:100%}
+#install:active{transform:scale(.98)}
+.empty{text-align:center;padding:56px 0}
+.empty p:first-child{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin:0 0 4px}
+footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.22);font-size:11px;color:var(--mute);line-height:1.6}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg width="54" height="54" viewBox="0 0 62 62" aria-hidden="true">
+      <defs><clipPath id="mf"><rect id="mfr" x="0" y="62" width="62" height="0"/></clipPath></defs>
+      <circle cx="31" cy="31" r="26" fill="none" stroke="#8B6BC7" stroke-width="2" opacity=".45"/>
+      <circle cx="31" cy="31" r="26" fill="#F5B944" clip-path="url(#mf)" opacity=".9"/>
+    </svg>
+    <div class="grow">
+      <h1>Twilight Masquerade</h1>
+      <p class="sub">Master set · <span id="slotcount">0</span> cards to find</p>
+    </div>
+    <div style="text-align:right">
+      <div class="count"><span id="have">0</span><span id="of"></span></div>
+      <div class="val" id="value"></div>
+    </div>
+  </header>
+
+  <div class="bar"><i id="fill" style="width:0%"></i></div>
+
+  <div class="controls">
+    <input id="q" type="search" placeholder="Search a name or number" autocomplete="off" enterkeyhint="search">
+    <select id="rarity" aria-label="Filter by rarity"><option value="all">Every rarity</option></select>
+    <div class="seg" role="group" aria-label="Show">
+      <button data-view="all" aria-pressed="true">All</button>
+      <button data-view="need" aria-pressed="false">Still need</button>
+      <button data-view="have" aria-pressed="false">Got it</button>
+    </div>
+  </div>
+
+  <button id="install" type="button">Install on this phone</button>
+
+  <div id="grid" class="grid"></div>
+  <div id="empty" class="empty" hidden><p>Nothing here</p><p class="sub" id="emptymsg"></p></div>
+
+  <p class="note" id="pricenote">Checking today's prices…</p>
+
+  <footer>
+    Prices are Cardmarket 30-day averages, fetched from the Pokémon TCG API and refreshed once a day.
+    They are a rough guide, not a valuation. Card images load from the same API.
+    Pokémon and all card artwork belong to The Pokémon Company, Nintendo and Creatures.
+  </footer>
+</div>
+
+<script>
+/* [num, name, rarity, basePrice, reversePrice|null] */
+const RAW = [[1,"Tangela","Common",0.03,0.14],[2,"Tangrowth","Common",0.04,0.1],[3,"Pinsir","Common",0.05,0.11],[4,"Spinarak","Common",0.03,0.09],[5,"Ariados","Uncommon",0.05,0.11],[6,"Sunkern","Common",0.03,0.1],[7,"Sunflora","Uncommon",0.04,0.12],[8,"Heracross","Uncommon",0.03,0.1],[9,"Volbeat","Common",0.04,0.15],[10,"Illumise","Common",0.05,0.15],[11,"Leafeon","Rare",0.09,0.24],[12,"Phantump","Common",0.03,0.1],[13,"Trevenant","Uncommon",0.05,0.13],[14,"Grookey","Common",0.05,0.14],[15,"Thwackey","Common",0.04,0.11],[16,"Rillaboom","Rare",0.09,0.22],[17,"Applin","Common",0.06,0.16],[18,"Dipplin","Rare",0.12,0.28],[19,"Iron Leaves","Rare",0.09,0.25],[20,"Poltchageist","Common",0.04,0.09],[21,"Poltchageist","Common",0.05,0.11],[22,"Sinistcha","Rare",0.18,0.28],[23,"Sinistcha ex","Double Rare",0.59,null],[24,"Teal Mask Ogerpon","Rare",0.15,0.25],[25,"Teal Mask Ogerpon ex","Double Rare",0.71,null],[26,"Vulpix","Common",0.04,0.12],[27,"Ninetales","Uncommon",0.06,0.15],[28,"Slugma","Common",0.03,0.1],[29,"Magcargo ex","Double Rare",0.5,null],[30,"Torkoal","Uncommon",0.05,0.13],[31,"Chimchar","Common",0.05,0.14],[32,"Monferno","Common",0.04,0.11],[33,"Infernape","Rare",0.11,0.26],[34,"Darumaka","Common",0.03,0.1],[35,"Darmanitan","Uncommon",0.05,0.12],[36,"Litwick","Common",0.04,0.12],[37,"Lampent","Common",0.04,0.11],[38,"Chandelure","Rare",0.07,0.19],[39,"Chi-Yu","Rare",0.09,0.23],[40,"Hearthflame Mask Ogerpon ex","Double Rare",1.15,null],[41,"Poliwag","Common",0.03,0.1],[42,"Poliwhirl","Common",0.04,0.11],[43,"Poliwrath","Uncommon",0.05,0.13],[44,"Goldeen","Common",0.03,0.09],[45,"Seaking","Uncommon",0.04,0.11],[46,"Jynx","Uncommon",0.05,0.12],[47,"Corphish","Common",0.03,0.1],[48,"Crawdaunt","Uncommon",0.05,0.12],[49,"Feebas","Common",0.04,0.11],[50,"Milotic","Rare",0.09,0.22],[51,"Snorunt","Common",0.03,0.1],[52,"Glalie","Uncommon",0.05,0.12],[53,"Froslass","Rare",0.14,0.27],[54,"Glaceon","Rare",0.1,0.25],[55,"Phione","Rare",0.08,0.2],[56,"Froakie","Common",0.06,0.16],[57,"Frogadier","Common",0.07,0.18],[58,"Cramorant","Uncommon",0.04,0.12],[59,"Finizen","Common",0.03,0.1],[60,"Palafin","Uncommon",0.05,0.13],[61,"Palafin ex","Double Rare",0.45,null],[62,"Iron Bundle","Rare",0.08,0.2],[63,"Walking Wake","Rare",0.09,0.22],[64,"Wellspring Mask Ogerpon ex","Double Rare",1.35,null],[65,"Zapdos","Rare",0.11,0.26],[66,"Shinx","Common",0.04,0.12],[67,"Luxio","Common",0.04,0.11],[68,"Luxray ex","Double Rare",0.55,null],[69,"Emolga","Common",0.04,0.11],[70,"Helioptile","Common",0.03,0.1],[71,"Heliolisk","Uncommon",0.05,0.12],[72,"Morpeko","Common",0.04,0.11],[73,"Tadbulb","Common",0.03,0.1],[74,"Bellibolt","Uncommon",0.05,0.13],[75,"Wattrel","Common",0.03,0.1],[76,"Kilowattrel","Uncommon",0.05,0.12],[77,"Iron Thorns ex","Double Rare",0.62,null],[78,"Clefairy","Common",0.04,0.12],[79,"Clefable","Uncommon",0.06,0.14],[80,"Abra","Common",0.04,0.11],[81,"Kadabra","Common",0.04,0.11],[82,"Alakazam","Rare",0.09,0.22],[83,"Girafarig","Common",0.03,0.1],[84,"Farigiraf","Uncommon",0.05,0.12],[85,"Chimecho","Uncommon",0.04,0.11],[86,"Flabebe","Common",0.03,0.1],[87,"Floette","Common",0.04,0.11],[88,"Florges","Uncommon",0.05,0.13],[89,"Swirlix","Common",0.03,0.1],[90,"Slurpuff","Uncommon",0.04,0.11],[91,"Sandygast","Common",0.03,0.1],[92,"Palossand","Uncommon",0.05,0.12],[93,"Enamorus","Rare",0.1,0.24],[94,"Scream Tail ex","Double Rare",0.55,null],[95,"Munkidori","Rare",0.12,0.27],[96,"Fezandipiti","Rare",0.07,0.19],[97,"Sandshrew","Common",0.03,0.1],[98,"Sandslash","Uncommon",0.05,0.12],[99,"Hisuian Growlithe","Common",0.05,0.13],[100,"Hisuian Arcanine","Rare",0.09,0.21],[101,"Nosepass","Common",0.03,0.1],[102,"Probopass","Uncommon",0.05,0.12],[103,"Timburr","Common",0.03,0.1],[104,"Gurdurr","Common",0.04,0.11],[105,"Conkeldurr","Uncommon",0.05,0.12],[106,"Greninja ex","Double Rare",2.2,null],[107,"Hawlucha","Common",0.04,0.11],[108,"Glimmet","Common",0.03,0.1],[109,"Glimmora","Rare",0.09,0.22],[110,"Ting-Lu","Rare",0.08,0.2],[111,"Okidogi","Rare",0.09,0.22],[112,"Cornerstone Mask Ogerpon ex","Double Rare",1.05,null],[113,"Poochyena","Common",0.03,0.1],[114,"Mightyena","Uncommon",0.05,0.12],[115,"Venipede","Common",0.03,0.1],[116,"Whirlipede","Common",0.04,0.11],[117,"Scolipede","Uncommon",0.05,0.12],[118,"Brute Bonnet","Rare",0.08,0.2],[119,"Skarmory","Common",0.04,0.11],[120,"Aron","Common",0.03,0.1],[121,"Lairon","Common",0.04,0.11],[122,"Aggron","Uncommon",0.06,0.14],[123,"Heatran","Rare",0.09,0.22],[124,"Varoom","Common",0.03,0.1],[125,"Revavroom","Uncommon",0.05,0.12],[126,"Applin","Common",0.06,0.15],[127,"Dipplin","Rare",0.11,0.26],[128,"Dreepy","Common",0.08,0.19],[129,"Drakloak","Common",0.09,0.21],[130,"Dragapult ex","Double Rare",1.3,null],[131,"Tatsugiri","Uncommon",0.05,0.13],[132,"Farfetch'd","Common",0.03,0.1],[133,"Chansey","Common",0.05,0.13],[134,"Blissey ex","Double Rare",0.6,null],[135,"Eevee","Common",0.09,0.22],[136,"Snorlax","Rare",0.11,0.25],[137,"Aipom","Common",0.03,0.1],[138,"Ambipom","Uncommon",0.05,0.12],[139,"Ducklett","Common",0.03,0.1],[140,"Swanna","Uncommon",0.05,0.12],[141,"Bloodmoon Ursaluna ex","Double Rare",1.65,null],[142,"Accompanying Flute","Uncommon",0.06,0.15],[143,"Bug Catching Set","Uncommon",0.09,0.21],[144,"Caretaker","Uncommon",0.05,0.13],[145,"Carmine","Uncommon",0.35,0.72],[146,"Community Center","Uncommon",0.05,0.13],[147,"Cook","Uncommon",0.05,0.12],[148,"Enhanced Hammer","Uncommon",0.12,0.28],[149,"Festival Grounds","Uncommon",0.06,0.15],[150,"Handheld Fan","Uncommon",0.05,0.12],[151,"Hassel","Uncommon",0.05,0.13],[152,"Hyper Aroma","ACE SPEC Rare",0.53,null],[153,"Jamming Tower","Uncommon",0.08,0.19],[154,"Kieran","Uncommon",0.06,0.15],[155,"Lana's Aid","Uncommon",0.18,0.4],[156,"Love Ball","Uncommon",0.09,0.22],[157,"Lucian","Uncommon",0.05,0.13],[158,"Lucky Helmet","Uncommon",0.15,0.35],[159,"Ogre's Mask","Uncommon",0.06,0.15],[160,"Perrin","Uncommon",0.09,0.22],[161,"Raifort","Uncommon",0.05,0.12],[162,"Scoop Up Cyclone","ACE SPEC Rare",1.1,null],[163,"Secret Box","ACE SPEC Rare",0.75,null],[164,"Survival Brace","ACE SPEC Rare",0.45,null],[165,"Unfair Stamp","ACE SPEC Rare",9.48,null],[166,"Boomerang Energy","Uncommon",0.09,0.22],[167,"Legacy Energy","ACE SPEC Rare",1.36,null],[168,"Pinsir","Illustration Rare",0.9,null],[169,"Sunflora","Illustration Rare",0.85,null],[170,"Dipplin","Illustration Rare",1.6,null],[171,"Poltchageist","Illustration Rare",1.1,null],[172,"Torkoal","Illustration Rare",0.85,null],[173,"Infernape","Illustration Rare",1.5,null],[174,"Froslass","Illustration Rare",1.4,null],[175,"Phione","Illustration Rare",0.9,null],[176,"Cramorant","Illustration Rare",0.85,null],[177,"Heliolisk","Illustration Rare",0.8,null],[178,"Wattrel","Illustration Rare",0.8,null],[179,"Chimecho","Illustration Rare",0.9,null],[180,"Enamorus","Illustration Rare",1.2,null],[181,"Hisuian Growlithe","Illustration Rare",1.3,null],[182,"Probopass","Illustration Rare",0.85,null],[183,"Timburr","Illustration Rare",0.85,null],[184,"Lairon","Illustration Rare",0.8,null],[185,"Applin","Illustration Rare",1.5,null],[186,"Tatsugiri","Illustration Rare",1.2,null],[187,"Chansey","Illustration Rare",1.4,null],[188,"Eevee","Illustration Rare",4.5,null],[189,"Sinistcha ex","Ultra Rare",1.9,null],[190,"Teal Mask Ogerpon ex","Ultra Rare",3.2,null],[191,"Magcargo ex","Ultra Rare",1.5,null],[192,"Hearthflame Mask Ogerpon ex","Ultra Rare",3.5,null],[193,"Palafin ex","Ultra Rare",1.4,null],[194,"Wellspring Mask Ogerpon ex","Ultra Rare",3.8,null],[195,"Luxray ex","Ultra Rare",1.6,null],[196,"Iron Thorns ex","Ultra Rare",1.7,null],[197,"Scream Tail ex","Ultra Rare",1.5,null],[198,"Greninja ex","Ultra Rare",9.5,null],[199,"Cornerstone Mask Ogerpon ex","Ultra Rare",3.1,null],[200,"Dragapult ex","Ultra Rare",5.5,null],[201,"Blissey ex","Ultra Rare",1.6,null],[202,"Bloodmoon Ursaluna ex","Ultra Rare",6.5,null],[203,"Caretaker","Ultra Rare",1.2,null],[204,"Carmine","Ultra Rare",3.4,null],[205,"Hassel","Ultra Rare",1.3,null],[206,"Kieran","Ultra Rare",1.5,null],[207,"Lana's Aid","Ultra Rare",2.2,null],[208,"Lucian","Ultra Rare",1.3,null],[209,"Perrin","Ultra Rare",2.4,null],[210,"Sinistcha ex","Special Illustration Rare",9.5,null],[211,"Teal Mask Ogerpon ex","Special Illustration Rare",22.5,null],[212,"Hearthflame Mask Ogerpon ex","Special Illustration Rare",26.0,null],[213,"Wellspring Mask Ogerpon ex","Special Illustration Rare",28.0,null],[214,"Greninja ex","Special Illustration Rare",239.33,null],[215,"Cornerstone Mask Ogerpon ex","Special Illustration Rare",24.0,null],[216,"Bloodmoon Ursaluna ex","Special Illustration Rare",28.81,null],[217,"Carmine","Special Illustration Rare",18.0,null],[218,"Kieran","Special Illustration Rare",14.0,null],[219,"Lana's Aid","Special Illustration Rare",16.0,null],[220,"Perrin","Special Illustration Rare",21.0,null],[221,"Teal Mask Ogerpon ex","Hyper Rare",12.0,null],[222,"Bloodmoon Ursaluna ex","Hyper Rare",26.0,null],[223,"Buddy-Buddy Poffin","Hyper Rare",9.0,null],[224,"Enhanced Hammer","Hyper Rare",7.0,null],[225,"Rescue Board","Hyper Rare",6.5,null],[226,"Luminous Energy","Hyper Rare",8.78,null]];
+
+const RARITIES = ["Common","Uncommon","Rare","Double Rare","ACE SPEC Rare","Illustration Rare","Ultra Rare","Special Illustration Rare","Hyper Rare"];
+const SLOTS = [];
+for (const [num,name,rarity,base,rev] of RAW){
+  SLOTS.push({id:String(num),num,name,rarity,base,rev:false,fallback:base});
+  if(rev!==null) SLOTS.push({id:num+"r",num,name,rarity,base:rev,rev:true,fallback:rev});
+}
+
+const KEY="twm:collection", PKEY="twm:prices", MAXAGE=864e5, USD_EUR=0.867;
+const img=n=>`https://images.pokemontcg.io/sv6/${n}.png`;
+const eur=n=>"€"+n.toFixed(2);
+
+let owned=new Set(), live=null;
+try{ const s=localStorage.getItem(KEY); if(s) owned=new Set(JSON.parse(s)); }catch(e){}
+
+const priceOf=s=>{
+  const l=live&&live[s.num];
+  const v=l?(s.rev?l.rev:l.base):null;
+  return (typeof v==="number"&&v>0)?v:s.fallback;
+};
+
+/* ---------- render ---------- */
+const grid=document.getElementById("grid"), emptyEl=document.getElementById("empty");
+const nodes=new Map();
+
+function build(){
+  const frag=document.createDocumentFragment();
+  for(const s of SLOTS){
+    const b=document.createElement("button");
+    b.className="card"; b.dataset.id=s.id; b.type="button";
+    b.setAttribute("aria-pressed","false");
+    b.setAttribute("aria-label",`${s.num} ${s.name}${s.rev?" reverse holo":""}`);
+    b.innerHTML=
+      `<div class="shot"><img loading="lazy" decoding="async" alt="" src="${img(s.num)}">`+
+      (s.rev?`<div class="rev-sheen"></div><div class="revtag">REV</div>`:``)+
+      `<div class="tick">✓</div></div>`+
+      `<div class="meta"><div class="nm">${s.num} ${s.name}</div>`+
+      `<div class="pr"></div></div>`;
+    nodes.set(s.id,b); frag.appendChild(b);
+  }
+  grid.appendChild(frag);
+}
+
+function paint(){
+  let shown=0, haveN=0, haveV=0, totalV=0;
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const view=document.querySelector('.seg button[aria-pressed="true"]').dataset.view;
+  const rar=document.getElementById("rarity").value;
+
+  for(const s of SLOTS){
+    const p=priceOf(s); totalV+=p;
+    const has=owned.has(s.id);
+    if(has){haveN++; haveV+=p;}
+
+    let ok=true;
+    if(view==="have"&&!has) ok=false;
+    if(view==="need"&&has) ok=false;
+    if(rar!=="all"&&s.rarity!==rar) ok=false;
+    if(ok&&q&&!s.name.toLowerCase().includes(q)&&String(s.num)!==q) ok=false;
+
+    const n=nodes.get(s.id);
+    n.hidden=!ok; if(ok) shown++;
+    n.classList.toggle("have",has);
+    n.setAttribute("aria-pressed",has?"true":"false");
+    const pr=n.querySelector(".pr");
+    pr.textContent=eur(p);
+    pr.classList.toggle("hot",p>=5);
+  }
+
+  document.getElementById("have").textContent=haveN;
+  document.getElementById("of").textContent="/"+SLOTS.length;
+  document.getElementById("value").textContent=`${eur(haveV)} of ${eur(totalV)}`;
+  const pct=haveN/SLOTS.length;
+  document.getElementById("fill").style.width=(pct*100)+"%";
+  const r=document.getElementById("mfr");
+  r.setAttribute("height",(62*pct).toFixed(1));
+  r.setAttribute("y",(62-62*pct).toFixed(1));
+
+  emptyEl.hidden=shown>0;
+  document.getElementById("emptymsg").textContent =
+    view==="need" ? "Every card in this filter is collected." : "Try a different search or rarity.";
+}
+
+/* ---------- interaction ---------- */
+grid.addEventListener("click",e=>{
+  const b=e.target.closest(".card"); if(!b) return;
+  const id=b.dataset.id;
+  owned.has(id)?owned.delete(id):owned.add(id);
+  try{ localStorage.setItem(KEY,JSON.stringify([...owned])); }
+  catch(err){ document.getElementById("pricenote").textContent="That tick didn't save — your browser is blocking storage."; }
+  paint();
+});
+document.getElementById("q").addEventListener("input",paint);
+document.getElementById("rarity").addEventListener("change",paint);
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true"); paint();
+}));
+
+/* ---------- live prices ---------- */
+function reconcile(cm,usd){
+  const te=usd?usd*USD_EUR:null;
+  if(cm&&te&&Math.abs(cm-te)>2&&(cm/te>4||te/cm>4)) return te;
+  return cm||te||null;
+}
+async function fetchPrices(){
+  const out={};
+  for(let page=1;page<=5;page++){
+    const r=await fetch(`https://api.pokemontcg.io/v2/cards?q=set.id:sv6&page=${page}&pageSize=50`);
+    if(!r.ok) throw new Error(r.status);
+    const j=await r.json(); const batch=j.data||[];
+    if(!batch.length) break;
+    for(const c of batch){
+      const n=parseInt(c.number,10); if(!n) continue;
+      const cm=(c.cardmarket&&c.cardmarket.prices)||{};
+      const tp=(c.tcgplayer&&c.tcgplayer.prices)||{};
+      const nm=tp.holofoil||tp.normal||{}, rv=tp.reverseHolofoil||{};
+      out[n]={base:reconcile(cm.avg30,nm.market??nm.mid),
+              rev:reconcile(cm.reverseHoloAvg30,rv.market??rv.mid)};
+    }
+    if(batch.length<50) break;
+  }
+  if(!Object.keys(out).length) throw new Error("empty");
+  return out;
+}
+(async()=>{
+  const note=document.getElementById("pricenote");
+  let cached=null;
+  try{ const s=localStorage.getItem(PKEY); if(s) cached=JSON.parse(s); }catch(e){}
+  if(cached&&Date.now()-cached.ts<MAXAGE){
+    live=cached.data; note.textContent=`Prices from ${new Date(cached.ts).toLocaleDateString()}.`;
+    paint(); return;
+  }
+  try{
+    const data=await fetchPrices();
+    live=data; note.textContent="Prices updated just now.";
+    try{ localStorage.setItem(PKEY,JSON.stringify({ts:Date.now(),data})); }catch(e){}
+  }catch(e){
+    if(cached){ live=cached.data; note.textContent=`Prices from ${new Date(cached.ts).toLocaleDateString()}.`; }
+    else note.textContent="Couldn't reach the price service — showing built-in prices, which may be out of date.";
+  }
+  paint();
+})();
+
+/* ---------- install as an app ---------- */
+let deferred=null;
+const installBtn=document.getElementById("install");
+window.addEventListener("beforeinstallprompt",e=>{
+  e.preventDefault(); deferred=e; installBtn.style.display="block";
+});
+installBtn.addEventListener("click",async()=>{
+  if(!deferred) return;
+  installBtn.style.display="none";
+  deferred.prompt();
+  await deferred.userChoice;
+  deferred=null;
+});
+window.addEventListener("appinstalled",()=>{ installBtn.style.display="none"; deferred=null; });
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("sw.js").catch(()=>{ /* offline mode just won't be available */ });
+  });
+}
+
+/* ---------- go ---------- */
+for(const r of RARITIES){
+  const o=document.createElement("option"); o.value=r; o.textContent=r;
+  document.getElementById("rarity").appendChild(o);
+}
+document.getElementById("slotcount").textContent=SLOTS.length;
+build(); paint();
+</script>
+</body>
+</html>
