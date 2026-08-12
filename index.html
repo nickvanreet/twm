@@ -122,11 +122,24 @@ select{flex:1;min-width:140px;appearance:none;
 .ovshot img{width:100%;aspect-ratio:63/88;object-fit:cover;display:block;background:var(--panel2)}
 .ovnm{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin:14px 0 2px}
 .ovsub{font-size:13px;color:var(--mute)}
-.ovpr{font-size:16px;margin:8px 0 14px}
+.ovbinder{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:99px;
+  background:var(--panel2);border:1px solid var(--edge);font-size:13px;color:var(--cream)}
+.ovbinder b{color:var(--lantern)}
+.ovpr{font-size:16px;margin:10px 0 14px}
 .ovpr .tr{font-size:12px}
 #ovtick{font:inherit;font-size:16px;font-weight:700;min-height:50px;width:100%;
   border:2px solid var(--lantern);border-radius:12px;background:transparent;color:var(--lantern);cursor:pointer}
 #ovtick.on{background:var(--lantern);color:var(--deep)}
+#ovtick.warn{border-color:#F09090;background:#F09090;color:var(--deep)}
+
+#toast{position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(14px + env(safe-area-inset-bottom));z-index:60;
+  display:flex;align-items:center;gap:12px;max-width:calc(100vw - 20px);
+  background:var(--panel2);border:1px solid var(--lantern);border-radius:12px;
+  padding:11px 14px;font-size:13px;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+#toast b{color:var(--lantern)}
+#undo{font:inherit;font-size:13px;font-weight:700;border:0;border-radius:8px;
+  min-height:36px;padding:0 14px;background:var(--lantern);color:var(--deep);cursor:pointer;flex-shrink:0}
 .ovnav{position:fixed;top:50%;transform:translateY(-50%);width:42px;height:56px;
   border:0;border-radius:10px;background:rgba(30,24,70,.85);color:var(--cream);
   font-size:26px;cursor:pointer;z-index:51}
@@ -151,9 +164,15 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 <div class="wrap">
   <header>
     <svg width="54" height="54" viewBox="0 0 62 62" aria-hidden="true">
+      <title>The moon fills up as the collection grows</title>
       <defs><clipPath id="mf"><rect id="mfr" x="0" y="62" width="62" height="0"/></clipPath></defs>
+      <circle cx="55" cy="8" r="1.6" fill="#F5B944" opacity=".8"/>
+      <circle cx="6" cy="16" r="1.1" fill="#8B6BC7" opacity=".9"/>
+      <circle cx="59" cy="30" r="1" fill="#8B6BC7" opacity=".7"/>
       <circle cx="31" cy="31" r="26" fill="none" stroke="#8B6BC7" stroke-width="2" opacity=".45"/>
       <circle cx="31" cy="31" r="26" fill="#F5B944" clip-path="url(#mf)" opacity=".9"/>
+      <text id="mpct" x="31" y="36" text-anchor="middle" font-size="14" font-weight="700"
+            fill="#F5B944" font-family="Georgia,serif">0%</text>
     </svg>
     <div class="grow">
       <h1>Twilight Masquerade</h1>
@@ -190,14 +209,20 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
       <div class="ovshot"><img id="ovimg" alt=""><div id="ovsheen" class="rev-sheen" hidden></div></div>
       <div class="ovnm" id="ovnm"></div>
       <div class="ovsub" id="ovsub"></div>
+      <div class="ovbinder" id="ovbinder"></div>
       <div class="ovpr" id="ovpr"></div>
       <button id="ovtick" type="button"></button>
     </div>
   </div>
 
+  <div id="toast" hidden><span id="toastmsg"></span><button id="undo" type="button">Undo</button></div>
+
   <p class="note" id="pricenote">Checking today's prices…</p>
 
   <footer>
+    Tap a card to collect it — the message tells you which binder page and pocket it goes in
+    (24 sheets of 4×4, in card order). Tapping a collected card opens it big;
+    removing it happens there and asks twice. 🔍 previews any card without collecting it.<br><br>
     Prices are Cardmarket 30-day averages, fetched from the Pokémon TCG API and refreshed once a day.
     ▲ or ▼ means the last week's average sits at least 5% above or below the 30-day average —
     that card is on the way up or down. They are a rough guide, not a valuation.
@@ -320,29 +345,77 @@ function paint(){
   const r=document.getElementById("mfr");
   r.setAttribute("height",(62*pct).toFixed(1));
   r.setAttribute("y",(62-62*pct).toFixed(1));
+  const mp=document.getElementById("mpct");
+  mp.textContent=Math.round(pct*100)+"%";
+  mp.setAttribute("fill",pct>=.45?"#0D0A22":"#F5B944");
 
   emptyEl.hidden=shown>0;
   document.getElementById("emptymsg").textContent =
     view==="need" ? "Every card in this filter is collected." : "Try a different search or rarity.";
 }
 
-/* ---------- interaction ---------- */
-function toggle(id){
-  const had=owned.has(id);
-  had?owned.delete(id):owned.add(id);
+/* ---------- binder position (24 A3 sheets, 4x4 pockets, numeric order) ---------- */
+const slotIdx=new Map(SLOTS.map((s,i)=>[s.id,i]));
+function binderPos(s){
+  const i=slotIdx.get(s.id), p=i%16;
+  return {page:Math.floor(i/16)+1, row:Math.floor(p/4)+1, pocket:p%4+1};
+}
+const binderTxt=s=>{
+  const b=binderPos(s);
+  return `page <b>${b.page}</b> · row <b>${b.row}</b> · pocket <b>${b.pocket}</b>`;
+};
+
+/* ---------- saving: always re-read before writing, so a second open
+   copy of the app (tab + installed) can never wipe ticks ---------- */
+function loadOwned(){
+  try{ const s=localStorage.getItem(KEY); owned=s?new Set(JSON.parse(s)):new Set(); }catch(e){}
+}
+function setOwned(id,on){
+  loadOwned();
+  on?owned.add(id):owned.delete(id);
   try{ localStorage.setItem(KEY,JSON.stringify([...owned])); }
   catch(err){ document.getElementById("pricenote").textContent="That tick didn't save — your browser is blocking storage."; }
-  if(!had){
-    const n=nodes.get(id);
-    if(n){ n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop"); }
-  }
   paint();
+}
+window.addEventListener("storage",e=>{ if(e.key===KEY){ loadOwned(); paint(); } });
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden){ loadOwned(); paint(); } });
+
+/* ---------- toast with undo ---------- */
+const toast=document.getElementById("toast");
+let toastTimer=null, toastId=null;
+function showToast(html,id){
+  toastId=id;
+  document.getElementById("toastmsg").innerHTML=html;
+  toast.hidden=false;
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>{ toast.hidden=true; toastId=null; },6000);
+}
+document.getElementById("undo").addEventListener("click",()=>{
+  if(toastId){
+    const id=toastId;
+    setOwned(id,false);
+    if(!ov.hidden&&cur&&cur.id===id) paintOvTick();
+  }
+  toast.hidden=true; toastId=null;
+});
+
+/* ---------- interaction: a tap collects, it never removes.
+   A collected card opens the big viewer instead — removing
+   happens there, behind a tap-twice confirm. ---------- */
+function collect(id){
+  setOwned(id,true);
+  const n=nodes.get(id);
+  if(n){ n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop"); }
+  const s=byId.get(id);
+  showToast(`✓ ${s.num} ${s.name}${s.rev?" REV":""} → ${binderTxt(s)}`,id);
 }
 grid.addEventListener("click",e=>{
   const z=e.target.closest(".zoom");
   if(z){ openOv(z.closest(".card").dataset.id); return; }
   const b=e.target.closest(".card"); if(!b) return;
-  toggle(b.dataset.id);
+  const id=b.dataset.id;
+  if(owned.has(id)){ openOv(id); return; }
+  collect(id);
 });
 document.getElementById("q").addEventListener("input",paint);
 document.getElementById("rarity").addEventListener("change",paint);
@@ -362,14 +435,18 @@ function renderOv(){
   document.getElementById("ovsheen").hidden=!cur.rev;
   document.getElementById("ovnm").textContent=`${cur.num} · ${cur.name}`;
   document.getElementById("ovsub").textContent=cur.rarity+(cur.rev?" · reverse holo":"");
+  document.getElementById("ovbinder").innerHTML="Binder: "+binderTxt(cur);
   document.getElementById("ovpr").innerHTML=eur(priceOf(cur))+arrow(cur,true);
   paintOvTick();
 }
+let armId=null;
 function paintOvTick(){
+  armId=null;
   const has=owned.has(cur.id);
   const t=document.getElementById("ovtick");
-  t.textContent=has?"✓ Got it!":"Found it? Tap here";
+  t.textContent=has?"✓ Got it! (tap to remove)":"Found it? Tap here";
   t.classList.toggle("on",has);
+  t.classList.remove("warn");
 }
 function openOv(id){
   cur=byId.get(id); if(!cur) return;
@@ -388,7 +465,18 @@ function nav(d){
 document.getElementById("ovclose").addEventListener("click",closeOv);
 document.getElementById("ovprev").addEventListener("click",()=>nav(-1));
 document.getElementById("ovnext").addEventListener("click",()=>nav(1));
-document.getElementById("ovtick").addEventListener("click",()=>{ toggle(cur.id); paintOvTick(); });
+document.getElementById("ovtick").addEventListener("click",()=>{
+  const t=document.getElementById("ovtick");
+  if(!owned.has(cur.id)){ collect(cur.id); paintOvTick(); return; }
+  if(armId!==cur.id){
+    armId=cur.id;
+    t.textContent="Really remove? Tap again";
+    t.classList.add("warn");
+    setTimeout(()=>{ if(armId===cur.id) paintOvTick(); },2500);
+    return;
+  }
+  setOwned(cur.id,false); paintOvTick();
+});
 ov.addEventListener("click",e=>{ if(e.target===ov) closeOv(); });
 let tx=null;
 ov.addEventListener("touchstart",e=>{ tx=e.touches[0].clientX; },{passive:true});
