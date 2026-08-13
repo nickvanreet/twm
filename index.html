@@ -311,6 +311,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     <span class="chip" id="stBestWrap" hidden>My best card: <b id="stBest"></b></span>
     <span class="chip" id="stDupWrap" hidden>Doubles: <b id="stDup"></b></span>
     <span class="chip" id="stWishWrap" hidden>⭐ Wishlist: <b id="stWish"></b></span>
+    <span class="chip" id="stLangWrap" hidden><b id="stLang"></b></span>
     <button class="chip cotd" id="cotd" type="button">✨ Card of the day</button>
   </div>
 
@@ -541,12 +542,15 @@ function paint(){
   const per=new Map(); for(const r of secs.keys()) per.set(r,{have:0,vis:0});
   visList.length=0;
 
-  let best=null, bestP=0, dupN=0, dupV=0, wishN=0, wishV=0;
+  let best=null, bestP=0, dupN=0, dupV=0, wishN=0, wishV=0, frC=0, jaC=0;
   for(const s of ORDER){
     const p=priceOf(s); totalV+=p;
     const has=owned.has(s.id);
     const t=per.get(s.rarity);
-    if(has){haveN++; haveV+=p; t.have++; if(p>bestP){bestP=p; best=s;}}
+    if(has){
+      haveN++; haveV+=p; t.have++; if(p>bestP){bestP=p; best=s;}
+      if(langMap[s.id]==="fr") frC++; else if(langMap[s.id]==="ja") jaC++;
+    }
     const dc=dupes[s.id]||0;
     if(dc){ dupN+=dc; dupV+=dc*p; }
     if(wish.has(s.id)&&!has){ wishN++; wishV+=p; }
@@ -601,6 +605,14 @@ function paint(){
   if(dupN) document.getElementById("stDup").textContent=`${dupN} (${eur(dupV)})`;
   document.getElementById("stWishWrap").hidden=!wishN;
   if(wishN) document.getElementById("stWish").textContent=`${wishN} to find (${eur(wishV)})`;
+  const langMix=haveN>0&&(frC+jaC)>0;
+  document.getElementById("stLangWrap").hidden=!langMix;
+  if(langMix){
+    const pc=n=>Math.round(n/haveN*100)+"%";
+    document.getElementById("stLang").textContent=
+      [`EN ${pc(haveN-frC-jaC)}`,frC?`FR ${pc(frC)}`:null,jaC?`JP ${pc(jaC)}`:null]
+        .filter(Boolean).join(" · ");
+  }
 
   emptyEl.hidden=shown>0;
   document.getElementById("emptymsg").textContent =
