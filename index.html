@@ -11,6 +11,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
+<link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700..800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
@@ -120,7 +121,11 @@ select{flex:1;min-width:140px;appearance:none;
 @media (max-width:480px){.ovbox{width:min(420px,100%)}}
 .ovshot{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 14px 44px rgba(0,0,0,.55)}
 .ovshot img{width:100%;aspect-ratio:63/88;object-fit:cover;display:block;background:var(--panel2)}
-.ovnm{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin:14px 0 2px}
+.ovlang{display:inline-flex;margin-top:12px;border:1px solid var(--edge);border-radius:99px;overflow:hidden}
+.ovlang button{font:inherit;font-size:13px;min-height:36px;padding:0 16px;
+  background:var(--panel);color:var(--cream);border:0;cursor:pointer}
+.ovlang button[aria-pressed="true"]{background:var(--lantern);color:var(--deep);font-weight:700}
+.ovnm{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin:10px 0 2px}
 .ovsub{font-size:13px;color:var(--mute)}
 .ovbinder{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:99px;
   background:var(--panel2);border:1px solid var(--edge);font-size:13px;color:var(--cream)}
@@ -207,6 +212,10 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     <button id="ovnext" class="ovnav" type="button" aria-label="Next card">›</button>
     <div class="ovbox">
       <div class="ovshot"><img id="ovimg" alt=""><div id="ovsheen" class="rev-sheen" hidden></div></div>
+      <div class="ovlang" role="group" aria-label="Card language">
+        <button data-lang="en" type="button" aria-pressed="true">English</button>
+        <button data-lang="fr" type="button" aria-pressed="false">Français</button>
+      </div>
       <div class="ovnm" id="ovnm"></div>
       <div class="ovsub" id="ovsub"></div>
       <div class="ovbinder" id="ovbinder"></div>
@@ -226,7 +235,8 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     Prices are Cardmarket 30-day averages, fetched from the Pokémon TCG API and refreshed once a day.
     ▲ or ▼ means the last week's average sits at least 5% above or below the 30-day average —
     that card is on the way up or down. They are a rough guide, not a valuation.
-    Card images load from the same API.
+    English card images load from the same API; French images and names come from TCGdex.
+    (No Japanese: Japan's release is a different set with different numbering.)
     Pokémon and all card artwork belong to The Pokémon Company, Nintendo and Creatures.
   </footer>
 </div>
@@ -428,12 +438,52 @@ document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",(
 const ov=document.getElementById("ov"), ovimg=document.getElementById("ovimg");
 let cur=null, lastIdx=0;
 
+/* French images + names come from TCGdex (same card numbering as English).
+   Japanese is a different set with different numbering, so no JP toggle. */
+let lang="en";
+try{ lang=localStorage.getItem("twm:lang")==="fr"?"fr":"en"; }catch(e){}
+let frNames=null;
+try{ const s=localStorage.getItem("twm:frnames"); if(s) frNames=JSON.parse(s); }catch(e){}
+async function loadFrNames(){
+  if(frNames) return;
+  try{
+    const r=await fetch("https://api.tcgdex.net/v2/fr/sets/sv06");
+    if(!r.ok) return;
+    const out={};
+    for(const c of (await r.json()).cards||[]){
+      const n=parseInt(c.localId,10); if(n) out[n]=c.name;
+    }
+    if(Object.keys(out).length){
+      frNames=out;
+      try{ localStorage.setItem("twm:frnames",JSON.stringify(out)); }catch(e){}
+      if(!ov.hidden) renderOv();
+    }
+  }catch(e){}
+}
+function paintLang(){
+  document.querySelectorAll(".ovlang button").forEach(b=>
+    b.setAttribute("aria-pressed",b.dataset.lang===lang?"true":"false"));
+}
+document.querySelectorAll(".ovlang button").forEach(b=>b.addEventListener("click",()=>{
+  lang=b.dataset.lang;
+  try{ localStorage.setItem("twm:lang",lang); }catch(e){}
+  paintLang();
+  if(lang==="fr") loadFrNames();
+  renderOv();
+}));
+
 function renderOv(){
-  ovimg.src=`https://images.pokemontcg.io/sv6/${cur.num}_hires.png`;
-  ovimg.onerror=()=>{ ovimg.onerror=null; ovimg.src=img(cur.num); };
+  if(lang==="fr"){
+    ovimg.src=`https://assets.tcgdex.net/fr/sv/sv06/${cur.num}/high.webp`;
+    ovimg.onerror=()=>{ ovimg.onerror=null; ovimg.src=`https://images.pokemontcg.io/sv6/${cur.num}_hires.png`; };
+  }else{
+    ovimg.src=`https://images.pokemontcg.io/sv6/${cur.num}_hires.png`;
+    ovimg.onerror=()=>{ ovimg.onerror=null; ovimg.src=img(cur.num); };
+  }
   ovimg.alt=cur.name;
   document.getElementById("ovsheen").hidden=!cur.rev;
-  document.getElementById("ovnm").textContent=`${cur.num} · ${cur.name}`;
+  const nm=(lang==="fr"&&frNames&&frNames[cur.num])?frNames[cur.num]:cur.name;
+  document.getElementById("ovnm").textContent=`${cur.num} · ${nm}`;
   document.getElementById("ovsub").textContent=cur.rarity+(cur.rev?" · reverse holo":"");
   document.getElementById("ovbinder").innerHTML="Binder: "+binderTxt(cur);
   document.getElementById("ovpr").innerHTML=eur(priceOf(cur))+arrow(cur,true);
@@ -451,6 +501,8 @@ function paintOvTick(){
 function openOv(id){
   cur=byId.get(id); if(!cur) return;
   lastIdx=Math.max(0,visList.indexOf(cur));
+  paintLang();
+  if(lang==="fr") loadFrNames();
   renderOv();
   ov.hidden=false; document.body.classList.add("lock");
 }

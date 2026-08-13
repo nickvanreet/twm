@@ -1,7 +1,7 @@
 /* Twilight Masquerade binder — offline support.
    Bump SHELL_CACHE when index.html changes, or phones keep the old copy. */
 
-const SHELL_CACHE = "twm-shell-v5";
+const SHELL_CACHE = "twm-shell-v6";
 const IMG_CACHE = "twm-cards-v1";
 
 const SHELL = [
@@ -39,8 +39,8 @@ self.addEventListener("fetch", (e) => {
 
   const url = new URL(req.url);
 
-  // Card art: cache first and keep forever — the images never change.
-  if (url.hostname === "images.pokemontcg.io") {
+  // Card art (English + French): cache first and keep forever — it never changes.
+  if (url.hostname === "images.pokemontcg.io" || url.hostname === "assets.tcgdex.net") {
     e.respondWith(
       caches.open(IMG_CACHE).then(async (cache) => {
         const hit = await cache.match(req);
