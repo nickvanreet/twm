@@ -197,6 +197,15 @@ select{flex:1;min-width:140px;appearance:none;
 .frtag{position:absolute;bottom:5px;left:5px;background:var(--teal);color:var(--deep);
   font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 5px;border-radius:4px}
 .frtag.ja{background:#F09090}
+.wtag{position:absolute;top:4px;right:4px;font-size:14px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.7))}
+#ovwish{font:inherit;font-size:14px;font-weight:700;min-height:44px;width:100%;margin-top:10px;
+  border:1px solid var(--edge);border-radius:12px;background:var(--panel);color:var(--cream);cursor:pointer}
+#ovwish.on{border-color:var(--lantern);color:var(--lantern)}
+.bkrow{display:flex;gap:8px;margin-top:16px}
+.bkrow button{flex:1;font:inherit;font-size:13px;font-weight:700;min-height:44px;
+  border:1px solid var(--edge);border-radius:10px;background:var(--panel);color:var(--cream);cursor:pointer}
+#shareimg{display:block;width:min(420px,100%);margin:0 auto;border-radius:14px;
+  box-shadow:0 14px 44px rgba(0,0,0,.55)}
 .dup{position:absolute;top:32px;right:4px;background:var(--deep);color:var(--lantern);
   border:1px solid var(--lantern);font-size:10px;font-weight:700;padding:1px 6px;border-radius:99px}
 #ovdup{margin-top:12px;display:flex;align-items:center;justify-content:center;gap:12px;
@@ -301,6 +310,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     <span class="chip">Finish the set: <b id="stCost">€0</b></span>
     <span class="chip" id="stBestWrap" hidden>My best card: <b id="stBest"></b></span>
     <span class="chip" id="stDupWrap" hidden>Doubles: <b id="stDup"></b></span>
+    <span class="chip" id="stWishWrap" hidden>⭐ Wishlist: <b id="stWish"></b></span>
     <button class="chip cotd" id="cotd" type="button">✨ Card of the day</button>
   </div>
 
@@ -308,6 +318,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     <button id="btnpack" type="button">🎁 Open a pack</button>
     <button id="btnbinder" type="button">📖 Binder</button>
     <button id="btnquiz" type="button">🎮 Quiz</button>
+    <button id="btnshare" type="button">📸 Share</button>
   </div>
 
   <div class="controls">
@@ -318,6 +329,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
       <button data-view="need" aria-pressed="false">Still need</button>
       <button data-view="have" aria-pressed="false">Got it</button>
       <button data-view="dup" aria-pressed="false">Doubles</button>
+      <button data-view="wish" aria-pressed="false" aria-label="Wishlist">⭐</button>
     </div>
   </div>
 
@@ -358,6 +370,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
       <div class="ovbinder" id="ovbinder"></div>
       <div class="ovpr" id="ovpr"></div>
       <button id="ovtick" type="button"></button>
+      <button id="ovwish" type="button" hidden></button>
       <div id="ovdup" hidden><span>Doubles for trading</span>
         <div class="dupctl">
           <button id="dupminus" type="button" aria-label="One double less">−</button>
@@ -414,6 +427,22 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
   <div id="toast" hidden><span id="toastmsg"></span><button id="undo" type="button">Undo</button></div>
 
   <p class="note" id="pricenote">Checking today's prices…</p>
+
+  <div class="bkrow">
+    <button id="bkexp" type="button">💾 Save a backup</button>
+    <button id="bkimp" type="button">📥 Restore a backup</button>
+    <input id="bkfile" type="file" accept="application/json,.json" hidden>
+  </div>
+
+  <div id="shareov" class="fullov" hidden>
+    <button class="fovclose" data-close="shareov" type="button">✕</button>
+    <div class="fovhead">📸 My binder card</div>
+    <img id="shareimg" alt="Collection share image">
+    <div class="packrow">
+      <button id="sharesend" type="button">Share it!</button>
+      <button id="sharesave" type="button">Save image</button>
+    </div>
+  </div>
 
   <footer>
     Tap a card to collect it — the message tells you which binder page and pocket it goes in
@@ -492,7 +521,7 @@ function build(){
       b.innerHTML=
         `<div class="shot"><img loading="lazy" decoding="async" alt="" src="${img(s.num)}">`+
         (s.rev?`<div class="rev-sheen"></div><div class="revtag">REV</div>`:``)+
-        `<div class="tick">✓</div><span class="frtag" hidden>FR</span><span class="dup" hidden></span><span class="zoom" aria-hidden="true">🔍</span></div>`+
+        `<div class="tick">✓</div><span class="frtag" hidden>FR</span><span class="dup" hidden></span><span class="wtag" hidden>⭐</span><span class="zoom" aria-hidden="true">🔍</span></div>`+
         `<div class="meta"><div class="nm">${s.num} ${s.name}</div>`+
         `<div class="pr"></div></div>`;
       nodes.set(s.id,b); ORDER.push(s); g.appendChild(b);
@@ -512,7 +541,7 @@ function paint(){
   const per=new Map(); for(const r of secs.keys()) per.set(r,{have:0,vis:0});
   visList.length=0;
 
-  let best=null, bestP=0, dupN=0, dupV=0;
+  let best=null, bestP=0, dupN=0, dupV=0, wishN=0, wishV=0;
   for(const s of ORDER){
     const p=priceOf(s); totalV+=p;
     const has=owned.has(s.id);
@@ -520,11 +549,13 @@ function paint(){
     if(has){haveN++; haveV+=p; t.have++; if(p>bestP){bestP=p; best=s;}}
     const dc=dupes[s.id]||0;
     if(dc){ dupN+=dc; dupV+=dc*p; }
+    if(wish.has(s.id)&&!has){ wishN++; wishV+=p; }
 
     let ok=true;
     if(view==="have"&&!has) ok=false;
     if(view==="need"&&has) ok=false;
     if(view==="dup"&&!dc) ok=false;
+    if(view==="wish"&&!wish.has(s.id)) ok=false;
     if(rar!=="all"&&s.rarity!==rar) ok=false;
     if(ok&&q){
       const hit=fold(s.name).includes(q)
@@ -568,11 +599,14 @@ function paint(){
   if(best) document.getElementById("stBest").textContent=`${best.name}${best.rev?" REV":""} ${eur(bestP)}`;
   document.getElementById("stDupWrap").hidden=!dupN;
   if(dupN) document.getElementById("stDup").textContent=`${dupN} (${eur(dupV)})`;
+  document.getElementById("stWishWrap").hidden=!wishN;
+  if(wishN) document.getElementById("stWish").textContent=`${wishN} to find (${eur(wishV)})`;
 
   emptyEl.hidden=shown>0;
   document.getElementById("emptymsg").textContent =
     view==="need" ? "Every card in this filter is collected."
     : view==="dup" ? "No doubles yet — open a card you have twice and use the + button."
+    : view==="wish" ? "No stars yet — open a card you dream of and tap ☆."
     : "Try a different search or rarity.";
 }
 
@@ -653,13 +687,32 @@ function applyDup(id){
 }
 function applyAllDup(){ for(const id of nodes.keys()) applyDup(id); }
 
+/* wishlist: dream cards still being hunted */
+const WKEY="twm:wish";
+let wish=new Set();
+function loadWish(){ try{ const s=localStorage.getItem(WKEY); wish=s?new Set(JSON.parse(s)):new Set(); }catch(e){} }
+function saveWish(){ try{ localStorage.setItem(WKEY,JSON.stringify([...wish])); }catch(e){} }
+function setWish(id,on){
+  loadWish();
+  on?wish.add(id):wish.delete(id);
+  saveWish();
+  applyWish(id); paintWish(); paint();
+}
+function applyWish(id){
+  const n=nodes.get(id); if(!n) return;
+  n.querySelector(".wtag").hidden=!wish.has(id);
+}
+function applyAllWish(){ for(const id of nodes.keys()) applyWish(id); }
+
 window.addEventListener("storage",e=>{
   if(e.key===KEY){ loadOwned(); paint(); }
   if(e.key===LKEY){ loadLangMap(); applyAllArt(); }
   if(e.key===DKEY){ loadDupes(); applyAllDup(); paint(); }
+  if(e.key===WKEY){ loadWish(); applyAllWish(); paint(); }
 });
 document.addEventListener("visibilitychange",()=>{
-  if(!document.hidden){ loadOwned(); loadLangMap(); loadDupes(); paint(); applyAllArt(); applyAllDup(); }
+  if(!document.hidden){ loadOwned(); loadLangMap(); loadDupes(); loadWish();
+    paint(); applyAllArt(); applyAllDup(); applyAllWish(); }
 });
 
 /* ---------- toast with undo ---------- */
@@ -686,11 +739,14 @@ document.getElementById("undo").addEventListener("click",()=>{
    A collected card opens the big viewer instead — removing
    happens there, behind a tap-twice confirm. ---------- */
 function collect(id){
+  const wasWish=wish.has(id);
   setOwned(id,true);
+  if(wasWish){ loadWish(); wish.delete(id); saveWish(); applyWish(id); }
   const n=nodes.get(id);
   if(n){ n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop"); }
   const s=byId.get(id);
-  showToast(`✓ ${s.num} ${s.name}${s.rev?" REV":""} → ${binderTxt(s)}`,id);
+  showToast(`✓ ${s.num} ${s.name}${s.rev?" REV":""} → ${binderTxt(s)}${wasWish?" · ⭐ a wishlist card!":""}`,id);
+  if(wasWish) confetti();
   checkMilestones();
 }
 
@@ -737,7 +793,8 @@ function confetti(){
 function cardOfDay(){
   const now=new Date();
   const seed=now.getFullYear()*372+now.getMonth()*31+now.getDate();
-  const pool=SLOTS.filter(s=>!owned.has(s.id));
+  const wished=SLOTS.filter(s=>wish.has(s.id)&&!owned.has(s.id));
+  const pool=wished.length?wished:SLOTS.filter(s=>!owned.has(s.id));
   const list=pool.length?pool:SLOTS;
   return list[seed%list.length];
 }
@@ -845,8 +902,20 @@ function paintOvTick(){
   t.textContent=has?"✓ Got it! (tap to remove)":"Found it? Tap here";
   t.classList.toggle("on",has);
   t.classList.remove("warn");
-  paintMy(); paintDup();
+  paintMy(); paintDup(); paintWish();
 }
+function paintWish(){
+  const b=document.getElementById("ovwish");
+  const show=cur&&!owned.has(cur.id);
+  b.hidden=!show;
+  if(!show) return;
+  const on=wish.has(cur.id);
+  b.textContent=on?"⭐ On the wishlist (tap to remove)":"☆ Add to wishlist";
+  b.classList.toggle("on",on);
+}
+document.getElementById("ovwish").addEventListener("click",()=>{
+  if(cur) setWish(cur.id,!wish.has(cur.id));
+});
 function paintDup(){
   const box=document.getElementById("ovdup");
   const has=cur&&owned.has(cur.id);
@@ -877,7 +946,7 @@ function openOv(id){
 }
 function closeOv(){
   ov.hidden=true;
-  const anyFov=["pack","binder","quiz"].some(id=>!document.getElementById(id).hidden);
+  const anyFov=["pack","binder","quiz","shareov"].some(id=>!document.getElementById(id).hidden);
   if(!anyFov) document.body.classList.remove("lock");
 }
 function nav(d){
@@ -1016,7 +1085,7 @@ document.getElementById("btnquiz").addEventListener("click",()=>openFov("quiz"))
 document.querySelectorAll(".fovclose").forEach(b=>b.addEventListener("click",()=>closeFov(b.dataset.close)));
 document.addEventListener("keydown",e=>{
   if(!ov.hidden) return;                    // the card viewer handles its own keys
-  const open=["pack","binder","quiz"].find(id=>!document.getElementById(id).hidden);
+  const open=["pack","binder","quiz","shareov"].find(id=>!document.getElementById(id).hidden);
   if(!open) return;
   if(e.target&&e.target.id==="bq"&&e.key!=="Escape") return;  // typing in binder search
   if(e.key==="Escape") closeFov(open);
@@ -1227,13 +1296,148 @@ function askTiltPermission(){
   }
 }
 
+/* ---------- backup & restore (import merges, never deletes) ---------- */
+const BK_KEYS=["twm:collection","twm:langmap","twm:doubles","twm:wish",
+               "twm:milestones","twm:quizbest","twm:lang","twm:bpage"];
+document.getElementById("bkexp").addEventListener("click",async()=>{
+  const data={};
+  for(const k of BK_KEYS){ const v=localStorage.getItem(k); if(v!==null) data[k]=v; }
+  const payload=JSON.stringify({app:"twm-binder",v:1,ts:Date.now(),data},null,1);
+  const name=`twm-backup-${new Date().toISOString().slice(0,10)}.json`;
+  const file=new File([payload],name,{type:"application/json"});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    try{ await navigator.share({files:[file],title:"TWM binder backup"}); return; }catch(e){}
+  }
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(file); a.download=name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+});
+document.getElementById("bkimp").addEventListener("click",()=>document.getElementById("bkfile").click());
+document.getElementById("bkfile").addEventListener("change",async e=>{
+  const f=e.target.files[0]; e.target.value=""; if(!f) return;
+  let j=null;
+  try{ j=JSON.parse(await f.text()); }catch(err){}
+  if(!j||j.app!=="twm-binder"||!j.data){ showToast("That file isn't a TWM backup.",null); return; }
+  const d=j.data;
+  const parse=(k,fb)=>{ try{ return d[k]!==undefined?JSON.parse(d[k]):fb; }catch(err){ return fb; } };
+  loadOwned(); loadLangMap(); loadDupes(); loadWish();
+  const before=owned.size;
+  for(const id of parse("twm:collection",[])) owned.add(id);
+  const lm=parse("twm:langmap",{}); for(const k in lm) if(!langMap[k]) langMap[k]=lm[k];
+  const dp=parse("twm:doubles",{}); for(const k in dp) dupes[k]=Math.max(dupes[k]||0,dp[k]);
+  for(const id of parse("twm:wish",[])) if(!owned.has(id)) wish.add(id);
+  let ms; try{ ms=new Set(JSON.parse(localStorage.getItem(MKEY)||"[]")); }catch(err){ ms=new Set(); }
+  for(const m of parse("twm:milestones",[])) ms.add(m);
+  const qb=parseInt(d["twm:quizbest"])||0; if(qb>qBest) qBest=qb;
+  try{
+    localStorage.setItem(KEY,JSON.stringify([...owned]));
+    localStorage.setItem(LKEY,JSON.stringify(langMap));
+    localStorage.setItem(DKEY,JSON.stringify(dupes));
+    localStorage.setItem(WKEY,JSON.stringify([...wish]));
+    localStorage.setItem(MKEY,JSON.stringify([...ms]));
+    localStorage.setItem("twm:quizbest",qBest);
+  }catch(err){}
+  applyAllArt(); applyAllDup(); applyAllWish(); paint();
+  const added=owned.size-before;
+  showToast(`📥 Backup merged — ${added} new card${added===1?"":"s"}, ${owned.size} total.`,null);
+});
+
+/* ---------- brag card: shareable picture of the collection ---------- */
+function rrect(x,px,py,w,h,r){
+  x.beginPath(); x.moveTo(px+r,py);
+  x.arcTo(px+w,py,px+w,py+h,r); x.arcTo(px+w,py+h,px,py+h,r);
+  x.arcTo(px,py+h,px,py,r); x.arcTo(px,py,px+w,py,r); x.closePath();
+}
+const loadImgCors=src=>new Promise(res=>{
+  const i=new Image(); i.crossOrigin="anonymous";
+  i.onload=()=>res(i); i.onerror=()=>res(null); i.src=src;
+});
+async function makeShareCard(){
+  const W=1080,H=1350,cv=document.createElement("canvas");
+  cv.width=W; cv.height=H;
+  const x=cv.getContext("2d");
+  const bg=x.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,"#141033"); bg.addColorStop(1,"#0D0A22");
+  x.fillStyle=bg; x.fillRect(0,0,W,H);
+  for(let i=0;i<90;i++){
+    x.globalAlpha=.25+Math.random()*.5; x.fillStyle="#F3EDE0";
+    x.beginPath(); x.arc(Math.random()*W,Math.random()*H*.45,Math.random()*2+.6,0,7); x.fill();
+  }
+  x.globalAlpha=1;
+  const haveN=[...owned].length, pct=haveN/SLOTS.length;
+  const mx=W/2,my=240,mr=115;
+  x.strokeStyle="#8B6BC7"; x.globalAlpha=.5; x.lineWidth=6;
+  x.beginPath(); x.arc(mx,my,mr,0,7); x.stroke(); x.globalAlpha=1;
+  x.save(); x.beginPath(); x.rect(mx-mr,my+mr-2*mr*pct,2*mr,2*mr*pct); x.clip();
+  x.fillStyle="#F5B944"; x.beginPath(); x.arc(mx,my,mr,0,7); x.fill(); x.restore();
+  x.fillStyle=pct>=.45?"#0D0A22":"#F5B944";
+  x.font="700 62px Georgia"; x.textAlign="center";
+  x.fillText(Math.round(pct*100)+"%",mx,my+22);
+  let haveV=0; const mine=[];
+  for(const s of SLOTS){ const p=priceOf(s); if(owned.has(s.id)){ haveV+=p; mine.push([s,p]); } }
+  x.fillStyle="#F3EDE0"; x.font="800 64px Georgia";
+  x.fillText("Twilight Masquerade",W/2,460);
+  x.fillStyle="#9188B8"; x.font="500 40px Arial";
+  x.fillText(`${haveN} / ${SLOTS.length} cards collected`,W/2,528);
+  x.fillStyle="#F5B944"; x.font="700 44px Arial";
+  x.fillText(`worth ${eur(haveV)}`,W/2,594);
+  mine.sort((a,b)=>b[1]-a[1]);
+  const top=mine.slice(0,3);
+  if(top.length){
+    x.fillStyle="#9188B8"; x.font="500 32px Arial";
+    x.fillText("My best cards",W/2,668);
+    const cw=270,ch=Math.round(cw*88/63),gap=36;
+    const x0=(W-(top.length*cw+(top.length-1)*gap))/2, y0=700;
+    for(let i=0;i<top.length;i++){
+      const [s,p]=top[i], px=x0+i*(cw+gap);
+      const im=await loadImgCors(`https://assets.tcgdex.net/en/sv/sv06/${pad3(s.num)}/low.webp`);
+      if(im){ x.save(); rrect(x,px,y0,cw,ch,16); x.clip(); x.drawImage(im,px,y0,cw,ch); x.restore(); }
+      else{
+        x.fillStyle="#241C52"; rrect(x,px,y0,cw,ch,16); x.fill();
+        x.fillStyle="#9188B8"; x.font="500 26px Arial"; x.fillText(s.name,px+cw/2,y0+ch/2);
+      }
+      x.fillStyle="#F3EDE0"; x.font="600 26px Arial";
+      x.fillText(s.name.length>16?s.name.slice(0,15)+"…":s.name,px+cw/2,y0+ch+40);
+      x.fillStyle="#F5B944"; x.font="700 26px Arial";
+      x.fillText(eur(p)+(s.rev?" REV":""),px+cw/2,y0+ch+76);
+    }
+  }
+  x.fillStyle="#9188B8"; x.font="500 28px Arial";
+  x.fillText("my Twilight Masquerade binder 🌙",W/2,H-56);
+  return cv;
+}
+let shareBlob=null;
+document.getElementById("btnshare").addEventListener("click",async()=>{
+  const cv=await makeShareCard();
+  cv.toBlob(b=>{
+    if(!b){ showToast("Couldn't build the image on this browser.",null); return; }
+    shareBlob=b;
+    document.getElementById("shareimg").src=URL.createObjectURL(b);
+    openFov("shareov");
+  },"image/png");
+});
+document.getElementById("sharesend").addEventListener("click",async()=>{
+  if(!shareBlob) return;
+  const file=new File([shareBlob],"my-twm-binder.png",{type:"image/png"});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    try{ await navigator.share({files:[file],title:"My Twilight Masquerade binder"}); }catch(e){}
+  }else document.getElementById("sharesave").click();
+});
+document.getElementById("sharesave").addEventListener("click",()=>{
+  if(!shareBlob) return;
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(shareBlob); a.download="my-twm-binder.png"; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+});
+
 /* ---------- go ---------- */
 for(const r of RARITIES){
   const o=document.createElement("option"); o.value=r; o.textContent=r;
   document.getElementById("rarity").appendChild(o);
 }
 document.getElementById("slotcount").textContent=SLOTS.length;
-build(); loadLangMap(); loadDupes(); applyAllArt(); applyAllDup(); paint(); loadFrNames();
+build(); loadLangMap(); loadDupes(); loadWish();
+applyAllArt(); applyAllDup(); applyAllWish(); paint(); loadFrNames();
 </script>
 </body>
 </html>
