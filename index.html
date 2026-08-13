@@ -106,6 +106,7 @@ select{flex:1;min-width:140px;appearance:none;
   font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 5px;border-radius:4px}
 .frtag{position:absolute;bottom:5px;left:5px;background:var(--teal);color:var(--deep);
   font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 5px;border-radius:4px}
+.frtag.ja{background:#F09090}
 #ovmy{margin-top:12px;font-size:13px;color:var(--mute);
   display:flex;align-items:center;justify-content:center;gap:10px}
 #ovmy .ovlang{margin-top:0}
@@ -197,7 +198,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
   <div class="bar"><i id="fill" style="width:0%"></i></div>
 
   <div class="controls">
-    <input id="q" type="search" placeholder="Search a name or number" autocomplete="off" enterkeyhint="search">
+    <input id="q" type="search" placeholder="Search a name (EN or FR) or number" autocomplete="off" enterkeyhint="search">
     <select id="rarity" aria-label="Filter by rarity"><option value="all">Every rarity</option></select>
     <div class="seg" role="group" aria-label="Show">
       <button data-view="all" aria-pressed="true">All</button>
@@ -231,6 +232,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
         <div class="ovlang" id="ovmybtns">
           <button data-my="en" type="button" aria-pressed="true">English</button>
           <button data-my="fr" type="button" aria-pressed="false">Français</button>
+          <button data-my="ja" type="button" aria-pressed="false">日本語</button>
         </div>
       </div>
     </div>
@@ -248,10 +250,12 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     ▲ or ▼ means the last week's average sits at least 5% above or below the 30-day average —
     that card is on the way up or down. They are a rough guide, not a valuation.
     English card images load from the same API; French and Japanese images and names come from TCGdex.
-    A collected card can be marked "my card is Français" — it then shows the French picture and an FR tag,
-    for collections that mix English and French prints. The 日本語 view appears on the 195 cards whose
-    Japanese counterpart (spread over Japan's Mask of Change and Crimson Haze sets) could be verified
-    by matching the artwork; the rest have no Japanese scan available.
+    A collected card can be marked "my card is Français / 日本語" — it then shows that print's picture
+    and an FR or JP tag, for collections that mix languages. The 日本語 view appears on the 195 cards
+    whose Japanese counterpart (spread over Japan's Mask of Change and Crimson Haze sets) could be
+    verified by matching the artwork; the rest have no Japanese scan available.
+    All prices refer to the European (English/French) print — Japanese cards trade on a separate
+    market that these price sources don't cover, so treat prices on JP-marked cards as indicative.
     Pokémon and all card artwork belong to The Pokémon Company, Nintendo and Creatures.
   </footer>
 </div>
@@ -326,9 +330,10 @@ function build(){
   }
 }
 
+const fold=t=>t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 function paint(){
   let shown=0, haveN=0, haveV=0, totalV=0;
-  const q=document.getElementById("q").value.trim().toLowerCase();
+  const q=fold(document.getElementById("q").value.trim());
   const view=document.querySelector('.seg button[aria-pressed="true"]').dataset.view;
   const rar=document.getElementById("rarity").value;
   const per=new Map(); for(const r of secs.keys()) per.set(r,{have:0,vis:0});
@@ -344,7 +349,12 @@ function paint(){
     if(view==="have"&&!has) ok=false;
     if(view==="need"&&has) ok=false;
     if(rar!=="all"&&s.rarity!==rar) ok=false;
-    if(ok&&q&&!s.name.toLowerCase().includes(q)&&String(s.num)!==q) ok=false;
+    if(ok&&q){
+      const hit=fold(s.name).includes(q)
+        ||(frNames&&frNames[s.num]&&fold(frNames[s.num]).includes(q))
+        ||(/^\d+$/.test(q)&&String(s.num).startsWith(q));
+      if(!hit) ok=false;
+    }
 
     const n=nodes.get(s.id);
     n.hidden=!ok; if(ok){shown++; t.vis++; visList.push(s);}
@@ -409,20 +419,24 @@ let langMap={};
 function loadLangMap(){ try{ const s=localStorage.getItem(LKEY); langMap=s?JSON.parse(s):{}; }catch(e){} }
 function setMyLang(id,l){
   loadLangMap();
-  if(l==="fr") langMap[id]="fr"; else delete langMap[id];
+  if(l==="fr"||l==="ja") langMap[id]=l; else delete langMap[id];
   try{ localStorage.setItem(LKEY,JSON.stringify(langMap)); }catch(e){}
   applyArt(id); paintMy();
 }
 function applyArt(id){
   const n=nodes.get(id); if(!n) return;
-  const s=byId.get(id), fr=langMap[id]==="fr";
+  const s=byId.get(id), my=langMap[id];
   const im=n.querySelector(".shot img");
-  const want=fr?`https://assets.tcgdex.net/fr/sv/sv06/${pad3(s.num)}/low.webp`:img(s.num);
+  let want=img(s.num);
+  if(my==="fr") want=`https://assets.tcgdex.net/fr/sv/sv06/${pad3(s.num)}/low.webp`;
+  if(my==="ja"&&JPX[s.num]) want=`https://assets.tcgdex.net/ja/SV/${JPX[s.num][0]}/low.webp`;
   if(im.getAttribute("src")!==want){
-    im.onerror=fr?()=>{ im.onerror=null; im.src=img(s.num); }:null;
+    im.onerror=(want!==img(s.num))?()=>{ im.onerror=null; im.src=img(s.num); }:null;
     im.src=want;
   }
-  n.querySelector(".frtag").hidden=!fr;
+  const tag=n.querySelector(".frtag");
+  tag.hidden=!my;
+  if(my){ tag.textContent=my==="fr"?"FR":"JP"; tag.classList.toggle("ja",my==="ja"); }
 }
 function applyAllArt(){ for(const id of nodes.keys()) applyArt(id); }
 window.addEventListener("storage",e=>{
@@ -504,6 +518,7 @@ async function loadFrNames(){
       frNames=out;
       try{ localStorage.setItem("twm:frnames",JSON.stringify(out)); }catch(e){}
       if(!ov.hidden) renderOv();
+      paint();   // an active search may now match French names
     }
   }catch(e){}
 }
@@ -561,7 +576,7 @@ function paintMy(){
   const has=cur&&owned.has(cur.id);
   box.hidden=!has;
   if(!has) return;
-  const my=langMap[cur.id]==="fr"?"fr":"en";
+  const my=langMap[cur.id]||"en";
   document.querySelectorAll("#ovmybtns button").forEach(b=>
     b.setAttribute("aria-pressed",b.dataset.my===my?"true":"false"));
 }
@@ -570,7 +585,7 @@ document.querySelectorAll("#ovmybtns button").forEach(b=>
 function openOv(id){
   cur=byId.get(id); if(!cur) return;
   lastIdx=Math.max(0,visList.indexOf(cur));
-  if(langMap[id]==="fr") lang="fr";   // show the copy the kid actually owns
+  if(langMap[id]) lang=langMap[id];   // show the copy the kid actually owns
   if(lang==="fr") loadFrNames();
   renderOv();
   ov.hidden=false; document.body.classList.add("lock");
@@ -700,7 +715,7 @@ for(const r of RARITIES){
   document.getElementById("rarity").appendChild(o);
 }
 document.getElementById("slotcount").textContent=SLOTS.length;
-build(); loadLangMap(); applyAllArt(); paint();
+build(); loadLangMap(); applyAllArt(); paint(); loadFrNames();
 </script>
 </body>
 </html>
