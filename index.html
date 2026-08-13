@@ -104,11 +104,20 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .bslot{position:relative;aspect-ratio:63/88;border-radius:8px;overflow:hidden;border:0;padding:0;
   background:var(--panel);cursor:pointer}
 .bslot img{width:100%;height:100%;object-fit:cover;display:block}
+/* doubles peek out from behind the card, like spare copies in the same pocket */
+.bslot.stacked{overflow:visible}
+.bslot.stacked img{position:relative;z-index:1;border-radius:8px;
+  box-shadow:-2px 3px 8px rgba(0,0,0,.55)}
+.bsl{position:absolute;inset:0;border-radius:8px;background:var(--panel2);
+  border:1px solid rgba(243,237,224,.22);
+  transform:translate(calc(var(--i) * 4px),calc(var(--i) * -4px))}
+.bcount{position:absolute;z-index:2;bottom:3px;right:3px;background:var(--lantern);color:var(--deep);
+  font-size:9px;font-weight:700;padding:1px 5px;border-radius:99px}
 .bslot.ghost{background:transparent;border:2px dashed rgba(139,107,199,.4)}
 .bslot.ghost .bnum{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
   justify-content:center;gap:2px;color:var(--mute);font-size:10px;padding:4px;text-align:center}
 .bslot.ghost .bnum b{font-size:13px;color:var(--cream)}
-.bslot .brev{position:absolute;top:3px;left:3px;background:var(--plum);color:var(--cream);
+.bslot .brev{position:absolute;z-index:2;top:3px;left:3px;background:var(--plum);color:var(--cream);
   font-size:8px;font-weight:700;padding:1px 4px;border-radius:3px}
 .bempty{visibility:hidden}
 .bsearch{display:flex;gap:8px;align-items:center;max-width:560px;margin:0 auto 10px}
@@ -659,7 +668,7 @@ function setOwned(id,on){
     }
   }
   paint();
-  if(!document.getElementById("binder").hidden) renderBinder();
+  refreshBinder();
 }
 /* which language print the kid owns per slot ("fr"; absent = English) */
 const LKEY="twm:langmap";
@@ -669,7 +678,7 @@ function setMyLang(id,l){
   loadLangMap();
   if(l==="fr"||l==="ja") langMap[id]=l; else delete langMap[id];
   try{ localStorage.setItem(LKEY,JSON.stringify(langMap)); }catch(e){}
-  applyArt(id); paintMy();
+  applyArt(id); paintMy(); refreshBinder();
 }
 function applyArt(id){
   const n=nodes.get(id); if(!n) return;
@@ -696,7 +705,7 @@ function setDupes(id,n){
   n=Math.max(0,Math.min(99,n));
   if(n>0) dupes[id]=n; else delete dupes[id];
   try{ localStorage.setItem(DKEY,JSON.stringify(dupes)); }catch(e){}
-  applyDup(id); paintDup(); paint();
+  applyDup(id); paintDup(); paint(); refreshBinder();
 }
 function applyDup(id){
   const n=nodes.get(id); if(!n) return;
@@ -724,14 +733,14 @@ function applyWish(id){
 function applyAllWish(){ for(const id of nodes.keys()) applyWish(id); }
 
 window.addEventListener("storage",e=>{
-  if(e.key===KEY){ loadOwned(); paint(); }
-  if(e.key===LKEY){ loadLangMap(); applyAllArt(); }
-  if(e.key===DKEY){ loadDupes(); applyAllDup(); paint(); }
+  if(e.key===KEY){ loadOwned(); paint(); refreshBinder(); }
+  if(e.key===LKEY){ loadLangMap(); applyAllArt(); refreshBinder(); }
+  if(e.key===DKEY){ loadDupes(); applyAllDup(); paint(); refreshBinder(); }
   if(e.key===WKEY){ loadWish(); applyAllWish(); paint(); }
 });
 document.addEventListener("visibilitychange",()=>{
   if(!document.hidden){ loadOwned(); loadLangMap(); loadDupes(); loadWish();
-    paint(); applyAllArt(); applyAllDup(); applyAllWish(); }
+    paint(); applyAllArt(); applyAllDup(); applyAllWish(); refreshBinder(); }
 });
 
 /* ---------- toast with undo ---------- */
@@ -1000,7 +1009,9 @@ ov.addEventListener("touchend",e=>{
 },{passive:true});
 document.addEventListener("keydown",e=>{
   if(ov.hidden) return;
-  if(e.key==="Escape") closeOv();
+  // stop here, or the full-screen handler below sees a closed viewer
+  // on this same event and closes the binder underneath it too
+  if(e.key==="Escape"){ closeOv(); e.stopImmediatePropagation(); return; }
   if(e.key==="ArrowRight") nav(1);
   if(e.key==="ArrowLeft") nav(-1);
 });
@@ -1190,16 +1201,29 @@ function renderBinder(){
     const s=SLOTS[(bPage-1)*12+k];
     const d=document.createElement("button"); d.type="button";
     if(!s){ d.className="bslot bempty"; g.appendChild(d); continue; }
+    const extra=owned.has(s.id)?(dupes[s.id]||0):0;
     if(owned.has(s.id)){
-      d.className="bslot";
+      d.className="bslot"+(extra?" stacked":"");
       const my=langMap[s.id];
       let src=img(s.num);
       if(my==="fr") src=`https://assets.tcgdex.net/fr/sv/sv06/${pad3(s.num)}/low.webp`;
       if(my==="ja"&&JPX[s.num]) src=`https://assets.tcgdex.net/ja/SV/${JPX[s.num][0]}/low.webp`;
-      d.innerHTML=`<img loading="lazy" alt="${s.name}" src="${src}">${s.rev?'<span class="brev">REV</span>':''}`;
+      // deepest layer first: absolutely positioned siblings paint in DOM order
+      const layers=Array.from({length:Math.min(2,extra)},(_,i)=>i+1).reverse()
+        .map(i=>`<span class="bsl" style="--i:${i}"></span>`).join("");
+      d.innerHTML=layers+`<img loading="lazy" alt="${s.name}" src="${src}">`+
+        (s.rev?'<span class="brev">REV</span>':'')+
+        (extra?`<span class="bcount">×${extra+1}</span>`:'');
+      d.setAttribute("aria-label",
+        `${s.num} ${s.name}${s.rev?" reverse holo":""} — collected${extra?`, ${extra+1} copies`:""}`);
+      if(src!==img(s.num)){        // a missing FR/JA scan must not leave an empty pocket
+        const im=d.querySelector("img");
+        im.onerror=()=>{ im.onerror=null; im.src=img(s.num); };
+      }
     }else{
       d.className="bslot ghost";
       d.innerHTML=`<div class="bnum"><b>${s.num}</b><span>${s.name}</span>${s.rev?'<span>REV</span>':''}</div>`;
+      d.setAttribute("aria-label",`${s.num} ${s.name}${s.rev?" reverse holo":""} — still needed`);
     }
     if(bMatches.has(s.id)) d.classList.add("hl");
     d.addEventListener("click",()=>openOv(s.id));
@@ -1207,6 +1231,7 @@ function renderBinder(){
   }
   try{ localStorage.setItem("twm:bpage",bPage); }catch(e){}
 }
+function refreshBinder(){ if(!document.getElementById("binder").hidden) renderBinder(); }
 document.getElementById("bprev").addEventListener("click",()=>{ bPage--; renderBinder(); });
 document.getElementById("bnext").addEventListener("click",()=>{ bPage++; renderBinder(); });
 
