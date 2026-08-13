@@ -127,6 +127,15 @@ select{flex:1;min-width:140px;appearance:none;
 .frtag{position:absolute;bottom:5px;left:5px;background:var(--teal);color:var(--deep);
   font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 5px;border-radius:4px}
 .frtag.ja{background:#F09090}
+.dup{position:absolute;top:32px;right:4px;background:var(--deep);color:var(--lantern);
+  border:1px solid var(--lantern);font-size:10px;font-weight:700;padding:1px 6px;border-radius:99px}
+#ovdup{margin-top:12px;display:flex;align-items:center;justify-content:center;gap:12px;
+  font-size:13px;color:var(--mute)}
+.dupctl{display:inline-flex;align-items:center;gap:14px;border:1px solid var(--edge);
+  border-radius:99px;padding:4px 8px}
+.dupctl button{width:38px;height:38px;border-radius:50%;border:0;background:var(--panel);
+  color:var(--cream);font-size:18px;font-weight:700;cursor:pointer;line-height:1}
+#dupn{min-width:20px;color:var(--lantern);font-size:15px;text-align:center}
 #ovmy{margin-top:12px;font-size:13px;color:var(--mute);
   display:flex;align-items:center;justify-content:center;gap:10px}
 #ovmy .ovlang{margin-top:0}
@@ -221,6 +230,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     <span class="chip">To go: <b id="stTogo">373</b></span>
     <span class="chip">Finish the set: <b id="stCost">€0</b></span>
     <span class="chip" id="stBestWrap" hidden>My best card: <b id="stBest"></b></span>
+    <span class="chip" id="stDupWrap" hidden>Doubles: <b id="stDup"></b></span>
     <button class="chip cotd" id="cotd" type="button">✨ Card of the day</button>
   </div>
 
@@ -231,6 +241,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
       <button data-view="all" aria-pressed="true">All</button>
       <button data-view="need" aria-pressed="false">Still need</button>
       <button data-view="have" aria-pressed="false">Got it</button>
+      <button data-view="dup" aria-pressed="false">Doubles</button>
     </div>
   </div>
 
@@ -271,6 +282,13 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
       <div class="ovbinder" id="ovbinder"></div>
       <div class="ovpr" id="ovpr"></div>
       <button id="ovtick" type="button"></button>
+      <div id="ovdup" hidden><span>Doubles for trading</span>
+        <div class="dupctl">
+          <button id="dupminus" type="button" aria-label="One double less">−</button>
+          <b id="dupn">0</b>
+          <button id="dupplus" type="button" aria-label="One double more">+</button>
+        </div>
+      </div>
       <div id="ovmy" hidden><span>My card is</span>
         <div class="ovlang" id="ovmybtns">
           <button data-my="en" type="button" aria-pressed="true">English</button>
@@ -362,7 +380,7 @@ function build(){
       b.innerHTML=
         `<div class="shot"><img loading="lazy" decoding="async" alt="" src="${img(s.num)}">`+
         (s.rev?`<div class="rev-sheen"></div><div class="revtag">REV</div>`:``)+
-        `<div class="tick">✓</div><span class="frtag" hidden>FR</span><span class="zoom" aria-hidden="true">🔍</span></div>`+
+        `<div class="tick">✓</div><span class="frtag" hidden>FR</span><span class="dup" hidden></span><span class="zoom" aria-hidden="true">🔍</span></div>`+
         `<div class="meta"><div class="nm">${s.num} ${s.name}</div>`+
         `<div class="pr"></div></div>`;
       nodes.set(s.id,b); ORDER.push(s); g.appendChild(b);
@@ -382,16 +400,19 @@ function paint(){
   const per=new Map(); for(const r of secs.keys()) per.set(r,{have:0,vis:0});
   visList.length=0;
 
-  let best=null, bestP=0;
+  let best=null, bestP=0, dupN=0, dupV=0;
   for(const s of ORDER){
     const p=priceOf(s); totalV+=p;
     const has=owned.has(s.id);
     const t=per.get(s.rarity);
     if(has){haveN++; haveV+=p; t.have++; if(p>bestP){bestP=p; best=s;}}
+    const dc=dupes[s.id]||0;
+    if(dc){ dupN+=dc; dupV+=dc*p; }
 
     let ok=true;
     if(view==="have"&&!has) ok=false;
     if(view==="need"&&has) ok=false;
+    if(view==="dup"&&!dc) ok=false;
     if(rar!=="all"&&s.rarity!==rar) ok=false;
     if(ok&&q){
       const hit=fold(s.name).includes(q)
@@ -433,10 +454,14 @@ function paint(){
   document.getElementById("stCost").textContent=eur(totalV-haveV);
   document.getElementById("stBestWrap").hidden=!best;
   if(best) document.getElementById("stBest").textContent=`${best.name}${best.rev?" REV":""} ${eur(bestP)}`;
+  document.getElementById("stDupWrap").hidden=!dupN;
+  if(dupN) document.getElementById("stDup").textContent=`${dupN} (${eur(dupV)})`;
 
   emptyEl.hidden=shown>0;
   document.getElementById("emptymsg").textContent =
-    view==="need" ? "Every card in this filter is collected." : "Try a different search or rarity.";
+    view==="need" ? "Every card in this filter is collected."
+    : view==="dup" ? "No doubles yet — open a card you have twice and use the + button."
+    : "Try a different search or rarity.";
 }
 
 /* ---------- binder position (pages of 4 pockets x 3 rows, numeric order) ---------- */
@@ -460,6 +485,14 @@ function setOwned(id,on){
   on?owned.add(id):owned.delete(id);
   try{ localStorage.setItem(KEY,JSON.stringify([...owned])); }
   catch(err){ document.getElementById("pricenote").textContent="That tick didn't save — your browser is blocking storage."; }
+  if(!on){                       // a card you no longer own has no doubles either
+    loadDupes();
+    if(dupes[id]){
+      delete dupes[id];
+      try{ localStorage.setItem(DKEY,JSON.stringify(dupes)); }catch(e){}
+      applyDup(id);
+    }
+  }
   paint();
 }
 /* which language print the kid owns per slot ("fr"; absent = English) */
@@ -488,12 +521,32 @@ function applyArt(id){
   if(my){ tag.textContent=my==="fr"?"FR":"JP"; tag.classList.toggle("ja",my==="ja"); }
 }
 function applyAllArt(){ for(const id of nodes.keys()) applyArt(id); }
+/* doubles: spare copies for trading, per slot */
+const DKEY="twm:doubles";
+let dupes={};
+function loadDupes(){ try{ const s=localStorage.getItem(DKEY); dupes=s?JSON.parse(s):{}; }catch(e){} }
+function setDupes(id,n){
+  loadDupes();
+  n=Math.max(0,Math.min(99,n));
+  if(n>0) dupes[id]=n; else delete dupes[id];
+  try{ localStorage.setItem(DKEY,JSON.stringify(dupes)); }catch(e){}
+  applyDup(id); paintDup(); paint();
+}
+function applyDup(id){
+  const n=nodes.get(id); if(!n) return;
+  const c=dupes[id]||0, b=n.querySelector(".dup");
+  b.hidden=!c;
+  if(c) b.textContent="×"+(c+1);
+}
+function applyAllDup(){ for(const id of nodes.keys()) applyDup(id); }
+
 window.addEventListener("storage",e=>{
   if(e.key===KEY){ loadOwned(); paint(); }
   if(e.key===LKEY){ loadLangMap(); applyAllArt(); }
+  if(e.key===DKEY){ loadDupes(); applyAllDup(); paint(); }
 });
 document.addEventListener("visibilitychange",()=>{
-  if(!document.hidden){ loadOwned(); loadLangMap(); paint(); applyAllArt(); }
+  if(!document.hidden){ loadOwned(); loadLangMap(); loadDupes(); paint(); applyAllArt(); applyAllDup(); }
 });
 
 /* ---------- toast with undo ---------- */
@@ -673,8 +726,16 @@ function paintOvTick(){
   t.textContent=has?"✓ Got it! (tap to remove)":"Found it? Tap here";
   t.classList.toggle("on",has);
   t.classList.remove("warn");
-  paintMy();
+  paintMy(); paintDup();
 }
+function paintDup(){
+  const box=document.getElementById("ovdup");
+  const has=cur&&owned.has(cur.id);
+  box.hidden=!has;
+  if(has) document.getElementById("dupn").textContent=dupes[cur.id]||0;
+}
+document.getElementById("dupplus").addEventListener("click",()=>{ if(cur) setDupes(cur.id,(dupes[cur.id]||0)+1); });
+document.getElementById("dupminus").addEventListener("click",()=>{ if(cur) setDupes(cur.id,(dupes[cur.id]||0)-1); });
 function paintMy(){
   const box=document.getElementById("ovmy");
   const has=cur&&owned.has(cur.id);
@@ -819,7 +880,7 @@ for(const r of RARITIES){
   document.getElementById("rarity").appendChild(o);
 }
 document.getElementById("slotcount").textContent=SLOTS.length;
-build(); loadLangMap(); applyAllArt(); paint(); loadFrNames();
+build(); loadLangMap(); loadDupes(); applyAllArt(); applyAllDup(); paint(); loadFrNames();
 </script>
 </body>
 </html>
