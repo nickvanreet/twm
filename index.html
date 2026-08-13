@@ -108,7 +108,8 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .bslot.stacked{overflow:visible}
 .bslot.stacked img{position:relative;z-index:1;border-radius:8px;
   box-shadow:-2px 3px 8px rgba(0,0,0,.55)}
-.bsl{position:absolute;inset:0;border-radius:8px;background:var(--panel2);
+/* z-index:-1 keeps the peek strips under the pocket's own search-highlight glow */
+.bsl{position:absolute;inset:0;z-index:-1;border-radius:8px;background:var(--panel2);
   border:1px solid rgba(243,237,224,.22);
   transform:translate(calc(var(--i) * 4px),calc(var(--i) * -4px))}
 .bcount{position:absolute;z-index:2;bottom:3px;right:3px;background:var(--lantern);color:var(--deep);
@@ -666,6 +667,12 @@ function setOwned(id,on){
       try{ localStorage.setItem(DKEY,JSON.stringify(dupes)); }catch(e){}
       applyDup(id);
     }
+    loadLangMap();               // ...nor a French or Japanese copy of it
+    if(langMap[id]){
+      delete langMap[id];
+      try{ localStorage.setItem(LKEY,JSON.stringify(langMap)); }catch(e){}
+      applyArt(id);
+    }
   }
   paint();
   refreshBinder();
@@ -678,7 +685,7 @@ function setMyLang(id,l){
   loadLangMap();
   if(l==="fr"||l==="ja") langMap[id]=l; else delete langMap[id];
   try{ localStorage.setItem(LKEY,JSON.stringify(langMap)); }catch(e){}
-  applyArt(id); paintMy(); refreshBinder();
+  applyArt(id); paintMy(); paint(); refreshBinder();
 }
 function applyArt(id){
   const n=nodes.get(id); if(!n) return;
@@ -732,15 +739,19 @@ function applyWish(id){
 }
 function applyAllWish(){ for(const id of nodes.keys()) applyWish(id); }
 
+/* An open viewer must be repainted too, or its tick button keeps the old label
+   while the click handler reads the new state — a "collect" tap would remove. */
 window.addEventListener("storage",e=>{
   if(e.key===KEY){ loadOwned(); paint(); refreshBinder(); }
-  if(e.key===LKEY){ loadLangMap(); applyAllArt(); refreshBinder(); }
+  if(e.key===LKEY){ loadLangMap(); applyAllArt(); paint(); refreshBinder(); }
   if(e.key===DKEY){ loadDupes(); applyAllDup(); paint(); refreshBinder(); }
   if(e.key===WKEY){ loadWish(); applyAllWish(); paint(); }
+  if([KEY,LKEY,DKEY,WKEY].includes(e.key)&&!ov.hidden&&cur) paintOvTick();
 });
 document.addEventListener("visibilitychange",()=>{
   if(!document.hidden){ loadOwned(); loadLangMap(); loadDupes(); loadWish();
-    paint(); applyAllArt(); applyAllDup(); applyAllWish(); refreshBinder(); }
+    paint(); applyAllArt(); applyAllDup(); applyAllWish(); refreshBinder();
+    if(!ov.hidden&&cur) paintOvTick(); }
 });
 
 /* ---------- toast with undo ---------- */
@@ -853,11 +864,11 @@ document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",(
 const JPX={1:["SV5a/001","モンジャラ"],2:["SV5a/002","モジャンボ"],3:["SV5a/003","カイロス"],4:["SV5a/004","イトマル"],5:["SV5a/005","アリアドス"],6:["SV6/001","ヒマナッツ"],7:["SV6/002","キマワリ"],8:["SV6/003","ヘラクロス"],9:["SV6/004","バルビート"],10:["SV6/005","イルミーゼ"],11:["SV5a/006","リーフィア"],12:["SV6/006","ボクレー"],13:["SV6/007","オーロット"],14:["SV6/008","サルノリ"],15:["SV6/009","バチンキー"],16:["SV6/010","ゴリランダー"],17:["SV6/011","カジッチュ"],18:["SV6/012","カミッチュ"],19:["SV5a/007","テツノイサハ"],20:["SV5a/008","チャデス"],21:["SV6/013","チャデス"],22:["SV6/014","ヤバソチャ"],23:["SV5a/009","ヤバソチャex"],24:["SV6/015","オーガポン みどりのめん"],25:["SV6/016","オーガポン みどりのめんex"],26:["SV5a/010","ロコン"],27:["SV5a/011","キュウコン"],28:["SV5a/012","マグマッグ"],29:["SV5a/013","マグカルゴex"],30:["SV5a/014","コータス"],31:["SV5a/015","ヒコザル"],32:["SV5a/016","モウカザル"],33:["SV5a/017","ゴウカザル"],34:["SV6/017","ダルマッカ"],35:["SV6/018","ヒヒダルマ"],36:["SV6/019","ヒトモシ"],37:["SV6/020","ランプラー"],38:["SV6/021","シャンデラ"],39:["SV5a/018","イーユイ"],40:["SV6/022","オーガポン かまどのめんex"],41:["SV6/023","ニョロモ"],42:["SV6/024","ニョロゾ"],43:["SV6/025","ニョロボン"],44:["SV6/026","トサキント"],45:["SV6/027","アズマオウ"],46:["SV6/028","ルージュラ"],47:["SV5a/019","ヘイガニ"],48:["SV5a/020","シザリガー"],49:["SV6/029","ヒンバス"],50:["SV6/030","ミロカロス"],51:["SV6/031","ユキワラシ"],52:["SV6/032","オニゴーリ"],53:["SV6/033","ユキメノコ"],54:["SV5a/021","グレイシア"],55:["SV5a/022","フィオネ"],56:["SV5a/023","ケロマツ"],57:["SV5a/024","ゲコガシラ"],58:["SV5a/025","ウッウ"],59:["SV6/034","ナミイルカ"],60:["SV6/035","イルカマン"],61:["SV6/036","イルカマンex"],62:["SV6/037","テツノツツミ"],63:["SV5a/026","ウネルミナモ"],64:["SV6/038","オーガポン いどのめんex"],65:["SV5a/027","サンダー"],66:["SV6/039","コリンク"],67:["SV6/040","ルクシオ"],68:["SV6/041","レントラーex"],69:["SV6/042","エモンガ"],70:["SV5a/028","エリキテル"],71:["SV5a/029","エレザード"],72:["SV5a/030","モルペコ"],73:["SV5a/031","ズピカ"],74:["SV5a/032","ハラバリー"],75:["SV6/043","カイデン"],76:["SV6/044","タイカイデン"],77:["SV5a/033","テツノイバラex"],78:["SV6/045","ピッピ"],79:["SV6/046","ピクシー"],80:["SV6/047","ケーシィ"],81:["SV6/048","ユンゲラー"],82:["SV6/049","フーディン"],83:["SV5a/034","キリンリキ"],84:["SV5a/035","リキキリン"],85:["SV6/050","チリーン"],86:["SV5a/036","フラベベ"],87:["SV5a/037","フラエッテ"],88:["SV5a/038","フラージェス"],89:["SV6/051","ペロッパフ"],90:["SV6/052","ペロリーム"],91:["SV6/053","スナバァ"],92:["SV6/054","シロデスナ"],93:["SV5a/039","ラブトロス"],94:["SV5a/040","サケブシッポex"],95:["SV6/055","マシマシラ"],96:["SV6/056","キチキギス"],97:["SV6/057","サンド"],98:["SV6/058","サンドパン"],99:["SV5a/041","ヒスイ ガーディ"],100:["SV5a/042","ヒスイ ウインディ"],101:["SV5a/043","ノズパス"],102:["SV5a/044","ダイノーズ"],103:["SV6/059","ドッコラー"],104:["SV6/060","ドテッコツ"],105:["SV6/061","ローブシン"],106:["SV5a/045","ゲッコウガex"],107:["SV5a/046","ルチャブル"],108:["SV6/062","キラーメ"],109:["SV6/063","キラフロル"],110:["SV5a/047","ディンルー"],111:["SV6/064","イイネイヌ"],112:["SV6/065","オーガポン いしずえのめんex"],113:["SV6/066","ポチエナ"],114:["SV6/067","グラエナ"],115:["SV6/068","フシデ"],116:["SV6/069","ホイーガ"],117:["SV6/070","ペンドラー"],118:["SV6/071","アラブルタケ"],119:["SV6/072","エアームド"],120:["SV6/073","ココドラ"],121:["SV6/074","コドラ"],122:["SV6/075","ボスゴドラ"],123:["SV6/076","ヒードラン"],124:["SV6/077","ブロロン"],125:["SV6/078","ブロロローム"],126:["SV5a/048","カジッチュ"],127:["SV5a/049","カミッチュ"],128:["SV6/079","ドラメシヤ"],129:["SV6/080","ドロンチ"],130:["SV6/081","ドラパルトex"],131:["SV6/082","シャリタツ"],132:["SV6/083","カモネギ"],133:["SV6/084","ラッキー"],134:["SV6/085","ハピナスex"],135:["SV5a/050","イーブイ"],136:["SV5a/051","カビゴン"],137:["SV6/086","エイパム"],138:["SV6/087","エテボース"],139:["SV6/088","コアルヒー"],140:["SV6/089","スワンナ"],141:["SV5a/052","ガチグマ アカツキex"],142:["SV6/091","おはやし笛"],143:["SV6/094","むしとりセット"],144:["SV5a/061","管理人"],145:["SV6/097","ゼイユ"],146:["SV5a/065","公民館"],148:["SV5a/054","改造ハンマー"],149:["SV6/099","お祭り会場"],150:["SV6/095","ハンディサーキュレーター"],151:["SV6/098","ハッサク"],152:["SV5a/055","ハイパーアロマ"],153:["SV6/100","ジャミングタワー"],154:["SV6/096","スグリ"],155:["SV5a/064","スイレンのお世話"],156:["SV5a/058","ラブラブボール"],157:["SV5a/062","ゴヨウ"],158:["SV5a/060","ラッキーメット"],159:["SV6/090","鬼の仮面"],160:["SV5a/063","サザレ"],162:["SV6/093","ポケモン回収サイクロン"],163:["SV6/092","シークレットボックス"],164:["SV5a/059","サバイブギプス"],165:["SV5a/053","アンフェアスタンプ"],166:["SV5a/066","ブーメランエネルギー"],167:["SV6/101","レガシーエネルギー"],168:["SV5a/067","カイロス"],171:["SV5a/068","チャデス"],172:["SV5a/069","コータス"],173:["SV5a/070","ゴウカザル"],175:["SV5a/071","フィオネ"],176:["SV5a/072","ウッウ"],177:["SV5a/073","エレザード"],180:["SV5a/074","ラブトロス"],181:["SV5a/075","ヒスイ ガーディ"],182:["SV5a/076","ダイノーズ"],185:["SV5a/077","カジッチュ"],188:["SV5a/078","イーブイ"],189:["SV5a/079","ヤバソチャex"],191:["SV5a/080","マグカルゴex"],196:["SV5a/081","テツノイバラex"],197:["SV5a/082","サケブシッポex"],198:["SV5a/083","ゲッコウガex"],202:["SV5a/084","ガチグマ アカツキex"],203:["SV5a/085","管理人"],207:["SV5a/088","スイレンのお世話"],208:["SV5a/086","ゴヨウ"],209:["SV5a/087","サザレ"],210:["SV5a/089","ヤバソチャex"],214:["SV5a/090","ゲッコウガex"],216:["SV5a/091","ガチグマ アカツキex"],219:["SV5a/093","スイレンのお世話"],220:["SV5a/092","サザレ"],222:["SV5a/094","ガチグマ アカツキex"],225:["SV5a/095","緊急ボード"],226:["SV5a/096","ルミナスエネルギー"]};
 
 const ov=document.getElementById("ov"), ovimg=document.getElementById("ovimg");
-let cur=null, lastIdx=0;
+let cur=null, lastIdx=0, fromBinder=false;
 
 /* French images + names come from TCGdex (same card numbering as English). */
-let lang="en";
-try{ const l=localStorage.getItem("twm:lang"); if(l==="fr"||l==="ja") lang=l; }catch(e){}
+let lang="en", prefLang="en";   // prefLang = the saved preference to fall back to
+try{ const l=localStorage.getItem("twm:lang"); if(l==="fr"||l==="ja") lang=prefLang=l; }catch(e){}
 let frNames=null;
 try{ const s=localStorage.getItem("twm:frnames"); if(s) frNames=JSON.parse(s); }catch(e){}
 async function loadFrNames(){
@@ -887,7 +898,7 @@ function paintLang(){
   });
 }
 document.querySelectorAll(".ovlang [data-lang]").forEach(b=>b.addEventListener("click",()=>{
-  lang=b.dataset.lang;
+  lang=prefLang=b.dataset.lang;
   try{ localStorage.setItem("twm:lang",lang); }catch(e){}
   if(lang==="fr") loadFrNames();
   renderOv();
@@ -963,10 +974,11 @@ function paintMy(){
 }
 document.querySelectorAll("#ovmybtns button").forEach(b=>
   b.addEventListener("click",()=>{ if(cur) setMyLang(cur.id,b.dataset.my); }));
-function openOv(id){
+function openOv(id,fromBinderPocket){
   cur=byId.get(id); if(!cur) return;
+  fromBinder=!!fromBinderPocket;
   lastIdx=Math.max(0,visList.indexOf(cur));
-  if(langMap[id]) lang=langMap[id];   // show the copy the kid actually owns
+  lang=langMap[id]||prefLang;        // show the copy the kid actually owns
   if(lang==="fr") loadFrNames();
   renderOv();
   ov.hidden=false; document.body.classList.add("lock");
@@ -978,6 +990,12 @@ function closeOv(){
   if(!anyFov) document.body.classList.remove("lock");
 }
 function nav(d){
+  if(fromBinder){                    // opened from a pocket: walk the binder itself
+    const j=(slotIdx.get(cur.id)+d+SLOTS.length)%SLOTS.length;
+    cur=SLOTS[j];
+    bPage=Math.floor(j/12)+1; refreshBinder();
+    renderOv(); return;
+  }
   if(!visList.length) return;
   let i=visList.indexOf(cur);
   if(i<0) i=Math.min(lastIdx,visList.length-1);
@@ -1226,7 +1244,7 @@ function renderBinder(){
       d.setAttribute("aria-label",`${s.num} ${s.name}${s.rev?" reverse holo":""} — still needed`);
     }
     if(bMatches.has(s.id)) d.classList.add("hl");
-    d.addEventListener("click",()=>openOv(s.id));
+    d.addEventListener("click",()=>openOv(s.id,true));
     g.appendChild(d);
   }
   try{ localStorage.setItem("twm:bpage",bPage); }catch(e){}
@@ -1272,9 +1290,10 @@ document.getElementById("binder").addEventListener("touchend",e=>{
 },{passive:true});
 
 /* ---------- art quiz ---------- */
-let qStreak=0, qBest=parseInt(localStorage.getItem("twm:quizbest"))||0, qCur=null, qLock=false;
+let qStreak=0, qBest=parseInt(localStorage.getItem("twm:quizbest"))||0, qCur=null, qLock=false, qTimer=null;
 function qScoreUI(){ document.getElementById("qscore").textContent=`Streak ${qStreak} · Best ${qBest}`; }
 function qRound(){
+  clearTimeout(qTimer);   // a pending auto-advance must not replace this round
   qLock=false;
   document.getElementById("qmsg").textContent="";
   qCur=pick(RAW);
@@ -1307,7 +1326,7 @@ function qAnswer(btn,nm){
     qStreak=0;
   }
   qScoreUI();
-  setTimeout(()=>{ if(!document.getElementById("quiz").hidden) qRound(); },1700);
+  qTimer=setTimeout(()=>{ if(!document.getElementById("quiz").hidden) qRound(); },1700);
 }
 
 /* ---------- holo tilt in the viewer (motion sensor, mouse fallback) ---------- */
@@ -1369,7 +1388,8 @@ document.getElementById("bkfile").addEventListener("change",async e=>{
   for(const id of parse("twm:collection",[])) owned.add(id);
   const lm=parse("twm:langmap",{}); for(const k in lm) if(!langMap[k]) langMap[k]=lm[k];
   const dp=parse("twm:doubles",{}); for(const k in dp) dupes[k]=Math.max(dupes[k]||0,dp[k]);
-  for(const id of parse("twm:wish",[])) if(!owned.has(id)) wish.add(id);
+  for(const id of parse("twm:wish",[])) wish.add(id);
+  for(const id of owned) wish.delete(id);   // nothing already collected stays wished
   let ms; try{ ms=new Set(JSON.parse(localStorage.getItem(MKEY)||"[]")); }catch(err){ ms=new Set(); }
   for(const m of parse("twm:milestones",[])) ms.add(m);
   const qb=parseInt(d["twm:quizbest"])||0; if(qb>qBest) qBest=qb;
@@ -1381,7 +1401,7 @@ document.getElementById("bkfile").addEventListener("change",async e=>{
     localStorage.setItem(MKEY,JSON.stringify([...ms]));
     localStorage.setItem("twm:quizbest",qBest);
   }catch(err){}
-  applyAllArt(); applyAllDup(); applyAllWish(); paint();
+  applyAllArt(); applyAllDup(); applyAllWish(); paint(); refreshBinder();
   const added=owned.size-before;
   showToast(`📥 Backup merged — ${added} new card${added===1?"":"s"}, ${owned.size} total.`,null);
 });
