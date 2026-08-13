@@ -1117,6 +1117,12 @@ if("serviceWorker" in navigator){
   });
 }
 
+/* Ask the phone to keep the collection even when it is short of space.
+   Without this the browser may evict it as ordinary throwaway cache. */
+if(navigator.storage&&navigator.storage.persist){
+  navigator.storage.persisted().then(p=>{ if(!p) return navigator.storage.persist(); }).catch(()=>{});
+}
+
 /* ---------- full-screen extras: pack sim, binder mode, quiz ---------- */
 function openFov(id){
   document.getElementById(id).hidden=false;
