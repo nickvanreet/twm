@@ -38,6 +38,11 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:800;font-size:clamp(22px,6.2
 .sub{color:var(--mute);font-size:13px;margin:4px 0 0}
 
 header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px + env(safe-area-inset-top)) 0 14px}
+#moonbtn{background:none;border:0;padding:0;cursor:pointer;line-height:0;border-radius:50%}
+#moonbtn:active svg{transform:scale(.9)}
+#moonbtn svg{transition:transform .15s}
+#moonbtn.pulse svg{animation:moonpulse .5s ease}
+@keyframes moonpulse{0%{transform:scale(1)}45%{transform:scale(1.18) rotate(-6deg)}100%{transform:scale(1)}}
 .grow{flex:1;min-width:150px}
 .count{font-family:'Fraunces',serif;font-weight:800;font-size:clamp(22px,6vw,30px);color:var(--lantern);line-height:1}
 .count span{color:var(--mute);font-size:.65em}
@@ -282,6 +287,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 <body>
 <div class="wrap">
   <header>
+    <button id="moonbtn" type="button" aria-label="Show my binder card">
     <svg width="54" height="54" viewBox="0 0 62 62" aria-hidden="true">
       <title>The moon fills up as the collection grows</title>
       <defs><clipPath id="mf"><rect id="mfr" x="0" y="62" width="62" height="0"/></clipPath></defs>
@@ -293,6 +299,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
       <text id="mpct" x="31" y="36" text-anchor="middle" font-size="14" font-weight="700"
             fill="#F5B944" font-family="Georgia,serif">0%</text>
     </svg>
+    </button>
     <div class="grow">
       <h1>Twilight Masquerade</h1>
       <p class="sub">Master set · <span id="slotcount">0</span> cards to find</p>
@@ -1419,7 +1426,7 @@ async function makeShareCard(){
   return cv;
 }
 let shareBlob=null;
-document.getElementById("btnshare").addEventListener("click",async()=>{
+async function openShare(){
   const cv=await makeShareCard();
   cv.toBlob(b=>{
     if(!b){ showToast("Couldn't build the image on this browser.",null); return; }
@@ -1427,6 +1434,12 @@ document.getElementById("btnshare").addEventListener("click",async()=>{
     document.getElementById("shareimg").src=URL.createObjectURL(b);
     openFov("shareov");
   },"image/png");
+}
+document.getElementById("btnshare").addEventListener("click",openShare);
+document.getElementById("moonbtn").addEventListener("click",()=>{
+  const m=document.getElementById("moonbtn");
+  m.classList.remove("pulse"); void m.offsetWidth; m.classList.add("pulse");
+  setTimeout(openShare,300);
 });
 document.getElementById("sharesend").addEventListener("click",async()=>{
   if(!shareBlob) return;
