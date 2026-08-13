@@ -43,8 +43,28 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .count span{color:var(--mute);font-size:.65em}
 .val{font-size:11px;color:var(--mute);margin-top:2px}
 
-.bar{height:8px;border-radius:99px;background:rgba(139,107,199,.22);overflow:hidden;margin-bottom:14px}
+.bar{height:8px;border-radius:99px;background:rgba(139,107,199,.22);overflow:hidden;margin-bottom:10px}
 .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--lantern));transition:width .45s ease}
+
+.stats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:12px;color:var(--mute);background:var(--panel);border:1px solid var(--edge);
+  border-radius:99px;padding:6px 11px}
+.chip b{color:var(--cream);font-weight:700}
+.cotd{font:inherit;font-size:12px;color:var(--deep);background:var(--lantern);border:0;
+  cursor:pointer;font-weight:700}
+
+.about{margin:0 0 14px;border:1px solid var(--edge);border-radius:12px;background:var(--panel);
+  font-size:13px;line-height:1.55;color:var(--mute)}
+.about summary{cursor:pointer;padding:12px 14px;font-weight:700;color:var(--cream);font-size:14px}
+.about p{margin:0 14px 12px}
+.about b{color:var(--cream)}
+
+.cf{position:fixed;z-index:70;top:-12px;width:9px;height:14px;border-radius:2px;
+  pointer-events:none;animation:cfall 2.4s ease-in forwards}
+@keyframes cfall{
+  0%{transform:translateY(0) rotate(0)}
+  100%{transform:translateY(105vh) rotate(660deg);opacity:.15}
+}
 
 .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 input,select{
@@ -197,6 +217,13 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 
   <div class="bar"><i id="fill" style="width:0%"></i></div>
 
+  <div class="stats">
+    <span class="chip">To go: <b id="stTogo">373</b></span>
+    <span class="chip">Finish the set: <b id="stCost">€0</b></span>
+    <span class="chip" id="stBestWrap" hidden>My best card: <b id="stBest"></b></span>
+    <button class="chip cotd" id="cotd" type="button">✨ Card of the day</button>
+  </div>
+
   <div class="controls">
     <input id="q" type="search" placeholder="Search a name (EN or FR) or number" autocomplete="off" enterkeyhint="search">
     <select id="rarity" aria-label="Filter by rarity"><option value="all">Every rarity</option></select>
@@ -208,6 +235,22 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
   </div>
 
   <button id="install" type="button">Install on this phone</button>
+
+  <details class="about">
+    <summary>🎭 About this set</summary>
+    <p><b>Twilight Masquerade</b> came out on 24 May 2024. It takes place in <b>Kitakami</b>,
+    the mountain village from the Teal Mask adventure — a land of summer festivals, lanterns
+    and masks.</p>
+    <p>The star is <b>Ogerpon</b>, who appears with all four of her masks: Teal (24, 25),
+    Hearthflame (40), Wellspring (64) and Cornerstone (112). The village "heroes", the
+    <b>Loyal Three</b> — Okidogi (111), Munkidori (95) and Fezandipiti (96) — are secretly
+    the villains of the story. Other treasures: <b>Bloodmoon Ursaluna</b> (141), six colourful
+    <b>ACE SPEC</b> cards, and the set's most-wanted card, the special illustration
+    <b>Greninja ex</b> (214).</p>
+    <p>The set has 167 numbered cards plus secret rares up to 226 — with every reverse holo,
+    <b>373 cards</b> for a master set. In Japan these cards came from two different sets,
+    <i>Mask of Change</i> and <i>Crimson Haze</i>, which is why Japanese cards have other numbers.</p>
+  </details>
 
   <div id="grid"></div>
   <div id="empty" class="empty" hidden><p>Nothing here</p><p class="sub" id="emptymsg"></p></div>
@@ -339,11 +382,12 @@ function paint(){
   const per=new Map(); for(const r of secs.keys()) per.set(r,{have:0,vis:0});
   visList.length=0;
 
+  let best=null, bestP=0;
   for(const s of ORDER){
     const p=priceOf(s); totalV+=p;
     const has=owned.has(s.id);
     const t=per.get(s.rarity);
-    if(has){haveN++; haveV+=p; t.have++;}
+    if(has){haveN++; haveV+=p; t.have++; if(p>bestP){bestP=p; best=s;}}
 
     let ok=true;
     if(view==="have"&&!has) ok=false;
@@ -384,6 +428,11 @@ function paint(){
   const mp=document.getElementById("mpct");
   mp.textContent=Math.round(pct*100)+"%";
   mp.setAttribute("fill",pct>=.45?"#0D0A22":"#F5B944");
+
+  document.getElementById("stTogo").textContent=SLOTS.length-haveN;
+  document.getElementById("stCost").textContent=eur(totalV-haveV);
+  document.getElementById("stBestWrap").hidden=!best;
+  if(best) document.getElementById("stBest").textContent=`${best.name}${best.rev?" REV":""} ${eur(bestP)}`;
 
   emptyEl.hidden=shown>0;
   document.getElementById("emptymsg").textContent =
@@ -453,6 +502,7 @@ let toastTimer=null, toastId=null;
 function showToast(html,id){
   toastId=id;
   document.getElementById("toastmsg").innerHTML=html;
+  document.getElementById("undo").hidden=!id;
   toast.hidden=false;
   clearTimeout(toastTimer);
   toastTimer=setTimeout(()=>{ toast.hidden=true; toastId=null; },6000);
@@ -475,7 +525,61 @@ function collect(id){
   if(n){ n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop"); }
   const s=byId.get(id);
   showToast(`✓ ${s.num} ${s.name}${s.rev?" REV":""} → ${binderTxt(s)}`,id);
+  checkMilestones();
 }
+
+/* ---------- milestones: confetti on big moments, each fires once ---------- */
+const MKEY="twm:milestones";
+function checkMilestones(){
+  let seen;
+  try{ seen=new Set(JSON.parse(localStorage.getItem(MKEY)||"[]")); }catch(e){ seen=new Set(); }
+  const fresh=[];
+  const pct=[...owned].length/SLOTS.length*100;
+  for(const [t,msg] of [[10,"🎉 10% of the set!"],[25,"🎉 A quarter of the set!"],
+      [50,"🌕 HALF the set — the moon is filling!"],[75,"🎉 Three quarters!"],
+      [100,"🏆 MASTER SET COMPLETE!"]]){
+    if(pct>=t&&!seen.has("p"+t)){ seen.add("p"+t); fresh.push(msg); }
+  }
+  for(const r of RARITIES){
+    const list=SLOTS.filter(s=>s.rarity===r);
+    if(list.length&&list.every(s=>owned.has(s.id))&&!seen.has("r"+r)){
+      seen.add("r"+r); fresh.push(`✦ Every ${r} collected!`);
+    }
+  }
+  if(fresh.length){
+    try{ localStorage.setItem(MKEY,JSON.stringify([...seen])); }catch(e){}
+    showToast(fresh[fresh.length-1],null);
+    confetti();
+  }
+}
+function confetti(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const colors=["#F5B944","#4FBFA8","#8B6BC7","#F3EDE0","#F09090"];
+  for(let i=0;i<70;i++){
+    const d=document.createElement("i");
+    d.className="cf";
+    d.style.left=Math.random()*100+"vw";
+    d.style.background=colors[i%colors.length];
+    d.style.animationDelay=(Math.random()*.7)+"s";
+    d.style.animationDuration=(2+Math.random()*1.4)+"s";
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),4200);
+  }
+}
+
+/* ---------- card of the day: date-seeded, prefers cards still needed ---------- */
+function cardOfDay(){
+  const now=new Date();
+  const seed=now.getFullYear()*372+now.getMonth()*31+now.getDate();
+  const pool=SLOTS.filter(s=>!owned.has(s.id));
+  const list=pool.length?pool:SLOTS;
+  return list[seed%list.length];
+}
+document.getElementById("cotd").addEventListener("click",()=>{
+  const s=cardOfDay();
+  document.getElementById("q").value=""; paint();
+  openOv(s.id);
+});
 grid.addEventListener("click",e=>{
   const z=e.target.closest(".zoom");
   if(z){ openOv(z.closest(".card").dataset.id); return; }
