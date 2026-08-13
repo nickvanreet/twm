@@ -106,6 +106,13 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .bslot .brev{position:absolute;top:3px;left:3px;background:var(--plum);color:var(--cream);
   font-size:8px;font-weight:700;padding:1px 4px;border-radius:3px}
 .bempty{visibility:hidden}
+.bsearch{display:flex;gap:8px;align-items:center;max-width:560px;margin:0 auto 10px}
+.bsearch input{flex:1;min-width:0}
+.bsearch button{font:inherit;font-size:13px;font-weight:700;min-height:44px;padding:0 14px;
+  border-radius:10px;background:var(--panel);color:var(--cream);border:1px solid var(--edge);cursor:pointer}
+.bhits{font-size:12px;color:var(--mute);min-width:52px;text-align:right}
+.bslot.hl{outline:3px solid var(--lantern);outline-offset:-1px;animation:bpulse .9s ease infinite alternate}
+@keyframes bpulse{from{box-shadow:0 0 0 0 rgba(245,185,68,0)}to{box-shadow:0 0 14px 3px rgba(245,185,68,.55)}}
 
 .qart{width:min(300px,80vw);aspect-ratio:1;margin:0 auto;border-radius:14px;
   background-color:var(--panel2);background-size:340%;background-repeat:no-repeat;
@@ -386,6 +393,11 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
       <button id="bprev" type="button" aria-label="Previous page">‹</button>
       <span id="bpage">Page 1</span>
       <button id="bnext" type="button" aria-label="Next page">›</button>
+    </div>
+    <div class="bsearch">
+      <input id="bq" type="search" placeholder="Find a card…" autocomplete="off" enterkeyhint="search">
+      <button id="bnextm" type="button">Next ›</button>
+      <span id="bhits" class="bhits"></span>
     </div>
     <div class="bgrid" id="bgrid"></div>
     <p class="fovnote">Same pages and pockets as the real binder. Tap a pocket to open that card.</p>
@@ -798,7 +810,11 @@ document.querySelectorAll(".ovlang [data-lang]").forEach(b=>b.addEventListener("
 
 function renderOv(){
   const shot=document.querySelector(".ovshot");
-  if(shot){ shot.style.transform=""; document.getElementById("ovglare").style.background=""; }
+  if(shot){
+    shot.style.transform="";
+    document.getElementById("ovglare").style.background="";
+    document.getElementById("ovsheen").style.background="";
+  }
   const e=effLang();
   if(e==="ja"){
     ovimg.onerror=()=>{ ovimg.onerror=null; ovimg.src=`https://images.pokemontcg.io/sv6/${cur.num}_hires.png`; };
@@ -1002,6 +1018,7 @@ document.addEventListener("keydown",e=>{
   if(!ov.hidden) return;                    // the card viewer handles its own keys
   const open=["pack","binder","quiz"].find(id=>!document.getElementById(id).hidden);
   if(!open) return;
+  if(e.target&&e.target.id==="bq"&&e.key!=="Escape") return;  // typing in binder search
   if(e.key==="Escape") closeFov(open);
   if(open==="binder"&&e.key==="ArrowRight"){ bPage++; renderBinder(); }
   if(open==="binder"&&e.key==="ArrowLeft"){ bPage--; renderBinder(); }
@@ -1096,6 +1113,7 @@ function renderBinder(){
       d.className="bslot ghost";
       d.innerHTML=`<div class="bnum"><b>${s.num}</b><span>${s.name}</span>${s.rev?'<span>REV</span>':''}</div>`;
     }
+    if(bMatches.has(s.id)) d.classList.add("hl");
     d.addEventListener("click",()=>openOv(s.id));
     g.appendChild(d);
   }
@@ -1103,6 +1121,35 @@ function renderBinder(){
 }
 document.getElementById("bprev").addEventListener("click",()=>{ bPage--; renderBinder(); });
 document.getElementById("bnext").addEventListener("click",()=>{ bPage++; renderBinder(); });
+
+/* binder search: jump to the page and pulse the pocket */
+const bMatches=new Set(); let bMatchIdx=[], bMatchPos=0;
+function bSearch(){
+  const q=fold(document.getElementById("bq").value.trim());
+  bMatches.clear(); bMatchIdx=[]; bMatchPos=0;
+  if(q){
+    SLOTS.forEach((s,i)=>{
+      const hit=fold(s.name).includes(q)
+        ||(frNames&&frNames[s.num]&&fold(frNames[s.num]).includes(q))
+        ||(/^\d+$/.test(q)&&String(s.num).startsWith(q));
+      if(hit){ bMatches.add(s.id); bMatchIdx.push(i); }
+    });
+    if(bMatchIdx.length) bPage=Math.floor(bMatchIdx[0]/12)+1;
+  }
+  document.getElementById("bhits").textContent=
+    q?(bMatchIdx.length?`${bMatchPos+1} / ${bMatchIdx.length}`:"0 found"):"";
+  renderBinder();
+}
+function bNextMatch(){
+  if(!bMatchIdx.length) return;
+  bMatchPos=(bMatchPos+1)%bMatchIdx.length;
+  bPage=Math.floor(bMatchIdx[bMatchPos]/12)+1;
+  document.getElementById("bhits").textContent=`${bMatchPos+1} / ${bMatchIdx.length}`;
+  renderBinder();
+}
+document.getElementById("bq").addEventListener("input",bSearch);
+document.getElementById("bq").addEventListener("keydown",e=>{ if(e.key==="Enter") bNextMatch(); });
+document.getElementById("bnextm").addEventListener("click",bNextMatch);
 let btx=null;
 document.getElementById("binder").addEventListener("touchstart",e=>{ btx=e.touches[0].clientX; },{passive:true});
 document.getElementById("binder").addEventListener("touchend",e=>{
@@ -1159,6 +1206,12 @@ function applyTilt(gx,by){
   shot.style.transform=`rotateY(${(gx/5).toFixed(2)}deg) rotateX(${(-by/6).toFixed(2)}deg)`;
   document.getElementById("ovglare").style.background=
     `linear-gradient(${115+gx*3}deg, transparent ${34-gx}%, rgba(255,255,255,.3) ${52-gx/2}%, transparent ${70-gx}%)`;
+  const sheen=document.getElementById("ovsheen");
+  if(!sheen.hidden){   // the reverse holo rainbow slides across the card as you tilt
+    const o=gx*1.2+by*.5;
+    sheen.style.background=
+      `linear-gradient(${115+gx*3}deg,rgba(255,120,180,.55) ${o}%,rgba(120,220,255,.55) ${33+o}%,rgba(255,240,140,.55) ${66+o}%,rgba(160,140,255,.55) ${100+o}%)`;
+  }
 }
 window.addEventListener("deviceorientation",e=>{
   if(typeof e.gamma==="number") applyTilt(e.gamma,(e.beta||45)-45);
