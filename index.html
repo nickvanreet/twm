@@ -91,6 +91,73 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .fovhead{font-family:'Fraunces',serif;font-size:20px;font-weight:800;margin:6px 0 14px;text-align:center}
 .fovnote{font-size:11px;color:var(--mute);text-align:center;margin-top:14px}
 
+/* ---- booster pack: choose → tear → reveal ---- */
+.packchoose{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));
+  gap:12px;max-width:560px;margin:0 auto;justify-items:center}
+.booster{position:relative;width:100%;max-width:120px;aspect-ratio:63/100;border:0;padding:0;
+  cursor:pointer;border-radius:8px;overflow:hidden;
+  background:linear-gradient(160deg,#2A1F63 0%,#160F3A 55%,#221856 100%);
+  box-shadow:0 8px 22px rgba(0,0,0,.5), inset 0 0 0 1px rgba(245,185,68,.35);
+  transition:transform .18s}
+.packchoose .booster:nth-child(odd){transform:rotate(-2.5deg)}
+.packchoose .booster:nth-child(even){transform:rotate(2deg)}
+.packchoose .booster:active{transform:scale(.95)}
+.booster .foil{position:absolute;top:0;left:0;right:0;height:16%;
+  background:linear-gradient(90deg,var(--lantern),#FFD98A,var(--lantern));
+  border-bottom:2px dashed rgba(13,10,34,.45)}
+.booster .art,.tearbody .art{position:absolute;inset:16% 0 0;display:flex;
+  flex-direction:column;align-items:center;justify-content:center;gap:6%;padding:6%}
+.booster .art svg,.tearbody .art svg{width:54%;height:auto}
+.booster .nm,.tearbody .nm{font-family:'Fraunces',serif;font-weight:800;color:var(--lantern);
+  text-align:center;line-height:1.15;letter-spacing:.02em}
+.booster .nm{font-size:9px}
+.tearbody .nm{font-size:15px}
+.booster .glint,.tearbody .glint{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.18) 50%,transparent 62%)}
+
+.tearwrap{position:relative;width:min(300px,78vw);aspect-ratio:63/100;margin:0 auto 16px;
+  border-radius:10px;overflow:visible;touch-action:pan-y}
+.tearbody{position:absolute;inset:0;border-radius:10px;overflow:hidden;
+  background:linear-gradient(160deg,#2A1F63 0%,#160F3A 55%,#221856 100%);
+  box-shadow:0 14px 40px rgba(0,0,0,.55), inset 0 0 0 1px rgba(245,185,68,.35)}
+.tearstrip{position:absolute;top:0;left:0;right:0;height:15%;z-index:2;border-radius:10px 10px 0 0;
+  background:linear-gradient(90deg,var(--lantern),#FFD98A,var(--lantern));
+  border-bottom:2px dashed rgba(13,10,34,.5);cursor:grab;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--deep)}
+.tearstrip.gone{transition:transform .45s ease, opacity .45s ease;
+  transform:translate(120%,-40%) rotate(18deg);opacity:0}
+.tearbody.opened{animation:burst .5s ease}
+@keyframes burst{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
+
+.revwrap{display:flex;justify-content:center;margin-bottom:14px}
+.revcard{position:relative;width:min(260px,66vw);aspect-ratio:63/88;perspective:900px;cursor:pointer}
+.revinner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .55s}
+.revcard.flip .revinner{transform:rotateY(180deg)}
+.revface{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;overflow:hidden}
+.revback{background:radial-gradient(80% 60% at 50% 35%,var(--panel2),var(--night));
+  border:2px solid var(--plum);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8%}
+.revback svg{width:44%;height:auto}
+.revback span{font-family:'Fraunces',serif;font-size:12px;font-weight:800;
+  color:var(--lantern);letter-spacing:.06em}
+.revfront{transform:rotateY(180deg);background:var(--panel2)}
+.revfront img{width:100%;height:100%;object-fit:cover;display:block}
+.revcard.big.flip .revinner{box-shadow:0 0 34px 8px rgba(245,185,68,.65)}
+.revlabel{text-align:center;font-size:14px;min-height:44px;margin:0 0 6px;line-height:1.4}
+.revlabel b{font-family:'Fraunces',serif;font-size:17px;color:var(--cream);display:block}
+.revlabel span{color:var(--mute);font-size:12px}
+.revdots{display:flex;gap:5px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+.revdots i{width:8px;height:8px;border-radius:50%;background:rgba(139,107,199,.35)}
+.revdots i.on{background:var(--lantern)}
+.revdots i.now{background:var(--teal);transform:scale(1.35)}
+.enface{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;background:linear-gradient(160deg,#3A2F72,#241C52);
+  color:var(--cream);font-size:13px;font-weight:700;text-align:center;padding:10%}
+.enface .orb{width:44%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,#FFE7A8,var(--lantern) 60%,#C98B25);
+  box-shadow:0 0 22px rgba(245,185,68,.5)}
+
 .packgrid{display:grid;grid-template-columns:repeat(2,minmax(0,150px));gap:10px;justify-content:center}
 @media(min-width:560px){.packgrid{grid-template-columns:repeat(5,minmax(0,130px))}}
 .pcard{position:relative;aspect-ratio:63/88;perspective:600px;cursor:pointer;
@@ -492,14 +559,48 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 
   <div id="pack" class="fullov" hidden>
     <button class="fovclose" data-close="pack" type="button" aria-label="Sluiten">✕</button>
-    <div class="fovhead">🎁 Boosterpakje</div>
-    <div class="packgrid" id="packgrid"></div>
-    <div class="packsum" id="packsum"></div>
-    <div class="packrow">
-      <button id="packopen" type="button">Pakje openen!</button>
-      <button id="packflip" type="button" hidden>Alles omdraaien</button>
+    <div class="fovhead" id="packhead">🎁 Kies een pakje</div>
+
+    <div id="packchoose" class="packchoose"></div>
+
+    <div id="packtear" hidden>
+      <div class="tearwrap" id="tearwrap">
+        <div class="tearstrip" id="tearstrip"></div>
+        <div class="tearbody" id="tearbody"></div>
+      </div>
+      <p class="fovnote" id="tearhint">Veeg met je vinger over de bovenrand om het pakje open te scheuren.</p>
+      <div class="packrow"><button id="tearbtn" type="button">Toch maar openscheuren</button></div>
     </div>
-    <p class="fovnote">Puur voor de fun — de kansen zijn bij benadering en wat je trekt komt niet in je verzameling.</p>
+
+    <div id="packreveal" hidden>
+      <div class="revwrap">
+        <div class="revcard" id="revcard">
+          <div class="revinner">
+            <div class="revface revback">
+              <svg viewBox="0 0 62 62" aria-hidden="true">
+                <circle cx="31" cy="31" r="24" fill="none" stroke="#F5B944" stroke-width="2.5" opacity=".85"/>
+                <circle cx="40" cy="24" r="9" fill="#F5B944" opacity=".9"/></svg>
+              <span>TWM</span>
+            </div>
+            <div class="revface revfront"><img id="revimg" alt=""><div id="revsheen" class="rev-sheen" hidden></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="revlabel" id="revlabel"></p>
+      <div class="revdots" id="revdots"></div>
+      <div class="packrow"><button id="revnext" type="button">Draai om</button></div>
+    </div>
+
+    <div id="packdone" hidden>
+      <div class="packgrid" id="packgrid"></div>
+      <div class="packsum" id="packsum"></div>
+      <div class="packrow"><button id="packopen" type="button">Nog een pakje!</button></div>
+    </div>
+
+    <p class="fovnote">Puur voor de fun — wat je trekt komt niet in je verzameling.
+      Elk pakje bevat 4 commons, 3 uncommons, 1 basisenergie, 1 reverse holo en
+      1 rare of beter, net als een echt pakje. De kansen op de zeldzame kaart zijn
+      bij benadering.</p>
   </div>
 
   <div id="binder" class="fullov" hidden>
@@ -1268,7 +1369,7 @@ function openFov(id){
   document.body.classList.add("lock");
   if(id==="binder") renderBinder();
   if(id==="quiz") qRound();
-  if(id==="pack"&&!packCards.length) newPack();
+  if(id==="pack") packChoose();
   if(id==="deck") openDeck();
 }
 function closeFov(id){
@@ -1292,69 +1393,170 @@ document.addEventListener("keydown",e=>{
 /* ---------- pack simulator (odds approximate, visual only) ---------- */
 const byRar={}; for(const r of RARITIES) byRar[r]=RAW.filter(c=>c[2]===r);
 const pick=a=>a[Math.floor(Math.random()*a.length)];
+/* A Scarlet & Violet pack holds 10 cards: 4 commons, 3 uncommons, 1 basic
+   energy, 1 reverse holo and 1 rare-or-better. They sit in that order, so the
+   card worth waiting for is the last one you turn over. */
 function rollPack(){
   const out=[];
   for(let i=0;i<4;i++) out.push({c:pick(byRar["Common"])});
   for(let i=0;i<3;i++) out.push({c:pick(byRar["Uncommon"])});
-  let r=Math.random();
-  if(r<0.06) out.push({c:pick(byRar["ACE SPEC Rare"]),hit:true});
-  else if(r<0.18) out.push({c:pick(byRar["Illustration Rare"]),hit:true});
+  out.push({energy:true});
+
+  // reverse-holo slot, where the ACE SPEC cards also turn up
+  if(Math.random()<0.05) out.push({c:pick(byRar["ACE SPEC Rare"]),hit:true});
   else out.push({c:pick(byRar[pick(["Common","Uncommon","Rare"])]),rev:true});
-  out.push({c:pick(byRar[pick(["Common","Uncommon","Rare"])]),rev:true});
-  r=Math.random();
-  if(r<0.005) out.push({c:pick(byRar["Hyper Rare"]),hit:true,big:true});
-  else if(r<0.02) out.push({c:pick(byRar["Special Illustration Rare"]),hit:true,big:true});
-  else if(r<0.075) out.push({c:pick(byRar["Ultra Rare"]),hit:true,big:true});
-  else if(r<0.21) out.push({c:pick(byRar["Double Rare"]),hit:true});
+
+  // the hit slot, roughly the real pull rates
+  const r=Math.random();
+  if(r<0.02) out.push({c:pick(byRar["Hyper Rare"]),hit:true,big:true});
+  else if(r<0.05) out.push({c:pick(byRar["Special Illustration Rare"]),hit:true,big:true});
+  else if(r<0.13) out.push({c:pick(byRar["Ultra Rare"]),hit:true,big:true});
+  else if(r<0.25) out.push({c:pick(byRar["Illustration Rare"]),hit:true});
+  else if(r<0.40) out.push({c:pick(byRar["Double Rare"]),hit:true});
   else out.push({c:pick(byRar["Rare"])});
   return out;
 }
 const pval=pc=>{
+  if(pc.energy) return 0;
   const l=live&&live[pc.c[0]];
   const v=l?(pc.rev?l.rev:l.base):null;
   return (typeof v==="number"&&v>0)?v:(pc.rev?(pc.c[4]||pc.c[3]):pc.c[3]);
 };
+const boosterArt=(foil=true)=>`${foil?'<div class="foil"></div>':""}<div class="art">
+  <svg viewBox="0 0 62 62" aria-hidden="true">
+    <circle cx="31" cy="31" r="24" fill="none" stroke="#F5B944" stroke-width="2.5" opacity=".8"/>
+    <circle cx="40" cy="24" r="9" fill="#F5B944" opacity=".9"/></svg>
+  <div class="nm">TWILIGHT<br>MASQUERADE</div></div><div class="glint"></div>`;
 let packCards=[], packFlipped=0;
-function newPack(){
-  packCards=rollPack(); packFlipped=0;
-  document.getElementById("packsum").textContent="";
-  const g=document.getElementById("packgrid"); g.innerHTML="";
-  packCards.forEach((pc,i)=>{
+let revIdx=0, revFlipped=false;
+
+/* stage 1 — a few packs on the table, pick one */
+function packChoose(){
+  packCards=[]; revIdx=0; revFlipped=false;
+  document.getElementById("packhead").textContent="🎁 Kies een pakje";
+  const box=document.getElementById("packchoose");
+  box.hidden=false; box.innerHTML="";
+  for(let i=0;i<5;i++){
     const b=document.createElement("button");
-    b.className="pcard"+(pc.hit?" hit":""); b.type="button"; b.dataset.i=i;
-    b.setAttribute("aria-label","Kaart "+(i+1)+" — tik om om te draaien");
-    b.innerHTML=`<div class="pinner">
-      <div class="pface pback"><svg width="46" height="46" viewBox="0 0 62 62" aria-hidden="true">
-        <circle cx="31" cy="31" r="24" fill="none" stroke="#F5B944" stroke-width="2.5" opacity=".8"/>
-        <circle cx="40" cy="24" r="9" fill="#F5B944" opacity=".85"/></svg></div>
-      <div class="pface pfront"><img alt="" loading="lazy" src="${img(pc.c[0])}">${pc.rev?'<div class="rev-sheen"></div>':''}</div>
-    </div>`;
-    g.appendChild(b);
-  });
-  document.getElementById("packopen").textContent="Nog eentje!";
-  document.getElementById("packflip").hidden=false;
-}
-function flipPack(i){
-  const b=document.querySelector(`.pcard[data-i="${i}"]`);
-  if(!b||b.classList.contains("flip")) return;
-  b.classList.add("flip");
-  const pc=packCards[i];
-  if(pc.big) confetti();
-  if(++packFlipped===packCards.length){
-    let best=packCards[0], bi=0;
-    packCards.forEach(pc2=>{ const ri=RARITIES.indexOf(pc2.c[2]); if(ri>bi){bi=ri; best=pc2;} });
-    const total=packCards.reduce((a,pc2)=>a+pval(pc2),0);
-    document.getElementById("packsum").innerHTML=
-      `Beste trek: <b>${best.c[0]} ${best.c[1]}</b> (${best.c[2]}) · waarde van het pakje ${eur(total)}`;
+    b.type="button"; b.className="booster";
+    b.setAttribute("aria-label",`Pakje ${i+1} kiezen`);
+    b.innerHTML=boosterArt();
+    box.appendChild(b);
   }
+  document.getElementById("packtear").hidden=true;
+  document.getElementById("packreveal").hidden=true;
+  document.getElementById("packdone").hidden=true;
 }
-document.getElementById("packgrid").addEventListener("click",e=>{
-  const b=e.target.closest(".pcard"); if(b) flipPack(+b.dataset.i);
+
+/* stage 2 — swipe the foil strip off the top */
+function packTear(){
+  packCards=rollPack();
+  document.getElementById("packhead").textContent="✋ Scheur het open";
+  document.getElementById("packchoose").hidden=true;
+  document.getElementById("packtear").hidden=false;
+  const strip=document.getElementById("tearstrip");
+  const body=document.getElementById("tearbody");
+  strip.className="tearstrip"; strip.style.transform="";
+  strip.textContent="▸ veeg hier ▸";
+  body.className="tearbody"; body.innerHTML=boosterArt(false);
+
+  let x0=null;
+  const w=()=>document.getElementById("tearwrap").getBoundingClientRect().width||200;
+  const down=e=>{ x0=(e.touches?e.touches[0]:e).clientX; };
+  const move=e=>{
+    if(x0===null) return;
+    const dx=(e.touches?e.touches[0]:e).clientX-x0;
+    if(dx>0){
+      strip.style.transform=`translate(${dx}px,${-dx*0.25}px) rotate(${dx*0.06}deg)`;
+      if(dx>w()*0.45){ x0=null; tearDone(); }
+    }
+  };
+  const up=()=>{ if(x0!==null){ strip.style.transform=""; x0=null; } };
+  strip.onpointerdown=down; strip.onpointermove=move; strip.onpointerup=up;
+  strip.ontouchstart=down; strip.ontouchmove=move; strip.ontouchend=up;
+}
+function tearDone(){
+  const strip=document.getElementById("tearstrip");
+  strip.style.transform=""; strip.classList.add("gone");
+  document.getElementById("tearbody").classList.add("opened");
+  setTimeout(packReveal,480);
+}
+
+/* stage 3 — one card at a time, the good stuff at the back */
+function packReveal(){
+  document.getElementById("packtear").hidden=true;
+  document.getElementById("packreveal").hidden=false;
+  revIdx=0; revFlipped=false;
+  showRev();
+}
+function showRev(){
+  const pc=packCards[revIdx];
+  document.getElementById("packhead").textContent=`🎁 Kaart ${revIdx+1} van ${packCards.length}`;
+  const card=document.getElementById("revcard");
+  card.classList.remove("flip","big");
+  const front=card.querySelector(".revfront");
+  const old=front.querySelector(".enface"); if(old) old.remove();
+  const im=document.getElementById("revimg");
+  const sheen=document.getElementById("revsheen");
+  if(pc.energy){
+    im.removeAttribute("src"); im.style.visibility="hidden"; sheen.hidden=true;
+    front.insertAdjacentHTML("beforeend",
+      `<div class="enface"><div class="orb"></div>Basisenergie</div>`);
+  }else{
+    im.style.visibility=""; im.src=img(pc.c[0]); sheen.hidden=!pc.rev;
+  }
+  document.getElementById("revlabel").innerHTML="";
+  document.getElementById("revnext").textContent="Draai om";
+  document.getElementById("revdots").innerHTML=packCards.map((_,i)=>
+    `<i class="${i<revIdx?"on":i===revIdx?"now":""}"></i>`).join("");
+}
+function flipRev(){
+  if(revFlipped) return;
+  revFlipped=true;
+  const pc=packCards[revIdx];
+  const card=document.getElementById("revcard");
+  card.classList.add("flip");
+  if(pc.big) card.classList.add("big");
+  document.getElementById("revlabel").innerHTML = pc.energy
+    ? `<b>Basisenergie</b><span>Zit in elk pakje — hoort niet bij deze set.</span>`
+    : `<b>${pc.c[0]} ${pc.c[1]}${pc.rev?" REV":""}</b>
+       <span>${pc.rev?"Reverse holo · ":""}${pc.c[2]} · ${eur(pval(pc))}</span>`;
+  if(pc.big) confetti();
+  document.getElementById("revnext").textContent=
+    revIdx===packCards.length-1?"Bekijk je pakje":"Volgende kaart";
+}
+function nextRev(){
+  if(!revFlipped){ flipRev(); return; }
+  if(revIdx===packCards.length-1){ packSummary(); return; }
+  revIdx++; revFlipped=false; showRev();
+}
+
+/* stage 4 — everything you pulled */
+function packSummary(){
+  document.getElementById("packreveal").hidden=true;
+  document.getElementById("packdone").hidden=false;
+  document.getElementById("packhead").textContent="🎉 Je pakje";
+  document.getElementById("packgrid").innerHTML=packCards.map(pc=>pc.energy
+    ? `<div class="pcard"><div class="pinner"><div class="pface pfront">
+         <div class="enface"><div class="orb"></div>Basisenergie</div></div></div></div>`
+    : `<div class="pcard flip${pc.hit?" hit":""}"><div class="pinner"><div class="pface pfront">
+         <img loading="lazy" alt="" src="${img(pc.c[0])}">${pc.rev?'<div class="rev-sheen"></div>':""}
+       </div></div></div>`).join("");
+  const real=packCards.filter(pc=>!pc.energy);
+  let best=real[0], bi=-1;
+  real.forEach(pc=>{ const ri=RARITIES.indexOf(pc.c[2]); if(ri>bi){bi=ri; best=pc;} });
+  const total=packCards.reduce((a,pc)=>a+pval(pc),0);
+  document.getElementById("packsum").innerHTML=
+    `Beste trek: <b>${best.c[0]} ${best.c[1]}</b> (${best.c[2]}) · waarde van het pakje ${eur(total)}`;
+}
+
+document.getElementById("packchoose").addEventListener("click",e=>{
+  if(e.target.closest(".booster")) packTear();
 });
-document.getElementById("packopen").addEventListener("click",newPack);
-document.getElementById("packflip").addEventListener("click",()=>{
-  packCards.forEach((pc,i)=>setTimeout(()=>flipPack(i),i*180));
-});
+document.getElementById("tearbtn").addEventListener("click",tearDone);
+document.getElementById("revcard").addEventListener("click",flipRev);
+document.getElementById("revnext").addEventListener("click",nextRev);
+document.getElementById("packopen").addEventListener("click",packChoose);
 
 /* ---------- virtual binder: pages exactly like the physical one ---------- */
 let bPage=parseInt(localStorage.getItem("twm:bpage"))||1;
