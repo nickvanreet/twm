@@ -105,12 +105,9 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .packchoose .booster:nth-child(odd){transform:rotate(-2.5deg)}
 .packchoose .booster:nth-child(even){transform:rotate(2deg)}
 .packchoose .booster:active{transform:scale(.95)}
-.booster .foil{position:absolute;top:0;left:0;right:0;height:16%;
-  background:linear-gradient(90deg,var(--lantern),#FFD98A,var(--lantern));
-  border-bottom:2px dashed rgba(13,10,34,.45)}
-/* zoom past the card frame so only the illustration shows, like a real pack */
-/* the supplied wrapper illustrations are already cropped, so they just fill */
-.booster .hero.clean,.tearbody .hero.clean{background-size:cover;background-position:50% 45%}
+/* the supplied wrapper illustrations are already cropped, so they fill the pack */
+.booster .hero.clean,.tearbody .hero.clean{inset:0 0 20% 0;
+  background-size:cover;background-position:50% 45%}
 .booster .hero,.tearbody .hero{position:absolute;inset:14% 0 20% 0;
   background-size:215%;background-position:50% 36%;
   -webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 96%);
@@ -133,11 +130,14 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .tearbody{position:absolute;inset:0;border-radius:10px;overflow:hidden;
   background:linear-gradient(160deg,#2A1F63 0%,#160F3A 55%,#221856 100%);
   box-shadow:0 14px 40px rgba(0,0,0,.55), inset 0 0 0 1px rgba(245,185,68,.35)}
-.tearstrip{position:absolute;top:0;left:0;right:0;height:15%;z-index:2;border-radius:10px 10px 0 0;
-  background:linear-gradient(90deg,var(--lantern),#FFD98A,var(--lantern));
-  border-bottom:2px dashed rgba(13,10,34,.5);cursor:grab;
+/* the crimped top edge of the wrapper — same material as the pack, not a band */
+.tearstrip{position:absolute;top:0;left:0;right:0;height:12%;z-index:2;border-radius:10px 10px 0 0;
+  background:linear-gradient(180deg,rgba(13,10,34,.88),rgba(13,10,34,.55));
+  backdrop-filter:blur(1px);
+  border-bottom:2px dashed rgba(245,185,68,.65);cursor:grab;
   display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;color:var(--deep)}
+  font-size:11px;font-weight:700;color:var(--cream);letter-spacing:.04em;
+  text-shadow:0 1px 3px rgba(0,0,0,.8)}
 .tearstrip.gone{transition:transform .45s ease, opacity .45s ease;
   transform:translate(120%,-40%) rotate(18deg);opacity:0}
 .tearbody.opened{animation:burst .5s ease}
@@ -1496,9 +1496,8 @@ const ENERGIES=[[1,"Grass"],[2,"Fire"],[3,"Water"],[4,"Lightning"],
 /* chances of the hit slot, kept in step with rollPack below */
 const ODDS={"Hyper Rare":50,"Special Illustration Rare":33,"Ultra Rare":12,
             "Illustration Rare":8,"Double Rare":7,"Rare":1.7,"ACE SPEC Rare":20};
-const boosterArt=(f,foil=true)=>
-  `${foil?'<div class="foil"></div>':""}
-   <div class="hero${f.art?" clean":""}" style="background-image:url(${
+const boosterArt=f=>
+  `<div class="hero${f.art?" clean":""}" style="background-image:url(${
       f.art||`https://images.pokemontcg.io/sv6/${f.card}.png`})"></div>
    ${f.ja
      ? `<div class="packlogo jlogo">変幻の仮面<small>ポケモンカードゲーム</small></div>
@@ -1597,7 +1596,7 @@ function packTear(slotIdx){
   const body=document.getElementById("tearbody");
   strip.className="tearstrip"; strip.style.transform="";
   strip.textContent="▸ veeg hier ▸";
-  body.className="tearbody"; body.innerHTML=boosterArt(packFace,false);
+  body.className="tearbody"; body.innerHTML=boosterArt(packFace);
 
   let x0=null;
   const w=()=>document.getElementById("tearwrap").getBoundingClientRect().width||200;
