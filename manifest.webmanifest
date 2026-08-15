@@ -1,14 +1,14 @@
 {
-  "name": "Twilight Masquerade — my collection",
-  "short_name": "TWM Binder",
-  "description": "Tick off Twilight Masquerade cards as you collect them, with live prices.",
+  "name": "Twilight Masquerade — mijn verzameling",
+  "short_name": "TWM Map",
+  "description": "Vink je Twilight Masquerade-kaarten af terwijl je ze verzamelt, met actuele prijzen.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0D0A22",
   "theme_color": "#0D0A22",
-  "lang": "en",
+  "lang": "nl-BE",
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },

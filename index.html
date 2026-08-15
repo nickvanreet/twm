@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl-BE">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0D0A22">
-<title>Twilight Masquerade — my collection</title>
+<title>Twilight Masquerade — mijn verzameling</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
@@ -354,9 +354,9 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 <body>
 <div class="wrap">
   <header>
-    <button id="moonbtn" type="button" aria-label="Show my binder card">
+    <button id="moonbtn" type="button" aria-label="Toon mijn verzamelkaart">
     <svg width="54" height="54" viewBox="0 0 62 62" aria-hidden="true">
-      <title>The moon fills up as the collection grows</title>
+      <title>De maan vult zich naarmate je verzameling groeit</title>
       <defs><clipPath id="mf"><rect id="mfr" x="0" y="62" width="62" height="0"/></clipPath></defs>
       <circle cx="55" cy="8" r="1.6" fill="#F5B944" opacity=".8"/>
       <circle cx="6" cy="16" r="1.1" fill="#8B6BC7" opacity=".9"/>
@@ -369,7 +369,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     </button>
     <div class="grow">
       <h1>Twilight Masquerade</h1>
-      <p class="sub">Master set · <span id="slotcount">0</span> cards to find</p>
+      <p class="sub">Masterset · <span id="slotcount">0</span> kaarten te vinden</p>
     </div>
     <div style="text-align:right">
       <div class="count"><span id="have">0</span><span id="of"></span></div>
@@ -380,63 +380,64 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
   <div class="bar"><i id="fill" style="width:0%"></i></div>
 
   <div class="stats">
-    <span class="chip">To go: <b id="stTogo">373</b></span>
-    <span class="chip">Finish the set: <b id="stCost">€0</b></span>
-    <span class="chip" id="stBestWrap" hidden>My best card: <b id="stBest"></b></span>
-    <span class="chip" id="stDupWrap" hidden>Doubles: <b id="stDup"></b></span>
-    <span class="chip" id="stWishWrap" hidden>⭐ Wishlist: <b id="stWish"></b></span>
+    <span class="chip">Nog te vinden: <b id="stTogo">373</b></span>
+    <span class="chip">Set afmaken: <b id="stCost">€0</b></span>
+    <span class="chip" id="stBestWrap" hidden>Mijn beste kaart: <b id="stBest"></b></span>
+    <span class="chip" id="stDupWrap" hidden>Dubbels: <b id="stDup"></b></span>
+    <span class="chip" id="stWishWrap" hidden>⭐ Wenslijst: <b id="stWish"></b></span>
     <span class="chip" id="stLangWrap" hidden><b id="stLang"></b></span>
-    <button class="chip cotd" id="cotd" type="button">✨ Card of the day</button>
+    <button class="chip cotd" id="cotd" type="button">✨ Kaart van de dag</button>
   </div>
 
   <div class="funrow">
-    <button id="btnpack" type="button">🎁 Open a pack</button>
-    <button id="btnbinder" type="button">📖 Binder</button>
+    <button id="btnpack" type="button">🎁 Pakje openen</button>
+    <button id="btnbinder" type="button">📖 Map</button>
     <button id="btnquiz" type="button">🎮 Quiz</button>
     <button id="btndeck" type="button">🃏 Decks</button>
-    <button id="btnshare" type="button">📸 Share</button>
+    <button id="btnshare" type="button">📸 Delen</button>
   </div>
 
   <div class="controls">
-    <input id="q" type="search" placeholder="Search a name (EN or FR) or number" autocomplete="off" enterkeyhint="search">
-    <select id="rarity" aria-label="Filter by rarity"><option value="all">Every rarity</option></select>
-    <div class="seg" role="group" aria-label="Show">
-      <button data-view="all" aria-pressed="true">All</button>
-      <button data-view="need" aria-pressed="false">Still need</button>
-      <button data-view="have" aria-pressed="false">Got it</button>
-      <button data-view="dup" aria-pressed="false">Doubles</button>
-      <button data-view="wish" aria-pressed="false" aria-label="Wishlist">⭐</button>
+    <input id="q" type="search" placeholder="Zoek een naam (EN of FR) of nummer" autocomplete="off" enterkeyhint="search">
+    <select id="rarity" aria-label="Filter op zeldzaamheid"><option value="all">Alle zeldzaamheden</option></select>
+    <div class="seg" role="group" aria-label="Tonen">
+      <button data-view="all" aria-pressed="true">Alles</button>
+      <button data-view="need" aria-pressed="false">Nog nodig</button>
+      <button data-view="have" aria-pressed="false">Heb ik</button>
+      <button data-view="dup" aria-pressed="false">Dubbels</button>
+      <button data-view="wish" aria-pressed="false" aria-label="Wenslijst">⭐</button>
     </div>
   </div>
 
-  <button id="install" type="button">Install on this phone</button>
+  <button id="install" type="button">Installeer op deze telefoon</button>
 
   <details class="about">
-    <summary>🎭 About this set</summary>
-    <p><b>Twilight Masquerade</b> came out on 24 May 2024. It takes place in <b>Kitakami</b>,
-    the mountain village from the Teal Mask adventure — a land of summer festivals, lanterns
-    and masks.</p>
-    <p>The star is <b>Ogerpon</b>, who appears with all four of her masks: Teal (24, 25),
-    Hearthflame (40), Wellspring (64) and Cornerstone (112). The village "heroes", the
-    <b>Loyal Three</b> — Okidogi (111), Munkidori (95) and Fezandipiti (96) — are secretly
-    the villains of the story. Other treasures: <b>Bloodmoon Ursaluna</b> (141), six colourful
-    <b>ACE SPEC</b> cards, and the set's most-wanted card, the special illustration
-    <b>Greninja ex</b> (214).</p>
-    <p>The set has 167 numbered cards plus secret rares up to 226 — with every reverse holo,
-    <b>373 cards</b> for a master set. In Japan these cards came from two different sets,
-    <i>Mask of Change</i> and <i>Crimson Haze</i>, which is why Japanese cards have other numbers.</p>
+    <summary>🎭 Over deze set</summary>
+    <p><b>Twilight Masquerade</b> verscheen op 24 mei 2024. De set speelt zich af in
+    <b>Kitakami</b>, het bergdorp uit het Teal Mask-avontuur — een land van zomerfeesten,
+    lampionnen en maskers.</p>
+    <p>De ster is <b>Ogerpon</b>, met alle vier haar maskers: Teal (24, 25),
+    Hearthflame (40), Wellspring (64) en Cornerstone (112). De "helden" van het dorp, de
+    <b>Loyal Three</b> — Okidogi (111), Munkidori (95) en Fezandipiti (96) — zijn stiekem
+    de slechteriken van het verhaal. Nog meer schatten: <b>Bloodmoon Ursaluna</b> (141), zes
+    kleurrijke <b>ACE SPEC</b>-kaarten, en de meest gezochte kaart van de set, de special
+    illustration <b>Greninja ex</b> (214).</p>
+    <p>De set heeft 167 genummerde kaarten plus secret rares tot 226 — met elke reverse holo
+    erbij zijn dat <b>373 kaarten</b> voor een masterset. In Japan kwamen deze kaarten uit twee
+    verschillende sets, <i>Mask of Change</i> en <i>Crimson Haze</i>, en daarom hebben Japanse
+    kaarten andere nummers.</p>
   </details>
 
   <div id="grid"></div>
-  <div id="empty" class="empty" hidden><p>Nothing here</p><p class="sub" id="emptymsg"></p></div>
+  <div id="empty" class="empty" hidden><p>Niets gevonden</p><p class="sub" id="emptymsg"></p></div>
 
   <div id="ov" hidden>
-    <button id="ovclose" type="button" aria-label="Close">✕</button>
-    <button id="ovprev" class="ovnav" type="button" aria-label="Previous card">‹</button>
-    <button id="ovnext" class="ovnav" type="button" aria-label="Next card">›</button>
+    <button id="ovclose" type="button" aria-label="Sluiten">✕</button>
+    <button id="ovprev" class="ovnav" type="button" aria-label="Vorige kaart">‹</button>
+    <button id="ovnext" class="ovnav" type="button" aria-label="Volgende kaart">›</button>
     <div class="ovbox">
       <div class="ovshot"><img id="ovimg" alt=""><div id="ovsheen" class="rev-sheen" hidden></div><div id="ovglare"></div></div>
-      <div class="ovlang" role="group" aria-label="Card language">
+      <div class="ovlang" role="group" aria-label="Taal van de kaart">
         <button data-lang="en" type="button" aria-pressed="true">English</button>
         <button data-lang="fr" type="button" aria-pressed="false">Français</button>
         <button data-lang="ja" type="button" aria-pressed="false">日本語</button>
@@ -447,14 +448,14 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
       <div class="ovpr" id="ovpr"></div>
       <button id="ovtick" type="button"></button>
       <button id="ovwish" type="button" hidden></button>
-      <div id="ovdup" hidden><span>Doubles for trading</span>
+      <div id="ovdup" hidden><span>Dubbels om te ruilen</span>
         <div class="dupctl">
-          <button id="dupminus" type="button" aria-label="One double less">−</button>
+          <button id="dupminus" type="button" aria-label="Eén dubbel minder">−</button>
           <b id="dupn">0</b>
-          <button id="dupplus" type="button" aria-label="One double more">+</button>
+          <button id="dupplus" type="button" aria-label="Eén dubbel meer">+</button>
         </div>
       </div>
-      <div id="ovmy" hidden><span>My card is</span>
+      <div id="ovmy" hidden><span>Mijn kaart is</span>
         <div class="ovlang" id="ovmybtns">
           <button data-my="en" type="button" aria-pressed="true">English</button>
           <button data-my="fr" type="button" aria-pressed="false">Français</button>
@@ -465,120 +466,123 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
   </div>
 
   <div id="pack" class="fullov" hidden>
-    <button class="fovclose" data-close="pack" type="button" aria-label="Close">✕</button>
-    <div class="fovhead">🎁 Booster pack</div>
+    <button class="fovclose" data-close="pack" type="button" aria-label="Sluiten">✕</button>
+    <div class="fovhead">🎁 Boosterpakje</div>
     <div class="packgrid" id="packgrid"></div>
     <div class="packsum" id="packsum"></div>
     <div class="packrow">
-      <button id="packopen" type="button">Open a pack!</button>
-      <button id="packflip" type="button" hidden>Flip all</button>
+      <button id="packopen" type="button">Pakje openen!</button>
+      <button id="packflip" type="button" hidden>Alles omdraaien</button>
     </div>
-    <p class="fovnote">Just for fun — the odds are approximate and pulls are not added to your binder.</p>
+    <p class="fovnote">Puur voor de fun — de kansen zijn bij benadering en wat je trekt komt niet in je verzameling.</p>
   </div>
 
   <div id="binder" class="fullov" hidden>
-    <button class="fovclose" data-close="binder" type="button" aria-label="Close">✕</button>
+    <button class="fovclose" data-close="binder" type="button" aria-label="Sluiten">✕</button>
     <div class="fovhead binderhead">
-      <button id="bprev" type="button" aria-label="Previous page">‹</button>
-      <span id="bpage">Page 1</span>
-      <button id="bnext" type="button" aria-label="Next page">›</button>
+      <button id="bprev" type="button" aria-label="Vorige pagina">‹</button>
+      <span id="bpage">Pagina 1</span>
+      <button id="bnext" type="button" aria-label="Volgende pagina">›</button>
     </div>
     <div class="bfmt">
-      <label for="bsize">Pages in my binder</label>
+      <label for="bsize">Pagina's in mijn map</label>
       <select id="bsize">
-        <option value="3x3">3 × 3 — 9 pockets</option>
-        <option value="4x3">4 × 3 — 12 pockets</option>
-        <option value="4x4">4 × 4 — 16 pockets</option>
+        <option value="3x3">3 × 3 — 9 vakjes</option>
+        <option value="4x3">4 × 3 — 12 vakjes</option>
+        <option value="4x4">4 × 4 — 16 vakjes</option>
       </select>
     </div>
     <div class="bsearch">
-      <input id="bq" type="search" placeholder="Find a card…" autocomplete="off" enterkeyhint="search">
-      <button id="bnextm" type="button">Next ›</button>
+      <input id="bq" type="search" placeholder="Zoek een kaart…" autocomplete="off" enterkeyhint="search">
+      <button id="bnextm" type="button">Volgende ›</button>
       <span id="bhits" class="bhits"></span>
     </div>
     <div class="bgrid" id="bgrid"></div>
-    <p class="fovnote">Same pages and pockets as the real binder. Tap a pocket to open that card.</p>
+    <p class="fovnote">Dezelfde pagina's en vakjes als in je echte map. Tik op een vakje om die kaart te openen.</p>
   </div>
 
   <div id="quiz" class="fullov" hidden>
-    <button class="fovclose" data-close="quiz" type="button" aria-label="Close">✕</button>
-    <div class="fovhead">🎮 Whose card is this?<span class="qscore" id="qscore"></span></div>
+    <button class="fovclose" data-close="quiz" type="button" aria-label="Sluiten">✕</button>
+    <div class="fovhead">🎮 Van wie is deze kaart?<span class="qscore" id="qscore"></span></div>
     <div class="qart" id="qart"></div>
     <div class="qopts" id="qopts"></div>
     <p class="fovnote" id="qmsg"></p>
   </div>
 
-  <div id="toast" hidden><span id="toastmsg"></span><button id="undo" type="button">Undo</button></div>
+  <div id="toast" hidden><span id="toastmsg"></span><button id="undo" type="button">Ongedaan maken</button></div>
 
-  <p class="note" id="pricenote">Checking today's prices…</p>
+  <p class="note" id="pricenote">Prijzen van vandaag ophalen…</p>
 
   <div class="bkrow">
-    <button id="bkexp" type="button">💾 Save a backup</button>
-    <button id="bkimp" type="button">📥 Restore a backup</button>
+    <button id="bkexp" type="button">💾 Back-up bewaren</button>
+    <button id="bkimp" type="button">📥 Back-up terugzetten</button>
     <input id="bkfile" type="file" accept="application/json,.json" hidden>
   </div>
 
   <div id="deck" class="fullov" hidden>
     <button class="fovclose" data-close="deck" type="button">✕</button>
-    <div class="fovhead">🃏 Deck lab</div>
-    <div class="seg dtabs" role="group" aria-label="Deck lab section">
-      <button data-dtab="ready" aria-pressed="true">Ready decks</button>
-      <button data-dtab="build" aria-pressed="false">Build</button>
-      <button data-dtab="combo" aria-pressed="false">Combos</button>
+    <div class="fovhead">🃏 Decklab</div>
+    <div class="seg dtabs" role="group" aria-label="Onderdeel van het decklab">
+      <button data-dtab="ready" aria-pressed="true">Klare decks</button>
+      <button data-dtab="build" aria-pressed="false">Bouwen</button>
+      <button data-dtab="combo" aria-pressed="false">Combo's</button>
     </div>
-    <div id="dready" class="dpane"><p class="fovnote">Loading the cards…</p></div>
+    <div id="dready" class="dpane"><p class="fovnote">Kaarten laden…</p></div>
     <div id="dbuild" class="dpane" hidden>
       <div class="dstatus">
-        <b id="dcount">0</b><span>/ 60 cards</span>
+        <b id="dcount">0</b><span>/ 60 kaarten</span>
         <span id="dverdict"></span>
         <span id="dmiss" style="font-size:12px;color:var(--mute)"></span>
-        <span class="dstep">Energy
-          <button id="denm" type="button" aria-label="Fewer energy">−</button>
+        <span class="dstep">Energie
+          <button id="denm" type="button" aria-label="Minder energie">−</button>
           <b id="dens" style="font-size:15px">12</b>
-          <button id="denp" type="button" aria-label="More energy">+</button>
+          <button id="denp" type="button" aria-label="Meer energie">+</button>
         </span>
       </div>
       <p class="dprob" id="dprob"></p>
       <div id="dlist"></div>
       <div class="dctl">
-        <input id="dq" type="search" placeholder="Search a card to add…" autocomplete="off">
+        <input id="dq" type="search" placeholder="Zoek een kaart om toe te voegen…" autocomplete="off">
       </div>
       <div class="pool" id="dpool"></div>
       <div class="drow">
-        <button id="dclear" class="ghostbtn" type="button">Empty the deck</button>
+        <button id="dclear" class="ghostbtn" type="button">Deck leegmaken</button>
       </div>
     </div>
     <div id="dcombo" class="dpane" hidden></div>
-    <p class="fovnote">A deck of only Twilight Masquerade cards — great against a friend
-      with the same rule, not a tournament deck. Basic Energy isn't listed: set the number
-      and add that many of your own.</p>
+    <p class="fovnote">Een deck met alleen Twilight Masquerade-kaarten — top tegen een vriend
+      die dezelfde regel volgt, geen toernooideck. Basic Energy staat er niet bij: zet het aantal
+      en leg er zelf zoveel bij.</p>
   </div>
 
   <div id="shareov" class="fullov" hidden>
     <button class="fovclose" data-close="shareov" type="button">✕</button>
-    <div class="fovhead">📸 My binder card</div>
-    <img id="shareimg" alt="Collection share image">
+    <div class="fovhead">📸 Mijn verzamelkaart</div>
+    <img id="shareimg" alt="Deelafbeelding van de verzameling">
     <div class="packrow">
-      <button id="sharesend" type="button">Share it!</button>
-      <button id="sharesave" type="button">Save image</button>
+      <button id="sharesend" type="button">Delen maar!</button>
+      <button id="sharesave" type="button">Afbeelding bewaren</button>
     </div>
   </div>
 
   <footer>
-    Tap a card to collect it — the message tells you which binder page and pocket it goes in
-    (pages of 4 pockets × 3 rows, in card order). Tapping a collected card opens it big;
-    removing it happens there and asks twice. 🔍 previews any card without collecting it.<br><br>
-    Prices are Cardmarket 30-day averages, fetched from the Pokémon TCG API and refreshed once a day.
-    ▲ or ▼ means the last week's average sits at least 5% above or below the 30-day average —
-    that card is on the way up or down. They are a rough guide, not a valuation.
-    English card images load from the same API; French and Japanese images and names come from TCGdex.
-    A collected card can be marked "my card is Français / 日本語" — it then shows that print's picture
-    and an FR or JP tag, for collections that mix languages. The 日本語 view appears on the 195 cards
-    whose Japanese counterpart (spread over Japan's Mask of Change and Crimson Haze sets) could be
-    verified by matching the artwork; the rest have no Japanese scan available.
-    All prices refer to the European (English/French) print — Japanese cards trade on a separate
-    market that these price sources don't cover, so treat prices on JP-marked cards as indicative.
-    Pokémon and all card artwork belong to The Pokémon Company, Nintendo and Creatures.
+    Tik op een kaart om ze te verzamelen — het bericht zegt in welke pagina en welk vakje
+    van je map ze hoort (je kiest zelf het formaat van je map, op kaartnummer gesorteerd).
+    Tik je op een kaart die je al hebt, dan opent ze groot; verwijderen gebeurt daar en vraagt
+    twee keer bevestiging. Met 🔍 bekijk je een kaart zonder ze te verzamelen.<br><br>
+    Prijzen zijn Cardmarket-gemiddelden over 30 dagen, opgehaald via de Pokémon TCG API en één
+    keer per dag ververst. ▲ of ▼ betekent dat het gemiddelde van de voorbije week minstens 5%
+    hoger of lager ligt dan dat van 30 dagen — die kaart gaat omhoog of omlaag. Het is een ruwe
+    richtprijs, geen schatting. Engelse kaartafbeeldingen komen van diezelfde API; Franse en
+    Japanse afbeeldingen en namen komen van TCGdex. Van een kaart die je hebt, kan je aanduiden
+    "mijn kaart is Français / 日本語" — dan zie je die versie en een FR- of JP-label, handig voor
+    verzamelingen met meerdere talen. De 日本語-versie verschijnt bij de 195 kaarten waarvan de
+    Japanse tegenhanger (verspreid over de Japanse sets Mask of Change en Crimson Haze) kon worden
+    bevestigd door de illustraties te vergelijken; van de rest bestaat geen Japanse scan.
+    Alle prijzen gaan over de Europese (Engelse/Franse) druk — Japanse kaarten worden op een aparte
+    markt verhandeld die deze prijsbronnen niet dekken, dus beschouw de prijs bij JP-kaarten als
+    indicatief. Pokémon en alle kaartillustraties zijn eigendom van The Pokémon Company, Nintendo
+    en Creatures.
   </footer>
 </div>
 
@@ -597,7 +601,7 @@ const KEY="twm:collection", PKEY="twm:prices2", MAXAGE=864e5, USD_EUR=0.867;
 try{ localStorage.removeItem("twm:prices"); }catch(e){}
 const img=n=>`https://images.pokemontcg.io/sv6/${n}.png`;
 const pad3=n=>String(n).padStart(3,"0");   // TCGdex paths are zero-padded
-const eur=n=>"€"+n.toFixed(2);
+const eur=n=>"€"+n.toFixed(2).replace(".",",");   // Belgian decimal comma
 
 let owned=new Set(), live=null;
 try{ const s=localStorage.getItem(KEY); if(s) owned=new Set(JSON.parse(s)); }catch(e){}
@@ -706,7 +710,7 @@ function paint(){
 
   document.getElementById("have").textContent=haveN;
   document.getElementById("of").textContent="/"+SLOTS.length;
-  document.getElementById("value").textContent=`${eur(haveV)} of ${eur(totalV)}`;
+  document.getElementById("value").textContent=`${eur(haveV)} van ${eur(totalV)}`;
   const pct=haveN/SLOTS.length;
   document.getElementById("fill").style.width=(pct*100)+"%";
   const r=document.getElementById("mfr");
@@ -723,7 +727,7 @@ function paint(){
   document.getElementById("stDupWrap").hidden=!dupN;
   if(dupN) document.getElementById("stDup").textContent=`${dupN} (${eur(dupV)})`;
   document.getElementById("stWishWrap").hidden=!wishN;
-  if(wishN) document.getElementById("stWish").textContent=`${wishN} to find (${eur(wishV)})`;
+  if(wishN) document.getElementById("stWish").textContent=`${wishN} te vinden (${eur(wishV)})`;
   const langMix=haveN>0&&(frC+jaC)>0;
   document.getElementById("stLangWrap").hidden=!langMix;
   if(langMix){
@@ -735,10 +739,10 @@ function paint(){
 
   emptyEl.hidden=shown>0;
   document.getElementById("emptymsg").textContent =
-    view==="need" ? "Every card in this filter is collected."
-    : view==="dup" ? "No doubles yet — open a card you have twice and use the + button."
-    : view==="wish" ? "No stars yet — open a card you dream of and tap ☆."
-    : "Try a different search or rarity.";
+    view==="need" ? "Elke kaart in deze filter heb je al."
+    : view==="dup" ? "Nog geen dubbels — open een kaart die je twee keer hebt en gebruik de +-knop."
+    : view==="wish" ? "Nog geen sterren — open een kaart waarvan je droomt en tik op ☆."
+    : "Probeer een andere zoekterm of zeldzaamheid.";
 }
 
 /* ---------- binder position (page size is a setting; cards stay in numeric order) ---------- */
@@ -758,7 +762,7 @@ function binderPos(s){
 }
 const binderTxt=s=>{
   const b=binderPos(s);
-  return `page <b>${b.page}</b> · row <b>${b.row}</b> · pocket <b>${b.pocket}</b>`;
+  return `pagina <b>${b.page}</b> · rij <b>${b.row}</b> · vakje <b>${b.pocket}</b>`;
 };
 
 /* ---------- saving: always re-read before writing, so a second open
@@ -770,7 +774,7 @@ function setOwned(id,on){
   loadOwned();
   on?owned.add(id):owned.delete(id);
   try{ localStorage.setItem(KEY,JSON.stringify([...owned])); }
-  catch(err){ document.getElementById("pricenote").textContent="That tick didn't save — your browser is blocking storage."; }
+  catch(err){ document.getElementById("pricenote").textContent="Dat vinkje is niet bewaard — je browser blokkeert opslag."; }
   if(!on){                       // a card you no longer own has no doubles either
     loadDupes();
     if(dupes[id]){
@@ -895,7 +899,7 @@ function collect(id){
   const n=nodes.get(id);
   if(n){ n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop"); }
   const s=byId.get(id);
-  showToast(`✓ ${s.num} ${s.name}${s.rev?" REV":""} → ${binderTxt(s)}${wasWish?" · ⭐ a wishlist card!":""}`,id);
+  showToast(`✓ ${s.num} ${s.name}${s.rev?" REV":""} → ${binderTxt(s)}${wasWish?" · ⭐ een kaart van je wenslijst!":""}`,id);
   if(wasWish) confetti();
   checkMilestones();
 }
@@ -907,15 +911,15 @@ function checkMilestones(){
   try{ seen=new Set(JSON.parse(localStorage.getItem(MKEY)||"[]")); }catch(e){ seen=new Set(); }
   const fresh=[];
   const pct=[...owned].length/SLOTS.length*100;
-  for(const [t,msg] of [[10,"🎉 10% of the set!"],[25,"🎉 A quarter of the set!"],
-      [50,"🌕 HALF the set — the moon is filling!"],[75,"🎉 Three quarters!"],
-      [100,"🏆 MASTER SET COMPLETE!"]]){
+  for(const [t,msg] of [[10,"🎉 10% van de set!"],[25,"🎉 Een kwart van de set!"],
+      [50,"🌕 De HELFT van de set — de maan vult zich!"],[75,"🎉 Driekwart!"],
+      [100,"🏆 MASTERSET COMPLEET!"]]){
     if(pct>=t&&!seen.has("p"+t)){ seen.add("p"+t); fresh.push(msg); }
   }
   for(const r of RARITIES){
     const list=SLOTS.filter(s=>s.rarity===r);
     if(list.length&&list.every(s=>owned.has(s.id))&&!seen.has("r"+r)){
-      seen.add("r"+r); fresh.push(`✦ Every ${r} collected!`);
+      seen.add("r"+r); fresh.push(`✦ Alle ${r} compleet!`);
     }
   }
   if(fresh.length){
@@ -1040,7 +1044,7 @@ function renderOv(){
   document.getElementById("ovnm").textContent=`${cur.num} · ${nm}`;
   paintLang();
   document.getElementById("ovsub").textContent=cur.rarity+(cur.rev?" · reverse holo":"");
-  document.getElementById("ovbinder").innerHTML="Binder: "+binderTxt(cur);
+  document.getElementById("ovbinder").innerHTML="In je map: "+binderTxt(cur);
   document.getElementById("ovpr").innerHTML=eur(priceOf(cur))+arrow(cur,true);
   paintOvTick();
 }
@@ -1049,7 +1053,7 @@ function paintOvTick(){
   armId=null;
   const has=owned.has(cur.id);
   const t=document.getElementById("ovtick");
-  t.textContent=has?"✓ Got it! (tap to remove)":"Found it? Tap here";
+  t.textContent=has?"✓ Heb ik! (tik om te verwijderen)":"Gevonden? Tik hier";
   t.classList.toggle("on",has);
   t.classList.remove("warn");
   paintMy(); paintDup(); paintWish();
@@ -1060,7 +1064,7 @@ function paintWish(){
   b.hidden=!show;
   if(!show) return;
   const on=wish.has(cur.id);
-  b.textContent=on?"⭐ On the wishlist (tap to remove)":"☆ Add to wishlist";
+  b.textContent=on?"⭐ Staat op je wenslijst (tik om te verwijderen)":"☆ Zet op je wenslijst";
   b.classList.toggle("on",on);
 }
 document.getElementById("ovwish").addEventListener("click",()=>{
@@ -1121,7 +1125,7 @@ document.getElementById("ovtick").addEventListener("click",()=>{
   if(!owned.has(cur.id)){ collect(cur.id); paintOvTick(); return; }
   if(armId!==cur.id){
     armId=cur.id;
-    t.textContent="Really remove? Tap again";
+    t.textContent="Echt verwijderen? Tik nog eens";
     t.classList.add("warn");
     setTimeout(()=>{ if(armId===cur.id) paintOvTick(); },2500);
     return;
@@ -1191,16 +1195,16 @@ async function fetchPrices(){
   let cached=null;
   try{ const s=localStorage.getItem(PKEY); if(s) cached=JSON.parse(s); }catch(e){}
   if(cached&&Date.now()-cached.ts<MAXAGE){
-    live=cached.data; note.textContent=`Prices from ${new Date(cached.ts).toLocaleDateString()}.`;
+    live=cached.data; note.textContent=`Prijzen van ${new Date(cached.ts).toLocaleDateString("nl-BE")}.`;
     paint(); return;
   }
   try{
     const data=await fetchPrices();
-    live=data; note.textContent="Prices updated just now.";
+    live=data; note.textContent="Prijzen zonet bijgewerkt.";
     try{ localStorage.setItem(PKEY,JSON.stringify({ts:Date.now(),data})); }catch(e){}
   }catch(e){
-    if(cached){ live=cached.data; note.textContent=`Prices from ${new Date(cached.ts).toLocaleDateString()}.`; }
-    else note.textContent="Couldn't reach the price service — showing built-in prices, which may be out of date.";
+    if(cached){ live=cached.data; note.textContent=`Prijzen van ${new Date(cached.ts).toLocaleDateString("nl-BE")}.`; }
+    else note.textContent="Prijsdienst niet bereikbaar — je ziet de ingebouwde prijzen, die verouderd kunnen zijn.";
   }
   paint();
 })();
@@ -1292,7 +1296,7 @@ function newPack(){
   packCards.forEach((pc,i)=>{
     const b=document.createElement("button");
     b.className="pcard"+(pc.hit?" hit":""); b.type="button"; b.dataset.i=i;
-    b.setAttribute("aria-label","Card "+(i+1)+" — tap to flip");
+    b.setAttribute("aria-label","Kaart "+(i+1)+" — tik om om te draaien");
     b.innerHTML=`<div class="pinner">
       <div class="pface pback"><svg width="46" height="46" viewBox="0 0 62 62" aria-hidden="true">
         <circle cx="31" cy="31" r="24" fill="none" stroke="#F5B944" stroke-width="2.5" opacity=".8"/>
@@ -1301,7 +1305,7 @@ function newPack(){
     </div>`;
     g.appendChild(b);
   });
-  document.getElementById("packopen").textContent="Open another!";
+  document.getElementById("packopen").textContent="Nog eentje!";
   document.getElementById("packflip").hidden=false;
 }
 function flipPack(i){
@@ -1315,7 +1319,7 @@ function flipPack(i){
     packCards.forEach(pc2=>{ const ri=RARITIES.indexOf(pc2.c[2]); if(ri>bi){bi=ri; best=pc2;} });
     const total=packCards.reduce((a,pc2)=>a+pval(pc2),0);
     document.getElementById("packsum").innerHTML=
-      `Best pull: <b>${best.c[0]} ${best.c[1]}</b> (${best.c[2]}) · pack value ${eur(total)}`;
+      `Beste trek: <b>${best.c[0]} ${best.c[1]}</b> (${best.c[2]}) · waarde van het pakje ${eur(total)}`;
   }
 }
 document.getElementById("packgrid").addEventListener("click",e=>{
@@ -1330,7 +1334,7 @@ document.getElementById("packflip").addEventListener("click",()=>{
 let bPage=parseInt(localStorage.getItem("twm:bpage"))||1;
 function renderBinder(){
   bPage=Math.min(Math.max(1,bPage),bTotal());
-  document.getElementById("bpage").textContent=`Page ${bPage} / ${bTotal()}`;
+  document.getElementById("bpage").textContent=`Pagina ${bPage} / ${bTotal()}`;
   const g=document.getElementById("bgrid"); g.innerHTML="";
   g.style.gridTemplateColumns=`repeat(${bCols},1fr)`;
   for(let k=0;k<bPer();k++){
@@ -1351,7 +1355,7 @@ function renderBinder(){
         (s.rev?'<span class="brev">REV</span>':'')+
         (extra?`<span class="bcount">×${extra+1}</span>`:'');
       d.setAttribute("aria-label",
-        `${s.num} ${s.name}${s.rev?" reverse holo":""} — collected${extra?`, ${extra+1} copies`:""}`);
+        `${s.num} ${s.name}${s.rev?" reverse holo":""} — in de map${extra?`, ${extra+1} exemplaren`:""}`);
       if(src!==img(s.num)){        // a missing FR/JA scan must not leave an empty pocket
         const im=d.querySelector("img");
         im.onerror=()=>{ im.onerror=null; im.src=img(s.num); };
@@ -1359,7 +1363,7 @@ function renderBinder(){
     }else{
       d.className="bslot ghost";
       d.innerHTML=`<div class="bnum"><b>${s.num}</b><span>${s.name}</span>${s.rev?'<span>REV</span>':''}</div>`;
-      d.setAttribute("aria-label",`${s.num} ${s.name}${s.rev?" reverse holo":""} — still needed`);
+      d.setAttribute("aria-label",`${s.num} ${s.name}${s.rev?" reverse holo":""} — nog nodig`);
     }
     if(bMatches.has(s.id)) d.classList.add("hl");
     d.addEventListener("click",()=>openOv(s.id,true));
@@ -1398,7 +1402,7 @@ function bSearch(){
     if(bMatchIdx.length) bPage=Math.floor(bMatchIdx[0]/bPer())+1;
   }
   document.getElementById("bhits").textContent=
-    q?(bMatchIdx.length?`${bMatchPos+1} / ${bMatchIdx.length}`:"0 found"):"";
+    q?(bMatchIdx.length?`${bMatchPos+1} / ${bMatchIdx.length}`:"0 gevonden"):"";
   renderBinder();
 }
 function bNextMatch(){
@@ -1421,7 +1425,7 @@ document.getElementById("binder").addEventListener("touchend",e=>{
 
 /* ---------- art quiz ---------- */
 let qStreak=0, qBest=parseInt(localStorage.getItem("twm:quizbest"))||0, qCur=null, qLock=false, qTimer=null;
-function qScoreUI(){ document.getElementById("qscore").textContent=`Streak ${qStreak} · Best ${qBest}`; }
+function qScoreUI(){ document.getElementById("qscore").textContent=`Reeks ${qStreak} · Beste ${qBest}`; }
 function qRound(){
   clearTimeout(qTimer);   // a pending auto-advance must not replace this round
   qLock=false;
@@ -1448,11 +1452,11 @@ function qAnswer(btn,nm){
     btn.classList.add("good"); qStreak++;
     if(qStreak>qBest){ qBest=qStreak; try{ localStorage.setItem("twm:quizbest",qBest); }catch(e){} }
     if(qStreak&&qStreak%5===0) confetti();
-    document.getElementById("qmsg").textContent=`Yes! ${qCur[0]} ${qCur[1]}.`;
+    document.getElementById("qmsg").textContent=`Juist! ${qCur[0]} ${qCur[1]}.`;
   }else{
     btn.classList.add("bad");
     [...document.getElementById("qopts").children].find(b=>b.textContent===qCur[1]).classList.add("good");
-    document.getElementById("qmsg").textContent=`It was ${qCur[0]} ${qCur[1]} — streak over!`;
+    document.getElementById("qmsg").textContent=`Het was ${qCur[0]} ${qCur[1]} — reeks voorbij!`;
     qStreak=0;
   }
   qScoreUI();
@@ -1524,10 +1528,10 @@ function checkDeck(){
     if(c.st==="P"&&(c.sub||[]).includes("Basic")) basics+=n;
   }
   for(const [nm,n] of Object.entries(byName))
-    if(n>4) probs.push(`${n} copies of ${nm} — you may only play 4 of the same name.`);
-  if(aces>1) probs.push(`${aces} ACE SPEC cards — a deck may hold only 1.`);
-  if(!basics) probs.push("No Basic Pokémon — you could not even start the game.");
-  else if(basics<8) tips.push(`Only ${basics} Basic Pokémon. That is legal, but you will often start with none in hand — 8 or more is safer.`);
+    if(n>4) probs.push(`${n} keer ${nm} — je mag er maar 4 met dezelfde naam spelen.`);
+  if(aces>1) probs.push(`${aces} ACE SPEC-kaarten — een deck mag er maar 1 bevatten.`);
+  if(!basics) probs.push("Geen enkele Basic Pokémon — zo kan je het spel niet eens starten.");
+  else if(basics<8) tips.push(`Maar ${basics} Basic Pokémon. Dat mag, maar vaak start je dan zonder — 8 of meer is veiliger.`);
   for(const [id,n] of Object.entries(deckState.cards)){
     const c=byCardId.get(+id); if(!c||!c.from) continue;
     let have=0;
@@ -1535,10 +1539,10 @@ function checkDeck(){
       const c2=byCardId.get(+id2);
       if(c2&&c2.name===c.from) have+=n2;
     }
-    if(have<n) probs.push(`${n} ${c.name} but only ${have} ${c.from} to evolve from.`);
+    if(have<n) probs.push(`${n} ${c.name} maar slechts ${have} ${c.from} om uit te evolueren.`);
   }
   const total=cards+(deckState.energy||0);
-  if(total!==60) probs.push(`${total} cards in total — a deck must be exactly 60, energy included.`);
+  if(total!==60) probs.push(`${total} kaarten in totaal — een deck moet er exact 60 hebben, energie meegeteld.`);
   return {probs,tips,total,cards};
 }
 
@@ -1556,7 +1560,7 @@ function renderBuild(){
   document.getElementById("dens").textContent=deckState.energy;
   const v=document.getElementById("dverdict");
   v.className=probs.length?"bad":"ok";
-  v.textContent=probs.length?"not legal yet":"legal deck ✓";
+  v.textContent=probs.length?"nog niet geldig":"geldig deck ✓";
   document.getElementById("dprob").innerHTML=
     probs.map(p=>"• "+p).join("<br>")+
     (probs.length&&tips.length?"<br>":"")+
@@ -1565,7 +1569,7 @@ function renderBuild(){
   const miss=Object.keys(deckState.cards).map(Number)
     .filter(id=>{ const c=byCardId.get(id); return c&&!cardOwned(c); }).length;
   document.getElementById("dmiss").textContent=
-    miss?`· ${miss} card${miss>1?"s":""} you still need`:"";
+    miss?`· ${miss} kaart${miss>1?"en":""} die je nog niet hebt`:"";
 
   const list=document.getElementById("dlist");
   const ids=Object.keys(deckState.cards).map(Number)
@@ -1574,17 +1578,17 @@ function renderBuild(){
       return (A.st===B.st?0:A.st==="P"?-1:1)||a-b;
     });
   if(!ids.length){
-    list.innerHTML=`<p class="fovnote">Empty deck — search below, or load a ready-made
-      deck from the first tab.</p>`;
+    list.innerHTML=`<p class="fovnote">Leeg deck — zoek hieronder, of laad een klaar deck
+      uit het eerste tabblad.</p>`;
   }else{
     list.innerHTML=ids.map(id=>{
       const c=byCardId.get(id), n=deckState.cards[id];
       const have=cardOwned(c);
       return `<div class="dline"><span class="tag2 ${cardKind(c)}">${c.st==="P"?"PKMN":"TRN"}</span>
         <span class="grow2"><span class="nm2">${c.name}</span><br><small>${cardLine(c)}</small></span>
-        ${have?"":'<span class="tag2 no">not owned</span>'}
-        <button class="mini" data-sub="${id}" aria-label="One less">−</button><b>${n}</b>
-        <button class="mini" data-add="${id}" aria-label="One more">+</button></div>`;
+        ${have?"":'<span class="tag2 no">niet in bezit</span>'}
+        <button class="mini" data-sub="${id}" aria-label="Eén minder">−</button><b>${n}</b>
+        <button class="mini" data-add="${id}" aria-label="Eén meer">+</button></div>`;
     }).join("");
   }
   renderPool();
@@ -1599,16 +1603,16 @@ function renderPool(){
       <span class="tag2 ${cardKind(c)}">${c.st==="P"?"PKMN":"TRN"}</span>
       ${c.ace?'<span class="tag2 ace">ACE</span>':""}
       <span class="grow2"><span class="nm2">${c.id} ${c.name}</span><br><small>${cardLine(c)}</small></span>
-      ${cardOwned(c)?'<span class="tag2 p">have</span>':""}
+      ${cardOwned(c)?'<span class="tag2 p">heb ik</span>':""}
       <span style="font-size:18px;color:var(--lantern)">+</span></button>`).join("")
-    : `<p class="fovnote">No card of that name in this set.</p>`;
+    : `<p class="fovnote">Geen kaart met die naam in deze set.</p>`;
 }
 
 function renderReady(){
   const box=document.getElementById("dready");
   if(typeof DECKS==="undefined"||!DECKS.length){
-    box.innerHTML=`<p class="fovnote">Ready-made decks could not be loaded — you can still
-      build your own on the Build tab.</p>`;
+    box.innerHTML=`<p class="fovnote">De klare decks konden niet geladen worden — je kan nog
+      altijd zelf bouwen in het tabblad Bouwen.</p>`;
     return;
   }
   box.innerHTML=DECKS.map(d=>{
@@ -1623,17 +1627,17 @@ function renderReady(){
     return `<div class="dcard">
       <h3>${d.emoji} ${d.name}<span class="lvl">${d.level}</span></h3>
       <p>${short(d.strategy,260)}</p>
-      <p class="own">You already own ${ownN} of the ${d.cards.length} different cards</p>
+      <p class="own">Je hebt al ${ownN} van de ${d.cards.length} verschillende kaarten</p>
       <div class="dlistbox">${rows}</div>
       ${shown.map(combo).join("")}
       <div hidden data-more="${d.key}">
         ${rest.map(combo).join("")}
-        <div class="upg"><b>The whole plan:</b> ${d.strategy}</div>
+        <div class="upg"><b>Het volledige plan:</b> ${d.strategy}</div>
       </div>
-      <div class="upg"><b>To play at a league:</b> ${d.upgrade}</div>
+      <div class="upg"><b>Om op een league te spelen:</b> ${d.upgrade}</div>
       <div class="drow">
-        <button type="button" data-load="${d.key}">Load into the builder</button>
-        <button type="button" class="ghostbtn" data-expand="${d.key}">Show the whole plan${rest.length?` + ${rest.length} more combos`:""}</button>
+        <button type="button" data-load="${d.key}">Laad in de bouwer</button>
+        <button type="button" class="ghostbtn" data-expand="${d.key}">Toon het volledige plan${rest.length?` + ${rest.length} extra combo's`:""}</button>
       </div>
     </div>`;
   }).join("");
@@ -1642,7 +1646,7 @@ function renderReady(){
 function renderCombos(){
   const box=document.getElementById("dcombo");
   if(typeof COMBOS==="undefined"||!COMBOS.length){
-    box.innerHTML=`<p class="fovnote">Combo list could not be loaded.</p>`;
+    box.innerHTML=`<p class="fovnote">De combolijst kon niet geladen worden.</p>`;
     return;
   }
   box.innerHTML=COMBOS.map((c,i)=>{
@@ -1651,7 +1655,7 @@ function renderCombos(){
       <h3>${i+1}. ${c.title}</h3>
       <p><b>${c.cards.join(" + ")}</b></p>
       <p>${c.why}</p>
-      <p class="own">${owned2} of ${c.ids.length} pieces in your binder</p>
+      <p class="own">${owned2} van de ${c.ids.length} stukken heb je al</p>
     </div>`;
   }).join("");
 }
@@ -1670,8 +1674,8 @@ async function openDeck(){
   const ok=await ensureCards();
   if(!ok){
     document.getElementById("dready").innerHTML=
-      `<p class="fovnote">Could not load the card data. If you are offline, open the app
-       once with a connection and it will be stored for next time.</p>`;
+      `<p class="fovnote">De kaartgegevens konden niet geladen worden. Ben je offline, open de
+       app dan één keer met verbinding — daarna zijn ze bewaard.</p>`;
     return;
   }
   dtab(document.querySelector('.dtabs button[aria-pressed="true"]').dataset.dtab);
@@ -1696,7 +1700,7 @@ document.getElementById("deck").addEventListener("click",e=>{
   if(exp){
     const box=document.querySelector(`[data-more="${exp.dataset.expand}"]`);
     box.hidden=!box.hidden;
-    exp.textContent=box.hidden?"Show the whole plan":"Hide the details";
+    exp.textContent=box.hidden?"Toon het volledige plan":"Verberg de details";
     return;
   }
   const load=e.target.closest("[data-load]");
@@ -1706,7 +1710,7 @@ document.getElementById("deck").addEventListener("click",e=>{
     deckState={cards:{},energy:d.energy};
     for(const c of d.cards) deckState.cards[c.id]=(deckState.cards[c.id]||0)+c.count;
     deckSave(); dtab("build");
-    showToast(`Loaded <b>${d.name}</b> into the builder.`,null);
+    showToast(`<b>${d.name}</b> in de bouwer geladen.`,null);
   }
 });
 document.getElementById("btndeck").addEventListener("click",()=>openFov("deck"));
@@ -1763,7 +1767,7 @@ document.getElementById("bkfile").addEventListener("change",async e=>{
   const f=e.target.files[0]; e.target.value=""; if(!f) return;
   let j=null;
   try{ j=JSON.parse(await f.text()); }catch(err){}
-  if(!j||j.app!=="twm-binder"||!j.data){ showToast("That file isn't a TWM backup.",null); return; }
+  if(!j||j.app!=="twm-binder"||!j.data){ showToast("Dat bestand is geen TWM-back-up.",null); return; }
   const d=j.data;
   const parse=(k,fb)=>{ try{ return d[k]!==undefined?JSON.parse(d[k]):fb; }catch(err){ return fb; } };
   loadOwned(); loadLangMap(); loadDupes(); loadWish();
@@ -1786,7 +1790,7 @@ document.getElementById("bkfile").addEventListener("change",async e=>{
   }catch(err){}
   applyAllArt(); applyAllDup(); applyAllWish(); paint(); refreshBinder();
   const added=owned.size-before;
-  showToast(`📥 Backup merged — ${added} new card${added===1?"":"s"}, ${owned.size} total.`,null);
+  showToast(`📥 Back-up samengevoegd — ${added} nieuwe kaart${added===1?"":"en"}, ${owned.size} in totaal.`,null);
 });
 
 /* ---------- brag card: shareable picture of the collection ---------- */
@@ -1825,14 +1829,14 @@ async function makeShareCard(){
   x.fillStyle="#F3EDE0"; x.font="800 64px Georgia";
   x.fillText("Twilight Masquerade",W/2,460);
   x.fillStyle="#9188B8"; x.font="500 40px Arial";
-  x.fillText(`${haveN} / ${SLOTS.length} cards collected`,W/2,528);
+  x.fillText(`${haveN} / ${SLOTS.length} kaarten verzameld`,W/2,528);
   x.fillStyle="#F5B944"; x.font="700 44px Arial";
-  x.fillText(`worth ${eur(haveV)}`,W/2,594);
+  x.fillText(`waarde ${eur(haveV)}`,W/2,594);
   mine.sort((a,b)=>b[1]-a[1]);
   const top=mine.slice(0,3);
   if(top.length){
     x.fillStyle="#9188B8"; x.font="500 32px Arial";
-    x.fillText("My best cards",W/2,668);
+    x.fillText("Mijn beste kaarten",W/2,668);
     const cw=270,ch=Math.round(cw*88/63),gap=36;
     const x0=(W-(top.length*cw+(top.length-1)*gap))/2, y0=700;
     for(let i=0;i<top.length;i++){
@@ -1850,14 +1854,14 @@ async function makeShareCard(){
     }
   }
   x.fillStyle="#9188B8"; x.font="500 28px Arial";
-  x.fillText("my Twilight Masquerade binder 🌙",W/2,H-56);
+  x.fillText("mijn Twilight Masquerade-map 🌙",W/2,H-56);
   return cv;
 }
 let shareBlob=null;
 async function openShare(){
   const cv=await makeShareCard();
   cv.toBlob(b=>{
-    if(!b){ showToast("Couldn't build the image on this browser.",null); return; }
+    if(!b){ showToast("Kon de afbeelding niet maken in deze browser.",null); return; }
     shareBlob=b;
     document.getElementById("shareimg").src=URL.createObjectURL(b);
     openFov("shareov");
