@@ -141,17 +141,33 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .tearbody.opened{animation:burst .5s ease}
 @keyframes burst{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
 
-.revwrap{display:flex;justify-content:center;margin-bottom:14px}
-.revcard{position:relative;width:min(260px,66vw);aspect-ratio:63/88;perspective:900px;cursor:pointer}
+.revwrap{display:flex;justify-content:center;margin:46px 0 14px}
+.revstage{position:relative;width:min(260px,66vw)}
+/* the cards still to come, stacked behind so you can see what is left */
+.revstack{position:absolute;inset:0;pointer-events:none}
+.stackcard{position:absolute;inset:0;border-radius:12px;overflow:hidden;
+  transition:transform .35s ease, opacity .35s ease}
+.revcard{position:relative;width:100%;aspect-ratio:63/88;perspective:900px;cursor:pointer;
+  transition:transform .32s ease, opacity .32s ease}
+.revcard.out{transform:translate(38%,-14%) rotate(11deg);opacity:0}
+
+/* our own back for the set: lantern moon over a masked face */
+.cardback{position:absolute;inset:0;border-radius:12px;overflow:hidden;
+  background:linear-gradient(155deg,#3A2C7A 0%,#221756 45%,#160F3C 100%);
+  box-shadow:inset 0 0 0 3px #C98B25, inset 0 0 0 7px #17103C,
+             inset 0 0 0 9px rgba(245,185,68,.55)}
+.cardback .cbmid{position:absolute;inset:11%;border-radius:8px;
+  background:radial-gradient(60% 45% at 50% 32%,rgba(139,107,199,.55),transparent 70%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7%}
+.cardback svg{width:48%;height:auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,.6))}
+.cardback .cbnm{font-family:'Fraunces',serif;font-size:9px;font-weight:800;
+  letter-spacing:.14em;color:var(--lantern);text-align:center;line-height:1.3}
+.cardback .cbsheen{position:absolute;inset:0;
+  background:linear-gradient(118deg,transparent 40%,rgba(255,255,255,.13) 50%,transparent 60%)}
 .revinner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .55s}
 .revcard.flip .revinner{transform:rotateY(180deg)}
 .revface{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;overflow:hidden}
-.revback{background:radial-gradient(80% 60% at 50% 35%,var(--panel2),var(--night));
-  border:2px solid var(--plum);display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:8%}
-.revback svg{width:44%;height:auto}
-.revback span{font-family:'Fraunces',serif;font-size:12px;font-weight:800;
-  color:var(--lantern);letter-spacing:.06em}
+.revback{background:transparent}
 .revfront{transform:rotateY(180deg);background:var(--panel2)}
 .revfront img{width:100%;height:100%;object-fit:cover;display:block}
 .revcard.big.flip .revinner{box-shadow:0 0 34px 8px rgba(245,185,68,.65)}
@@ -589,15 +605,13 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 
     <div id="packreveal" hidden>
       <div class="revwrap">
-        <div class="revcard" id="revcard">
-          <div class="revinner">
-            <div class="revface revback">
-              <svg viewBox="0 0 62 62" aria-hidden="true">
-                <circle cx="31" cy="31" r="24" fill="none" stroke="#F5B944" stroke-width="2.5" opacity=".85"/>
-                <circle cx="40" cy="24" r="9" fill="#F5B944" opacity=".9"/></svg>
-              <span>TWM</span>
+        <div class="revstage">
+          <div class="revstack" id="revstack"></div>
+          <div class="revcard" id="revcard">
+            <div class="revinner">
+              <div class="revface revback"></div>
+              <div class="revface revfront"><img id="revimg" alt=""><div id="revsheen" class="rev-sheen" hidden></div></div>
             </div>
-            <div class="revface revfront"><img id="revimg" alt=""><div id="revsheen" class="rev-sheen" hidden></div></div>
           </div>
         </div>
       </div>
@@ -1440,7 +1454,10 @@ const pval=pc=>{
 /* Real packs each feature one big Pokémon plus the set logo, so the app builds
    its packs the same way out of the set's full-art cards. Both the artwork and
    the logo are loaded live from the card API — nothing is copied into the app. */
-const PACK_FACES=[216,211,214,210,213];
+/* The four designs the real wrappers use come first — Teal Mask Ogerpon,
+   Bloodmoon Ursaluna, Sinistcha and Terastallized Dragapult — then five more
+   full arts so there is a spread of packs to choose from. */
+const PACK_FACES=[211,216,210,200,212,213,215,214,197];
 const boosterArt=(n,foil=true)=>
   `${foil?'<div class="foil"></div>':""}
    <div class="hero" style="background-image:url(https://images.pokemontcg.io/sv6/${n}.png)"></div>
@@ -1449,6 +1466,15 @@ const boosterArt=(n,foil=true)=>
    <div class="packbar">10 KAARTEN</div><div class="glint"></div>`;
 let packCards=[], packFlipped=0;
 let revIdx=0, revFlipped=false, packFace=PACK_FACES[0];
+
+/* our own card back, used for the face-down card and the pile behind it */
+const cardBack=()=>`<div class="cardback"><div class="cbmid">
+  <svg viewBox="0 0 62 62" aria-hidden="true">
+    <circle cx="31" cy="31" r="23" fill="none" stroke="#F5B944" stroke-width="2.5" opacity=".9"/>
+    <circle cx="39" cy="24" r="8.5" fill="#F5B944" opacity=".95"/>
+    <circle cx="14" cy="12" r="1.5" fill="#F5B944" opacity=".7"/>
+    <circle cx="50" cy="49" r="1.2" fill="#F5B944" opacity=".6"/></svg>
+  <div class="cbnm">TWILIGHT<br>MASQUERADE</div></div><div class="cbsheen"></div></div>`;
 
 /* stage 1 — a few packs on the table, pick one */
 function packChoose(){
@@ -1514,7 +1540,18 @@ function showRev(){
   const pc=packCards[revIdx];
   document.getElementById("packhead").textContent=`🎁 Kaart ${revIdx+1} van ${packCards.length}`;
   const card=document.getElementById("revcard");
-  card.classList.remove("flip","big");
+  card.classList.remove("flip","big","out");
+
+  // the cards still waiting behind this one
+  const left=packCards.length-revIdx-1;
+  document.getElementById("revstack").innerHTML=
+    Array.from({length:Math.min(3,left)},(_,i)=>{
+      const d=i+1;
+      return `<div class="stackcard" style="transform:translate(${d*7}px,${-d*13}px)
+        rotate(${d*1.6}deg) scale(${1-d*0.015});opacity:${1-d*0.16};z-index:${-d}">
+        ${cardBack()}</div>`;
+    }).reverse().join("");
+  card.querySelector(".revback").innerHTML=cardBack();
   const front=card.querySelector(".revfront");
   const old=front.querySelector(".enface"); if(old) old.remove();
   const im=document.getElementById("revimg");
@@ -1549,7 +1586,10 @@ function flipRev(){
 function nextRev(){
   if(!revFlipped){ flipRev(); return; }
   if(revIdx===packCards.length-1){ packSummary(); return; }
-  revIdx++; revFlipped=false; showRev();
+  // slide the finished card away, then bring the next one forward
+  const card=document.getElementById("revcard");
+  card.classList.add("out");
+  setTimeout(()=>{ revIdx++; revFlipped=false; showRev(); },320);
 }
 
 /* stage 4 — everything you pulled */
