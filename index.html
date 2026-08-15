@@ -302,6 +302,20 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
   border:1px solid var(--edge)}
 .dctl{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
 .dctl input{flex:1;min-width:150px}
+.dsavebtn{font:inherit;font-size:14px;font-weight:700;min-height:44px;padding:0 18px;
+  border:0;border-radius:10px;background:var(--lantern);color:var(--deep);cursor:pointer}
+.ownbar{height:5px;border-radius:99px;background:rgba(139,107,199,.22);overflow:hidden;margin:8px 0 4px}
+.ownbar i{display:block;height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--teal),var(--lantern))}
+.myrow{display:flex;align-items:center;gap:8px;background:var(--panel);
+  border:1px solid var(--edge);border-radius:10px;padding:8px 10px;margin-bottom:6px;font-size:13px}
+.myrow .grow2{flex:1;min-width:0}
+.myrow .nm2{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.myrow small{color:var(--mute);font-size:11px}
+.myrow button{font:inherit;font-size:12px;font-weight:700;min-height:36px;padding:0 12px;
+  border:1px solid var(--edge);border-radius:8px;background:var(--panel2);color:var(--cream);cursor:pointer}
+.myrow button.del{color:#F09090}
+.myrow button.del.arm{background:#F09090;color:var(--deep);border-color:#F09090}
 .dstep{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
 .dstep button{width:38px;height:38px;border:1px solid var(--edge);border-radius:9px;
   background:var(--panel);color:var(--cream);font-size:18px;cursor:pointer}
@@ -727,6 +741,11 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
         <input id="dq" type="search" placeholder="Zoek een kaart om toe te voegen…" autocomplete="off">
       </div>
       <div class="pool" id="dpool"></div>
+      <div class="dctl" style="margin-top:14px">
+        <input id="dname" type="text" placeholder="Naam voor dit deck…" maxlength="24" autocomplete="off">
+        <button id="dsave" class="dsavebtn" type="button">💾 Bewaar</button>
+      </div>
+      <div id="dmine"></div>
       <div class="drow">
         <button id="dclear" class="ghostbtn" type="button">Deck leegmaken</button>
       </div>
@@ -1985,6 +2004,62 @@ function checkDeck(){
 }
 
 function deckSave(){ try{ localStorage.setItem(DECKKEY,JSON.stringify(deckState)); }catch(e){} }
+
+/* named saved decks — several of them, merge-safe like everything else */
+const MDKEY="twm:mydecks";
+let myDecks=[];
+function loadMyDecks(){ try{ const s=localStorage.getItem(MDKEY); myDecks=s?JSON.parse(s):[]; }catch(e){} }
+function saveMyDecks(){ try{ localStorage.setItem(MDKEY,JSON.stringify(myDecks)); }catch(e){} }
+function renderMyDecks(){
+  loadMyDecks();
+  const box=document.getElementById("dmine");
+  if(!myDecks.length){ box.innerHTML=""; return; }
+  box.innerHTML=`<p class="own" style="margin:4px 0 6px">Mijn bewaarde decks:</p>`+
+    myDecks.map((d,i)=>{
+      const n=Object.values(d.cards).reduce((a,b)=>a+b,0)+(d.energy||0);
+      return `<div class="myrow">
+        <span class="grow2"><span class="nm2">${d.name}</span><br>
+          <small>${n}/60 kaarten · ${d.energy} energie</small></span>
+        <button type="button" data-mload="${i}">Laad</button>
+        <button type="button" class="del" data-mdel="${i}">🗑</button>
+      </div>`;
+    }).join("");
+}
+document.getElementById("dsave").addEventListener("click",()=>{
+  const inp=document.getElementById("dname");
+  const name=inp.value.trim();
+  if(!Object.keys(deckState.cards).length){ showToast("Je deck is nog leeg.",null); return; }
+  if(!name){ inp.focus(); inp.placeholder="Geef je deck eerst een naam!"; return; }
+  loadMyDecks();
+  const entry={name,cards:{...deckState.cards},energy:deckState.energy};
+  const at=myDecks.findIndex(d=>d.name===name);
+  if(at>=0) myDecks[at]=entry; else myDecks.push(entry);
+  saveMyDecks(); renderMyDecks();
+  showToast(`💾 <b>${name}</b> bewaard${at>=0?" (overschreven)":""}.`,null);
+});
+document.getElementById("dmine").addEventListener("click",e=>{
+  const l=e.target.closest("[data-mload]");
+  if(l){
+    loadMyDecks();
+    const d=myDecks[+l.dataset.mload]; if(!d) return;
+    deckState={cards:{...d.cards},energy:d.energy};
+    deckSave(); renderBuild();
+    document.getElementById("dname").value=d.name;
+    showToast(`<b>${d.name}</b> geladen.`,null);
+    return;
+  }
+  const del=e.target.closest("[data-mdel]");
+  if(del){
+    if(!del.classList.contains("arm")){          // first tap arms, second deletes
+      del.classList.add("arm"); del.textContent="Zeker?";
+      setTimeout(()=>{ del.classList.remove("arm"); del.textContent="🗑"; },2500);
+      return;
+    }
+    loadMyDecks();
+    myDecks.splice(+del.dataset.mdel,1);
+    saveMyDecks(); renderMyDecks();
+  }
+});
 function deckAdd(id,delta){
   const cur=deckState.cards[id]||0;
   const n=Math.max(0,Math.min(4,cur+delta));
@@ -2070,6 +2145,7 @@ function renderReady(){
       altijd zelf bouwen in het tabblad Bouwen.</p>`;
     return;
   }
+  // compact overview: one small card per deck, everything else behind one tap
   box.innerHTML=DECKS.map(d=>{
     const rows=d.cards.map(c=>{
       const e=byCardId.get(c.id);
@@ -2077,22 +2153,23 @@ function renderReady(){
       return `<span class="${has?"has":""}"><span>${c.name}</span><i>${c.count}${has?"":" ·"}</i></span>`;
     }).join("");
     const ownN=d.cards.filter(c=>{const e=byCardId.get(c.id); return e&&cardOwned(e);}).length;
+    const pctOwn=Math.round(ownN/d.cards.length*100);
     const combo=c=>`<div class="combo"><b>${c.title}</b><span>${c.detail}</span></div>`;
-    const shown=d.combos.slice(0,4), rest=d.combos.slice(4);
     return `<div class="dcard">
       <h3>${d.emoji} ${d.name}<span class="lvl">${d.level}</span></h3>
-      <p>${short(d.strategy,260)}</p>
-      <p class="own">Je hebt al ${ownN} van de ${d.cards.length} verschillende kaarten</p>
-      <div class="dlistbox">${rows}</div>
-      ${shown.map(combo).join("")}
-      <div hidden data-more="${d.key}">
-        ${rest.map(combo).join("")}
-        <div class="upg"><b>Het volledige plan:</b> ${d.strategy}</div>
-      </div>
-      <div class="upg"><b>Om op een league te spelen:</b> ${d.upgrade}</div>
+      <p>${short(d.strategy,150)}</p>
+      <div class="ownbar"><i style="width:${pctOwn}%"></i></div>
+      <p class="own">${ownN} van ${d.cards.length} kaartsoorten in je verzameling</p>
       <div class="drow">
         <button type="button" data-load="${d.key}">Laad in de bouwer</button>
-        <button type="button" class="ghostbtn" data-expand="${d.key}">Toon het volledige plan${rest.length?` + ${rest.length} extra combo's`:""}</button>
+        <button type="button" class="ghostbtn" data-expand="${d.key}">Alles over dit deck</button>
+      </div>
+      <div hidden data-more="${d.key}">
+        <div class="upg"><b>Het plan:</b> ${d.strategy}</div>
+        <p class="own" style="margin-top:10px">De 60 kaarten:</p>
+        <div class="dlistbox">${rows}</div>
+        ${d.combos.map(combo).join("")}
+        <div class="upg"><b>Om op een league te spelen:</b> ${d.upgrade}</div>
       </div>
     </div>`;
   }).join("");
@@ -2121,7 +2198,7 @@ function dtab(which){
   document.getElementById("dready").hidden=which!=="ready";
   document.getElementById("dbuild").hidden=which!=="build";
   document.getElementById("dcombo").hidden=which!=="combo";
-  if(which==="build") renderBuild();
+  if(which==="build"){ renderBuild(); renderMyDecks(); }
   if(which==="ready") renderReady();
   if(which==="combo") renderCombos();
 }
@@ -2155,7 +2232,7 @@ document.getElementById("deck").addEventListener("click",e=>{
   if(exp){
     const box=document.querySelector(`[data-more="${exp.dataset.expand}"]`);
     box.hidden=!box.hidden;
-    exp.textContent=box.hidden?"Toon het volledige plan":"Verberg de details";
+    exp.textContent=box.hidden?"Alles over dit deck":"Verberg de details";
     return;
   }
   const load=e.target.closest("[data-load]");
@@ -2203,7 +2280,7 @@ function askTiltPermission(){
 /* ---------- backup & restore (import merges, never deletes) ---------- */
 const BK_KEYS=["twm:collection","twm:langmap","twm:doubles","twm:wish",
                "twm:milestones","twm:quizbest","twm:lang","twm:bpage","twm:deck",
-               "twm:binderfmt"];
+               "twm:binderfmt","twm:mydecks"];
 document.getElementById("bkexp").addEventListener("click",async()=>{
   const data={};
   for(const k of BK_KEYS){ const v=localStorage.getItem(k); if(v!==null) data[k]=v; }
@@ -2235,6 +2312,10 @@ document.getElementById("bkfile").addEventListener("change",async e=>{
   let ms; try{ ms=new Set(JSON.parse(localStorage.getItem(MKEY)||"[]")); }catch(err){ ms=new Set(); }
   for(const m of parse("twm:milestones",[])) ms.add(m);
   const qb=parseInt(d["twm:quizbest"])||0; if(qb>qBest) qBest=qb;
+  loadMyDecks();                                  // saved decks merge by name, local wins
+  for(const md of parse("twm:mydecks",[]))
+    if(md&&md.name&&!myDecks.some(x=>x.name===md.name)) myDecks.push(md);
+  saveMyDecks();
   try{
     localStorage.setItem(KEY,JSON.stringify([...owned]));
     localStorage.setItem(LKEY,JSON.stringify(langMap));
