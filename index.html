@@ -24,6 +24,21 @@
   --edge:rgba(139,107,199,.32);
 }
 *{box-sizing:border-box}
+#splash{position:fixed;inset:0;z-index:90;background:var(--deep);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  transition:opacity .45s ease}
+#splash.gone{opacity:0;pointer-events:none}
+#splash .spbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:center 30%;opacity:.38}
+#splash .spmid{position:relative;text-align:center;padding:0 24px}
+#splash .splogo{width:min(300px,78vw);height:auto;
+  filter:drop-shadow(0 4px 14px rgba(0,0,0,.7))}
+#splash .spmoon{width:18px;height:18px;border-radius:50%;margin:26px auto 10px;
+  background:#F5B944;box-shadow:0 0 18px 4px rgba(245,185,68,.55);
+  animation:spwax 1.1s ease-in-out infinite alternate}
+@keyframes spwax{from{transform:scale(.6);opacity:.5}to{transform:scale(1);opacity:1}}
+#splash p{font-size:13px;color:#C9C2E4;margin:0;
+  font-family:'Space Grotesk',system-ui,sans-serif}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{
@@ -101,6 +116,26 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;
   .tychips{flex-basis:100%}
 }
 
+/* ---- phone layout: taller header with the bear in view, tighter chrome ---- */
+@media(max-width:640px){
+  header{min-height:236px;align-content:space-between;padding:14px 14px 12px;
+    background:
+      linear-gradient(180deg,rgba(13,10,34,.88) 0%,rgba(13,10,34,.34) 36%,rgba(13,10,34,.05) 62%,rgba(13,10,34,.52) 100%),
+      url("art/band-ursaluna-r.webp") 64% 30%/cover no-repeat var(--night)}
+  .grow{flex-basis:100%}
+  #setlogo{max-width:198px}
+  .sub{max-width:220px;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+  .hright{align-self:flex-end}
+  .count,.val{text-shadow:0 2px 8px rgba(0,0,0,.85)}
+  .stats{grid-template-columns:1fr 1fr;gap:7px}
+  .kpi{padding:8px 10px}
+  .kpi b{font-size:14.5px}
+  .tychips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tychips::-webkit-scrollbar{display:none}
+  .ty{flex:0 0 auto}
+}
+
 .about{margin:0 0 14px;border:1px solid var(--edge);border-radius:12px;background:var(--panel);
   font-size:13px;line-height:1.55;color:var(--mute)}
 .about summary{cursor:pointer;padding:12px 14px;font-weight:700;color:var(--cream);font-size:14px}
@@ -131,8 +166,11 @@ button.factrow i{color:var(--lantern)}
   border-radius:10px;cursor:pointer;background:var(--panel);color:var(--cream);
   border:1px solid var(--edge)}
 .funrow button:active{transform:scale(.98)}
-/* on a phone the grid is 2 wide, so let a lone last button fill the row */
-@media(max-width:559px){.funrow button:last-child{grid-column:1/-1}}
+/* phone: six buttons in two neat rows of three */
+@media(max-width:640px){
+  .funrow{grid-template-columns:repeat(3,1fr);gap:7px}
+  .funrow button{font-size:13px;min-height:44px;padding:0 4px}
+}
 
 .fullov{position:fixed;inset:0;z-index:45;background:var(--deep);overflow-y:auto;
   padding:calc(14px + env(safe-area-inset-top)) 12px calc(30px + env(safe-area-inset-bottom))}
@@ -571,6 +609,15 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 </style>
 </head>
 <body>
+<div id="splash" aria-hidden="true">
+  <img class="spbg" src="art/band-ursaluna-r.webp" alt="" onerror="this.remove()">
+  <div class="spmid">
+    <img class="splogo" src="https://images.pokemontcg.io/sv6/logo.png" alt="Twilight Masquerade"
+         onerror="this.replaceWith('Twilight Masquerade')">
+    <div class="spmoon"></div>
+    <p>De lantaarns gaan aan…</p>
+  </div>
+</div>
 <div class="wrap">
   <header>
     <div class="grow">
@@ -620,12 +667,12 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
   </div>
 
   <div class="funrow">
-    <button id="btnpack" type="button">🎁 Pakje openen</button>
+    <button id="btnpack" type="button">🎁 Pakjes</button>
     <button id="btnbinder" type="button">📖 Map</button>
     <button id="btnquiz" type="button">🎮 Quiz</button>
     <button id="btndeck" type="button">🃏 Decks</button>
     <button id="btnshare" type="button">📸 Delen</button>
-    <button id="cotd" type="button">✨ Kaart van de dag</button>
+    <button id="cotd" type="button">✨ Dagkaart</button>
   </div>
 
   <div class="controls">
@@ -2218,7 +2265,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v36";   // bump with the service worker, so these load fresh per release
+const APPV="v37";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -2789,6 +2836,15 @@ for(const r of RARITIES){
 document.getElementById("slotcount").textContent=SLOTS.length;
 build(); loadLangMap(); loadDupes(); loadWish();
 applyAllArt(); applyAllDup(); applyAllWish(); paint(); loadFrNames();
+
+/* Boot splash: the app is painted at this point — hold it a beat so the
+   lantern moment registers, then fade out and drop it from the DOM.
+   Plain timers, not rAF: rAF never fires in a background tab and the
+   splash would sit there covering the app forever. */
+setTimeout(()=>{
+  const sp=document.getElementById("splash");
+  if(sp){ sp.classList.add("gone"); setTimeout(()=>sp.remove(),500); }
+},600);
 </script>
 </body>
 </html>
