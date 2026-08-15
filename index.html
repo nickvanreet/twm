@@ -109,6 +109,8 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
   background:linear-gradient(90deg,var(--lantern),#FFD98A,var(--lantern));
   border-bottom:2px dashed rgba(13,10,34,.45)}
 /* zoom past the card frame so only the illustration shows, like a real pack */
+/* the supplied wrapper illustrations are already cropped, so they just fill */
+.booster .hero.clean,.tearbody .hero.clean{background-size:cover;background-position:50% 45%}
 .booster .hero,.tearbody .hero{position:absolute;inset:14% 0 20% 0;
   background-size:215%;background-position:50% 36%;
   -webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 96%);
@@ -174,6 +176,14 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .revlabel{text-align:center;font-size:14px;min-height:44px;margin:0 0 6px;line-height:1.4}
 .revlabel b{font-family:'Fraunces',serif;font-size:17px;color:var(--cream);display:block}
 .revlabel span{color:var(--mute);font-size:12px}
+.revstats{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:0 auto 12px;
+  max-width:440px;min-height:44px}
+.rstat{background:var(--panel);border:1px solid var(--edge);border-radius:10px;
+  padding:5px 10px;text-align:center;min-width:74px}
+.rstat small{display:block;font-size:9.5px;color:var(--mute);letter-spacing:.02em}
+.rstat b{font-size:12.5px;color:var(--cream)}
+.rstat.good{border-color:var(--lantern)}
+.rstat.good b{color:var(--lantern)}
 .revdots{display:flex;gap:5px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
 .revdots i{width:8px;height:8px;border-radius:50%;background:rgba(139,107,199,.35)}
 .revdots i.on{background:var(--lantern)}
@@ -616,6 +626,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
         </div>
       </div>
       <p class="revlabel" id="revlabel"></p>
+      <div class="revstats" id="revstats"></div>
       <div class="revdots" id="revdots"></div>
       <div class="packrow"><button id="revnext" type="button">Draai om</button></div>
     </div>
@@ -1402,6 +1413,7 @@ function openFov(id){
   if(id==="deck") openDeck();
 }
 function closeFov(id){
+  if(id==="pack") clearTimeout(revTimer);
   document.getElementById(id).hidden=true;
   if(ov.hidden) document.body.classList.remove("lock");
 }
@@ -1429,7 +1441,7 @@ function rollPack(){
   const out=[];
   for(let i=0;i<4;i++) out.push({c:pick(byRar["Common"])});
   for(let i=0;i<3;i++) out.push({c:pick(byRar["Uncommon"])});
-  out.push({energy:true});
+  out.push({energy:pick(ENERGIES)});   // a real basic Energy card, like in the pack
 
   // reverse-holo slot, where the ACE SPEC cards also turn up
   if(Math.random()<0.05) out.push({c:pick(byRar["ACE SPEC Rare"]),hit:true});
@@ -1454,18 +1466,39 @@ const pval=pc=>{
 /* Real packs each feature one big Pokémon plus the set logo, so the app builds
    its packs the same way out of the set's full-art cards. Both the artwork and
    the logo are loaded live from the card API — nothing is copied into the app. */
-/* The four designs the real wrappers use come first — Teal Mask Ogerpon,
-   Bloodmoon Ursaluna, Sinistcha and Terastallized Dragapult — then five more
-   full arts so there is a spread of packs to choose from. */
-const PACK_FACES=[211,216,210,200,212,213,215,214,197];
-const boosterArt=(n,foil=true)=>
+/* The first four use the real wrapper illustrations; the rest are built from
+   full-art cards so there is a spread of packs on the table. */
+const PACK_FACES=[
+  {art:"art/pack-ogerpon.webp",   nm:"Teal Mask Ogerpon"},
+  {art:"art/pack-ursaluna.webp",  nm:"Bloodmoon Ursaluna"},
+  {art:"art/pack-sinistcha.webp", nm:"Sinistcha"},
+  {art:"art/pack-dragapult.webp", nm:"Tera Dragapult"},
+  {card:212, nm:"Hearthflame Ogerpon"},
+  {card:213, nm:"Wellspring Ogerpon"},
+  {card:215, nm:"Cornerstone Ogerpon"},
+  {card:214, nm:"Greninja"},
+  {card:197, nm:"Scream Tail"},
+];
+const ENERGIES=[[1,"Grass"],[2,"Fire"],[3,"Water"],[4,"Lightning"],
+                [5,"Psychic"],[6,"Fighting"],[7,"Darkness"],[8,"Metal"]];
+/* chances of the hit slot, kept in step with rollPack below */
+const ODDS={"Hyper Rare":50,"Special Illustration Rare":33,"Ultra Rare":12,
+            "Illustration Rare":8,"Double Rare":7,"Rare":1.7,"ACE SPEC Rare":20};
+const boosterArt=(f,foil=true)=>
   `${foil?'<div class="foil"></div>':""}
-   <div class="hero" style="background-image:url(https://images.pokemontcg.io/sv6/${n}.png)"></div>
+   <div class="hero${f.art?" clean":""}" style="background-image:url(${
+      f.art||`https://images.pokemontcg.io/sv6/${f.card}.png`})"></div>
    <div class="packlogo"><img src="https://images.pokemontcg.io/sv6/logo.png" alt=""
         onerror="this.parentNode.innerHTML='TWILIGHT MASQUERADE'"></div>
    <div class="packbar">10 KAARTEN</div><div class="glint"></div>`;
 let packCards=[], packFlipped=0;
-let revIdx=0, revFlipped=false, packFace=PACK_FACES[0];
+let revIdx=0, revFlipped=false, packFace=PACK_FACES[0], revTimer=null;
+/* price rank across the set, so a pull can be placed against the rest */
+const PRICE_RANK=(()=>{
+  const sorted=[...RAW].sort((a,b)=>b[3]-a[3]);
+  const m=new Map(); sorted.forEach((c,i)=>m.set(c[0],i+1));
+  return m;
+})();
 
 /* our own card back, used for the face-down card and the pile behind it */
 const cardBack=()=>`<div class="cardback"><div class="cbmid">
@@ -1478,15 +1511,16 @@ const cardBack=()=>`<div class="cardback"><div class="cbmid">
 
 /* stage 1 — a few packs on the table, pick one */
 function packChoose(){
+  clearTimeout(revTimer);          // a pending card flip must not reopen the reveal
   packCards=[]; revIdx=0; revFlipped=false;
   document.getElementById("packhead").textContent="🎁 Kies een pakje";
   const box=document.getElementById("packchoose");
   box.hidden=false; box.innerHTML="";
-  PACK_FACES.forEach((n,i)=>{
+  PACK_FACES.forEach((f,i)=>{
     const b=document.createElement("button");
-    b.type="button"; b.className="booster"; b.dataset.face=n;
-    b.setAttribute("aria-label",`Pakje ${i+1} kiezen`);
-    b.innerHTML=boosterArt(n);
+    b.type="button"; b.className="booster"; b.dataset.face=i;
+    b.setAttribute("aria-label",`Pakje met ${f.nm} kiezen`);
+    b.innerHTML=boosterArt(f);
     box.appendChild(b);
   });
   document.getElementById("packtear").hidden=true;
@@ -1495,9 +1529,9 @@ function packChoose(){
 }
 
 /* stage 2 — swipe the foil strip off the top */
-function packTear(face){
+function packTear(faceIdx){
   packCards=rollPack();
-  packFace=face||PACK_FACES[0];
+  packFace=PACK_FACES[faceIdx||0];
   document.getElementById("packhead").textContent="✋ Scheur het open";
   document.getElementById("packchoose").hidden=true;
   document.getElementById("packtear").hidden=false;
@@ -1556,14 +1590,11 @@ function showRev(){
   const old=front.querySelector(".enface"); if(old) old.remove();
   const im=document.getElementById("revimg");
   const sheen=document.getElementById("revsheen");
-  if(pc.energy){
-    im.removeAttribute("src"); im.style.visibility="hidden"; sheen.hidden=true;
-    front.insertAdjacentHTML("beforeend",
-      `<div class="enface"><div class="orb"></div>Basisenergie</div>`);
-  }else{
-    im.style.visibility=""; im.src=img(pc.c[0]); sheen.hidden=!pc.rev;
-  }
+  im.style.visibility="";
+  sheen.hidden=!pc.rev;
+  im.src=pc.energy?`https://images.pokemontcg.io/sve/${pc.energy[0]}.png`:img(pc.c[0]);
   document.getElementById("revlabel").innerHTML="";
+  document.getElementById("revstats").innerHTML="";
   document.getElementById("revnext").textContent="Draai om";
   document.getElementById("revdots").innerHTML=packCards.map((_,i)=>
     `<i class="${i<revIdx?"on":i===revIdx?"now":""}"></i>`).join("");
@@ -1576,20 +1607,44 @@ function flipRev(){
   card.classList.add("flip");
   if(pc.big) card.classList.add("big");
   document.getElementById("revlabel").innerHTML = pc.energy
-    ? `<b>Basisenergie</b><span>Zit in elk pakje — hoort niet bij deze set.</span>`
+    ? `<b>Basic ${pc.energy[1]} Energy</b><span>Zit in elk pakje — hoort niet bij deze set.</span>`
     : `<b>${pc.c[0]} ${pc.c[1]}${pc.rev?" REV":""}</b>
        <span>${pc.rev?"Reverse holo · ":""}${pc.c[2]} · ${eur(pval(pc))}</span>`;
+  document.getElementById("revstats").innerHTML=revStats(pc);
   if(pc.big) confetti();
   document.getElementById("revnext").textContent=
     revIdx===packCards.length-1?"Bekijk je pakje":"Volgende kaart";
 }
+/* the numbers a collector actually wants when a card turns over */
+function revStats(pc){
+  const chip=(l,v,cls="")=>`<span class="rstat ${cls}"><small>${l}</small><b>${v}</b></span>`;
+  const sofar=packCards.slice(0,revIdx+1).reduce((a,p)=>a+pval(p),0);
+  if(pc.energy)
+    return chip("In het pakje",`${revIdx+1} van ${packCards.length}`)+
+           chip("Pakje tot nu",eur(sofar));
+
+  const slot=SLOTS.find(s=>s.num===pc.c[0]&&!!s.rev===!!pc.rev)||
+             SLOTS.find(s=>s.num===pc.c[0]);
+  const have=slot&&owned.has(slot.id);
+  const rank=PRICE_RANK.get(pc.c[0]);
+  const odds=ODDS[pc.c[2]];
+  const b=slot?binderPos(slot):null;
+
+  return chip("Voor jou",have?"heb je al":"NIEUW!",have?"":"good")+
+    (odds?chip("Zeldzaamheid",odds>=2?`~1 op ${odds} pakjes`:"vaak"):"")+
+    chip("Prijsplek",`#${rank} van 226`,rank<=20?"good":"")+
+    (b?chip("In je map",`p${b.page} · r${b.row} · v${b.pocket}`):"")+
+    chip("Pakje tot nu",eur(sofar));
+}
+
 function nextRev(){
   if(!revFlipped){ flipRev(); return; }
   if(revIdx===packCards.length-1){ packSummary(); return; }
   // slide the finished card away, then bring the next one forward
   const card=document.getElementById("revcard");
   card.classList.add("out");
-  setTimeout(()=>{ revIdx++; revFlipped=false; showRev(); },320);
+  clearTimeout(revTimer);
+  revTimer=setTimeout(()=>{ revIdx++; revFlipped=false; showRev(); },320);
 }
 
 /* stage 4 — everything you pulled */
@@ -1597,18 +1652,29 @@ function packSummary(){
   document.getElementById("packreveal").hidden=true;
   document.getElementById("packdone").hidden=false;
   document.getElementById("packhead").textContent="🎉 Je pakje";
-  document.getElementById("packgrid").innerHTML=packCards.map(pc=>pc.energy
-    ? `<div class="pcard"><div class="pinner"><div class="pface pfront">
-         <div class="enface"><div class="orb"></div>Basisenergie</div></div></div></div>`
-    : `<div class="pcard flip${pc.hit?" hit":""}"><div class="pinner"><div class="pface pfront">
-         <img loading="lazy" alt="" src="${img(pc.c[0])}">${pc.rev?'<div class="rev-sheen"></div>':""}
-       </div></div></div>`).join("");
+  document.getElementById("packgrid").innerHTML=packCards.map(pc=>
+    `<div class="pcard flip${pc.hit?" hit":""}"><div class="pinner"><div class="pface pfront">
+       <img loading="lazy" alt="" src="${pc.energy
+         ?`https://images.pokemontcg.io/sve/${pc.energy[0]}.png`:img(pc.c[0])}">
+       ${pc.rev?'<div class="rev-sheen"></div>':""}
+     </div></div></div>`).join("");
   const real=packCards.filter(pc=>!pc.energy);
   let best=real[0], bi=-1;
   real.forEach(pc=>{ const ri=RARITIES.indexOf(pc.c[2]); if(ri>bi){bi=ri; best=pc;} });
   const total=packCards.reduce((a,pc)=>a+pval(pc),0);
+  const isNew=real.filter(pc=>{
+    const s=SLOTS.find(s2=>s2.num===pc.c[0]&&!!s2.rev===!!pc.rev)||
+            SLOTS.find(s2=>s2.num===pc.c[0]);
+    return s&&!owned.has(s.id);
+  }).length;
+  const chip=(l,v)=>`<span class="rstat"><small>${l}</small><b>${v}</b></span>`;
   document.getElementById("packsum").innerHTML=
-    `Beste trek: <b>${best.c[0]} ${best.c[1]}</b> (${best.c[2]}) · waarde van het pakje ${eur(total)}`;
+    `<div class="revstats">
+       ${chip("Beste trek",`${best.c[0]} ${best.c[1]}`)}
+       ${chip("Zeldzaamheid",best.c[2])}
+       ${chip("Waarde",eur(total))}
+       ${chip("Nieuw voor jou",`${isNew} van ${real.length}`)}
+     </div>`;
 }
 
 document.getElementById("packchoose").addEventListener("click",e=>{
