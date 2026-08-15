@@ -53,12 +53,20 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .bar{height:8px;border-radius:99px;background:rgba(139,107,199,.22);overflow:hidden;margin-bottom:10px}
 .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--teal),var(--lantern));transition:width .45s ease}
 
-.stats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.chip{font-size:12px;color:var(--mute);background:var(--panel);border:1px solid var(--edge);
-  border-radius:99px;padding:6px 11px}
-.chip b{color:var(--cream);font-weight:700}
-.cotd{font:inherit;font-size:12px;color:var(--deep);background:var(--lantern);border:0;
-  cursor:pointer;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+  gap:8px;margin-bottom:10px}
+.kpi{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:9px 12px;
+  min-width:0}
+.kpi small{display:block;font-size:11px;color:var(--mute);margin-bottom:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi b{display:block;font-size:16px;font-weight:700;color:var(--cream);line-height:1.2;
+  overflow-wrap:anywhere}
+.kpi.gold b{color:var(--lantern)}
+
+.cotd{display:block;width:100%;font:inherit;font-size:14px;font-weight:700;min-height:46px;
+  margin-bottom:8px;border:0;border-radius:12px;cursor:pointer;
+  background:linear-gradient(135deg,var(--lantern),#E8935A);color:var(--deep)}
+.cotd:active{transform:scale(.99)}
 
 .about{margin:0 0 14px;border:1px solid var(--edge);border-radius:12px;background:var(--panel);
   font-size:13px;line-height:1.55;color:var(--mute)}
@@ -66,11 +74,14 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .about p{margin:0 14px 12px}
 .about b{color:var(--cream)}
 
-.funrow{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.funrow button{flex:1 1 28%;font:inherit;font-size:14px;font-weight:700;min-height:44px;
-  border:0;border-radius:10px;cursor:pointer;background:var(--panel);color:var(--cream);
+.funrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+  gap:8px;margin-bottom:14px}
+.funrow button{width:100%;font:inherit;font-size:14px;font-weight:700;min-height:46px;
+  border-radius:10px;cursor:pointer;background:var(--panel);color:var(--cream);
   border:1px solid var(--edge)}
-#btnpack{background:linear-gradient(135deg,var(--lantern),#E8935A);color:var(--deep);border:0}
+.funrow button:active{transform:scale(.98)}
+/* on a phone the grid is 2 wide, so let a lone last button fill the row */
+@media(max-width:559px){.funrow button:last-child{grid-column:1/-1}}
 
 .fullov{position:fixed;inset:0;z-index:45;background:var(--deep);overflow-y:auto;
   padding:calc(14px + env(safe-area-inset-top)) 12px calc(30px + env(safe-area-inset-bottom))}
@@ -213,7 +224,11 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
   100%{transform:translateY(105vh) rotate(660deg);opacity:.15}
 }
 
-.controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.controls{margin-bottom:14px}
+.controls #q{display:block;width:100%;margin-bottom:8px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters select{flex:1 1 100%}
+@media(min-width:560px){.filters select{flex:0 0 210px}.filters .seg{flex:1}}
 input,select{
   font:inherit;font-size:16px; /* 16px stops Android zooming on focus */
   background:var(--panel);color:var(--cream);
@@ -228,9 +243,11 @@ select{flex:1;min-width:140px;appearance:none;
   background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
 .seg{display:flex;border:1px solid var(--edge);border-radius:10px;overflow:hidden;width:100%}
 .seg button{
-  flex:1;font:inherit;font-size:14px;min-height:44px;padding:0 10px;
+  flex:1;font:inherit;font-size:13.5px;min-height:44px;padding:0 6px;
   background:var(--panel);color:var(--cream);border:0;cursor:pointer;
+  white-space:nowrap;
 }
+.seg button[data-view="wish"]{flex:0 0 48px}   /* the star needs no word-space */
 .seg button[aria-pressed="true"]{background:var(--lantern);color:var(--deep);font-weight:700}
 
 .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
@@ -385,14 +402,15 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
   <div class="bar"><i id="fill" style="width:0%"></i></div>
 
   <div class="stats">
-    <span class="chip">Nog te vinden: <b id="stTogo">373</b></span>
-    <span class="chip">Set afmaken: <b id="stCost">€0</b></span>
-    <span class="chip" id="stBestWrap" hidden>Mijn beste kaart: <b id="stBest"></b></span>
-    <span class="chip" id="stDupWrap" hidden>Dubbels: <b id="stDup"></b></span>
-    <span class="chip" id="stWishWrap" hidden>⭐ Wenslijst: <b id="stWish"></b></span>
-    <span class="chip" id="stLangWrap" hidden><b id="stLang"></b></span>
-    <button class="chip cotd" id="cotd" type="button">✨ Kaart van de dag</button>
+    <div class="kpi"><small>Nog te vinden</small><b id="stTogo">373</b></div>
+    <div class="kpi gold"><small>Set afmaken</small><b id="stCost">€0</b></div>
+    <div class="kpi" id="stBestWrap" hidden><small>Mijn beste kaart</small><b id="stBest"></b></div>
+    <div class="kpi" id="stDupWrap" hidden><small>Dubbels om te ruilen</small><b id="stDup"></b></div>
+    <div class="kpi" id="stWishWrap" hidden><small>⭐ Wenslijst</small><b id="stWish"></b></div>
+    <div class="kpi" id="stLangWrap" hidden><small>Talen in je verzameling</small><b id="stLang"></b></div>
   </div>
+
+  <button class="cotd" id="cotd" type="button">✨ Kaart van de dag</button>
 
   <div class="funrow">
     <button id="btnpack" type="button">🎁 Pakje openen</button>
@@ -404,13 +422,15 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 
   <div class="controls">
     <input id="q" type="search" placeholder="Zoek een naam (EN of FR) of nummer" autocomplete="off" enterkeyhint="search">
-    <select id="rarity" aria-label="Filter op zeldzaamheid"><option value="all">Alle zeldzaamheden</option></select>
-    <div class="seg" role="group" aria-label="Tonen">
-      <button data-view="all" aria-pressed="true">Alles</button>
-      <button data-view="need" aria-pressed="false">Nog nodig</button>
-      <button data-view="have" aria-pressed="false">Heb ik</button>
-      <button data-view="dup" aria-pressed="false">Dubbels</button>
-      <button data-view="wish" aria-pressed="false" aria-label="Wenslijst">⭐</button>
+    <div class="filters">
+      <select id="rarity" aria-label="Filter op zeldzaamheid"><option value="all">Alle zeldzaamheden</option></select>
+      <div class="seg" role="group" aria-label="Tonen">
+        <button data-view="all" aria-pressed="true">Alles</button>
+        <button data-view="need" aria-pressed="false">Nog nodig</button>
+        <button data-view="have" aria-pressed="false">Heb ik</button>
+        <button data-view="dup" aria-pressed="false">Dubbels</button>
+        <button data-view="wish" aria-pressed="false" aria-label="Wenslijst">⭐</button>
+      </div>
     </div>
   </div>
 
