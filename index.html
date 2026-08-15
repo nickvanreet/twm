@@ -37,7 +37,10 @@ body{
 }
 .wrap{max-width:1100px;margin:0 auto}
 h1{font-family:'Fraunces',Georgia,serif;font-weight:800;font-size:clamp(22px,6.2vw,38px);line-height:1;margin:0}
-.sub{color:var(--mute);font-size:13px;margin:4px 0 0}
+#setlogo{display:block;width:100%;max-width:290px;height:auto;
+  filter:drop-shadow(0 3px 10px rgba(0,0,0,.55))}
+.sub{color:var(--mute);font-size:13px;margin:6px 0 0}
+.setsym{width:15px;height:15px;object-fit:contain;vertical-align:-3px;margin-right:5px}
 
 header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px + env(safe-area-inset-top)) 0 14px}
 #moonbtn{background:none;border:0;padding:0;cursor:pointer;line-height:0;border-radius:50%}
@@ -105,15 +108,23 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .booster .foil{position:absolute;top:0;left:0;right:0;height:16%;
   background:linear-gradient(90deg,var(--lantern),#FFD98A,var(--lantern));
   border-bottom:2px dashed rgba(13,10,34,.45)}
-.booster .art,.tearbody .art{position:absolute;inset:16% 0 0;display:flex;
-  flex-direction:column;align-items:center;justify-content:center;gap:6%;padding:6%}
-.booster .art svg,.tearbody .art svg{width:54%;height:auto}
-.booster .nm,.tearbody .nm{font-family:'Fraunces',serif;font-weight:800;color:var(--lantern);
-  text-align:center;line-height:1.15;letter-spacing:.02em}
-.booster .nm{font-size:9px}
-.tearbody .nm{font-size:15px}
+/* zoom past the card frame so only the illustration shows, like a real pack */
+.booster .hero,.tearbody .hero{position:absolute;inset:14% 0 20% 0;
+  background-size:215%;background-position:50% 36%;
+  -webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 96%);
+  mask-image:linear-gradient(180deg,#000 62%,transparent 96%)}
+.booster .packlogo,.tearbody .packlogo{position:absolute;left:6%;right:6%;bottom:11%;
+  text-align:center;font-family:'Fraunces',serif;font-size:8px;font-weight:800;
+  color:var(--lantern);line-height:1.1}
+.booster .packlogo img,.tearbody .packlogo img{width:100%;height:auto;display:block;
+  filter:drop-shadow(0 2px 5px rgba(0,0,0,.8))}
+.booster .packbar,.tearbody .packbar{position:absolute;left:0;right:0;bottom:0;height:9%;
+  background:linear-gradient(90deg,#7E1D2A,#C0392B,#7E1D2A);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:7px;font-weight:700;letter-spacing:.08em}
+.tearbody .packbar{font-size:11px}
 .booster .glint,.tearbody .glint{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.18) 50%,transparent 62%)}
+  background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.16) 50%,transparent 62%)}
 
 .tearwrap{position:relative;width:min(300px,78vw);aspect-ratio:63/100;margin:0 auto 16px;
   border-radius:10px;overflow:visible;touch-action:pan-y}
@@ -457,8 +468,12 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     </svg>
     </button>
     <div class="grow">
-      <h1>Twilight Masquerade</h1>
-      <p class="sub">Masterset · <span id="slotcount">0</span> kaarten te vinden</p>
+      <h1>
+        <img id="setlogo" src="https://images.pokemontcg.io/sv6/logo.png"
+             alt="Twilight Masquerade" onerror="this.replaceWith('Twilight Masquerade')">
+      </h1>
+      <p class="sub"><img class="setsym" src="https://images.pokemontcg.io/sv6/symbol.png"
+        alt="" onerror="this.remove()"><span>Masterset · <span id="slotcount">0</span> kaarten te vinden</span></p>
     </div>
     <div style="text-align:right">
       <div class="count"><span id="have">0</span><span id="of"></span></div>
@@ -1422,13 +1437,18 @@ const pval=pc=>{
   const v=l?(pc.rev?l.rev:l.base):null;
   return (typeof v==="number"&&v>0)?v:(pc.rev?(pc.c[4]||pc.c[3]):pc.c[3]);
 };
-const boosterArt=(foil=true)=>`${foil?'<div class="foil"></div>':""}<div class="art">
-  <svg viewBox="0 0 62 62" aria-hidden="true">
-    <circle cx="31" cy="31" r="24" fill="none" stroke="#F5B944" stroke-width="2.5" opacity=".8"/>
-    <circle cx="40" cy="24" r="9" fill="#F5B944" opacity=".9"/></svg>
-  <div class="nm">TWILIGHT<br>MASQUERADE</div></div><div class="glint"></div>`;
+/* Real packs each feature one big Pokémon plus the set logo, so the app builds
+   its packs the same way out of the set's full-art cards. Both the artwork and
+   the logo are loaded live from the card API — nothing is copied into the app. */
+const PACK_FACES=[216,211,214,210,213];
+const boosterArt=(n,foil=true)=>
+  `${foil?'<div class="foil"></div>':""}
+   <div class="hero" style="background-image:url(https://images.pokemontcg.io/sv6/${n}.png)"></div>
+   <div class="packlogo"><img src="https://images.pokemontcg.io/sv6/logo.png" alt=""
+        onerror="this.parentNode.innerHTML='TWILIGHT MASQUERADE'"></div>
+   <div class="packbar">10 KAARTEN</div><div class="glint"></div>`;
 let packCards=[], packFlipped=0;
-let revIdx=0, revFlipped=false;
+let revIdx=0, revFlipped=false, packFace=PACK_FACES[0];
 
 /* stage 1 — a few packs on the table, pick one */
 function packChoose(){
@@ -1436,21 +1456,22 @@ function packChoose(){
   document.getElementById("packhead").textContent="🎁 Kies een pakje";
   const box=document.getElementById("packchoose");
   box.hidden=false; box.innerHTML="";
-  for(let i=0;i<5;i++){
+  PACK_FACES.forEach((n,i)=>{
     const b=document.createElement("button");
-    b.type="button"; b.className="booster";
+    b.type="button"; b.className="booster"; b.dataset.face=n;
     b.setAttribute("aria-label",`Pakje ${i+1} kiezen`);
-    b.innerHTML=boosterArt();
+    b.innerHTML=boosterArt(n);
     box.appendChild(b);
-  }
+  });
   document.getElementById("packtear").hidden=true;
   document.getElementById("packreveal").hidden=true;
   document.getElementById("packdone").hidden=true;
 }
 
 /* stage 2 — swipe the foil strip off the top */
-function packTear(){
+function packTear(face){
   packCards=rollPack();
+  packFace=face||PACK_FACES[0];
   document.getElementById("packhead").textContent="✋ Scheur het open";
   document.getElementById("packchoose").hidden=true;
   document.getElementById("packtear").hidden=false;
@@ -1458,7 +1479,7 @@ function packTear(){
   const body=document.getElementById("tearbody");
   strip.className="tearstrip"; strip.style.transform="";
   strip.textContent="▸ veeg hier ▸";
-  body.className="tearbody"; body.innerHTML=boosterArt(false);
+  body.className="tearbody"; body.innerHTML=boosterArt(packFace,false);
 
   let x0=null;
   const w=()=>document.getElementById("tearwrap").getBoundingClientRect().width||200;
@@ -1551,7 +1572,8 @@ function packSummary(){
 }
 
 document.getElementById("packchoose").addEventListener("click",e=>{
-  if(e.target.closest(".booster")) packTear();
+  const b=e.target.closest(".booster");
+  if(b) packTear(+b.dataset.face);
 });
 document.getElementById("tearbtn").addEventListener("click",tearDone);
 document.getElementById("revcard").addEventListener("click",flipRev);
