@@ -184,6 +184,20 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .rstat b{font-size:12.5px;color:var(--cream)}
 .rstat.good{border-color:var(--lantern)}
 .rstat.good b{color:var(--lantern)}
+.cardbackimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px}
+.packlogo.jlogo{font-family:'Fraunces',serif;font-size:17px;font-weight:800;color:#fff;
+  text-shadow:0 2px 6px rgba(0,0,0,.85);letter-spacing:.05em}
+.packlogo.jlogo small{display:block;font-size:8px;font-weight:700;color:var(--lantern);
+  letter-spacing:.2em;margin-top:2px}
+.booster .packlogo.jlogo{font-size:11px}
+.booster .packlogo.jlogo small{font-size:5px}
+.packbar.jbar{background:linear-gradient(90deg,#1B2A6B,#3D55C4,#1B2A6B)}
+.othr{max-width:420px;margin:14px auto 0;font-size:12.5px}
+.othr>b{display:block;color:var(--mute);font-weight:700;margin-bottom:6px;text-align:center}
+.orow{display:flex;justify-content:space-between;gap:10px;padding:5px 10px;
+  border-bottom:1px solid rgba(139,107,199,.16);color:var(--mute)}
+.orow b{color:var(--cream)}
+.orow.beat b{color:var(--lantern)}
 .revdots{display:flex;gap:5px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
 .revdots i{width:8px;height:8px;border-radius:50%;background:rgba(139,107,199,.35)}
 .revdots i.on{background:var(--lantern)}
@@ -638,9 +652,10 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     </div>
 
     <p class="fovnote">Puur voor de fun — wat je trekt komt niet in je verzameling.
-      Elk pakje bevat 4 commons, 3 uncommons, 1 basisenergie, 1 reverse holo en
-      1 rare of beter, net als een echt pakje. De kansen op de zeldzame kaart zijn
-      bij benadering.</p>
+      Elk pakje bevat 4 commons, 3 uncommons, 1 basisenergie (uit de SVE-reeks, echt zo),
+      1 reverse holo en 1 rare of beter, net als een echt pakje. Het Japanse pakje bevat
+      5 kaarten en geen energie — ook dat is echt zo, met betere kansen op mooie kaarten.
+      De kansen zijn bij benadering.</p>
   </div>
 
   <div id="binder" class="fullov" hidden>
@@ -1467,13 +1482,15 @@ const pval=pc=>{
    its packs the same way out of the set's full-art cards. Both the artwork and
    the logo are loaded live from the card API — nothing is copied into the app. */
 /* The set really has four wrapper designs; a display box just holds several of
-   each, so the table shows two of every design in a shuffled order. */
+   each. One Japanese pack (Mask of Change) hides among them. */
 const PACK_FACES=[
   {art:"art/pack-ogerpon.webp",   nm:"Teal Mask Ogerpon"},
   {art:"art/pack-ursaluna.webp",  nm:"Bloodmoon Ursaluna"},
   {art:"art/pack-sinistcha.webp", nm:"Sinistcha"},
   {art:"art/pack-dragapult.webp", nm:"Tera Dragapult"},
+  {art:"art/pack-ogerpon.webp",   nm:"変幻の仮面 (Japans)", ja:true},
 ];
+let packTable=[];   // the packs on the table, contents rolled the moment you pick one
 const ENERGIES=[[1,"Grass"],[2,"Fire"],[3,"Water"],[4,"Lightning"],
                 [5,"Psychic"],[6,"Fighting"],[7,"Darkness"],[8,"Metal"]];
 /* chances of the hit slot, kept in step with rollPack below */
@@ -1483,11 +1500,46 @@ const boosterArt=(f,foil=true)=>
   `${foil?'<div class="foil"></div>':""}
    <div class="hero${f.art?" clean":""}" style="background-image:url(${
       f.art||`https://images.pokemontcg.io/sv6/${f.card}.png`})"></div>
-   <div class="packlogo"><img src="https://images.pokemontcg.io/sv6/logo.png" alt=""
-        onerror="this.parentNode.innerHTML='TWILIGHT MASQUERADE'"></div>
-   <div class="packbar">10 KAARTEN</div><div class="glint"></div>`;
+   ${f.ja
+     ? `<div class="packlogo jlogo">変幻の仮面<small>ポケモンカードゲーム</small></div>
+        <div class="packbar jbar">5 カード · JAPANS</div>`
+     : `<div class="packlogo"><img src="https://images.pokemontcg.io/sv6/logo.png" alt=""
+          onerror="this.parentNode.innerHTML='TWILIGHT MASQUERADE'"></div>
+        <div class="packbar">10 KAARTEN</div>`}
+   <div class="glint"></div>`;
 let packCards=[], packFlipped=0;
-let revIdx=0, revFlipped=false, packFace=PACK_FACES[0], revTimer=null;
+let revIdx=0, revFlipped=false, packFace=PACK_FACES[0], revTimer=null, chosenSlot=0;
+
+/* Japanese Mask of Change packs really hold 5 cards and no energy,
+   with far better art-rare odds than English packs */
+function rollPackJa(){
+  const out=[];
+  for(let i=0;i<3;i++) out.push({c:pick(byRar["Common"]),ja:true});
+  out.push({c:pick(byRar["Uncommon"]),ja:true});
+  const r=Math.random();
+  if(r<0.02) out.push({c:pick(byRar["Hyper Rare"]),hit:true,big:true,ja:true});
+  else if(r<0.08) out.push({c:pick(byRar["Special Illustration Rare"]),hit:true,big:true,ja:true});
+  else if(r<0.16) out.push({c:pick(byRar["Ultra Rare"]),hit:true,big:true,ja:true});
+  else if(r<0.40) out.push({c:pick(byRar["Illustration Rare"]),hit:true,ja:true});
+  else if(r<0.60) out.push({c:pick(byRar["Double Rare"]),hit:true,ja:true});
+  else out.push({c:pick(byRar["Rare"]),ja:true});
+  return out;
+}
+/* which picture a pulled card shows: the Japanese print when we know it */
+const pcImg=pc=>pc.energy
+  ? `https://images.pokemontcg.io/sve/${pc.energy[0]}.png`
+  : (pc.ja&&JPX[pc.c[0]]
+      ? `https://assets.tcgdex.net/ja/SV/${JPX[pc.c[0]][0]}/high.webp`
+      : img(pc.c[0]));
+
+/* face-down card: the real Pokémon card back if you put one at art/cardback.webp
+   or art/cardback.png — otherwise the app's own Twilight back */
+let realBack=null;
+for(const p of ["art/cardback.webp","art/cardback.png"]){
+  const probe=new Image();
+  probe.onload=()=>{ if(!realBack) realBack=p; };
+  probe.src=p;
+}
 /* price rank across the set, so a pull can be placed against the rest */
 const PRICE_RANK=(()=>{
   const sorted=[...RAW].sort((a,b)=>b[3]-a[3]);
@@ -1495,8 +1547,11 @@ const PRICE_RANK=(()=>{
   return m;
 })();
 
-/* our own card back, used for the face-down card and the pile behind it */
-const cardBack=()=>`<div class="cardback"><div class="cbmid">
+/* the face-down card and the pile behind it */
+const cardBack=()=> realBack
+  ? `<img class="cardbackimg" src="${realBack}" alt="">`
+  : cardBackDrawn();
+const cardBackDrawn=()=>`<div class="cardback"><div class="cbmid">
   <svg viewBox="0 0 62 62" aria-hidden="true">
     <circle cx="31" cy="31" r="23" fill="none" stroke="#F5B944" stroke-width="2.5" opacity=".9"/>
     <circle cx="39" cy="24" r="8.5" fill="#F5B944" opacity=".95"/>
@@ -1511,12 +1566,13 @@ function packChoose(){
   document.getElementById("packhead").textContent="🎁 Kies een pakje";
   const box=document.getElementById("packchoose");
   box.hidden=false; box.innerHTML="";
-  const table=PACK_FACES.map((f,i)=>i).concat(PACK_FACES.map((f,i)=>i))
-    .sort(()=>Math.random()-0.5);
-  table.forEach(i=>{
-    const f=PACK_FACES[i];
+  // two of each English design plus the one Japanese pack, shuffled
+  packTable=[0,1,2,3,0,1,2,3,4].sort(()=>Math.random()-0.5)
+    .map(i=>({face:i,cards:null}));
+  packTable.forEach((p,k)=>{
+    const f=PACK_FACES[p.face];
     const b=document.createElement("button");
-    b.type="button"; b.className="booster"; b.dataset.face=i;
+    b.type="button"; b.className="booster"; b.dataset.slot=k;
     b.setAttribute("aria-label",`Pakje met ${f.nm} kiezen`);
     b.innerHTML=boosterArt(f);
     box.appendChild(b);
@@ -1527,9 +1583,13 @@ function packChoose(){
 }
 
 /* stage 2 — swipe the foil strip off the top */
-function packTear(faceIdx){
-  packCards=rollPack();
-  packFace=PACK_FACES[faceIdx||0];
+function packTear(slotIdx){
+  // roll every pack on the table now, so the summary can show what you missed
+  for(const p of packTable)
+    p.cards=PACK_FACES[p.face].ja?rollPackJa():rollPack();
+  chosenSlot=slotIdx||0;
+  packCards=packTable[chosenSlot].cards;
+  packFace=PACK_FACES[packTable[chosenSlot].face];
   document.getElementById("packhead").textContent="✋ Scheur het open";
   document.getElementById("packchoose").hidden=true;
   document.getElementById("packtear").hidden=false;
@@ -1572,7 +1632,12 @@ function showRev(){
   const pc=packCards[revIdx];
   document.getElementById("packhead").textContent=`🎁 Kaart ${revIdx+1} van ${packCards.length}`;
   const card=document.getElementById("revcard");
+  // snap back face-down WITHOUT animating, or the next card flashes by mid-turn
+  const inner=card.querySelector(".revinner");
+  inner.style.transition="none";
   card.classList.remove("flip","big","out");
+  void inner.offsetWidth;
+  inner.style.transition="";
 
   // the cards still waiting behind this one
   const left=packCards.length-revIdx-1;
@@ -1590,7 +1655,8 @@ function showRev(){
   const sheen=document.getElementById("revsheen");
   im.style.visibility="";
   sheen.hidden=!pc.rev;
-  im.src=pc.energy?`https://images.pokemontcg.io/sve/${pc.energy[0]}.png`:img(pc.c[0]);
+  im.onerror=pc.ja?()=>{ im.onerror=null; im.src=img(pc.c[0]); }:null;
+  im.src=pcImg(pc);
   document.getElementById("revlabel").innerHTML="";
   document.getElementById("revstats").innerHTML="";
   document.getElementById("revnext").textContent="Draai om";
@@ -1605,9 +1671,10 @@ function flipRev(){
   card.classList.add("flip");
   if(pc.big) card.classList.add("big");
   document.getElementById("revlabel").innerHTML = pc.energy
-    ? `<b>Basic ${pc.energy[1]} Energy</b><span>Zit in elk pakje — hoort niet bij deze set.</span>`
+    ? `<b>Basic ${pc.energy[1]} Energy</b><span>Echt zo: in elk TWM-pakje zit één basisenergie
+       uit de SVE-reeks — TWM zelf heeft geen basisenergie.</span>`
     : `<b>${pc.c[0]} ${pc.c[1]}${pc.rev?" REV":""}</b>
-       <span>${pc.rev?"Reverse holo · ":""}${pc.c[2]} · ${eur(pval(pc))}</span>`;
+       <span>${pc.ja&&JPX[pc.c[0]]?JPX[pc.c[0]][1]+" · ":""}${pc.rev?"Reverse holo · ":""}${pc.c[2]} · ${eur(pval(pc))}</span>`;
   document.getElementById("revstats").innerHTML=revStats(pc);
   if(pc.big) confetti();
   document.getElementById("revnext").textContent=
@@ -1629,7 +1696,8 @@ function revStats(pc){
   const b=slot?binderPos(slot):null;
 
   return chip("Voor jou",have?"heb je al":"NIEUW!",have?"":"good")+
-    (odds?chip("Zeldzaamheid",odds>=2?`~1 op ${odds} pakjes`:"vaak"):"")+
+    (odds&&!pc.ja?chip("Zeldzaamheid",odds>=2?`~1 op ${odds} pakjes`:"vaak"):"")+
+    (pc.ja?chip("Japans pakje","betere kansen","good"):"")+
     chip("Prijsplek",`#${rank} van 226`,rank<=20?"good":"")+
     (b?chip("In je map",`p${b.page} · r${b.row} · v${b.pocket}`):"")+
     chip("Pakje tot nu",eur(sofar));
@@ -1652,8 +1720,8 @@ function packSummary(){
   document.getElementById("packhead").textContent="🎉 Je pakje";
   document.getElementById("packgrid").innerHTML=packCards.map(pc=>
     `<div class="pcard flip${pc.hit?" hit":""}"><div class="pinner"><div class="pface pfront">
-       <img loading="lazy" alt="" src="${pc.energy
-         ?`https://images.pokemontcg.io/sve/${pc.energy[0]}.png`:img(pc.c[0])}">
+       <img loading="lazy" alt="" src="${pcImg(pc)}"
+            onerror="this.onerror=null;this.src='${pc.energy?"":img(pc.c?pc.c[0]:1)}'">
        ${pc.rev?'<div class="rev-sheen"></div>':""}
      </div></div></div>`).join("");
   const real=packCards.filter(pc=>!pc.energy);
@@ -1666,18 +1734,33 @@ function packSummary(){
     return s&&!owned.has(s.id);
   }).length;
   const chip=(l,v)=>`<span class="rstat"><small>${l}</small><b>${v}</b></span>`;
+
+  // what the packs you left behind were hiding
+  const others=packTable.map((p,k)=>({k,p})).filter(o=>o.k!==chosenSlot&&o.p.cards)
+    .map(o=>({nm:PACK_FACES[o.p.face].nm,
+              val:o.p.cards.reduce((a,pc)=>a+pval(pc),0)}))
+    .sort((a,b)=>b.val-a.val);
+  const beaten=others.filter(o=>o.val>total).length;
+  const rows=others.map(o=>
+    `<span class="orow${o.val>total?" beat":""}"><span>${o.nm}</span><b>${eur(o.val)}</b></span>`).join("");
+
   document.getElementById("packsum").innerHTML=
     `<div class="revstats">
        ${chip("Beste trek",`${best.c[0]} ${best.c[1]}`)}
        ${chip("Zeldzaamheid",best.c[2])}
        ${chip("Waarde",eur(total))}
        ${chip("Nieuw voor jou",`${isNew} van ${real.length}`)}
+     </div>
+     <div class="othr">
+       <b>${beaten===0?"Beste keuze van de tafel! 🏆"
+          :`De pakjes die je liet liggen (${beaten} deed beter):`}</b>
+       ${rows}
      </div>`;
 }
 
 document.getElementById("packchoose").addEventListener("click",e=>{
   const b=e.target.closest(".booster");
-  if(b) packTear(+b.dataset.face);
+  if(b) packTear(+b.dataset.slot);
 });
 document.getElementById("tearbtn").addEventListener("click",tearDone);
 document.getElementById("revcard").addEventListener("click",flipRev);
