@@ -1466,18 +1466,13 @@ const pval=pc=>{
 /* Real packs each feature one big Pokémon plus the set logo, so the app builds
    its packs the same way out of the set's full-art cards. Both the artwork and
    the logo are loaded live from the card API — nothing is copied into the app. */
-/* The first four use the real wrapper illustrations; the rest are built from
-   full-art cards so there is a spread of packs on the table. */
+/* The set really has four wrapper designs; a display box just holds several of
+   each, so the table shows two of every design in a shuffled order. */
 const PACK_FACES=[
   {art:"art/pack-ogerpon.webp",   nm:"Teal Mask Ogerpon"},
   {art:"art/pack-ursaluna.webp",  nm:"Bloodmoon Ursaluna"},
   {art:"art/pack-sinistcha.webp", nm:"Sinistcha"},
   {art:"art/pack-dragapult.webp", nm:"Tera Dragapult"},
-  {card:212, nm:"Hearthflame Ogerpon"},
-  {card:213, nm:"Wellspring Ogerpon"},
-  {card:215, nm:"Cornerstone Ogerpon"},
-  {card:214, nm:"Greninja"},
-  {card:197, nm:"Scream Tail"},
 ];
 const ENERGIES=[[1,"Grass"],[2,"Fire"],[3,"Water"],[4,"Lightning"],
                 [5,"Psychic"],[6,"Fighting"],[7,"Darkness"],[8,"Metal"]];
@@ -1516,7 +1511,10 @@ function packChoose(){
   document.getElementById("packhead").textContent="🎁 Kies een pakje";
   const box=document.getElementById("packchoose");
   box.hidden=false; box.innerHTML="";
-  PACK_FACES.forEach((f,i)=>{
+  const table=PACK_FACES.map((f,i)=>i).concat(PACK_FACES.map((f,i)=>i))
+    .sort(()=>Math.random()-0.5);
+  table.forEach(i=>{
+    const f=PACK_FACES[i];
     const b=document.createElement("button");
     b.type="button"; b.className="booster"; b.dataset.face=i;
     b.setAttribute("aria-label",`Pakje met ${f.nm} kiezen`);
