@@ -1,7 +1,7 @@
 /* Twilight Masquerade binder — offline support.
    Bump SHELL_CACHE when index.html changes, or phones keep the old copy. */
 
-const SHELL_CACHE = "twm-shell-v33";
+const SHELL_CACHE = "twm-shell-v34";
 const IMG_CACHE = "twm-cards-v1";
 
 const SHELL = [
@@ -19,6 +19,10 @@ const SHELL = [
   "./art/pack-sinistcha.webp",
   "./art/pack-dragapult.webp",
   "./art/about-banner.webp",
+  "./art/band-ursaluna.webp",
+  "./art/band-sinistcha.webp",
+  "./art/band-dragapult.webp",
+  "./art/band-ogerpon.webp",
 ];
 
 self.addEventListener("install", (e) => {
