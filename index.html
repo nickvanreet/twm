@@ -83,12 +83,23 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;
   overflow-wrap:anywhere}
 .kpi.gold b{color:var(--lantern)}
 
-.cotd{display:block;width:100%;font:inherit;font-size:14px;font-weight:700;min-height:46px;
-  margin-bottom:8px;border:1px solid var(--edge);border-radius:12px;cursor:pointer;
-  background:var(--panel);color:var(--cream)}
-.cotd:active{transform:scale(.99)}
 .kpi.click{cursor:pointer}
 .kpi.click:active{transform:scale(.98)}
+.tychips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.ty{font:inherit;font-size:12px;font-weight:600;min-height:34px;padding:0 11px;
+  border:1px solid var(--edge);border-radius:99px;background:var(--panel);
+  color:var(--mute);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.ty[data-ty]:not([data-ty=""])::before{content:"";width:10px;height:10px;border-radius:50%;
+  background:var(--c)}
+.ty.on{color:var(--cream);border-color:var(--lantern)}
+.tydot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;
+  vertical-align:1px}
+@media(min-width:900px){
+  .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
+  .controls #q{flex:1 1 300px;margin-bottom:0}
+  .filters{flex:2 1 420px}
+  .tychips{flex-basis:100%}
+}
 
 .about{margin:0 0 14px;border:1px solid var(--edge);border-radius:12px;background:var(--panel);
   font-size:13px;line-height:1.55;color:var(--mute)}
@@ -100,6 +111,19 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;
 .aboutstars button{border:0;padding:0;background:none;cursor:pointer;border-radius:6px;overflow:hidden}
 .aboutstars img{width:100%;display:block;aspect-ratio:63/88;object-fit:cover;border-radius:6px}
 .aboutstars button:active{transform:scale(.94)}
+#aboutfacts{margin:0}
+.factgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:2px 14px;margin:0 14px 12px}
+.factrow{display:flex;justify-content:space-between;gap:8px;padding:3px 0;font-size:12.5px;
+  border-bottom:1px solid rgba(139,107,199,.14);color:var(--mute);
+  background:none;border-left:0;border-right:0;border-top:0;font-family:inherit;
+  text-align:left;cursor:default}
+.factrow i{font-style:normal;font-weight:700;color:var(--cream)}
+button.factrow{cursor:pointer}
+button.factrow i{color:var(--lantern)}
+.factlink{font:inherit;font-size:12px;font-weight:600;border:1px solid var(--edge);
+  border-radius:99px;background:var(--panel2);color:var(--cream);
+  padding:4px 10px;margin:2px 2px 2px 0;cursor:pointer}
 
 .funrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
   gap:8px;margin-bottom:14px}
@@ -373,17 +397,29 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;
 .qopts button.good{background:var(--teal);color:var(--deep);font-weight:700}
 .qopts button.bad{background:#F09090;color:var(--deep)}
 .qscore{font-size:13px;color:var(--lantern);font-family:'Space Grotesk',sans-serif;margin-left:10px}
+.qmodes{max-width:440px;margin:0 auto 14px}
+.qart.wazig{background-size:130%;filter:blur(13px) saturate(1.2);
+  transition:filter .4s, background-size .4s}
+.qart.wazig.reveal{filter:none;background-size:115%}
+.qart.duel{background:none;box-shadow:none;width:min(440px,94vw);aspect-ratio:auto;
+  display:flex;gap:10px;justify-content:center;filter:none}
+.duelcard{position:relative;flex:1;max-width:210px;border:0;padding:0;background:none;
+  cursor:pointer;border-radius:10px}
+.duelcard img{width:100%;display:block;border-radius:10px;aspect-ratio:63/88;object-fit:cover}
+.duelcard em{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);
+  font-style:normal;font-weight:700;font-size:15px;color:var(--cream);
+  background:rgba(13,10,34,.88);border-radius:99px;padding:4px 12px;white-space:nowrap}
+.duelcard.good img{outline:3px solid var(--teal)}
+.duelcard.bad img{outline:3px solid #F09090;opacity:.75}
+.qend{text-align:center;padding:22px 0}
+.qendscore{font-family:'Fraunces',serif;font-size:52px;font-weight:800;color:var(--lantern)}
+.qend p{font-size:14px;margin:8px 0}
 
 .ovbox{perspective:900px}
 .ovshot{transition:transform .15s ease-out;will-change:transform}
 #ovglare{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay}
 
-.cf{position:fixed;z-index:70;top:-12px;width:9px;height:14px;border-radius:2px;
-  pointer-events:none;animation:cfall 2.4s ease-in forwards}
-@keyframes cfall{
-  0%{transform:translateY(0) rotate(0)}
-  100%{transform:translateY(105vh) rotate(660deg);opacity:.15}
-}
+.fxfly{position:fixed;inset:0;z-index:70;pointer-events:none}
 
 .controls{margin-bottom:14px}
 .controls #q{display:block;width:100%;margin-bottom:8px}
@@ -583,14 +619,13 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     <div class="kpi" id="stLangWrap" hidden><small>Talen in je verzameling</small><b id="stLang"></b></div>
   </div>
 
-  <button class="cotd" id="cotd" type="button">✨ Kaart van de dag</button>
-
   <div class="funrow">
     <button id="btnpack" type="button">🎁 Pakje openen</button>
     <button id="btnbinder" type="button">📖 Map</button>
     <button id="btnquiz" type="button">🎮 Quiz</button>
     <button id="btndeck" type="button">🃏 Decks</button>
     <button id="btnshare" type="button">📸 Delen</button>
+    <button id="cotd" type="button">✨ Kaart van de dag</button>
   </div>
 
   <div class="controls">
@@ -604,6 +639,20 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
         <button data-view="dup" aria-pressed="false">Dubbels</button>
         <button data-view="wish" aria-pressed="false" aria-label="Wenslijst">⭐</button>
       </div>
+    </div>
+    <div class="tychips" role="group" aria-label="Filter op energietype">
+      <button class="ty on" data-ty="">Alle types</button>
+      <button class="ty" data-ty="G" style="--c:#43A047">Grass</button>
+      <button class="ty" data-ty="R" style="--c:#E53935">Fire</button>
+      <button class="ty" data-ty="W" style="--c:#1E88E5">Water</button>
+      <button class="ty" data-ty="L" style="--c:#FDD835">Lightning</button>
+      <button class="ty" data-ty="P" style="--c:#8E24AA">Psychic</button>
+      <button class="ty" data-ty="F" style="--c:#BF6B39">Fighting</button>
+      <button class="ty" data-ty="D" style="--c:#455A64">Darkness</button>
+      <button class="ty" data-ty="M" style="--c:#90A4AE">Metal</button>
+      <button class="ty" data-ty="N" style="--c:#C8A028">Dragon</button>
+      <button class="ty" data-ty="C" style="--c:#D9D2BC">Colorless</button>
+      <button class="ty" data-ty="T" style="--c:#8B6BC7">Trainer</button>
     </div>
   </div>
 
@@ -634,6 +683,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     erbij zijn dat <b>373 kaarten</b> voor een masterset. In Japan kwamen deze kaarten uit twee
     verschillende sets, <i>Mask of Change</i> en <i>Crimson Haze</i>, en daarom hebben Japanse
     kaarten andere nummers.</p>
+    <div id="aboutfacts"></div>
   </details>
 
   <div id="grid"></div>
@@ -747,10 +797,21 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
   <div id="quiz" class="fullov" hidden>
     <button class="fovclose" data-close="quiz" type="button" aria-label="Sluiten">✕</button>
     <img class="fovband" src="art/band-dragapult.webp" alt="" loading="lazy" onerror="this.remove()">
-    <div class="fovhead">🎮 Van wie is deze kaart?<span class="qscore" id="qscore"></span></div>
+    <div class="fovhead">🎮 Quiz<span class="qscore" id="qscore"></span></div>
+    <div class="seg qmodes" role="group" aria-label="Kies een spel">
+      <button data-qm="kunst" aria-pressed="true">🔍 Kunst</button>
+      <button data-qm="wazig" aria-pressed="false">🔮 Wazig</button>
+      <button data-qm="duel" aria-pressed="false">💰 Prijsduel</button>
+    </div>
     <div class="qart" id="qart"></div>
     <div class="qopts" id="qopts"></div>
     <p class="fovnote" id="qmsg"></p>
+    <div id="qend" class="qend" hidden>
+      <div class="qendscore" id="qendscore">0/10</div>
+      <p id="qendmsg"></p>
+      <p class="own" id="qendbest"></p>
+      <div class="packrow"><button id="qagain" type="button">Speel nog eens!</button></div>
+    </div>
   </div>
 
   <div id="toast" hidden><span id="toastmsg"></span><button id="undo" type="button">Ongedaan maken</button></div>
@@ -843,6 +904,12 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 const RAW = [[1,"Tangela","Common",0.03,0.14],[2,"Tangrowth","Common",0.04,0.1],[3,"Pinsir","Common",0.05,0.11],[4,"Spinarak","Common",0.03,0.09],[5,"Ariados","Uncommon",0.05,0.11],[6,"Sunkern","Common",0.03,0.1],[7,"Sunflora","Uncommon",0.04,0.12],[8,"Heracross","Uncommon",0.03,0.1],[9,"Volbeat","Common",0.04,0.15],[10,"Illumise","Common",0.05,0.15],[11,"Leafeon","Rare",0.09,0.24],[12,"Phantump","Common",0.03,0.1],[13,"Trevenant","Uncommon",0.05,0.13],[14,"Grookey","Common",0.05,0.14],[15,"Thwackey","Common",0.04,0.11],[16,"Rillaboom","Rare",0.09,0.22],[17,"Applin","Common",0.06,0.16],[18,"Dipplin","Rare",0.12,0.28],[19,"Iron Leaves","Rare",0.09,0.25],[20,"Poltchageist","Common",0.04,0.09],[21,"Poltchageist","Common",0.05,0.11],[22,"Sinistcha","Rare",0.18,0.28],[23,"Sinistcha ex","Double Rare",0.59,null],[24,"Teal Mask Ogerpon","Rare",0.15,0.25],[25,"Teal Mask Ogerpon ex","Double Rare",0.71,null],[26,"Vulpix","Common",0.04,0.12],[27,"Ninetales","Uncommon",0.06,0.15],[28,"Slugma","Common",0.03,0.1],[29,"Magcargo ex","Double Rare",0.5,null],[30,"Torkoal","Uncommon",0.05,0.13],[31,"Chimchar","Common",0.05,0.14],[32,"Monferno","Common",0.04,0.11],[33,"Infernape","Rare",0.11,0.26],[34,"Darumaka","Common",0.03,0.1],[35,"Darmanitan","Uncommon",0.05,0.12],[36,"Litwick","Common",0.04,0.12],[37,"Lampent","Common",0.04,0.11],[38,"Chandelure","Rare",0.07,0.19],[39,"Chi-Yu","Rare",0.09,0.23],[40,"Hearthflame Mask Ogerpon ex","Double Rare",1.15,null],[41,"Poliwag","Common",0.03,0.1],[42,"Poliwhirl","Common",0.04,0.11],[43,"Poliwrath","Uncommon",0.05,0.13],[44,"Goldeen","Common",0.03,0.09],[45,"Seaking","Uncommon",0.04,0.11],[46,"Jynx","Uncommon",0.05,0.12],[47,"Corphish","Common",0.03,0.1],[48,"Crawdaunt","Uncommon",0.05,0.12],[49,"Feebas","Common",0.04,0.11],[50,"Milotic","Rare",0.09,0.22],[51,"Snorunt","Common",0.03,0.1],[52,"Glalie","Uncommon",0.05,0.12],[53,"Froslass","Rare",0.14,0.27],[54,"Glaceon","Rare",0.1,0.25],[55,"Phione","Rare",0.08,0.2],[56,"Froakie","Common",0.06,0.16],[57,"Frogadier","Common",0.07,0.18],[58,"Cramorant","Uncommon",0.04,0.12],[59,"Finizen","Common",0.03,0.1],[60,"Palafin","Uncommon",0.05,0.13],[61,"Palafin ex","Double Rare",0.45,null],[62,"Iron Bundle","Rare",0.08,0.2],[63,"Walking Wake","Rare",0.09,0.22],[64,"Wellspring Mask Ogerpon ex","Double Rare",1.35,null],[65,"Zapdos","Rare",0.11,0.26],[66,"Shinx","Common",0.04,0.12],[67,"Luxio","Common",0.04,0.11],[68,"Luxray ex","Double Rare",0.55,null],[69,"Emolga","Common",0.04,0.11],[70,"Helioptile","Common",0.03,0.1],[71,"Heliolisk","Uncommon",0.05,0.12],[72,"Morpeko","Common",0.04,0.11],[73,"Tadbulb","Common",0.03,0.1],[74,"Bellibolt","Uncommon",0.05,0.13],[75,"Wattrel","Common",0.03,0.1],[76,"Kilowattrel","Uncommon",0.05,0.12],[77,"Iron Thorns ex","Double Rare",0.62,null],[78,"Clefairy","Common",0.04,0.12],[79,"Clefable","Uncommon",0.06,0.14],[80,"Abra","Common",0.04,0.11],[81,"Kadabra","Common",0.04,0.11],[82,"Alakazam","Rare",0.09,0.22],[83,"Girafarig","Common",0.03,0.1],[84,"Farigiraf","Uncommon",0.05,0.12],[85,"Chimecho","Uncommon",0.04,0.11],[86,"Flabebe","Common",0.03,0.1],[87,"Floette","Common",0.04,0.11],[88,"Florges","Uncommon",0.05,0.13],[89,"Swirlix","Common",0.03,0.1],[90,"Slurpuff","Uncommon",0.04,0.11],[91,"Sandygast","Common",0.03,0.1],[92,"Palossand","Uncommon",0.05,0.12],[93,"Enamorus","Rare",0.1,0.24],[94,"Scream Tail ex","Double Rare",0.55,null],[95,"Munkidori","Rare",0.12,0.27],[96,"Fezandipiti","Rare",0.07,0.19],[97,"Sandshrew","Common",0.03,0.1],[98,"Sandslash","Uncommon",0.05,0.12],[99,"Hisuian Growlithe","Common",0.05,0.13],[100,"Hisuian Arcanine","Rare",0.09,0.21],[101,"Nosepass","Common",0.03,0.1],[102,"Probopass","Uncommon",0.05,0.12],[103,"Timburr","Common",0.03,0.1],[104,"Gurdurr","Common",0.04,0.11],[105,"Conkeldurr","Uncommon",0.05,0.12],[106,"Greninja ex","Double Rare",2.2,null],[107,"Hawlucha","Common",0.04,0.11],[108,"Glimmet","Common",0.03,0.1],[109,"Glimmora","Rare",0.09,0.22],[110,"Ting-Lu","Rare",0.08,0.2],[111,"Okidogi","Rare",0.09,0.22],[112,"Cornerstone Mask Ogerpon ex","Double Rare",1.05,null],[113,"Poochyena","Common",0.03,0.1],[114,"Mightyena","Uncommon",0.05,0.12],[115,"Venipede","Common",0.03,0.1],[116,"Whirlipede","Common",0.04,0.11],[117,"Scolipede","Uncommon",0.05,0.12],[118,"Brute Bonnet","Rare",0.08,0.2],[119,"Skarmory","Common",0.04,0.11],[120,"Aron","Common",0.03,0.1],[121,"Lairon","Common",0.04,0.11],[122,"Aggron","Uncommon",0.06,0.14],[123,"Heatran","Rare",0.09,0.22],[124,"Varoom","Common",0.03,0.1],[125,"Revavroom","Uncommon",0.05,0.12],[126,"Applin","Common",0.06,0.15],[127,"Dipplin","Rare",0.11,0.26],[128,"Dreepy","Common",0.08,0.19],[129,"Drakloak","Common",0.09,0.21],[130,"Dragapult ex","Double Rare",1.3,null],[131,"Tatsugiri","Uncommon",0.05,0.13],[132,"Farfetch'd","Common",0.03,0.1],[133,"Chansey","Common",0.05,0.13],[134,"Blissey ex","Double Rare",0.6,null],[135,"Eevee","Common",0.09,0.22],[136,"Snorlax","Rare",0.11,0.25],[137,"Aipom","Common",0.03,0.1],[138,"Ambipom","Uncommon",0.05,0.12],[139,"Ducklett","Common",0.03,0.1],[140,"Swanna","Uncommon",0.05,0.12],[141,"Bloodmoon Ursaluna ex","Double Rare",1.65,null],[142,"Accompanying Flute","Uncommon",0.06,0.15],[143,"Bug Catching Set","Uncommon",0.09,0.21],[144,"Caretaker","Uncommon",0.05,0.13],[145,"Carmine","Uncommon",0.35,0.72],[146,"Community Center","Uncommon",0.05,0.13],[147,"Cook","Uncommon",0.05,0.12],[148,"Enhanced Hammer","Uncommon",0.12,0.28],[149,"Festival Grounds","Uncommon",0.06,0.15],[150,"Handheld Fan","Uncommon",0.05,0.12],[151,"Hassel","Uncommon",0.05,0.13],[152,"Hyper Aroma","ACE SPEC Rare",0.53,null],[153,"Jamming Tower","Uncommon",0.08,0.19],[154,"Kieran","Uncommon",0.06,0.15],[155,"Lana's Aid","Uncommon",0.18,0.4],[156,"Love Ball","Uncommon",0.09,0.22],[157,"Lucian","Uncommon",0.05,0.13],[158,"Lucky Helmet","Uncommon",0.15,0.35],[159,"Ogre's Mask","Uncommon",0.06,0.15],[160,"Perrin","Uncommon",0.09,0.22],[161,"Raifort","Uncommon",0.05,0.12],[162,"Scoop Up Cyclone","ACE SPEC Rare",1.1,null],[163,"Secret Box","ACE SPEC Rare",0.75,null],[164,"Survival Brace","ACE SPEC Rare",0.45,null],[165,"Unfair Stamp","ACE SPEC Rare",9.48,null],[166,"Boomerang Energy","Uncommon",0.09,0.22],[167,"Legacy Energy","ACE SPEC Rare",1.36,null],[168,"Pinsir","Illustration Rare",0.9,null],[169,"Sunflora","Illustration Rare",0.85,null],[170,"Dipplin","Illustration Rare",1.6,null],[171,"Poltchageist","Illustration Rare",1.1,null],[172,"Torkoal","Illustration Rare",0.85,null],[173,"Infernape","Illustration Rare",1.5,null],[174,"Froslass","Illustration Rare",1.4,null],[175,"Phione","Illustration Rare",0.9,null],[176,"Cramorant","Illustration Rare",0.85,null],[177,"Heliolisk","Illustration Rare",0.8,null],[178,"Wattrel","Illustration Rare",0.8,null],[179,"Chimecho","Illustration Rare",0.9,null],[180,"Enamorus","Illustration Rare",1.2,null],[181,"Hisuian Growlithe","Illustration Rare",1.3,null],[182,"Probopass","Illustration Rare",0.85,null],[183,"Timburr","Illustration Rare",0.85,null],[184,"Lairon","Illustration Rare",0.8,null],[185,"Applin","Illustration Rare",1.5,null],[186,"Tatsugiri","Illustration Rare",1.2,null],[187,"Chansey","Illustration Rare",1.4,null],[188,"Eevee","Illustration Rare",4.5,null],[189,"Sinistcha ex","Ultra Rare",1.9,null],[190,"Teal Mask Ogerpon ex","Ultra Rare",3.2,null],[191,"Magcargo ex","Ultra Rare",1.5,null],[192,"Hearthflame Mask Ogerpon ex","Ultra Rare",3.5,null],[193,"Palafin ex","Ultra Rare",1.4,null],[194,"Wellspring Mask Ogerpon ex","Ultra Rare",3.8,null],[195,"Luxray ex","Ultra Rare",1.6,null],[196,"Iron Thorns ex","Ultra Rare",1.7,null],[197,"Scream Tail ex","Ultra Rare",1.5,null],[198,"Greninja ex","Ultra Rare",9.5,null],[199,"Cornerstone Mask Ogerpon ex","Ultra Rare",3.1,null],[200,"Dragapult ex","Ultra Rare",5.5,null],[201,"Blissey ex","Ultra Rare",1.6,null],[202,"Bloodmoon Ursaluna ex","Ultra Rare",6.5,null],[203,"Caretaker","Ultra Rare",1.2,null],[204,"Carmine","Ultra Rare",3.4,null],[205,"Hassel","Ultra Rare",1.3,null],[206,"Kieran","Ultra Rare",1.5,null],[207,"Lana's Aid","Ultra Rare",2.2,null],[208,"Lucian","Ultra Rare",1.3,null],[209,"Perrin","Ultra Rare",2.4,null],[210,"Sinistcha ex","Special Illustration Rare",9.5,null],[211,"Teal Mask Ogerpon ex","Special Illustration Rare",22.5,null],[212,"Hearthflame Mask Ogerpon ex","Special Illustration Rare",26.0,null],[213,"Wellspring Mask Ogerpon ex","Special Illustration Rare",28.0,null],[214,"Greninja ex","Special Illustration Rare",239.33,null],[215,"Cornerstone Mask Ogerpon ex","Special Illustration Rare",24.0,null],[216,"Bloodmoon Ursaluna ex","Special Illustration Rare",28.81,null],[217,"Carmine","Special Illustration Rare",18.0,null],[218,"Kieran","Special Illustration Rare",14.0,null],[219,"Lana's Aid","Special Illustration Rare",16.0,null],[220,"Perrin","Special Illustration Rare",21.0,null],[221,"Teal Mask Ogerpon ex","Hyper Rare",12.0,null],[222,"Bloodmoon Ursaluna ex","Hyper Rare",26.0,null],[223,"Buddy-Buddy Poffin","Hyper Rare",9.0,null],[224,"Enhanced Hammer","Hyper Rare",7.0,null],[225,"Rescue Board","Hyper Rare",6.5,null],[226,"Luminous Energy","Hyper Rare",8.78,null]];
 
 const RARITIES = ["Common","Uncommon","Rare","Double Rare","ACE SPEC Rare","Illustration Rare","Ultra Rare","Special Illustration Rare","Hyper Rare"];
+/* one letter per card number: its energy type, T for Trainers, E for Energy */
+const TYPES="GGGGGGGGGGGGGGGGGGGGGGGGGRRRRRRRRRRRRRRRWWWWWWWWWWWWWWWWWWWWWWWWLLLLLLLLLLLLLPPPPPPPPPPPPPPPPPPPFFFFFFFFFFFFFFFFDDDDDDMMMMMMMNNNNNNCCCCCCCCCCTTTTTTTTTTTTTTTTTTTTTTTTEEGGGGRRWWWLLPPFFFMNNCCGGRRWWLLPFFNCCTTTTTTTGGRWFFCTTTTGCTTTE";
+const TYCOL={G:"#43A047",R:"#E53935",W:"#1E88E5",L:"#FDD835",P:"#8E24AA",
+             F:"#BF6B39",D:"#455A64",M:"#90A4AE",N:"#C8A028",C:"#D9D2BC",
+             T:"#8B6BC7",E:"#F5B944"};
+let tyFilter="";
 const SLOTS = [];
 for (const [num,name,rarity,base,rev] of RAW){
   SLOTS.push({id:String(num),num,name,rarity,base,rev:false,fallback:base});
@@ -898,7 +965,7 @@ function build(){
         `<div class="shot"><img loading="lazy" decoding="async" alt="" src="${img(s.num)}">`+
         (s.rev?`<div class="rev-sheen"></div><div class="revtag">REV</div>`:``)+
         `<div class="tick">✓</div><span class="frtag" hidden>FR</span><span class="dup" hidden></span><span class="wtag" hidden>⭐</span><span class="zoom" aria-hidden="true">🔍</span></div>`+
-        `<div class="meta"><div class="nm">${s.num} ${s.name}</div>`+
+        `<div class="meta"><div class="nm"><i class="tydot" style="background:${TYCOL[TYPES[s.num-1]]||"transparent"}"></i>${s.num} ${s.name}</div>`+
         `<div class="pr"></div></div>`;
       nodes.set(s.id,b); ORDER.push(s); g.appendChild(b);
     }
@@ -935,6 +1002,7 @@ function paint(){
     if(view==="need"&&has) ok=false;
     if(view==="dup"&&!dc) ok=false;
     if(view==="wish"&&!wish.has(s.id)) ok=false;
+    if(tyFilter&&TYPES[s.num-1]!==tyFilter) ok=false;
     if(rar!=="all"&&s.rarity!==rar) ok=false;
     if(ok&&q){
       const hit=fold(s.name).includes(q)
@@ -1186,19 +1254,42 @@ function checkMilestones(){
     confetti();
   }
 }
+/* celebration: a swarm of fireflies rises through the night, Kitakami-style */
 function confetti(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const colors=["#F5B944","#4FBFA8","#8B6BC7","#F3EDE0","#F09090"];
-  for(let i=0;i<70;i++){
-    const d=document.createElement("i");
-    d.className="cf";
-    d.style.left=Math.random()*100+"vw";
-    d.style.background=colors[i%colors.length];
-    d.style.animationDelay=(Math.random()*.7)+"s";
-    d.style.animationDuration=(2+Math.random()*1.4)+"s";
-    document.body.appendChild(d);
-    setTimeout(()=>d.remove(),4200);
+  const cv=document.createElement("canvas");
+  cv.className="fxfly";
+  const W=cv.width=innerWidth, H=cv.height=innerHeight;
+  document.body.appendChild(cv);
+  const x=cv.getContext("2d");
+  const P=[];
+  for(let i=0;i<52;i++) P.push({
+    x:Math.random()*W, y:H*0.5+Math.random()*H*0.55,
+    r:1.4+Math.random()*2.6,
+    vx:(Math.random()-.5)*0.8, vy:-(1.0+Math.random()*2.2),
+    tw:Math.random()*6.28,
+    hue:Math.random()<0.82?"245,185,68":"170,140,255"
+  });
+  let t0=null;
+  function frame(ts){
+    if(t0===null) t0=ts;
+    const t=(ts-t0)/1000;
+    x.clearRect(0,0,W,H);
+    for(const p of P){
+      p.x+=p.vx+Math.sin(t*3+p.tw)*0.7;
+      p.y+=p.vy;
+      const a=Math.max(0,Math.min(1,(2.0-t)/1.1))*(0.5+0.5*Math.sin(t*6+p.tw));
+      if(a<=0) continue;
+      const g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4.5);
+      g.addColorStop(0,`rgba(${p.hue},${a})`);
+      g.addColorStop(1,`rgba(${p.hue},0)`);
+      x.fillStyle=g; x.beginPath(); x.arc(p.x,p.y,p.r*4.5,0,7); x.fill();
+      x.fillStyle=`rgba(255,242,205,${a})`;
+      x.beginPath(); x.arc(p.x,p.y,p.r,0,7); x.fill();
+    }
+    if(t<2.2) requestAnimationFrame(frame); else cv.remove();
   }
+  requestAnimationFrame(frame);
 }
 
 /* ---------- card of the day: date-seeded, prefers cards still needed ---------- */
@@ -1210,6 +1301,50 @@ function cardOfDay(){
   const list=pool.length?pool:SLOTS;
   return list[seed%list.length];
 }
+/* the numbers of the set, computed live so they are always right */
+let aboutBuilt=false;
+function buildAboutFacts(){
+  if(aboutBuilt) return;
+  aboutBuilt=true;
+  const cnt={}; for(const c of RAW) cnt[c[2]]=(cnt[c[2]]||0)+1;
+  const tyCnt={}; for(const ch of TYPES) tyCnt[ch]=(tyCnt[ch]||0)+1;
+  const aces=RAW.filter(c=>c[2]==="ACE SPEC Rare");
+  const top=[...RAW].map(c=>[c[0],c[1],priceOf({num:c[0],rev:false,fallback:c[3]})])
+    .sort((a,b)=>b[2]-a[2]).slice(0,5);
+  document.getElementById("aboutfacts").innerHTML=`
+    <p><b>De cijfers van de set</b></p>
+    <div class="factgrid">
+      ${RARITIES.map(r=>`<span class="factrow"><span>${r}</span><i>${cnt[r]||0}</i></span>`).join("")}
+    </div>
+    <p><b>De types</b> — tik op een bolletje boven de kaartenlijst om erop te filteren:</p>
+    <div class="factgrid">
+      ${Object.entries(ETYPE).map(([l,nm])=>tyCnt[l]?`<span class="factrow">
+        <span><i class="tydot" style="background:${TYCOL[l]}"></i>${nm}</span><i>${tyCnt[l]}</i></span>`:"").join("")}
+      <span class="factrow"><span><i class="tydot" style="background:${TYCOL.C}"></i>Colorless</span><i>${tyCnt.C||0}</i></span>
+      <span class="factrow"><span><i class="tydot" style="background:${TYCOL.T}"></i>Trainer</span><i>${tyCnt.T||0}</i></span>
+    </div>
+    <p><b>De zes ACE SPEC-kaarten</b> (maximum één per deck!):</p>
+    <p>${aces.map(c=>`<button class="factlink" data-open="${c[0]}">${c[0]} ${c[1]}</button>`).join(" ")}</p>
+    <p><b>De vijf duurste kaarten vandaag:</b></p>
+    <div class="factgrid">
+      ${top.map(([n,nm,p])=>`<button class="factrow factlink" data-open="${n}">
+        <span>${n} ${nm}</span><i>${eur(p)}</i></button>`).join("")}
+    </div>
+    <p><b>Wist je dat…</b><br>
+    · Ogerpons vier maskers vier types zijn: Teal is Grass, Hearthflame Fire, Wellspring Water
+      en Cornerstone Fighting — alle vier zitten ze als ex in deze set.<br>
+    · Bloodmoon Ursaluna uit een speciale missie in de Teal Mask-uitbreiding komt, waar hij
+      onder een bloedrode maan vecht — precies zoals op de wikkel van deze app.<br>
+    · een boosterpakje 10 kaarten bevat waarvan minstens één rare, één reverse holo en één
+      basisenergie — en het Japanse pakje maar 5 kaarten, zonder energie.<br>
+    · de set ${cnt["Illustration Rare"]} Illustration Rares telt, getekend als volledige
+      kunstwerken — daarom zijn ze zo geliefd bij verzamelaars.</p>`;
+}
+document.querySelector(".about summary").addEventListener("click",buildAboutFacts);
+document.getElementById("aboutfacts").addEventListener("click",e=>{
+  const b=e.target.closest("[data-open]");
+  if(b) openOv(b.dataset.open);
+});
 document.querySelector(".aboutstars").addEventListener("click",e=>{
   const b=e.target.closest("[data-star]");
   if(b) openOv(b.dataset.star);
@@ -1232,6 +1367,13 @@ grid.addEventListener("click",e=>{
   collect(id);
 });
 document.getElementById("q").addEventListener("input",paint);
+document.querySelector(".tychips").addEventListener("click",e=>{
+  const b=e.target.closest(".ty"); if(!b) return;
+  tyFilter=b.dataset.ty;
+  document.querySelectorAll(".tychips .ty").forEach(x=>
+    x.classList.toggle("on",x===b));
+  paint();
+});
 document.getElementById("rarity").addEventListener("change",paint);
 document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{
   document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed","false"));
@@ -1507,7 +1649,7 @@ function openFov(id){
   document.getElementById(id).hidden=false;
   document.body.classList.add("lock");
   if(id==="binder") renderBinder();
-  if(id==="quiz") qRound();
+  if(id==="quiz") qStart();
   if(id==="pack") packChoose();
   if(id==="deck") openDeck();
 }
@@ -1943,45 +2085,119 @@ document.getElementById("binder").addEventListener("touchend",e=>{
   if(Math.abs(dx)>50){ bPage+=dx<0?1:-1; renderBinder(); }
 },{passive:true});
 
-/* ---------- art quiz ---------- */
-let qStreak=0, qBest=parseInt(localStorage.getItem("twm:quizbest"))||0, qCur=null, qLock=false, qTimer=null;
-function qScoreUI(){ document.getElementById("qscore").textContent=`Reeks ${qStreak} · Beste ${qBest}`; }
+/* ---------- quiz: three games, rounds of ten ---------- */
+let qMode="kunst", qNr=0, qScore=0, qCur=null, qLock=false, qTimer=null;
+let qBests={kunst:0,wazig:0,duel:0};
+try{ const s=localStorage.getItem("twm:quizbest2"); if(s) qBests={...qBests,...JSON.parse(s)}; }catch(e){}
+
+function qScoreUI(){
+  document.getElementById("qscore").textContent=
+    `Vraag ${Math.min(qNr+1,10)}/10 · Score ${qScore} · Beste ${qBests[qMode]}`;
+}
+function qStart(mode){
+  qMode=mode||qMode; qNr=0; qScore=0;
+  document.querySelectorAll(".qmodes button").forEach(b=>
+    b.setAttribute("aria-pressed",b.dataset.qm===qMode?"true":"false"));
+  document.getElementById("qend").hidden=true;
+  document.getElementById("qart").hidden=false;
+  qRound();
+}
 function qRound(){
-  clearTimeout(qTimer);   // a pending auto-advance must not replace this round
+  clearTimeout(qTimer);
   qLock=false;
   document.getElementById("qmsg").textContent="";
-  qCur=pick(RAW);
   const art=document.getElementById("qart");
-  art.classList.remove("reveal");
-  art.style.backgroundImage=`url(${img(qCur[0])})`;
-  art.style.backgroundPosition=`${20+Math.random()*60}% ${8+Math.random()*30}%`;
-  const names=new Set([qCur[1]]);
-  while(names.size<4) names.add(pick(RAW)[1]);
-  const box=document.getElementById("qopts"); box.innerHTML="";
-  for(const nm of [...names].sort(()=>Math.random()-.5)){
-    const b=document.createElement("button"); b.type="button"; b.textContent=nm;
-    b.addEventListener("click",()=>qAnswer(b,nm));
-    box.appendChild(b);
+  art.classList.remove("reveal","wazig","duel");
+  art.innerHTML="";
+
+  if(qMode==="duel"){
+    // two cards, clearly apart in price — which is worth more?
+    let a,b;
+    do{ a=pick(RAW); b=pick(RAW); }
+    while(a[0]===b[0]||Math.max(a[3],b[3])<Math.min(a[3],b[3])*1.8+0.05);
+    qCur={a,b,ans:a[3]>b[3]?"a":"b"};
+    art.classList.add("duel");
+    art.style.backgroundImage="";
+    art.innerHTML=`
+      <button type="button" class="duelcard" data-du="a"><img alt="" src="${img(a[0])}"><em hidden></em></button>
+      <button type="button" class="duelcard" data-du="b"><img alt="" src="${img(b[0])}"><em hidden></em></button>`;
+    document.getElementById("qopts").innerHTML="";
+    document.getElementById("qmsg").textContent="Tik op de kaart die vandaag het meest waard is!";
+  }else{
+    qCur=pick(RAW);
+    art.style.backgroundImage=`url(${img(qCur[0])})`;
+    if(qMode==="wazig"){
+      art.classList.add("wazig");
+      art.style.backgroundPosition="center 22%";
+    }else{
+      art.style.backgroundPosition=`${20+Math.random()*60}% ${8+Math.random()*30}%`;
+    }
+    const names=new Set([qCur[1]]);
+    while(names.size<4) names.add(pick(RAW)[1]);
+    const box=document.getElementById("qopts"); box.innerHTML="";
+    for(const nm of [...names].sort(()=>Math.random()-.5)){
+      const b=document.createElement("button"); b.type="button"; b.textContent=nm;
+      b.addEventListener("click",()=>qAnswer(b,nm));
+      box.appendChild(b);
+    }
   }
   qScoreUI();
+}
+function qFinishQuestion(good,msg){
+  if(good){ qScore++; }
+  document.getElementById("qmsg").textContent=msg;
+  qScoreUI();
+  qNr++;
+  qTimer=setTimeout(()=>{
+    if(document.getElementById("quiz").hidden) return;
+    if(qNr>=10) qEnd(); else qRound();
+  },1700);
 }
 function qAnswer(btn,nm){
   if(qLock) return; qLock=true;
   document.getElementById("qart").classList.add("reveal");
-  if(nm===qCur[1]){
-    btn.classList.add("good"); qStreak++;
-    if(qStreak>qBest){ qBest=qStreak; try{ localStorage.setItem("twm:quizbest",qBest); }catch(e){} }
-    if(qStreak&&qStreak%5===0) confetti();
-    document.getElementById("qmsg").textContent=`Juist! ${qCur[0]} ${qCur[1]}.`;
-  }else{
+  const good=nm===qCur[1];
+  if(good) btn.classList.add("good");
+  else{
     btn.classList.add("bad");
     [...document.getElementById("qopts").children].find(b=>b.textContent===qCur[1]).classList.add("good");
-    document.getElementById("qmsg").textContent=`Het was ${qCur[0]} ${qCur[1]} — reeks voorbij!`;
-    qStreak=0;
   }
-  qScoreUI();
-  qTimer=setTimeout(()=>{ if(!document.getElementById("quiz").hidden) qRound(); },1700);
+  qFinishQuestion(good, good?`Juist! ${qCur[0]} ${qCur[1]}.`:`Het was ${qCur[0]} ${qCur[1]}.`);
 }
+document.getElementById("qart").addEventListener("click",e=>{
+  const d=e.target.closest(".duelcard");
+  if(!d||qLock||qMode!=="duel") return;
+  qLock=true;
+  const good=d.dataset.du===qCur.ans;
+  document.querySelectorAll(".duelcard").forEach(el=>{
+    const c=el.dataset.du==="a"?qCur.a:qCur.b;
+    const em=el.querySelector("em");
+    em.hidden=false; em.textContent=eur(priceOf({num:c[0],rev:false,fallback:c[3]}));
+    el.classList.add(el.dataset.du===qCur.ans?"good":"bad");
+  });
+  const w=qCur.ans==="a"?qCur.a:qCur.b;
+  qFinishQuestion(good, good?`Juist! ${w[1]} is de duurste.`:`Mis — ${w[1]} is meer waard.`);
+});
+function qEnd(){
+  const best=qScore>qBests[qMode];
+  if(best){ qBests[qMode]=qScore; try{ localStorage.setItem("twm:quizbest2",JSON.stringify(qBests)); }catch(e){} }
+  document.getElementById("qart").hidden=true;
+  document.getElementById("qopts").innerHTML="";
+  document.getElementById("qmsg").textContent="";
+  const e=document.getElementById("qend"); e.hidden=false;
+  document.getElementById("qendscore").textContent=`${qScore}/10`;
+  document.getElementById("qendmsg").textContent=
+    qScore===10?"PERFECT! Een echte Twilight-meester! 🌕"
+    :qScore>=8?"Bijna perfect — sterk gespeeld!"
+    :qScore>=5?"Mooi zo! Nog even oefenen voor de volle maan."
+    :"De volgende ronde wordt beter — blijven proberen!";
+  document.getElementById("qendbest").textContent=
+    best?"🏆 Nieuw record voor deze modus!":`Beste in deze modus: ${qBests[qMode]}/10`;
+  if(qScore>=8) confetti();
+}
+document.querySelectorAll(".qmodes button").forEach(b=>
+  b.addEventListener("click",()=>qStart(b.dataset.qm)));
+document.getElementById("qagain").addEventListener("click",()=>qStart());
 
 /* ---------- deck lab ----------
    Card text, attacks and evolution lines live in cards.js, loaded the first
@@ -2002,7 +2218,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v34";   // bump with the service worker, so these load fresh per release
+const APPV="v36";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -2404,8 +2620,8 @@ function askTiltPermission(){
 
 /* ---------- backup & restore (import merges, never deletes) ---------- */
 const BK_KEYS=["twm:collection","twm:langmap","twm:doubles","twm:wish",
-               "twm:milestones","twm:quizbest","twm:lang","twm:bpage","twm:deck",
-               "twm:binderfmt","twm:mydecks"];
+               "twm:milestones","twm:quizbest","twm:quizbest2","twm:lang","twm:bpage",
+               "twm:deck","twm:binderfmt","twm:mydecks"];
 document.getElementById("bkexp").addEventListener("click",async()=>{
   const data={};
   for(const k of BK_KEYS){ const v=localStorage.getItem(k); if(v!==null) data[k]=v; }
@@ -2436,7 +2652,14 @@ document.getElementById("bkfile").addEventListener("change",async e=>{
   for(const id of owned) wish.delete(id);   // nothing already collected stays wished
   let ms; try{ ms=new Set(JSON.parse(localStorage.getItem(MKEY)||"[]")); }catch(err){ ms=new Set(); }
   for(const m of parse("twm:milestones",[])) ms.add(m);
-  const qb=parseInt(d["twm:quizbest"])||0; if(qb>qBest) qBest=qb;
+  try{                                            // quiz records: keep the highest per game
+    const inc=d["twm:quizbest2"]?JSON.parse(d["twm:quizbest2"]):{};
+    const legacy=parseInt(d["twm:quizbest"])||0;   // old streak record counts for Kunst
+    if(legacy>(inc.kunst||0)) inc.kunst=Math.min(10,legacy);
+    for(const k of Object.keys(qBests))
+      if((inc[k]||0)>qBests[k]) qBests[k]=inc[k];
+    localStorage.setItem("twm:quizbest2",JSON.stringify(qBests));
+  }catch(err){}
   loadMyDecks();                                  // saved decks merge by name, local wins
   for(const md of parse("twm:mydecks",[]))
     if(md&&md.name&&!myDecks.some(x=>x.name===md.name)) myDecks.push(md);
@@ -2447,7 +2670,6 @@ document.getElementById("bkfile").addEventListener("change",async e=>{
     localStorage.setItem(DKEY,JSON.stringify(dupes));
     localStorage.setItem(WKEY,JSON.stringify([...wish]));
     localStorage.setItem(MKEY,JSON.stringify([...ms]));
-    localStorage.setItem("twm:quizbest",qBest);
   }catch(err){}
   applyAllArt(); applyAllDup(); applyAllWish(); paint(); refreshBinder();
   const added=owned.size-before;
