@@ -319,6 +319,11 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .dstep{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
 .dstep button{width:38px;height:38px;border:1px solid var(--edge);border-radius:9px;
   background:var(--panel);color:var(--cream);font-size:18px;cursor:pointer}
+.dsplitrow{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.etypestep{background:var(--panel);border:1px solid var(--edge);border-radius:10px;
+  padding:5px 8px;font-size:12.5px;color:var(--cream)}
+.etypestep b{min-width:18px;text-align:center;color:var(--lantern);font-size:14px}
+.etypestep button{width:32px;height:32px}
 .pool button,.dline{display:flex;width:100%;align-items:center;gap:8px;text-align:left;
   background:var(--panel);border:1px solid var(--edge);border-radius:10px;color:var(--cream);
   font:inherit;font-size:13px;padding:8px 10px;margin-bottom:6px;cursor:pointer}
@@ -728,12 +733,13 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
         <b id="dcount">0</b><span>/ 60 kaarten</span>
         <span id="dverdict"></span>
         <span id="dmiss" style="font-size:12px;color:var(--mute)"></span>
-        <span class="dstep">Energie
+        <span class="dstep">Energie zonder type
           <button id="denm" type="button" aria-label="Minder energie">−</button>
           <b id="dens" style="font-size:15px">12</b>
           <button id="denp" type="button" aria-label="Meer energie">+</button>
         </span>
       </div>
+      <div class="dsplitrow" id="dsplit"></div>
       <p class="dneed" id="dneed"></p>
       <p class="dprob" id="dprob"></p>
       <div id="dlist"></div>
@@ -1923,8 +1929,12 @@ function qAnswer(btn,nm){
    time this opens so the rest of the app stays light. Energy is deliberately
    not pickable: you set a number and add your own basic energy. */
 const DECKKEY="twm:deck";
-let deckState={cards:{},energy:12};
+/* energy = untyped count, split = typed counts per letter; total = both together */
+let deckState={cards:{},energy:12,split:{}};
 try{ const s=localStorage.getItem(DECKKEY); if(s) deckState=JSON.parse(s); }catch(e){}
+if(!deckState.split) deckState.split={};
+const enTotal=()=>(deckState.energy||0)+
+  Object.values(deckState.split).reduce((a,b)=>a+b,0);
 let cardsReady=false;
 const byCardId=new Map();
 
@@ -1933,6 +1943,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
+const APPV="v32";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -1940,8 +1951,8 @@ function ensureCards(){
   if(!cardsLoading){
     cardsLoading=(async()=>{
       try{
-        await loadScript("cards.js");
-        try{ await loadScript("decks.js"); }catch(e){}   // suggested decks are a bonus
+        await loadScript(`cards.js?${APPV}`);
+        try{ await loadScript(`decks.js?${APPV}`); }catch(e){}   // suggested decks are a bonus
         for(const c of CARDS) byCardId.set(c.id,c);
         cardsReady=true;
         return true;
@@ -1998,8 +2009,25 @@ function checkDeck(){
     }
     if(have<n) probs.push(`${n} ${c.name} maar slechts ${have} ${c.from} om uit te evolueren.`);
   }
-  const total=cards+(deckState.energy||0);
+  const total=cards+enTotal();
   if(total!==60) probs.push(`${total} kaarten in totaal — een deck moet er exact 60 hebben, energie meegeteld.`);
+
+  /* do the energy TYPES match what the attacks ask for? */
+  const need={};
+  for(const [id,n] of Object.entries(deckState.cards)){
+    const c=byCardId.get(+id); if(!c||c.st!=="P") continue;
+    for(const a of c.at||[]) for(const ch of (a.k||"")) if(ch!=="C") need[ch]=(need[ch]||0)+n;
+  }
+  const untyped=deckState.energy||0;
+  for(const l of Object.keys(need))
+    if(!(deckState.split[l]>0)&&untyped===0&&enTotal()>0)
+      tips.push(`Je aanvallen vragen ${ETYPE[l]} energie, maar je neemt er geen mee.`);
+  for(const l of Object.keys(deckState.split))
+    if(deckState.split[l]>0&&!need[l])
+      tips.push(`Je neemt ${ETYPE[l]} energie mee, maar geen enkele aanval gebruikt die.`);
+  if(untyped>0&&Object.keys(need).length)
+    tips.push(`${untyped} energiekaart${untyped>1?"en hebben":" heeft"} nog geen type — kies hieronder welke je meeneemt.`);
+
   return {probs,tips,total,cards};
 }
 
@@ -2016,10 +2044,13 @@ function renderMyDecks(){
   if(!myDecks.length){ box.innerHTML=""; return; }
   box.innerHTML=`<p class="own" style="margin:4px 0 6px">Mijn bewaarde decks:</p>`+
     myDecks.map((d,i)=>{
-      const n=Object.values(d.cards).reduce((a,b)=>a+b,0)+(d.energy||0);
+      const en=(d.energy||0)+Object.values(d.split||{}).reduce((a,b)=>a+b,0);
+      const n=Object.values(d.cards).reduce((a,b)=>a+b,0)+en;
+      const sp=Object.entries(d.split||{}).filter(([,v])=>v>0)
+        .map(([l,v])=>`${v} ${ETYPE[l]}`).join(" · ");
       return `<div class="myrow">
         <span class="grow2"><span class="nm2">${d.name}</span><br>
-          <small>${n}/60 kaarten · ${d.energy} energie</small></span>
+          <small>${n}/60 kaarten · ${en} energie${sp?` (${sp})`:""}</small></span>
         <button type="button" data-mload="${i}">Laad</button>
         <button type="button" class="del" data-mdel="${i}">🗑</button>
       </div>`;
@@ -2031,7 +2062,8 @@ document.getElementById("dsave").addEventListener("click",()=>{
   if(!Object.keys(deckState.cards).length){ showToast("Je deck is nog leeg.",null); return; }
   if(!name){ inp.focus(); inp.placeholder="Geef je deck eerst een naam!"; return; }
   loadMyDecks();
-  const entry={name,cards:{...deckState.cards},energy:deckState.energy};
+  const entry={name,cards:{...deckState.cards},energy:deckState.energy,
+               split:{...deckState.split}};
   const at=myDecks.findIndex(d=>d.name===name);
   if(at>=0) myDecks[at]=entry; else myDecks.push(entry);
   saveMyDecks(); renderMyDecks();
@@ -2042,7 +2074,7 @@ document.getElementById("dmine").addEventListener("click",e=>{
   if(l){
     loadMyDecks();
     const d=myDecks[+l.dataset.mload]; if(!d) return;
-    deckState={cards:{...d.cards},energy:d.energy};
+    deckState={cards:{...d.cards},energy:d.energy,split:{...(d.split||{})}};
     deckSave(); renderBuild();
     document.getElementById("dname").value=d.name;
     showToast(`<b>${d.name}</b> geladen.`,null);
@@ -2071,6 +2103,21 @@ function renderBuild(){
   const {probs,tips,total}=checkDeck();
   document.getElementById("dcount").textContent=total;
   document.getElementById("dens").textContent=deckState.energy;
+
+  // typed-energy steppers: every type the attacks need, plus types already chosen
+  const needT={};
+  for(const id of Object.keys(deckState.cards)){
+    const c=byCardId.get(+id); if(!c||c.st!=="P") continue;
+    for(const a of c.at||[]) for(const ch of (a.k||"")) if(ch!=="C") needT[ch]=1;
+  }
+  const letters=[...new Set([...Object.keys(needT),
+    ...Object.keys(deckState.split).filter(l=>deckState.split[l]>0)])];
+  document.getElementById("dsplit").innerHTML=letters.length
+    ? letters.map(l=>`<span class="dstep etypestep">${ETYPE[l]}
+        <button type="button" data-esub="${l}" aria-label="Minder ${ETYPE[l]}">−</button>
+        <b>${deckState.split[l]||0}</b>
+        <button type="button" data-eadd="${l}" aria-label="Meer ${ETYPE[l]}">+</button></span>`).join("")
+    : "";
   const v=document.getElementById("dverdict");
   v.className=probs.length?"bad":"ok";
   v.textContent=probs.length?"nog niet geldig":"geldig deck ✓";
@@ -2091,7 +2138,7 @@ function renderBuild(){
   document.getElementById("dneed").innerHTML = pairs.length
     ? "Je aanvallen vragen deze energie: "+
       pairs.map(([k,n])=>`<span class="etype">${ETYPE[k]||k} ×${n}</span>`).join("")+
-      ` <b>Zet hiernaast ${deckState.energy} energie en neem er zoveel van mee.</b>`
+      ` <b>Verdeel je ${enTotal()} energiekaarten hierboven over deze types.</b>`
     : (Object.keys(deckState.cards).length
         ? "Geen enkele aanval vraagt een gekleurde energie — Colorless kan je met eender welke energie betalen."
         : "");
@@ -2165,6 +2212,9 @@ function renderReady(){
         <button type="button" class="ghostbtn" data-expand="${d.key}">Alles over dit deck</button>
       </div>
       <div hidden data-more="${d.key}">
+        ${d.energySplit?`<div class="upg"><b>Energie om mee te nemen:</b> ${
+          Object.entries(d.energySplit).map(([l,v])=>`${v}× Basic ${ETYPE[l]} Energy`).join(" · ")
+        } (${d.energy} in totaal, uit de SVE-reeks)</div>`:""}
         <div class="upg"><b>Het plan:</b> ${d.strategy}</div>
         <p class="own" style="margin-top:10px">De 60 kaarten:</p>
         <div class="dlistbox">${rows}</div>
@@ -2219,8 +2269,22 @@ document.getElementById("denp").addEventListener("click",()=>{
   deckState.energy=Math.min(30,(deckState.energy||0)+1); deckSave(); renderBuild(); });
 document.getElementById("denm").addEventListener("click",()=>{
   deckState.energy=Math.max(0,(deckState.energy||0)-1); deckSave(); renderBuild(); });
+document.getElementById("dsplit").addEventListener("click",e=>{
+  const add=e.target.closest("[data-eadd]"), sub=e.target.closest("[data-esub]");
+  if(!add&&!sub) return;
+  const l=(add||sub).dataset.eadd||(add||sub).dataset.esub;
+  const cur=deckState.split[l]||0;
+  if(add){
+    // typing an untyped energy first; only then does the total grow
+    if((deckState.energy||0)>0) deckState.energy--;
+    deckState.split[l]=Math.min(30,cur+1);
+  }else{
+    if(cur>0){ deckState.split[l]=cur-1; if(!deckState.split[l]) delete deckState.split[l]; }
+  }
+  deckSave(); renderBuild();
+});
 document.getElementById("dclear").addEventListener("click",()=>{
-  deckState={cards:{},energy:12}; deckSave(); renderBuild(); });
+  deckState={cards:{},energy:12,split:{}}; deckSave(); renderBuild(); });
 document.getElementById("deck").addEventListener("click",e=>{
   const pick=e.target.closest("[data-pick]");
   if(pick){ deckAdd(+pick.dataset.pick,1); return; }
@@ -2239,7 +2303,9 @@ document.getElementById("deck").addEventListener("click",e=>{
   if(load){
     const d=DECKS.find(x=>x.key===load.dataset.load);
     if(!d) return;
-    deckState={cards:{},energy:d.energy};
+    const sp=d.energySplit?{...d.energySplit}:{};
+    const typed=Object.values(sp).reduce((a,b)=>a+b,0);
+    deckState={cards:{},energy:Math.max(0,d.energy-typed),split:sp};
     for(const c of d.cards) deckState.cards[c.id]=(deckState.cards[c.id]||0)+c.count;
     deckSave(); dtab("build");
     showToast(`<b>${d.name}</b> in de bouwer geladen.`,null);
