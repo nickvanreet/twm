@@ -166,6 +166,11 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:calc(18px
 .dstatus .ok{color:var(--teal);font-weight:700}
 .dstatus .bad{color:#F09090;font-weight:700}
 .dprob{font-size:12px;color:#F09090;line-height:1.5;margin:0 0 10px}
+.dneed{font-size:12px;color:var(--mute);line-height:1.5;margin:0 0 8px}
+.dneed b{color:var(--cream)}
+.etype{display:inline-block;font-size:11px;font-weight:700;border-radius:99px;
+  padding:2px 9px;margin-right:5px;background:var(--panel2);color:var(--cream);
+  border:1px solid var(--edge)}
 .dctl{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
 .dctl input{flex:1;min-width:150px}
 .dstep{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
@@ -539,6 +544,7 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
           <button id="denp" type="button" aria-label="Meer energie">+</button>
         </span>
       </div>
+      <p class="dneed" id="dneed"></p>
       <p class="dprob" id="dprob"></p>
       <div id="dlist"></div>
       <div class="dctl">
@@ -1498,6 +1504,8 @@ function ensureCards(){
 
 const cardOwned=c=>c.nums.some(n=>owned.has(String(n))||owned.has(n+"r"));
 const cardKind=c=>c.st==="P"?"p":"t";
+const ETYPE={G:"Grass",R:"Fire",W:"Water",L:"Lightning",P:"Psychic",
+             F:"Fighting",D:"Darkness",M:"Metal",Y:"Fairy",N:"Dragon"};
 const short=(t,n)=>t.length>n?t.slice(0,n-1).replace(/\s+\S*$/,"")+"…":t;
 function cardLine(c){
   if(c.st!=="P"){
@@ -1565,6 +1573,23 @@ function renderBuild(){
     probs.map(p=>"• "+p).join("<br>")+
     (probs.length&&tips.length?"<br>":"")+
     tips.map(t=>`<span style="color:var(--mute)">• ${t}</span>`).join("<br>");
+
+  /* which energy your attackers actually need — a card's own type is not the
+     same thing as its attack cost (Greninja ex is Fighting but attacks on Water) */
+  const need={};
+  for(const id of Object.keys(deckState.cards)){
+    const c=byCardId.get(+id); if(!c||c.st!=="P") continue;
+    for(const a of c.at||[])
+      for(const ch of (a.k||"")) if(ch!=="C") need[ch]=(need[ch]||0)+1;
+  }
+  const pairs=Object.entries(need).sort((a,b)=>b[1]-a[1]);
+  document.getElementById("dneed").innerHTML = pairs.length
+    ? "Je aanvallen vragen deze energie: "+
+      pairs.map(([k,n])=>`<span class="etype">${ETYPE[k]||k} ×${n}</span>`).join("")+
+      ` <b>Zet hiernaast ${deckState.energy} energie en neem er zoveel van mee.</b>`
+    : (Object.keys(deckState.cards).length
+        ? "Geen enkele aanval vraagt een gekleurde energie — Colorless kan je met eender welke energie betalen."
+        : "");
 
   const miss=Object.keys(deckState.cards).map(Number)
     .filter(id=>{ const c=byCardId.get(id); return c&&!cardOwned(c); }).length;
