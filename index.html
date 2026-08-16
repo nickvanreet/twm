@@ -18,10 +18,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700..800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* The original dusk palette now resolves to Nocturne: every screen that was
+   never rewritten (pack, quiz, toast, badges, tick marks) follows along, so
+   nothing gold is left over from the old design. FIXES §4. */
 :root{
-  --night:#141033; --deep:#0D0A22; --panel:#1E1846; --panel2:#241C52;
-  --lantern:#F5B944; --teal:#4FBFA8; --plum:#8B6BC7; --cream:#F3EDE0; --mute:#9188B8;
-  --edge:rgba(139,107,199,.32);
+  --night:#1b1d2c; --deep:#161826; --panel:#232532; --panel2:#2b2741;
+  --lantern:#b5abfc; --teal:#796cbf; --plum:#796cbf; --cream:#e9e9ed; --mute:#75798c;
+  --edge:#3f424d;
 }
 *{box-sizing:border-box}
 #splash{position:fixed;inset:0;z-index:90;background:var(--deep);
@@ -544,7 +547,10 @@ select{flex:1;min-width:140px;appearance:none;
   position:relative;display:block;width:100%;padding:0;cursor:pointer;
   background:var(--panel);border:0;border-radius:12px;overflow:hidden;
   box-shadow:0 0 0 1px var(--edge); opacity:.6;
-  transition:opacity .18s, box-shadow .18s, transform .12s;
+  /* transform only: transitions on box-shadow/opacity get PAUSED by
+     content-visibility:auto while offscreen and then stick at their old
+     value — and the Samsung perf rule wants transform-only anyway */
+  transition:transform .12s;
   text-align:left;color:inherit;font:inherit;
   content-visibility:auto; contain-intrinsic-size:auto 250px;
 }
@@ -1044,6 +1050,16 @@ footer{padding-bottom:12px}
 .bsessbtns .nprim{flex:1}
 .bsessbtns .nghost.wide{width:auto;padding:0 14px;font-size:13px}
 .bsessionbar .btfoot{margin-top:8px}
+
+/* the tick and wish marks become icons, and follow the accent (FIXES §3) */
+.tick svg,.wtag svg{width:14px;height:14px;fill:currentColor;display:block}
+.wtag svg{width:12px;height:12px}
+.card.have .tick{display:grid;place-items:center}
+/* owned cards wear the accent ring the design asks for, not a bright halo */
+.card.have{box-shadow:0 0 0 1px var(--n-a6)}
+.tick{background:var(--n-a4);color:var(--n-bg);width:22px;height:22px}
+.wtag{color:var(--n-a4)}
+.dup{background:rgba(22,24,38,.85);color:var(--n-a3);border-color:var(--n-a6)}
 
 /* ---- round 6a: the nine-pack display box ---- */
 #pack .fovhead:empty{display:none}
@@ -1786,7 +1802,7 @@ footer{padding-bottom:12px}
   <div id="quiz" class="fullov" hidden>
     <button class="fovclose" data-close="quiz" type="button" aria-label="Sluiten">✕</button>
     <img class="fovband" src="art/band-dragapult.webp" alt="" loading="lazy" onerror="this.remove()">
-    <div class="fovhead">🎮 Quiz<span class="qscore" id="qscore"></span></div>
+    <div class="fovhead">Quiz<span class="qscore" id="qscore"></span></div>
     <div class="seg qmodes" role="group" aria-label="Kies een spel">
       <button data-qm="kunst" aria-pressed="true"><svg class="pi" aria-hidden="true"><use href="#i-magnifying-glass-plus"/></svg> Kunst</button>
       <button data-qm="wazig" aria-pressed="false"><svg class="pi" aria-hidden="true"><use href="#i-drop-half"/></svg> Wazig</button>
@@ -1961,7 +1977,7 @@ footer{padding-bottom:12px}
 
   <div id="shareov" class="fullov" hidden>
     <button class="fovclose" data-close="shareov" type="button">✕</button>
-    <div class="fovhead">📸 Mijn verzamelkaart</div>
+    <div class="fovhead">Mijn verzamelkaart</div>
     <img id="shareimg" alt="Deelafbeelding van de verzameling">
     <div class="packrow">
       <button id="sharesend" type="button">Delen maar!</button>
@@ -1971,7 +1987,7 @@ footer{padding-bottom:12px}
 
   <div id="scanov" class="fullov" hidden>
     <button class="fovclose" data-close="scanov" type="button" aria-label="Sluiten">✕</button>
-    <div class="fovhead">📷 Kaart scannen</div>
+    <div class="fovhead">Kaart scannen</div>
     <div id="scanstage">
       <div class="scanview">
         <video id="scanvid" autoplay playsinline muted></video>
@@ -2093,7 +2109,9 @@ function build(){
       b.innerHTML=
         `<div class="shot"><img loading="lazy" decoding="async" alt="" src="${img(s.num)}">`+
         (s.rev?`<div class="rev-sheen"></div><div class="revtag">REV</div>`:``)+
-        `<div class="tick">✓</div><span class="frtag" hidden>FR</span><span class="dup" hidden></span><span class="wtag" hidden>⭐</span>`+
+        `<div class="tick"><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#i-check"/></svg></div>`+
+        `<span class="frtag" hidden>FR</span><span class="dup" hidden></span>`+
+        `<span class="wtag" hidden><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#i-star-fill"/></svg></span>`+
         `<span class="qadd" role="button" tabindex="0" aria-label="Eén ${s.name} toevoegen">+</span></div>`+
         `<div class="meta"><div class="nm"><i class="tydot" style="background:${TYCOL[TYPES[s.num-1]]||"transparent"}"></i>${s.num} ${s.name}</div>`+
         `<div class="pr"></div></div>`;
@@ -3274,7 +3292,7 @@ function nextRev(){
 function packSummary(){
   document.getElementById("packreveal").hidden=true;
   document.getElementById("packdone").hidden=false;
-  document.getElementById("packhead").textContent="🎉 Je pakje";
+  document.getElementById("packhead").textContent="Je pakje";
   document.getElementById("packgrid").innerHTML=packCards.map(pc=>
     `<div class="pcard flip${pc.hit?" hit":""}"><div class="pinner"><div class="pface pfront">
        <img loading="lazy" alt="" src="${pcImg(pc)}"
@@ -3345,6 +3363,22 @@ document.getElementById("tearbtn").addEventListener("click",tearDone);
 document.getElementById("revcard").addEventListener("click",flipRev);
 document.getElementById("revnext").addEventListener("click",nextRev);
 document.getElementById("packopen").addEventListener("click",packChoose);
+/* like a real pack: flick the card up (or just tap it) to turn it over
+   and to push it away — the button stays for whoever prefers buttons */
+{
+  const stage=document.querySelector("#packreveal .revwrap");
+  let sy=null, sx=null;
+  stage.addEventListener("pointerdown",e=>{ sy=e.clientY; sx=e.clientX; });
+  stage.addEventListener("pointerup",e=>{
+    if(sy===null) return;
+    const dy=sy-e.clientY, dx=Math.abs(e.clientX-sx);
+    sy=null; sx=null;
+    if(dy>40&&dy>dx) nextRev();          // flick up
+    else if(dy<12&&dx<12) nextRev();     // or a plain tap on the card
+  });
+  stage.addEventListener("pointercancel",()=>{ sy=null; sx=null; });
+  stage.addEventListener("touchmove",e=>{ if(sy!==null) e.preventDefault(); },{passive:false});
+}
 
 /* ---------- virtual binder: pages exactly like the physical one ---------- */
 let bPage=parseInt(localStorage.getItem("twm:bpage"))||1;
@@ -3813,7 +3847,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v49";   // bump with the service worker, so these load fresh per release
+const APPV="v50";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -3971,7 +4005,7 @@ document.getElementById("dsave").addEventListener("click",()=>{
   const at=myDecks.findIndex(d=>d.name===name);
   if(at>=0) myDecks[at]=entry; else myDecks.push(entry);
   saveMyDecks(); renderMyDecks();
-  showToast(`💾 <b>${name}</b> bewaard${at>=0?" (overschreven)":""}.`,null);
+  showToast(`<b>${name}</b> bewaard${at>=0?" (overschreven)":""}.`);
 });
 document.getElementById("dmine").addEventListener("click",e=>{
   const l=e.target.closest("[data-mload]");
@@ -4386,7 +4420,7 @@ document.getElementById("bkfile").addEventListener("change",async e=>{
   }catch(err){}
   applyAllArt(); applyAllDup(); applyAllWish(); paint(); refreshBinder();
   const added=owned.size-before;
-  showToast(`📥 Back-up samengevoegd — ${added} nieuwe kaart${added===1?"":"en"}, ${owned.size} in totaal.`,null);
+  showToast(`Back-up samengevoegd — ${added} nieuwe kaart${added===1?"":"en"}, ${owned.size} in totaal.`);
 });
 
 /* ---------- brag card: shareable picture of the collection ---------- */
