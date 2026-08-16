@@ -2626,7 +2626,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v40";   // bump with the service worker, so these load fresh per release
+const APPV="v41";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -3206,11 +3206,14 @@ async function ensureScanDB(){
   if(SCANDB) return true;
   try{
     if(typeof SCANDESC==="undefined") await loadScript(`scan.js?${APPV}`);
+    if(SCANDESC.v!==2) return false;   // stale cached scan.js from v1
     const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
     SCANDB={
-      hgrid:SCANDESC.h, cg:SCANDESC.cg, wcol:SCANDESC.wcol,
-      entries:SCANDESC.e.map(e=>({num:e[0],lang:e[1],h:b64(e[2]),
-                                  c:new Int8Array(b64(e[3]).buffer)}))
+      hgrid:SCANDESC.h, cg:SCANDESC.cg, wcol:SCANDESC.wcol, wart:SCANDESC.wart,
+      art:SCANDESC.art,   // [x0,y0,x1,y1] fractions of the card
+      entries:SCANDESC.e.map(e=>({num:e[0],lang:e[1],
+        h:b64(e[2]), c:new Int8Array(b64(e[3]).buffer),
+        ah:b64(e[4]), ac:new Int8Array(b64(e[5]).buffer)}))
     };
     return true;
   }catch(e){ return false; }
@@ -3218,14 +3221,15 @@ async function ensureScanDB(){
 const SCANPOP=new Uint8Array(256);
 for(let i=1;i<256;i++) SCANPOP[i]=(i&1)+SCANPOP[i>>1];
 
-/* exact fractional box-average resample, so the phone computes the same
-   descriptor as the build script did from the reference scans */
-function scanResample(d,sw,sh,dw,dh){
-  const out=new Float32Array(dw*dh*3), xr=sw/dw, yr=sh/dh;
+/* exact fractional box-average resample over a sub-rectangle, so the phone
+   computes the same descriptor as the build script did from the reference
+   scans — the sub-rect version also cuts the art window without a re-draw */
+function scanResampleRect(d,sw,sh,rx,ry,rw,rh,dw,dh){
+  const out=new Float32Array(dw*dh*3), xr=rw/dw, yr=rh/dh;
   for(let y=0;y<dh;y++){
-    const y0=y*yr, y1=y0+yr;
+    const y0=ry+y*yr, y1=y0+yr;
     for(let x=0;x<dw;x++){
-      const x0=x*xr, x1=x0+xr;
+      const x0=rx+x*xr, x1=x0+xr;
       let r=0,g=0,b=0,area=0;
       for(let sy=Math.floor(y0);sy<y1;sy++){
         const wy=Math.min(y1,sy+1)-Math.max(y0,sy); if(wy<=0) continue;
@@ -3241,45 +3245,106 @@ function scanResample(d,sw,sh,dw,dh){
   }
   return out;
 }
-function scanDesc(cv){
-  const d=cv.getContext("2d",{willReadFrequently:true})
-            .getImageData(0,0,cv.width,cv.height).data;
+function scanDescRect(d,sw,sh,rx,ry,rw,rh){
   const H=SCANDB.hgrid, C=SCANDB.cg;
   const gray=rgb=>{
     const n=rgb.length/3, g=new Float32Array(n);
     for(let i=0;i<n;i++) g[i]=rgb[i*3]*.299+rgb[i*3+1]*.587+rgb[i*3+2]*.114;
     return g;
   };
-  const gh=gray(scanResample(d,cv.width,cv.height,H+1,H));
-  const gv=gray(scanResample(d,cv.width,cv.height,H,H+1));
+  const gh=gray(scanResampleRect(d,sw,sh,rx,ry,rw,rh,H+1,H));
+  const gv=gray(scanResampleRect(d,sw,sh,rx,ry,rw,rh,H,H+1));
   const bits=new Uint8Array(H*H*2/8);
   let bi=0;
   const put=on=>{ if(on) bits[bi>>3]|=128>>(bi&7); bi++; };
   for(let y=0;y<H;y++) for(let x=0;x<H;x++) put(gh[y*(H+1)+x+1]>gh[y*(H+1)+x]);
   for(let y=0;y<H;y++) for(let x=0;x<H;x++) put(gv[(y+1)*H+x]>gv[y*H+x]);
-  const cr=scanResample(d,cv.width,cv.height,C,C);
+  const cr=scanResampleRect(d,sw,sh,rx,ry,rw,rh,C,C);
   let m=0; for(const v of cr) m+=v; m/=cr.length;
   const col=new Float32Array(cr.length);
   for(let i=0;i<cr.length;i++) col[i]=cr[i]-m;
   return {h:bits,c:col};
 }
-function scanMatch(q){
-  const scored=[];
-  for(const e of SCANDB.entries){
-    let ham=0;
-    for(let i=0;i<q.h.length;i++) ham+=SCANPOP[q.h[i]^e.h[i]];
-    let cd=0;
-    for(let i=0;i<q.c.length;i++) cd+=Math.abs(q.c[i]-e.c[i]);
-    scored.push({num:e.num,lang:e.lang,score:ham+SCANDB.wcol*cd/q.c.length});
-  }
-  scored.sort((a,b)=>a.score-b.score);
+function scanDualDesc(cv){
+  const d=cv.getContext("2d",{willReadFrequently:true})
+            .getImageData(0,0,cv.width,cv.height).data;
+  const W=cv.width, Hh=cv.height, A=SCANDB.art;
+  return {
+    whole:scanDescRect(d,W,Hh,0,0,W,Hh),
+    art:scanDescRect(d,W,Hh,A[0]*W,A[1]*Hh,(A[2]-A[0])*W,(A[3]-A[1])*Hh)
+  };
+}
+const scanHam=(a,b)=>{ let h=0; for(let i=0;i<a.length;i++) h+=SCANPOP[a[i]^b[i]]; return h; };
+const scanColD=(a,b)=>{ let c=0; for(let i=0;i<a.length;i++) c+=Math.abs(a[i]-b[i]); return c/a.length; };
+/* cheapest possible pass: best whole-card hash distance over the whole DB */
+function scanCoarse(wholeDesc){
+  let m=1e9;
+  for(const e of SCANDB.entries){ const h=scanHam(wholeDesc.h,e.h); if(h<m) m=h; }
+  return m;
+}
+/* the padded capture holds the guide frame plus SCANPAD margin on every side;
+   a hypothesis picks a scale/offset/rotation of the frame inside it */
+const SCANPAD=0.18, SCANPW=172, SCANPH=240;
+function scanHypCrop(padded,s,dx,dy,rot){
+  const fw=padded.width/(1+2*SCANPAD), fh=padded.height/(1+2*SCANPAD);
+  const cx=padded.width/2+dx*fw, cy=padded.height/2+dy*fh;
+  const cv=document.createElement("canvas"); cv.width=126; cv.height=176;
+  const ctx=cv.getContext("2d");
+  ctx.fillStyle="#3a3a3a"; ctx.fillRect(0,0,126,176);
+  ctx.save(); ctx.translate(63,88);
+  if(rot) ctx.rotate(rot*Math.PI/180);
+  ctx.drawImage(padded,cx-fw*s/2,cy-fh*s/2,fw*s,fh*s,-63,-88,126,176);
+  ctx.restore();
+  return cv;
+}
+/* full recognition: coarse sweep over scale/position with the fast hash,
+   then dual whole+art scoring (with rotations) on the best hypotheses */
+function scanRecognize(padded){
+  const hyps=[];
+  for(const s of [0.86,1,1.14])
+    for(const dx of [-0.08,0,0.08])
+      for(const dy of [-0.08,0,0.08]){
+        const cv=scanHypCrop(padded,s,dx,dy,0);
+        const d=cv.getContext("2d",{willReadFrequently:true}).getImageData(0,0,126,176).data;
+        const w=scanDescRect(d,126,176,0,0,126,176);
+        hyps.push({s,dx,dy,score:scanCoarse(w)});
+      }
+  hyps.sort((a,b)=>a.score-b.score);
+  const n=SCANDB.entries.length;
+  const best=new Float32Array(n).fill(1e9);
+  for(const h of hyps.slice(0,4))
+    for(const rot of [-4,0,4]){
+      const q=scanDualDesc(scanHypCrop(padded,h.s,h.dx,h.dy,rot));
+      for(let i=0;i<n;i++){
+        const e=SCANDB.entries[i];
+        const sc=scanHam(q.whole.h,e.h)+SCANDB.wcol*scanColD(q.whole.c,e.c)
+          +SCANDB.wart*(scanHam(q.art.h,e.ah)+SCANDB.wcol*scanColD(q.art.c,e.ac));
+        if(sc<best[i]) best[i]=sc;
+      }
+    }
+  const order=[...best.keys()].sort((a,b)=>best[a]-best[b]);
   const seen=new Set(), top=[];
-  for(const o of scored){
-    if(seen.has(o.num)) continue;
-    seen.add(o.num); top.push(o);
+  for(const i of order){
+    const e=SCANDB.entries[i];
+    if(seen.has(e.num)) continue;
+    seen.add(e.num); top.push({num:e.num,lang:e.lang,score:best[i]});
     if(top.length===5) break;
   }
   return top;
+}
+/* one cheap centre-crop guess for the live preview loop */
+function scanQuick(padded){
+  const cv=scanHypCrop(padded,1,0,0,0);
+  const d=cv.getContext("2d",{willReadFrequently:true}).getImageData(0,0,126,176).data;
+  const w=scanDescRect(d,126,176,0,0,126,176);
+  let b1=1e9,b2=1e9,bi=-1;
+  for(let i=0;i<SCANDB.entries.length;i++){
+    const e=SCANDB.entries[i];
+    const sc=scanHam(w.h,e.h)+SCANDB.wcol*scanColD(w.c,e.c);
+    if(sc<b1){ if(SCANDB.entries[bi]&&SCANDB.entries[bi].num!==e.num){b2=b1;} b1=sc; bi=i; }
+    else if(sc<b2&&e.num!==SCANDB.entries[bi].num) b2=sc;
+  }
+  return {num:SCANDB.entries[bi].num,margin:b2-b1};
 }
 
 function scanShow(which){
@@ -3295,7 +3360,7 @@ async function startScan(){
   const g=++scanGen;
   scanShow("stage");
   scanEl("scantorch").hidden=true;
-  scanEl("scanhint").textContent="Leg je kaart mooi recht in het kader en druk op Scan.";
+  scanEl("scanhint").textContent=SCANHINT;
   const ok=await ensureScanDB();
   if(g!==scanGen) return;
   if(!ok){
@@ -3326,6 +3391,7 @@ async function startScan(){
     });
     const caps=track.getCapabilities?track.getCapabilities():{};
     scanEl("scantorch").hidden=!caps.torch;
+    startScanLoop(g);
   }catch(e){
     if(g!==scanGen) return;
     scanEl("scanhint").textContent="Geen camera of geen toestemming — kies hieronder een foto van je kaart.";
@@ -3334,6 +3400,7 @@ async function startScan(){
 }
 function stopScan(){
   scanGen++;
+  clearInterval(scanTick);
   if(scanStream){ scanStream.getTracks().forEach(t=>t.stop()); scanStream=null; }
   scanEl("scanvid").srcObject=null;
   scanEl("scantorch").setAttribute("aria-pressed","false");
@@ -3347,7 +3414,9 @@ scanEl("scantorch").addEventListener("click",async()=>{
   }catch(e){}
 });
 
-/* the guide frame, mapped back through object-fit:cover to video pixels */
+/* the guide frame plus margin, mapped through object-fit:cover to video
+   pixels — the recognizer searches inside this padded capture, so the card
+   no longer has to sit perfectly in the frame */
 function scanGrab(){
   const v=scanEl("scanvid");
   if(!v.videoWidth) return null;
@@ -3355,10 +3424,20 @@ function scanGrab(){
   const fr=scanEl("scanframe").getBoundingClientRect();
   const s=Math.max(view.width/v.videoWidth, view.height/v.videoHeight);
   const offx=(v.videoWidth*s-view.width)/2, offy=(v.videoHeight*s-view.height)/2;
-  const cv=document.createElement("canvas"); cv.width=126; cv.height=176;
-  cv.getContext("2d").drawImage(v,
-    (fr.left-view.left+offx)/s, (fr.top-view.top+offy)/s,
-    fr.width/s, fr.height/s, 0,0,126,176);
+  const fx=(fr.left-view.left+offx)/s, fy=(fr.top-view.top+offy)/s;
+  const fw=fr.width/s, fh=fr.height/s;
+  const sx=fx-fw*SCANPAD, sy=fy-fh*SCANPAD;
+  const sw=fw*(1+2*SCANPAD), sh=fh*(1+2*SCANPAD);
+  const cv=document.createElement("canvas"); cv.width=SCANPW; cv.height=SCANPH;
+  const ctx=cv.getContext("2d");
+  ctx.fillStyle="#3a3a3a"; ctx.fillRect(0,0,SCANPW,SCANPH);
+  // clamp the source to the video, keep the mapping intact
+  const cx0=Math.max(0,sx), cy0=Math.max(0,sy);
+  const cx1=Math.min(v.videoWidth,sx+sw), cy1=Math.min(v.videoHeight,sy+sh);
+  if(cx1<=cx0||cy1<=cy0) return null;
+  ctx.drawImage(v,cx0,cy0,cx1-cx0,cy1-cy0,
+    (cx0-sx)/sw*SCANPW,(cy0-sy)/sh*SCANPH,
+    (cx1-cx0)/sw*SCANPW,(cy1-cy0)/sh*SCANPH);
   return cv;
 }
 function scanThumb(o){
@@ -3380,8 +3459,8 @@ function showScanRes(top){
   });
   scanShow("res");
 }
-function scanRunOn(cv){
-  const top=scanMatch(scanDesc(cv));
+function scanRunOn(padded){
+  const top=scanRecognize(padded);
   if(navigator.vibrate) navigator.vibrate(25);
   const f=scanEl("scanframe");
   f.classList.add("hit"); setTimeout(()=>f.classList.remove("hit"),350);
@@ -3390,11 +3469,38 @@ function scanRunOn(cv){
 scanEl("scansnap").addEventListener("click",()=>{
   if(scanBusy||!SCANDB) return;
   scanBusy=true;
-  const cv=scanGrab();
-  if(cv) scanRunOn(cv);
+  const padded=scanGrab();
+  if(padded) scanRunOn(padded);
   else scanEl("scanhint").textContent="De camera is nog aan het opstarten — probeer zo nog eens.";
   scanBusy=false;
 });
+/* live preview loop: a cheap centre guess every ~700ms shows what the
+   scanner is thinking, and two confident hits in a row fire the real scan */
+const SCANHINT="Leg je kaart in het kader — de scanner kijkt mee.";
+let scanTick=null, scanLastNum=0, scanLockCount=0;
+function startScanLoop(g){
+  clearInterval(scanTick);
+  scanLastNum=0; scanLockCount=0;
+  scanTick=setInterval(()=>{
+    if(g!==scanGen||!scanStream||scanBusy) return;
+    if(scanEl("scanstage").hidden) return;      // paused behind candidates
+    const padded=scanGrab(); if(!padded) return;
+    const q=scanQuick(padded);
+    if(q.margin>=25){
+      const s=byId.get(String(q.num));
+      scanEl("scanhint").textContent=`🔎 Ik denk: ${q.num} ${s?s.name:""} — scan om te bevestigen`;
+      if(q.num===scanLastNum) scanLockCount++;
+      else{ scanLastNum=q.num; scanLockCount=1; }
+      if(scanLockCount>=2&&q.margin>=60){
+        scanBusy=true; scanRunOn(padded); scanBusy=false;
+        scanLastNum=0; scanLockCount=0;
+      }
+    }else{
+      scanEl("scanhint").textContent=SCANHINT;
+      scanLastNum=0; scanLockCount=0;
+    }
+  },700);
+}
 scanEl("scanpickbtn").addEventListener("click",()=>scanEl("scanfile").click());
 scanEl("scanfile").addEventListener("change",async e=>{
   const f=e.target.files&&e.target.files[0];
@@ -3408,13 +3514,14 @@ scanEl("scanfile").addEventListener("change",async e=>{
   const url=URL.createObjectURL(f), im=new Image();
   im.onload=()=>{
     URL.revokeObjectURL(url);
-    // biggest centered card-shaped window out of the photo
-    const ar=63/88;
+    // biggest centered padded-capture-shaped window out of the photo;
+    // the hypothesis search finds the card inside it
+    const ar=SCANPW/SCANPH;
     let cw=im.naturalWidth, ch=cw/ar;
     if(ch>im.naturalHeight){ ch=im.naturalHeight; cw=ch*ar; }
-    const cv=document.createElement("canvas"); cv.width=126; cv.height=176;
+    const cv=document.createElement("canvas"); cv.width=SCANPW; cv.height=SCANPH;
     cv.getContext("2d").drawImage(im,
-      (im.naturalWidth-cw)/2,(im.naturalHeight-ch)/2,cw,ch,0,0,126,176);
+      (im.naturalWidth-cw)/2,(im.naturalHeight-ch)/2,cw,ch,0,0,SCANPW,SCANPH);
     scanRunOn(cv);
   };
   im.onerror=()=>{ URL.revokeObjectURL(url); };
@@ -3470,7 +3577,8 @@ scanEl("scanopen").addEventListener("click",()=>{ if(scanPick) openOv(scanPickId
 scanEl("scanback").addEventListener("click",()=>scanShow("res"));
 scanEl("scanagain").addEventListener("click",()=>{
   scanShow("stage");
-  scanEl("scanhint").textContent="Leg je kaart mooi recht in het kader en druk op Scan.";
+  scanEl("scanhint").textContent=SCANHINT;
+  scanLastNum=0; scanLockCount=0;
 });
 /* ---------- Collectie Home (design 1a "Verzamelen eerst") ---------- */
 document.getElementById("tabscan").addEventListener("click",()=>openFov("scanov"));
