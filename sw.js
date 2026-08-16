@@ -1,7 +1,7 @@
 /* Twilight Masquerade binder — offline support.
    Bump SHELL_CACHE when index.html changes, or phones keep the old copy. */
 
-const SHELL_CACHE = "twm-shell-v37";
+const SHELL_CACHE = "twm-shell-v38";
 const IMG_CACHE = "twm-cards-v1";
 
 const SHELL = [
@@ -10,6 +10,7 @@ const SHELL = [
   "./manifest.webmanifest",
   "./cards.js",
   "./decks.js",
+  "./scan.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/maskable-512.png",
@@ -86,7 +87,9 @@ self.addEventListener("fetch", (e) => {
         return res;
       })
       .catch(async () => {
-        const hit = await caches.match(req);
+        // ignoreSearch: cards.js/decks.js/scan.js are requested with ?vNN
+        // version queries, but precached without them
+        const hit = await caches.match(req, { ignoreSearch: true });
         if (hit) return hit;
         if (req.mode === "navigate") return caches.match("./index.html");
         return Response.error();
