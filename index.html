@@ -496,7 +496,6 @@ footer{padding-bottom:76px}
 .qendscore{font-family:'Fraunces',serif;font-size:52px;font-weight:800;color:var(--lantern)}
 .qend p{font-size:14px;margin:8px 0}
 
-.ovbox{perspective:900px}
 .ovshot{transition:transform .15s ease-out;will-change:transform}
 #ovglare{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay}
 
@@ -570,9 +569,6 @@ select{flex:1;min-width:140px;appearance:none;
   font-size:9px;font-weight:700;letter-spacing:.04em;padding:2px 5px;border-radius:4px}
 .frtag.ja{background:#F09090}
 .wtag{position:absolute;top:4px;right:4px;font-size:14px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.7))}
-#ovwish{font:inherit;font-size:14px;font-weight:700;min-height:44px;width:100%;margin-top:10px;
-  border:1px solid var(--edge);border-radius:12px;background:var(--panel);color:var(--cream);cursor:pointer}
-#ovwish.on{border-color:var(--lantern);color:var(--lantern)}
 .bkrow{display:flex;gap:8px;margin-top:16px}
 .bkrow button{flex:1;font:inherit;font-size:13px;font-weight:700;min-height:44px;
   border:1px solid var(--edge);border-radius:10px;background:var(--panel);color:var(--cream);cursor:pointer}
@@ -587,9 +583,6 @@ select{flex:1;min-width:140px;appearance:none;
 .dupctl button{width:38px;height:38px;border-radius:50%;border:0;background:var(--panel);
   color:var(--cream);font-size:18px;font-weight:700;cursor:pointer;line-height:1}
 #dupn{min-width:20px;color:var(--lantern);font-size:15px;text-align:center}
-#ovmy{margin-top:12px;font-size:13px;color:var(--mute);
-  display:flex;align-items:center;justify-content:center;gap:10px}
-#ovmy .ovlang{margin-top:0}
 .meta{padding:7px 8px 9px}
 .nm{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pr{font-size:11px;color:var(--mute);margin-top:2px}
@@ -603,25 +596,12 @@ select{flex:1;min-width:140px;appearance:none;
 
 #ov{position:fixed;inset:0;z-index:50;background:rgba(13,10,34,.92);
   display:flex;align-items:center;justify-content:center;padding:14px}
-.ovbox{position:relative;width:min(420px,calc(100vw - 96px));max-height:100%;overflow-y:auto;text-align:center}
-@media (max-width:480px){.ovbox{width:min(420px,100%)}}
 .ovshot{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 14px 44px rgba(0,0,0,.55)}
 .ovshot img{width:100%;aspect-ratio:63/88;object-fit:cover;display:block;background:var(--panel2)}
-.ovlang{display:inline-flex;margin-top:12px;border:1px solid var(--edge);border-radius:99px;overflow:hidden}
+.ovlang{display:inline-flex;border:0}
 .ovlang button{font:inherit;font-size:13px;min-height:36px;padding:0 16px;
   background:var(--panel);color:var(--cream);border:0;cursor:pointer}
-.ovlang button[aria-pressed="true"]{background:var(--lantern);color:var(--deep);font-weight:700}
-.ovnm{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin:10px 0 2px}
-.ovsub{font-size:13px;color:var(--mute)}
-.ovbinder{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:99px;
-  background:var(--panel2);border:1px solid var(--edge);font-size:13px;color:var(--cream)}
-.ovbinder b{color:var(--lantern)}
-.ovpr{font-size:16px;margin:10px 0 14px}
 .ovpr .tr{font-size:12px}
-#ovtick{font:inherit;font-size:16px;font-weight:700;min-height:50px;width:100%;
-  border:2px solid var(--lantern);border-radius:12px;background:transparent;color:var(--lantern);cursor:pointer}
-#ovtick.on{background:var(--lantern);color:var(--deep)}
-#ovtick.warn{border-color:#F09090;background:#F09090;color:var(--deep)}
 
 #toast{position:fixed;left:50%;transform:translateX(-50%);
   bottom:calc(14px + env(safe-area-inset-bottom));z-index:60;
@@ -631,13 +611,6 @@ select{flex:1;min-width:140px;appearance:none;
 #toast b{color:var(--lantern)}
 #undo{font:inherit;font-size:13px;font-weight:700;border:0;border-radius:8px;
   min-height:36px;padding:0 14px;background:var(--lantern);color:var(--deep);cursor:pointer;flex-shrink:0}
-.ovnav{position:fixed;top:50%;transform:translateY(-50%);width:42px;height:56px;
-  border:0;border-radius:10px;background:rgba(30,24,70,.85);color:var(--cream);
-  font-size:26px;cursor:pointer;z-index:51}
-#ovprev{left:6px}#ovnext{right:6px}
-#ovclose{position:fixed;top:calc(10px + env(safe-area-inset-top));right:10px;width:44px;height:44px;
-  border:0;border-radius:50%;background:rgba(30,24,70,.85);color:var(--cream);
-  font-size:18px;cursor:pointer;z-index:51}
 body.lock{overflow:hidden}
 
 .note{font-size:11px;color:var(--mute);margin:18px 0 0}
@@ -1072,6 +1045,48 @@ footer{padding-bottom:12px}
 .bsessbtns .nghost.wide{width:auto;padding:0 14px;font-size:13px}
 .bsessionbar .btfoot{margin-top:8px}
 
+/* ---- 4b: the card screen ---- */
+#ov{display:block;background:var(--n-bg);overflow-y:auto;
+  padding:calc(10px + env(safe-area-inset-top)) 17px calc(20px + env(safe-area-inset-bottom))}
+.ovsheet{max-width:560px;margin:0 auto;font-family:'Inter',system-ui,sans-serif}
+.ovhead{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.ovheadbtn{width:44px;height:44px;flex:none;border:0;border-radius:8px;background:none;
+  color:var(--n-b2);cursor:pointer;display:grid;place-items:center}
+.ovheadbtn.on{color:var(--n-a3)}
+.ovheadbtn:disabled{opacity:.35;cursor:default}
+.ovhtxt{flex:1;display:flex;flex-direction:column;gap:1px;min-width:0}
+.ovhname{font-size:17px;font-weight:500;color:var(--n-txt);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovhtxt small{font-size:12px;color:var(--n-m6)}
+.ovtop{display:flex;gap:14px;align-items:flex-start;margin-bottom:16px}
+#ovthumb{width:132px;height:185px;flex:none;border-radius:8px;object-fit:cover;
+  background:var(--n-tint);box-shadow:0 6px 20px rgba(0,0,0,.45)}
+.ovtopr{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ovkick2{margin-top:12px}
+#ov .ovpr{font-size:20px;font-weight:500;color:var(--n-txt);margin:0;
+  font-variant-numeric:tabular-nums}
+#ov .ovpr .tr{font-size:12px}
+.ovnote2{font-size:11px;color:var(--n-m6);line-height:1.45;margin:2px 0 0}
+#ov .ovbinder{background:none;border:0;padding:0;margin:0;font-size:14px;color:var(--n-txt)}
+#ov .ovbinder b{color:var(--n-a3);font-weight:600}
+#ovtomap{align-self:flex-start;margin-top:2px}
+.ovmyrow{margin-bottom:14px}
+.ovmylbl{display:block;font-size:13px;color:var(--n-b2);margin-bottom:8px}
+#ovmybtns{display:flex;gap:6px;flex-wrap:wrap}
+#ovmybtns button.dis{opacity:.45}
+#ov .ovqty{text-align:left}
+.ovbar{display:flex;gap:8px;margin:14px 0 6px}
+.ovbar .nprim{flex:1}
+.nsec{flex:1;background:var(--n-sur);border:0;box-shadow:0 0 0 1px var(--n-e8);color:var(--n-b2)}
+#ovfull{position:fixed;inset:0;z-index:52;background:rgba(13,10,34,.94);perspective:900px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px}
+#ovfull .ovshot{width:min(420px,86vw)}
+.ovfullnote{font-size:11px;color:var(--n-m5);margin:0;text-align:center;
+  font-family:'Inter',system-ui,sans-serif}
+.dfstrat{font-size:13px;line-height:1.5;color:var(--n-m5);margin:0}
+.drowstrat{display:block;font-style:normal;font-size:11px;color:var(--n-m6);
+  line-height:1.4;margin-top:2px}
+
 /* ---- 4a: search results as rows ---- */
 #results{max-width:640px;margin:0 auto}
 .rrow{display:flex;align-items:center;gap:11px;padding:11px 0;cursor:pointer;
@@ -1233,6 +1248,8 @@ footer{padding-bottom:12px}
 <symbol id="i-camera-rotate" viewBox="0 0 256 256"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM176,96v24a8,8,0,0,1-8,8H144a8,8,0,0,1,0-16h5.15a32.12,32.12,0,0,0-40.34-1.61A8,8,0,0,1,99.19,97.6,48.21,48.21,0,0,1,160,100.23V96a8,8,0,0,1,16,0Zm-17.61,59.2a8,8,0,0,1-1.58,11.2A48.21,48.21,0,0,1,96,163.77V168a8,8,0,0,1-16,0V144a8,8,0,0,1,8-8h24a8,8,0,0,1,0,16h-5.15a32.12,32.12,0,0,0,40.34,1.61A8,8,0,0,1,158.39,155.2Z"/></symbol>
 <symbol id="i-lightning" viewBox="0 0 256 256"><path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17ZM109.37,214l10.47-52.38a8,8,0,0,0-5-9.06L62,132.71l84.62-90.66L136.16,94.43a8,8,0,0,0,5,9.06l52.8,19.8Z"/></symbol>
 <symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></symbol>
+<symbol id="i-star-fill" viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></symbol>
 <symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></symbol>
 <symbol id="i-magic-wand" viewBox="0 0 256 256"><path d="M48,64a8,8,0,0,1,8-8H72V40a8,8,0,0,1,16,0V56h16a8,8,0,0,1,0,16H88V88a8,8,0,0,1-16,0V72H56A8,8,0,0,1,48,64ZM184,192h-8v-8a8,8,0,0,0-16,0v8h-8a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16Zm56-48H224V128a8,8,0,0,0-16,0v16H192a8,8,0,0,0,0,16h16v16a8,8,0,0,0,16,0V160h16a8,8,0,0,0,0-16ZM219.31,80,80,219.31a16,16,0,0,1-22.62,0L36.68,198.63a16,16,0,0,1,0-22.63L176,36.69a16,16,0,0,1,22.63,0l20.68,20.68A16,16,0,0,1,219.31,80Zm-54.63,32L144,91.31l-96,96L68.68,208ZM208,68.69,187.31,48l-32,32L176,100.69Z"/></symbol>
 </defs></svg>
@@ -1386,21 +1403,43 @@ footer{padding-bottom:12px}
   </button>
 
   <div id="ov" hidden>
-    <button id="ovclose" type="button" aria-label="Sluiten">✕</button>
-    <button id="ovprev" class="ovnav" type="button" aria-label="Vorige kaart">‹</button>
-    <button id="ovnext" class="ovnav" type="button" aria-label="Volgende kaart">›</button>
-    <div class="ovbox">
-      <div class="ovshot"><img id="ovimg" alt=""><div id="ovsheen" class="rev-sheen" hidden></div><div id="ovglare"></div></div>
-      <div class="ovlang" role="group" aria-label="Taal van de kaart">
-        <button data-lang="en" type="button" aria-pressed="true">English</button>
-        <button data-lang="fr" type="button" aria-pressed="false">Français</button>
-        <button data-lang="ja" type="button" aria-pressed="false">日本語</button>
+    <div class="ovsheet">
+      <div class="ovhead">
+        <button id="ovback" class="ovheadbtn" type="button" aria-label="Terug">
+          <svg class="pi" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+        </button>
+        <div class="ovhtxt">
+          <span class="ovhname" id="ovnm"></span>
+          <small id="ovsub"></small>
+        </div>
+        <button id="ovwish" class="ovheadbtn" type="button" aria-label="Op mijn wenslijst zetten">
+          <svg class="pi" id="ovwishicon" aria-hidden="true"><use href="#i-star"/></svg>
+        </button>
       </div>
-      <div class="ovnm" id="ovnm"></div>
-      <div class="ovsub" id="ovsub"></div>
-      <div class="ovbinder" id="ovbinder"></div>
-      <button id="ovtomap" class="nlink" type="button">Bekijk in map</button>
-      <div class="ovpr" id="ovpr"></div>
+
+      <div class="ovtop">
+        <img id="ovthumb" alt="">
+        <div class="ovtopr">
+          <span class="vkick">Prijs</span>
+          <div class="ovpr" id="ovpr"></div>
+          <small class="ovnote2">30-daags Cardmarket-gemiddelde</small>
+          <span class="vkick ovkick2">In mijn map</span>
+          <div class="ovbinder" id="ovbinder"></div>
+          <button id="ovtomap" class="nlink" type="button">Bekijk in map</button>
+        </div>
+      </div>
+
+      <div class="ovmyrow">
+        <span class="ovmylbl">Mijn exemplaar is</span>
+        <div class="ovlang" id="ovmybtns" role="group" aria-label="Taal van mijn exemplaar">
+          <button data-my="en" type="button" aria-pressed="true">English</button>
+          <button data-my="fr" type="button" aria-pressed="false">Français</button>
+          <button data-my="ja" type="button" aria-pressed="false">日本語</button>
+        </div>
+        <p class="ovnote2" id="ovmynote">De afbeelding en naam volgen je keuze; je krijgt een FR- of
+          JP-label in de lijst. Van 195 kaarten bestaat een Japanse scan.</p>
+      </div>
+
       <div class="ovqty">
         <div class="ovqrow">
           <div class="ovqtxt"><span>Hoeveel heb ik?</span><small id="ovqsub">nog niet in je collectie</small></div>
@@ -1419,14 +1458,18 @@ footer{padding-bottom:12px}
       </div>
       <p class="ovsavenote">Alles bewaart zichzelf. Zet je het aantal op 0, dan gaat de kaart uit je
         collectie — dat vragen we één keer na.</p>
-      <button id="ovwish" type="button" hidden></button>
-      <div id="ovmy" hidden><span>Mijn kaart is</span>
-        <div class="ovlang" id="ovmybtns">
-          <button data-my="en" type="button" aria-pressed="true">English</button>
-          <button data-my="fr" type="button" aria-pressed="false">Français</button>
-          <button data-my="ja" type="button" aria-pressed="false">日本語</button>
-        </div>
+
+      <div class="ovbar">
+        <button id="ovbigbtn" class="nbtn nprim" type="button">
+          <svg class="pi" aria-hidden="true"><use href="#i-magnifying-glass-plus"/></svg> Bekijk groot
+        </button>
+        <button id="ovnext" class="nbtn nsec" type="button">Volgende kaart</button>
       </div>
+    </div>
+
+    <div id="ovfull" hidden>
+      <div class="ovshot"><img id="ovimg" alt=""><div id="ovsheen" class="rev-sheen" hidden></div><div id="ovglare"></div></div>
+      <p class="ovfullnote">Tik om te sluiten — kantel je toestel voor de glans</p>
     </div>
   </div>
 
@@ -2449,49 +2492,48 @@ async function loadFrNames(){
 }
 /* effective language: Japanese falls back to English when a card has no match */
 function effLang(){ return (lang==="ja"&&!(cur&&JPX[cur.num]))?"en":lang; }
-function paintLang(){
-  const e=effLang();
-  document.querySelectorAll(".ovlang [data-lang]").forEach(b=>{
-    if(b.dataset.lang==="ja") b.style.display=(cur&&JPX[cur.num])?"":"none";
-    b.setAttribute("aria-pressed",b.dataset.lang===e?"true":"false");
-  });
+/* one picker (4b): it says which copy is YOURS and drives the image */
+function cardImgURL(s,l,hi){
+  if(l==="ja"&&JPX[s.num]) return `https://assets.tcgdex.net/ja/SV/${JPX[s.num][0]}/${hi?"high":"low"}.webp`;
+  if(l==="fr") return `https://assets.tcgdex.net/fr/sv/sv06/${pad3(s.num)}/${hi?"high":"low"}.webp`;
+  return hi?`https://images.pokemontcg.io/sv6/${s.num}_hires.png`:img(s.num);
 }
-document.querySelectorAll(".ovlang [data-lang]").forEach(b=>b.addEventListener("click",()=>{
-  lang=prefLang=b.dataset.lang;
-  try{ localStorage.setItem("twm:lang",lang); }catch(e){}
-  if(lang==="fr") loadFrNames();
-  renderOv();
-}));
 
 function renderOv(){
-  const shot=document.querySelector(".ovshot");
-  if(shot){
-    shot.style.transform="";
-    document.getElementById("ovglare").style.background="";
-    document.getElementById("ovsheen").style.background="";
-  }
   const e=effLang();
-  if(e==="ja"){
-    ovimg.onerror=()=>{ ovimg.onerror=null; ovimg.src=`https://images.pokemontcg.io/sv6/${cur.num}_hires.png`; };
-    ovimg.src=`https://assets.tcgdex.net/ja/SV/${JPX[cur.num][0]}/high.webp`;
-  }else if(e==="fr"){
-    ovimg.onerror=()=>{ ovimg.onerror=null; ovimg.src=`https://images.pokemontcg.io/sv6/${cur.num}_hires.png`; };
-    ovimg.src=`https://assets.tcgdex.net/fr/sv/sv06/${pad3(cur.num)}/high.webp`;
-  }else{
-    ovimg.onerror=()=>{ ovimg.onerror=null; ovimg.src=img(cur.num); };
-    ovimg.src=`https://images.pokemontcg.io/sv6/${cur.num}_hires.png`;
-  }
-  ovimg.alt=cur.name;
-  document.getElementById("ovsheen").hidden=!cur.rev;
+  const th=document.getElementById("ovthumb");
+  th.onerror=()=>{ th.onerror=null; th.src=img(cur.num); };
+  th.src=cardImgURL(cur,e,false);
+  th.alt=cur.name;
   const nm=(e==="ja")?JPX[cur.num][1]
           :(e==="fr"&&frNames&&frNames[cur.num])?frNames[cur.num]:cur.name;
-  document.getElementById("ovnm").textContent=`${cur.num} · ${nm}`;
-  paintLang();
-  document.getElementById("ovsub").textContent=cur.rarity+(cur.rev?" · reverse holo":"");
-  document.getElementById("ovbinder").innerHTML="In je map: "+binderTxt(cur);
+  document.getElementById("ovnm").textContent=nm;
+  document.getElementById("ovsub").textContent=
+    `#${pad3(cur.num)} · ${cur.rarity}${cur.rev?" · reverse holo":""}`;
+  document.getElementById("ovbinder").innerHTML=binderTxt(cur);
   document.getElementById("ovpr").innerHTML=eur(priceOf(cur))+arrow(cur,true);
+  if(!document.getElementById("ovfull").hidden) fillOvBig();
   paintOvTick();
 }
+/* the full-bleed card is the art moment: hires image, holo tilt, tap to close */
+function fillOvBig(){
+  const shot=document.querySelector(".ovshot");
+  shot.style.transform="";
+  document.getElementById("ovglare").style.background="";
+  document.getElementById("ovsheen").style.background="";
+  document.getElementById("ovsheen").hidden=!cur.rev;
+  ovimg.onerror=()=>{ ovimg.onerror=null; ovimg.src=img(cur.num); };
+  ovimg.src=cardImgURL(cur,effLang(),true);
+  ovimg.alt=cur.name;
+}
+function openOvBig(){
+  document.getElementById("ovfull").hidden=false;
+  fillOvBig();
+  askTiltPermission();
+}
+function closeOvBig(){ document.getElementById("ovfull").hidden=true; }
+document.getElementById("ovbigbtn").addEventListener("click",openOvBig);
+document.getElementById("ovfull").addEventListener("click",closeOvBig);
 function paintOvTick(){
   // round 4: a live quantity, not a found/removed toggle
   const q=qtyOf(cur.id);
@@ -2516,7 +2558,8 @@ document.getElementById("ovtradesw").addEventListener("click",()=>{
   setTrade(cur.id,!trade.has(cur.id));
   paintOvTick();
 });
-document.getElementById("ovqplus").addEventListener("click",()=>{ if(cur) addOne(cur.id); });
+// adding from the card adopts the language you picked as your copy
+document.getElementById("ovqplus").addEventListener("click",()=>{ if(cur) addOne(cur.id,lang); });
 document.getElementById("ovqminus").addEventListener("click",()=>{ if(cur) subOne(cur.id); });
 document.getElementById("ovtomap").addEventListener("click",()=>{
   if(!cur) return;
@@ -2527,36 +2570,52 @@ document.getElementById("ovtomap").addEventListener("click",()=>{
 });
 function paintWish(){
   const b=document.getElementById("ovwish");
-  const show=cur&&!owned.has(cur.id);
-  b.hidden=!show;
-  if(!show) return;
-  const on=wish.has(cur.id);
-  b.textContent=on?"⭐ Staat op je wenslijst (tik om te verwijderen)":"☆ Zet op je wenslijst";
+  if(!cur) return;
+  const has=owned.has(cur.id), on=wish.has(cur.id);
+  b.disabled=has;                       // a card you own needs no wish
   b.classList.toggle("on",on);
+  b.setAttribute("aria-pressed",String(on));
+  b.title=has?"Je hebt deze kaart al":(on?"Van je wenslijst halen":"Op je wenslijst zetten");
+  document.getElementById("ovwishicon").firstElementChild
+    .setAttribute("href",on?"#i-star-fill":"#i-star");
 }
 document.getElementById("ovwish").addEventListener("click",()=>{
-  if(cur) setWish(cur.id,!wish.has(cur.id));
+  if(cur&&!owned.has(cur.id)) setWish(cur.id,!wish.has(cur.id));
 });
 function paintMy(){
-  const box=document.getElementById("ovmy");
-  const has=cur&&owned.has(cur.id);
-  box.hidden=!has;
-  if(!has) return;
-  const my=langMap[cur.id]||"en";
-  document.querySelectorAll("#ovmybtns button").forEach(b=>
-    b.setAttribute("aria-pressed",b.dataset.my===my?"true":"false"));
+  if(!cur) return;
+  const shown=effLang();
+  const jaOK=!!JPX[cur.num];
+  document.querySelectorAll("#ovmybtns button").forEach(b=>{
+    const isJa=b.dataset.my==="ja";
+    b.disabled=isJa&&!jaOK;              // 195 cards have a JP scan, the rest do not
+    b.classList.toggle("dis",isJa&&!jaOK);
+    b.setAttribute("aria-pressed",b.dataset.my===shown?"true":"false");
+  });
+  document.getElementById("ovmynote").textContent=jaOK
+    ?"De afbeelding en naam volgen je keuze; je krijgt een FR- of JP-label in de lijst."
+    :"Van deze kaart bestaat geen Japanse scan — alleen English en Français.";
 }
-document.querySelectorAll("#ovmybtns button").forEach(b=>
-  b.addEventListener("click",()=>{ if(cur) setMyLang(cur.id,b.dataset.my); }));
+document.querySelectorAll("#ovmybtns button").forEach(b=>b.addEventListener("click",()=>{
+  if(!cur||b.disabled) return;
+  const l=b.dataset.my;
+  lang=prefLang=l;
+  try{ localStorage.setItem("twm:lang",l); }catch(e){}
+  if(l==="fr") loadFrNames();
+  // owned: this is a fact about YOUR copy and is stored per card
+  if(owned.has(cur.id)) setMyLang(cur.id,l);
+  renderOv();   // setMyLang repaints the grid, not this screen
+}));
 function openOv(id,fromBinderPocket){
   cur=byId.get(id); if(!cur) return;
   fromBinder=!!fromBinderPocket;
   lastIdx=Math.max(0,visList.indexOf(cur));
   lang=langMap[id]||prefLang;        // show the copy the kid actually owns
   if(lang==="fr") loadFrNames();
+  closeOvBig();
   renderOv();
   ov.hidden=false; document.body.classList.add("lock");
-  askTiltPermission();
+  document.querySelector(".ovsheet").scrollTop=0;
 }
 function closeOv(){
   ov.hidden=true;
@@ -2579,8 +2638,7 @@ function nav(d){
   else i=(i+d+visList.length)%visList.length;
   cur=visList[i]; lastIdx=i; renderOv();
 }
-document.getElementById("ovclose").addEventListener("click",closeOv);
-document.getElementById("ovprev").addEventListener("click",()=>nav(-1));
+document.getElementById("ovback").addEventListener("click",closeOv);
 document.getElementById("ovnext").addEventListener("click",()=>nav(1));
 ov.addEventListener("click",e=>{ if(e.target===ov) closeOv(); });
 let tx=null;
@@ -2594,7 +2652,11 @@ document.addEventListener("keydown",e=>{
   if(ov.hidden) return;
   // stop here, or the full-screen handler below sees a closed viewer
   // on this same event and closes the binder underneath it too
-  if(e.key==="Escape"){ closeOv(); e.stopImmediatePropagation(); return; }
+  if(e.key==="Escape"){
+    // the full-bleed card closes before the card screen does
+    if(!document.getElementById("ovfull").hidden) closeOvBig(); else closeOv();
+    e.stopImmediatePropagation(); return;
+  }
   if(e.key==="ArrowRight") nav(1);
   if(e.key==="ArrowLeft") nav(-1);
 });
@@ -3528,7 +3590,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v46";   // bump with the service worker, so these load fresh per release
+const APPV="v47";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -3869,6 +3931,7 @@ function renderReady(){
   const featHtml=`<div class="dfeat">
     <div class="dfeathead"><div><h3>${feat.d.emoji} ${feat.d.name}</h3>
       <span class="dfmeta">60 kaarten · ${feat.d.level} · voor tegen een vriend</span></div>${tag}</div>
+    <p class="dfstrat">${short(feat.d.strategy,190)}</p>
     <div class="dthumbs">${thumbs}</div>
     <i class="rrtrack big"><i style="width:${Math.round(feat.s.own/feat.s.total*100)}%"></i></i>
     <div class="dfstats"><span><b>${feat.s.own}</b> van ${feat.s.total} heb ik</span>
@@ -3880,7 +3943,7 @@ function renderReady(){
     <div class="dmisslist" hidden data-misslist="${feat.d.key}">${
       feat.s.missing.map(m=>`<span>${m.n}× ${m.name}<i>${eur(m.n*m.pr)}</i></span>`).join("")
     }<span class="dmisstotal">Samen<i>${eur(feat.s.cost)}</i></span></div>
-    <button class="nlink" type="button" data-expand="${feat.d.key}">Alles over dit deck</button>
+    <button class="nlink" type="button" data-expand="${feat.d.key}">Uitleg, combo's en de 60 kaarten</button>
     <div hidden data-more="${feat.d.key}">${deckDetail(feat.d)}</div>
   </div>`;
   const rows=rest.map(({d,s})=>{
@@ -3891,10 +3954,11 @@ function renderReady(){
         <img loading="lazy" decoding="async" alt="" src="${img(c0?c0.nums[0]:1)}">
         <span class="rrmid"><span>${d.emoji} ${d.name}</span>
           <i class="rrtrack"><i style="width:${Math.round(s.own/s.total*100)}%"></i></i>
-          <small>${s.own} van ${s.total}${m?` · nog ${eur(s.cost)}`:" · compleet"}</small></span>
+          <small>${s.own} van ${s.total}${m?` · nog ${eur(s.cost)}`:" · compleet"}</small>
+          <em class="drowstrat">${short(d.strategy,90)}</em></span>
         <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
       </button>
-      <button class="nlink dinfo" type="button" data-expand="${d.key}">Alles over dit deck</button>
+      <button class="nlink dinfo" type="button" data-expand="${d.key}">Uitleg, combo's en de 60 kaarten</button>
       <div hidden data-more="${d.key}">${deckDetail(d)}</div>
     </div>`;
   }).join("");
@@ -3987,7 +4051,7 @@ document.getElementById("deck").addEventListener("click",e=>{
   if(exp){
     const box=document.querySelector(`[data-more="${exp.dataset.expand}"]`);
     box.hidden=!box.hidden;
-    exp.textContent=box.hidden?"Alles over dit deck":"Verberg de details";
+    exp.textContent=box.hidden?"Uitleg, combo's en de 60 kaarten":"Verberg de details";
     return;
   }
   const mis=e.target.closest("[data-missing]");
@@ -4013,7 +4077,8 @@ document.getElementById("btndeck").addEventListener("click",()=>openFov("deck"))
 /* ---------- holo tilt in the viewer (motion sensor, mouse fallback) ---------- */
 const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
 function applyTilt(gx,by){
-  if(ov.hidden||reduceMotion) return;
+  // the tilting card only exists in the full-bleed view
+  if(ov.hidden||reduceMotion||document.getElementById("ovfull").hidden) return;
   const shot=document.querySelector(".ovshot");
   gx=Math.max(-24,Math.min(24,gx)); by=Math.max(-24,Math.min(24,by));
   shot.style.transform=`rotateY(${(gx/5).toFixed(2)}deg) rotateX(${(-by/6).toFixed(2)}deg)`;
