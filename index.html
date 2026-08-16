@@ -1348,6 +1348,140 @@ footer{padding-bottom:12px}
 .tag2.ace{background:var(--n-a4);color:var(--n-bg)}
 .tag2.no{background:none;box-shadow:inset 0 0 0 1px var(--n-e8);color:var(--n-m5)}
 
+/* ---- round 7a: Ik as a collector profile ---- */
+.ikprofile{max-height:86vh;padding-top:0}
+.ikhead{position:relative;margin:0 -14px 12px;height:150px;overflow:hidden;
+  border-radius:14px 14px 0 0;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:0 17px 12px;gap:2px;background:var(--n-nav)}
+.ikhead::before{content:"";position:absolute;inset:0;
+  background:url("art/band-sinistcha.webp") 50% 45%/cover;opacity:.7;mix-blend-mode:lighten}
+.ikhead::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,
+  rgba(22,24,38,.6) 0%,rgba(22,24,38,.35) 40%,var(--n-nav) 100%)}
+.ikhead>*{position:relative;z-index:1}
+.ikav{width:50px;height:50px;border-radius:50%;background:rgba(22,24,38,.6);
+  box-shadow:0 0 0 1px var(--n-a6);display:grid;place-items:center;color:var(--n-b2);
+  margin-bottom:4px}
+.ikhead b{font-size:19px;font-weight:500;color:var(--n-txt)}
+.ikhead small{font-size:12px;color:#cfd3e5}
+.ikstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:6px}
+.ikstats div{border-radius:8px;background:rgba(35,37,50,.9);box-shadow:0 0 0 1px var(--n-e8);
+  padding:9px 11px;display:flex;flex-direction:column;gap:2px}
+.ikstats small{font-size:11px;color:var(--n-m5)}
+.ikstats b{font-size:19px;font-weight:500;color:var(--n-txt);font-variant-numeric:tabular-nums}
+.ikstats .acc{background:var(--n-tint);box-shadow:0 0 0 1px var(--n-a6)}
+.ikgrp{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n-m6);
+  margin:14px 0 2px}
+.ikcount{font-size:12px;color:var(--n-a3);font-variant-numeric:tabular-nums;flex:none}
+.iklang .iklangp{display:flex;gap:6px;flex:none}
+.iklangp button{font:inherit;font-size:12px;min-height:32px;padding:0 10px;border:0;
+  border-radius:99px;background:none;box-shadow:0 0 0 1px var(--n-e8);
+  color:var(--n-b2);cursor:pointer}
+.iklangp button.on{background:var(--n-tint);color:var(--n-a3);box-shadow:0 0 0 1px var(--n-a6)}
+.ikrestore{margin:10px 0 2px}
+
+/* ---- round 7b: the quiz mode picker ---- */
+#qpick{max-width:560px;margin:0 auto;min-height:calc(100vh - 120px);
+  display:flex;flex-direction:column;font-family:'Inter',system-ui,sans-serif}
+.qcards{display:flex;flex-direction:column;gap:12px;flex:1;min-height:0}
+.qcard{flex:1;min-height:150px;border:0;border-radius:14px;overflow:hidden;padding:0;
+  position:relative;cursor:pointer;background:var(--n-sur);
+  box-shadow:0 0 0 1px var(--n-e8);display:flex;flex-direction:column;
+  text-align:left;font-family:inherit;color:var(--n-txt)}
+.qcard.ring{box-shadow:0 0 0 1px var(--n-a6)}
+.qcard .qband{flex:1;min-height:80px;position:relative;overflow:hidden;background:var(--n-tint)}
+.qcard .qband img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.qcard .qband .qblur{filter:blur(7px);transform:scale(1.08)}
+.qcard .qduelband{display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--n-tint)}
+.qcard .qduelband img{position:static;width:64px;height:88px;border-radius:6px;flex:none}
+.qcard .qduelband img:first-child{transform:rotate(-4deg)}
+.qcard .qduelband img:last-child{transform:rotate(4deg)}
+.qcard .qduelband em{font-style:normal;font-size:13px;color:var(--n-b2);z-index:1}
+.qbest{position:absolute;right:10px;top:10px;z-index:2;font-size:11px;font-weight:600;
+  background:rgba(22,24,38,.72);color:var(--n-a3);border-radius:99px;padding:4px 9px}
+.qbest.top{background:var(--n-a4);color:var(--n-bg)}
+.qfoot{background:var(--n-sur);padding:11px 14px;display:flex;flex-direction:column;gap:3px}
+.qfoot i{font-style:normal;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--n-a4)}
+.qfoot b{font-size:15px;font-weight:500}
+.qfoot small{font-size:12px;color:var(--n-m6)}
+.qfoot .qgo{margin-top:8px;align-self:flex-start;padding:0 18px;min-height:36px}
+
+/* ---- round 7c: quiz in play ---- */
+.qhead{max-width:560px;margin:0 auto 12px;font-family:'Inter',system-ui,sans-serif}
+.qheadrow{display:flex;justify-content:space-between;font-size:12px;color:var(--n-b2);
+  font-variant-numeric:tabular-nums;margin-bottom:6px}
+.qq{text-align:center;font-family:'Inter',system-ui,sans-serif;font-size:17px;
+  font-weight:500;color:var(--n-txt);margin:0 0 12px}
+.duelcard i{display:block;font-style:normal;font-size:11px;color:var(--n-a3);
+  margin-top:3px;font-family:'Inter',system-ui,sans-serif}
+.duelcard.bad{opacity:.6}
+.qexpl{max-width:440px;margin:12px auto 0;border-radius:8px;background:var(--n-sur);
+  box-shadow:0 0 0 1px var(--n-e8);padding:11px;display:flex;gap:10px;align-items:flex-start;
+  font-family:'Inter',system-ui,sans-serif;font-size:13px;color:var(--n-b2);line-height:1.5;
+  text-align:left}
+.qexpl .pi{color:var(--n-a4);flex:none;margin-top:1px}
+#qplay .packrow{max-width:440px;margin:14px auto 0}
+#qplay .packrow .nbtn{flex:1}
+
+/* ---- round 8: the set story ---- */
+.aboutrow{width:100%;display:flex;align-items:center;gap:12px;margin-top:14px;
+  border:0;border-radius:14px;overflow:hidden;background:var(--n-sur);
+  box-shadow:0 0 0 1px var(--n-e8);padding:0 14px 0 0;cursor:pointer;
+  font-family:'Inter',system-ui,sans-serif;color:var(--n-txt);text-align:left}
+.aboutrow img{width:96px;height:64px;object-fit:cover;flex:none}
+.abrtxt{flex:1;display:flex;flex-direction:column;gap:2px;padding:10px 0}
+.abrtxt b{font-size:15px;font-weight:500}
+.abrtxt small{font-size:12px;color:var(--n-m6)}
+.sthead{position:relative;margin:-14px -12px 14px;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:0 17px 14px;
+  background:var(--n-nav)}
+.sthead img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:50% 40%;mix-blend-mode:lighten;opacity:.85}
+.sthead::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,
+  rgba(22,24,38,.45) 0%,rgba(22,24,38,.25) 45%,#161826 100%)}
+.sthtxt{position:relative;z-index:1;font-family:'Inter',system-ui,sans-serif}
+.sthtxt h2{margin:2px 0 0;font-size:24px;font-weight:500;color:var(--n-txt);font-family:inherit}
+.stback{position:absolute;left:17px;top:46px;z-index:2;width:40px;height:40px;flex:none;
+  border:0;border-radius:50%;background:rgba(22,24,38,.5);color:var(--n-txt);
+  cursor:pointer;display:grid;place-items:center;font-size:0;
+  position:absolute!important;right:auto!important}
+.stbody{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:12px;
+  font-family:'Inter',system-ui,sans-serif;padding-bottom:22px}
+.abfacts{grid-template-columns:repeat(3,1fr)}
+.stlead{font-size:13px;line-height:1.55;color:var(--n-b2);margin:0}
+.aboutstars.strip{display:flex;gap:10px;overflow-x:auto;margin:0;padding-bottom:4px;
+  scrollbar-width:none}
+.aboutstars.strip::-webkit-scrollbar{display:none}
+.aboutstars.strip button{flex:0 0 92px;display:flex;flex-direction:column;gap:4px;
+  border-radius:8px;overflow:visible;text-align:left;color:var(--n-txt);
+  font-family:inherit}
+.aboutstars.strip img{border-radius:6px;box-shadow:0 0 0 1px var(--n-e8)}
+.aboutstars.strip .acc img{box-shadow:0 0 0 1px var(--n-a6)}
+.aboutstars.strip span{display:flex;flex-direction:column;font-size:11px}
+.aboutstars.strip small{color:var(--n-m6);font-size:10px}
+.maskchips{display:flex;gap:6px;flex-wrap:wrap}
+.maskchips button{font:inherit;font-size:12px;min-height:34px;padding:0 12px;border:0;
+  border-radius:99px;background:var(--n-tint);color:var(--n-a3);cursor:pointer;
+  font-family:'Inter',system-ui,sans-serif}
+.strow{display:flex;gap:12px;align-items:flex-start}
+.strow img{width:84px;border-radius:6px;flex:none;box-shadow:0 0 0 1px var(--n-e8)}
+.strow p{margin:0;font-size:13px;line-height:1.55;color:var(--n-b2)}
+.strow b{color:var(--n-txt);font-weight:500}
+.stline{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;
+  color:var(--n-b2)}
+.stline .pi{color:var(--n-a4);flex:none;margin-top:1px}
+.stacc{border-radius:8px;background:var(--n-tint);box-shadow:0 0 0 1px var(--n-a6);
+  padding:12px;font-size:13px;line-height:1.55;color:var(--n-txt)}
+.stacc .vkick{display:block;margin-bottom:4px}
+.st3{display:flex;flex:none}
+.st3 img{width:26px;height:36px;border-radius:3px;object-fit:cover;margin-left:-8px;
+  box-shadow:0 0 0 1px var(--n-e8)}
+.st3 img:first-child{margin-left:0}
+.stread a{display:inline-block;margin:6px 6px 0 0;padding:5px 12px;border-radius:99px;
+  background:none;box-shadow:0 0 0 1px var(--n-e8);color:var(--n-a3);font-size:12px}
+.stread b{color:var(--n-txt);font-weight:500}
+
 /* wider screens: the phone design scales up gently (desktop is not a
    designed layout yet — tiles stay card-sized, the tab bar clusters) */
 @media(min-width:700px){
@@ -1405,6 +1539,12 @@ footer{padding-bottom:12px}
 <symbol id="i-arrow-left" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></symbol>
 <symbol id="i-star-fill" viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></symbol>
 <symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 256 256"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></symbol>
+<symbol id="i-device-mobile" viewBox="0 0 256 256"><path d="M176,16H80A24,24,0,0,0,56,40V216a24,24,0,0,0,24,24h96a24,24,0,0,0,24-24V40A24,24,0,0,0,176,16ZM72,64H184V192H72Zm8-32h96a8,8,0,0,1,8,8v8H72V40A8,8,0,0,1,80,32Zm96,192H80a8,8,0,0,1-8-8v-8H184v8A8,8,0,0,1,176,224Z"/></symbol>
+<symbol id="i-mask-happy" viewBox="0 0 256 256"><path d="M217,34.8a15.94,15.94,0,0,0-14.82-1.71C188.15,38.55,159.82,47.71,128,47.71S67.84,38.55,53.79,33.09A16,16,0,0,0,32,48v55.77c0,35.84,9.65,69.65,27.18,95.18,18.16,26.46,42.6,41,68.82,41s50.66-14.57,68.82-41C214.35,173.44,224,139.63,224,103.79V48A16,16,0,0,0,217,34.8Zm-9,69c0,32.64-8.66,63.23-24.37,86.13C168.54,211.9,148.79,224,128,224s-40.54-12.1-55.63-34.08C56.66,167,48,136.43,48,103.79V48c15.11,5.87,45.58,15.71,80,15.71S192.9,53.87,208,48v55.81Zm-18,18.87A8,8,0,1,1,178,133.33c-2.68-3-8.85-5.33-14-5.33s-11.36,2.34-14,5.33A8,8,0,1,1,138,122.66c5.71-6.38,16.14-10.66,26-10.66S184.25,116.28,190,122.66ZM92,128c-5.19,0-11.36,2.34-14,5.33A8,8,0,1,1,66,122.66C71.75,116.28,82.18,112,92,112s20.25,4.28,26,10.66A8,8,0,1,1,106,133.33C103.36,130.34,97.19,128,92,128Zm76.45,45.19a52.9,52.9,0,0,1-80.9,0A8,8,0,1,1,99.72,162.8a36.89,36.89,0,0,0,56.56,0,8,8,0,0,1,12.17,10.39Z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 256 256"><path d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"/></symbol>
+<symbol id="i-translate" viewBox="0 0 256 256"><path d="M247.15,212.42l-56-112a8,8,0,0,0-14.31,0l-21.71,43.43A88,88,0,0,1,108,126.93,103.65,103.65,0,0,0,135.69,64H160a8,8,0,0,0,0-16H104V32a8,8,0,0,0-16,0V48H32a8,8,0,0,0,0,16h87.63A87.76,87.76,0,0,1,96,116.35a87.74,87.74,0,0,1-19-31,8,8,0,1,0-15.08,5.34A103.63,103.63,0,0,0,84,127a87.55,87.55,0,0,1-52,17,8,8,0,0,0,0,16,103.46,103.46,0,0,0,64-22.08,104.18,104.18,0,0,0,51.44,21.31l-26.6,53.19a8,8,0,0,0,14.31,7.16L148.94,192h70.11l13.79,27.58A8,8,0,0,0,240,224a8,8,0,0,0,7.15-11.58ZM156.94,176,184,121.89,211.05,176Z"/></symbol>
+<symbol id="i-check-circle" viewBox="0 0 256 256"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
 <symbol id="i-hand-swipe-right" viewBox="0 0 256 256"><path d="M216,140v36c0,25.59-8.49,42.85-8.85,43.58A8,8,0,0,1,200,224a7.9,7.9,0,0,1-3.57-.85,8,8,0,0,1-3.58-10.73c.06-.12,7.16-14.81,7.16-36.42V140a12,12,0,0,0-24,0v4a8,8,0,0,1-16,0V124a12,12,0,0,0-24,0v12a8,8,0,0,1-16,0V68a12,12,0,0,0-24,0V176a8,8,0,0,1-14.79,4.23l-18.68-30-.14-.23A12,12,0,1,0,41.6,162L70.89,212A8,8,0,1,1,57.08,220l-29.32-50a28,28,0,0,1,48.41-28.17L80,148V68a28,28,0,0,1,56,0V98.7a28,28,0,0,1,38.65,16.69A28,28,0,0,1,216,140Zm37.66-89.66-32-32a8,8,0,0,0-11.31,11.32L228.68,48H176a8,8,0,0,0,0,16h52.69L210.34,82.34a8,8,0,0,0,11.31,11.32l32-32A8,8,0,0,0,253.66,50.34Z"/></symbol>
 <symbol id="i-magic-wand" viewBox="0 0 256 256"><path d="M48,64a8,8,0,0,1,8-8H72V40a8,8,0,0,1,16,0V56h16a8,8,0,0,1,0,16H88V88a8,8,0,0,1-16,0V72H56A8,8,0,0,1,48,64ZM184,192h-8v-8a8,8,0,0,0-16,0v8h-8a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16Zm56-48H224V128a8,8,0,0,0-16,0v16H192a8,8,0,0,0,0,16h16v16a8,8,0,0,0,16,0V160h16a8,8,0,0,0,0-16ZM219.31,80,80,219.31a16,16,0,0,1-22.62,0L36.68,198.63a16,16,0,0,1,0-22.63L176,36.69a16,16,0,0,1,22.63,0l20.68,20.68A16,16,0,0,1,219.31,80Zm-54.63,32L144,91.31l-96,96L68.68,208ZM208,68.69,187.31,48l-32,32L176,100.69Z"/></symbol>
 </defs></svg>
@@ -1526,37 +1666,14 @@ footer{padding-bottom:12px}
     </div>
   </div>
 
-  <details class="about">
-    <summary><svg class="pi psum" aria-hidden="true"><use href="#i-info"/></svg> Over deze set</summary>
-    <img class="aboutbanner" src="art/about-banner.webp" alt="" loading="lazy"
-         onerror="this.remove()">
-    <div class="aboutstars" aria-label="De sterren van de set">
-      <button type="button" data-star="25"><img loading="lazy" alt="Teal Mask Ogerpon ex" src="https://images.pokemontcg.io/sv6/25.png"></button>
-      <button type="button" data-star="95"><img loading="lazy" alt="Munkidori" src="https://images.pokemontcg.io/sv6/95.png"></button>
-      <button type="button" data-star="96"><img loading="lazy" alt="Fezandipiti" src="https://images.pokemontcg.io/sv6/96.png"></button>
-      <button type="button" data-star="111"><img loading="lazy" alt="Okidogi" src="https://images.pokemontcg.io/sv6/111.png"></button>
-      <button type="button" data-star="141"><img loading="lazy" alt="Bloodmoon Ursaluna ex" src="https://images.pokemontcg.io/sv6/141.png"></button>
-      <button type="button" data-star="214"><img loading="lazy" alt="Greninja ex" src="https://images.pokemontcg.io/sv6/214.png"></button>
-    </div>
-    <p><b>Twilight Masquerade</b> verscheen op 24 mei 2024. De set speelt zich af in
-    <b>Kitakami</b>, het bergdorp uit het Teal Mask-avontuur — een land van zomerfeesten,
-    lampionnen en maskers.</p>
-    <p>De ster is <b>Ogerpon</b>, met alle vier haar maskers: Teal (24, 25),
-    Hearthflame (40), Wellspring (64) en Cornerstone (112). De "helden" van het dorp, de
-    <b>Loyal Three</b> — Okidogi (111), Munkidori (95) en Fezandipiti (96) — zijn stiekem
-    de slechteriken van het verhaal. Nog meer schatten: <b>Bloodmoon Ursaluna</b> (141), zes
-    kleurrijke <b>ACE SPEC</b>-kaarten, en de meest gezochte kaart van de set, de special
-    illustration <b>Greninja ex</b> (214).</p>
-    <p>De set heeft 167 genummerde kaarten plus secret rares tot 226 — met elke reverse holo
-    erbij zijn dat <b>373 kaarten</b> voor een masterset. In Japan kwamen deze kaarten uit twee
-    verschillende sets, <i>Mask of Change</i> en <i>Crimson Haze</i>, en daarom hebben Japanse
-    kaarten andere nummers.</p>
-    <div id="aboutfacts"></div>
-  </details>
-
   <div id="results" hidden></div>
   <div id="grid"></div>
   <div id="empty" class="empty" hidden><p>Niets gevonden</p><p class="sub" id="emptymsg"></p></div>
+  <button class="about aboutrow" id="aboutopen" type="button">
+    <img src="art/about-banner.webp" alt="" loading="lazy" onerror="this.remove()">
+    <span class="abrtxt"><b>Over deze set</b><small>Kitakami, Ogerpon en het grote misverstand</small></span>
+    <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+  </button>
   <button class="bnudge" id="scanshort" type="button">
     <svg class="pi" aria-hidden="true"><use href="#i-camera"/></svg>
     <span>Liever niet typen? Scan de kaart met de camera.</span>
@@ -1801,21 +1918,176 @@ footer{padding-bottom:12px}
 
   <div id="quiz" class="fullov" hidden>
     <button class="fovclose" data-close="quiz" type="button" aria-label="Sluiten">✕</button>
-    <img class="fovband" src="art/band-dragapult.webp" alt="" loading="lazy" onerror="this.remove()">
-    <div class="fovhead">Quiz<span class="qscore" id="qscore"></span></div>
-    <div class="seg qmodes" role="group" aria-label="Kies een spel">
-      <button data-qm="kunst" aria-pressed="true"><svg class="pi" aria-hidden="true"><use href="#i-magnifying-glass-plus"/></svg> Kunst</button>
-      <button data-qm="wazig" aria-pressed="false"><svg class="pi" aria-hidden="true"><use href="#i-drop-half"/></svg> Wazig</button>
-      <button data-qm="duel" aria-pressed="false"><svg class="pi" aria-hidden="true"><use href="#i-scales"/></svg> Prijsduel</button>
+
+    <div id="qpick">
+      <div class="bhead"><div class="bhtxt"><span>10 vragen per spel</span><h2>Quiz</h2></div></div>
+      <div class="qcards" role="group" aria-label="Kies een spel">
+        <button class="qcard" type="button" data-qm="kunst">
+          <span class="qband"><img alt="" loading="lazy"
+            src="https://images.pokemontcg.io/sv6/214.png" style="object-position:50% 22%"></span>
+          <span class="qbest" data-qb="kunst" hidden></span>
+          <span class="qfoot"><i>Kunst</i><b>Welke kaart is dit?</b>
+            <small>Een uitsnede van de illustratie, jij raadt de kaart</small>
+            <span class="nbtn nprim qgo">Spelen</span></span>
+        </button>
+        <button class="qcard" type="button" data-qm="wazig">
+          <span class="qband"><img alt="" loading="lazy" class="qblur"
+            src="https://images.pokemontcg.io/sv6/214.png" style="object-position:50% 22%"></span>
+          <span class="qbest" data-qb="wazig" hidden></span>
+          <span class="qfoot"><i>Wazig</i><b>Wie is dat, zo wazig?</b>
+            <small>Hoe sneller je raadt, hoe meer punten</small>
+            <span class="nbtn nprim qgo">Spelen</span></span>
+        </button>
+        <button class="qcard" type="button" data-qm="duel">
+          <span class="qband qduelband">
+            <img alt="" loading="lazy" src="https://images.pokemontcg.io/sv6/141.png">
+            <em>of</em>
+            <img alt="" loading="lazy" src="https://images.pokemontcg.io/sv6/106.png">
+          </span>
+          <span class="qbest" data-qb="duel" hidden></span>
+          <span class="qfoot"><i>Prijsduel</i><b>Welke kaart is vandaag meer waard?</b>
+            <small>Prijzen van vandaag, echt geld</small>
+            <span class="nbtn nprim qgo">Spelen</span></span>
+        </button>
+      </div>
+      <p class="fovnote">Records blijven op je toestel · prijzen van vandaag</p>
     </div>
-    <div class="qart" id="qart"></div>
-    <div class="qopts" id="qopts"></div>
-    <p class="fovnote" id="qmsg"></p>
-    <div id="qend" class="qend" hidden>
-      <div class="qendscore" id="qendscore">0/10</div>
-      <p id="qendmsg"></p>
-      <p class="own" id="qendbest"></p>
-      <div class="packrow"><button id="qagain" type="button">Speel nog eens!</button></div>
+
+    <div id="qplay" hidden>
+      <div class="qhead">
+        <div class="qheadrow"><span id="qprog"></span><span id="qsb"></span></div>
+        <i class="rrtrack tiny"><i id="qtrack" style="width:0%"></i></i>
+      </div>
+      <p class="qq" id="qq"></p>
+      <div class="qart" id="qart"></div>
+      <div class="qopts" id="qopts"></div>
+      <p class="fovnote" id="qmsg"></p>
+      <div class="qexpl" id="qexpl" hidden>
+        <svg class="pi" aria-hidden="true"><use href="#i-check-circle"/></svg>
+        <span id="qexpltxt"></span>
+      </div>
+      <div class="packrow"><button id="qnextbtn" class="nbtn nprim" type="button" hidden>Volgende kaart</button></div>
+      <div id="qend" class="qend" hidden>
+        <div class="qendscore" id="qendscore">0/10</div>
+        <p id="qendmsg"></p>
+        <p class="own" id="qendbest"></p>
+        <div class="packrow">
+          <button id="qagain" class="nbtn nprim" type="button">Speel nog eens!</button>
+          <button id="qtopick" class="nbtn nsec" type="button">Ander spel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="aboutov" class="fullov" hidden>
+    <div class="sthead" style="height:218px">
+      <img src="art/about-banner.webp" alt="" onerror="this.remove()">
+      <button class="stback fovclose" data-close="aboutov" type="button" aria-label="Terug">
+        <svg class="pi" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+      </button>
+      <div class="sthtxt"><span class="vkick">Kitakami · 24 mei 2024</span>
+        <h2>Twilight Masquerade</h2></div>
+    </div>
+    <div class="stbody">
+      <div class="ikstats abfacts">
+        <div><small>genummerd</small><b>167</b></div>
+        <div><small>met secret rares</small><b>226</b></div>
+        <div class="acc"><small>jouw masterset</small><b>373</b></div>
+      </div>
+      <p class="stlead">Een set over zomerfeesten, lampionnen en maskers in het bergdorp
+        Kitakami — waar het verhaal van de "helden" nét andersom blijkt te zitten.</p>
+      <p class="ikgrp">De sterren van de set</p>
+      <div class="aboutstars strip">
+        <button type="button" data-star="25"><img loading="lazy" alt="" src="https://images.pokemontcg.io/sv6/25.png"><span>Ogerpon ex<small>#025</small></span></button>
+        <button type="button" data-star="141"><img loading="lazy" alt="" src="https://images.pokemontcg.io/sv6/141.png"><span>Bloodmoon Ursaluna<small>#141</small></span></button>
+        <button type="button" data-star="214" class="acc"><img loading="lazy" alt="" src="https://images.pokemontcg.io/sv6/214.png"><span>Greninja ex<small>#214 · meest gezocht</small></span></button>
+        <button type="button" data-star="111"><img loading="lazy" alt="" src="https://images.pokemontcg.io/sv6/111.png"><span>Okidogi<small>#111</small></span></button>
+      </div>
+      <p class="ikgrp">Ogerpon en haar vier maskers</p>
+      <div class="maskchips">
+        <button type="button" data-star="25">Teal · 24, 25</button>
+        <button type="button" data-star="40">Hearthflame · 40</button>
+        <button type="button" data-star="64">Wellspring · 64</button>
+        <button type="button" data-star="112">Cornerstone · 112</button>
+      </div>
+      <button id="storygo" class="bnudge" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-mask-happy"/></svg>
+        <span>Het grote misverstand — waarom deze set "Masquerade" heet</span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
+      <div id="aboutfacts"></div>
+      <div class="drule"><svg class="pi" aria-hidden="true"><use href="#i-translate"/></svg>
+        <span>In Japan kwamen deze kaarten uit twee sets — <i>Mask of Change</i> en
+        <i>Crimson Haze</i> — daarom hebben Japanse kaarten andere nummers.
+        Je taalkeuze staat bij <b>Ik</b>.</span></div>
+    </div>
+  </div>
+
+  <div id="story1" class="fullov" hidden>
+    <div class="sthead" style="height:168px">
+      <img src="art/band-ogerpon.webp" alt="" onerror="this.remove()">
+      <button class="stback fovclose" data-close="story1" type="button" aria-label="Terug">
+        <svg class="pi" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+      </button>
+      <div class="sthtxt"><span class="vkick">Het verhaal van de set</span>
+        <h2>Het grote misverstand</h2></div>
+    </div>
+    <div class="stbody">
+      <div class="strow">
+        <img loading="lazy" alt="Teal Mask Ogerpon ex" src="https://images.pokemontcg.io/sv6/25.png">
+        <p><b>Wie is Ogerpon?</b> Een zachtaardige, verlegen legendarische Pokémon die lang
+        geleden met een menselijke vriend naar Kitakami kwam.</p>
+      </div>
+      <div class="stline"><svg class="pi" aria-hidden="true"><use href="#i-mask-happy"/></svg>
+        <span>De maskermaker maakte vier maskers, bezet met edelstenen, zodat ze samen konden
+        opgaan in het dorpsfeest.</span></div>
+      <div class="stline"><svg class="pi" aria-hidden="true"><use href="#i-eye"/></svg>
+        <span>Na alles wat er gebeurde trok Ogerpon zich terug in een grot. De dorpelingen
+        noemden haar "de oger" en haar thuis het Gevreesde Hol.</span></div>
+      <div class="stacc"><span class="vkick">De ommekeer</span>
+        Het dorp bouwde een monument… voor de dieven. En joeg de echte held weg.
+        Dát maskerade-misverstand gaf de set haar naam.</div>
+      <button id="storygo2" class="bnudge" type="button">
+        <span class="st3">
+          <img loading="lazy" alt="" src="https://images.pokemontcg.io/sv6/111.png">
+          <img loading="lazy" alt="" src="https://images.pokemontcg.io/sv6/95.png">
+          <img loading="lazy" alt="" src="https://images.pokemontcg.io/sv6/96.png">
+        </span>
+        <span>Wie waren die dieven dan? De Loyal Three</span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="story2" class="fullov" hidden>
+    <div class="sthead" style="height:148px">
+      <img src="art/band-sinistcha.webp" alt="" onerror="this.remove()">
+      <button class="stback fovclose" data-close="story2" type="button" aria-label="Terug">
+        <svg class="pi" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+      </button>
+      <div class="sthtxt"><span class="vkick">Het verhaal van de set</span>
+        <h2>De Loyal Three</h2></div>
+    </div>
+    <div class="stbody">
+      <p class="stlead">Een hebzuchtig trio, aangetrokken door de glinstering van de maskers.
+        Ze braken in bij de grot, vielen Ogerpons vriend aan en stalen drie maskers.</p>
+      <div class="aboutstars strip">
+        <button type="button" data-star="111"><img loading="lazy" alt="" src="https://images.pokemontcg.io/sv6/111.png"><span>Okidogi<small>de spierbundel</small></span></button>
+        <button type="button" data-star="95"><img loading="lazy" alt="" src="https://images.pokemontcg.io/sv6/95.png"><span>Munkidori<small>de sluwe</small></span></button>
+        <button type="button" data-star="96"><img loading="lazy" alt="" src="https://images.pokemontcg.io/sv6/96.png"><span>Fezandipiti<small>de charmeur</small></span></button>
+      </div>
+      <div class="stline"><svg class="pi" aria-hidden="true"><use href="#i-lightning"/></svg>
+        <span>Ogerpon versloeg ze op het dorpsplein en nam haar maskers terug.</span></div>
+      <div class="stline"><svg class="pi" aria-hidden="true"><use href="#i-eye"/></svg>
+        <span>De dorpelingen zagen alleen een razende "oger", dachten dat het trio zich had
+        opgeofferd, en bouwden Loyalty Plaza voor hen.</span></div>
+      <div class="drule stread">
+        <svg class="pi" aria-hidden="true"><use href="#i-info"/></svg>
+        <span><b>Verder lezen</b> — zoek daar op "Ogerpon" of "Loyal Three":<br>
+          <a href="https://bulbapedia.bulbagarden.net" target="_blank" rel="noopener">Bulbapedia</a>
+          <a href="https://pokemon.fandom.com" target="_blank" rel="noopener">Pokémon Wiki</a>
+          <a href="https://www.thegamer.com" target="_blank" rel="noopener">TheGamer</a></span>
+      </div>
     </div>
   </div>
 
@@ -1848,28 +2120,34 @@ footer{padding-bottom:12px}
 
   <div id="ikwrap" hidden>
     <div class="ikback"></div>
-    <div class="iksheet" role="dialog" aria-modal="true" aria-label="Mijn hoek">
-      <div class="ikgrip" aria-hidden="true"></div>
-      <div class="stats">
+    <div class="iksheet ikprofile" role="dialog" aria-modal="true" aria-label="Mijn hoek">
+      <div class="ikhead" aria-hidden="true">
+        <span class="ikav"><svg class="pi"><use href="#i-user"/></svg></span>
+        <b>Mijn verzameling</b>
+        <small>verzamelt Twilight Masquerade · Kitakami</small>
+      </div>
+      <div class="ikstats">
+        <div><small>Waarde</small><b id="ikvalue">€0</b></div>
+        <div><small>Kaarten</small><b id="ikcards">0</b></div>
+        <div><small>Dubbels</small><b id="ikdups">0</b></div>
+      </div>
+      <div class="stats" hidden>
         <div class="kpi"><small>Waarde van mijn kaarten</small><b id="value"></b></div>
         <div class="kpi" id="stBestWrap" hidden><small>Mijn beste kaart</small><b id="stBest"></b></div>
         <div class="kpi" id="stDupWrap" hidden><small>Dubbels om te ruilen</small><b id="stDup"></b></div>
         <div class="kpi" id="stWishWrap" hidden><small>Wenslijst</small><b id="stWish"></b></div>
         <div class="kpi" id="stLangWrap" hidden><small>Talen in je verzameling</small><b id="stLang"></b></div>
       </div>
-      <button id="btnpack" class="ikrow" type="button">
-        <svg class="pi" aria-hidden="true"><use href="#i-gift"/></svg>
-        <span>Pakje openen<small>Negen pakjes in de doos — puur voor de fun</small></span>
+
+      <p class="ikgrp">Mijn verzameling</p>
+      <button id="ikwish" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-star"/></svg>
+        <span>Wenslijst</span><b class="ikcount" id="ikwishn"></b>
         <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
       </button>
-      <button id="btnquiz" class="ikrow" type="button">
-        <svg class="pi" aria-hidden="true"><use href="#i-game-controller"/></svg>
-        <span>Quiz<small>Kunst, wazig of prijsduel — records per modus</small></span>
-        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
-      </button>
-      <button id="cotd" class="ikrow" type="button">
-        <svg class="pi" aria-hidden="true"><use href="#i-sparkle"/></svg>
-        <span>Kaart van de dag<small>Elke dag een andere verrassing</small></span>
+      <button id="ikdup" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-copy"/></svg>
+        <span>Dubbels om te ruilen</span><b class="ikcount" id="ikdupn"></b>
         <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
       </button>
       <button id="btnshare" class="ikrow" type="button">
@@ -1877,18 +2155,46 @@ footer{padding-bottom:12px}
         <span>Mijn verzamelkaart<small>Om te delen met vrienden</small></span>
         <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
       </button>
+
+      <p class="ikgrp">Spelen</p>
+      <button id="btnquiz" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-game-controller"/></svg>
+        <span>Quiz<small id="ikquizbest">Kunst, wazig of prijsduel</small></span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
+      <button id="cotd" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-sun"/></svg>
+        <span>Kaart van de dag<small id="ikcotd">Elke dag een andere verrassing</small></span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
+      <button id="btnpack" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-gift"/></svg>
+        <span>Pakje openen<small>Negen pakjes in de doos — puur voor de fun</small></span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
+
+      <p class="ikgrp">Toestel</p>
       <button id="bkexp" class="ikrow" type="button">
         <svg class="pi" aria-hidden="true"><use href="#i-floppy-disk"/></svg>
-        <span>Back-up bewaren<small>Je hele verzameling als bestand</small></span>
+        <span>Back-up bewaren<small id="ikbkdate">Je hele verzameling als bestand</small></span>
         <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
       </button>
-      <button id="bkimp" class="ikrow" type="button">
-        <svg class="pi" aria-hidden="true"><use href="#i-floppy-disk"/></svg>
-        <span>Back-up terugzetten<small>Alles komt terug, niets gaat verloren</small></span>
+      <button id="install" class="ikrow" type="button" style="display:none">
+        <svg class="pi" aria-hidden="true"><use href="#i-device-mobile"/></svg>
+        <span>Installeer op deze telefoon<small>In Samsung Internet: menu → Pagina toevoegen aan → Startscherm</small></span>
         <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
       </button>
+      <div class="ikrow iklang">
+        <svg class="pi" aria-hidden="true"><use href="#i-translate"/></svg>
+        <span>Taal van kaarten<small>De afbeelding en naam die je eerst ziet</small></span>
+        <span class="iklangp" id="iklangp">
+          <button type="button" data-il="en">EN</button>
+          <button type="button" data-il="fr">FR</button>
+          <button type="button" data-il="ja">JA</button>
+        </span>
+      </div>
+      <button id="bkimp" class="nlink ikrestore" type="button">Back-up terugzetten</button>
       <input id="bkfile" type="file" accept="application/json,.json" hidden>
-      <button id="install" type="button">Installeer op deze telefoon</button>
     </div>
   </div>
 
@@ -2493,12 +2799,21 @@ function buildAboutFacts(){
     · de set ${cnt["Illustration Rare"]} Illustration Rares telt, getekend als volledige
       kunstwerken — daarom zijn ze zo geliefd bij verzamelaars.</p>`;
 }
-document.querySelector(".about summary").addEventListener("click",buildAboutFacts);
+document.getElementById("aboutopen").addEventListener("click",()=>{
+  buildAboutFacts();
+  openFov("aboutov");
+});
+document.getElementById("storygo").addEventListener("click",()=>{
+  closeFov("aboutov"); openFov("story1");
+});
+document.getElementById("storygo2").addEventListener("click",()=>{
+  closeFov("story1"); openFov("story2");
+});
 document.getElementById("aboutfacts").addEventListener("click",e=>{
   const b=e.target.closest("[data-open]");
   if(b) openOv(b.dataset.open);
 });
-document.querySelector(".aboutstars").addEventListener("click",e=>{
+document.addEventListener("click",e=>{
   const b=e.target.closest("[data-star]");
   if(b) openOv(b.dataset.star);
 });
@@ -2805,7 +3120,8 @@ function openOv(id,fromBinderPocket){
 }
 function closeOv(){
   ov.hidden=true;
-  const anyFov=["pack","binder","quiz","shareov","deck","scanov"].some(id=>!document.getElementById(id).hidden);
+  const anyFov=["pack","binder","quiz","shareov","deck","scanov","aboutov","story1","story2"]
+    .some(id=>!document.getElementById(id).hidden);
   if(!anyFov) document.body.classList.remove("lock");
   // back on the scanner's confirm panel: the card may just have been
   // collected in the viewer, so the add/double button must relabel
@@ -2911,7 +3227,7 @@ async function fetchPrices(){
 let deferred=null;
 const installBtn=document.getElementById("install");
 window.addEventListener("beforeinstallprompt",e=>{
-  e.preventDefault(); deferred=e; installBtn.style.display="block";
+  e.preventDefault(); deferred=e; installBtn.style.display="flex";
 });
 installBtn.addEventListener("click",async()=>{
   if(!deferred){
@@ -2927,7 +3243,7 @@ installBtn.addEventListener("click",async()=>{
 window.addEventListener("appinstalled",()=>{ installBtn.style.display="none"; deferred=null; });
 if(/SamsungBrowser/i.test(navigator.userAgent)
    &&!matchMedia("(display-mode: standalone)").matches){
-  installBtn.style.display="block";
+  installBtn.style.display="flex";
 }
 
 if("serviceWorker" in navigator){
@@ -2947,7 +3263,7 @@ function openFov(id){
   document.getElementById(id).hidden=false;
   document.body.classList.add("lock");
   if(id==="binder") renderBinder();
-  if(id==="quiz") qStart();
+  if(id==="quiz") qPicker();
   if(id==="pack") packChoose();
   if(id==="deck") openDeck();
   if(id==="scanov") startScan();
@@ -2968,7 +3284,8 @@ document.getElementById("btnquiz").addEventListener("click",()=>openFov("quiz"))
 document.querySelectorAll(".fovclose").forEach(b=>b.addEventListener("click",()=>closeFov(b.dataset.close)));
 document.addEventListener("keydown",e=>{
   if(!ov.hidden) return;                    // the card viewer handles its own keys
-  const open=["pack","binder","quiz","shareov","deck","scanov"].find(id=>!document.getElementById(id).hidden);
+  const open=["pack","binder","quiz","shareov","deck","scanov","aboutov","story1","story2"]
+    .find(id=>!document.getElementById(id).hidden);
   if(!open) return;
   if(e.target&&e.target.id==="bq"&&e.key!=="Escape") return;  // typing in binder search
   if(e.key==="Escape") closeFov(open);
@@ -3720,13 +4037,28 @@ let qBests={kunst:0,wazig:0,duel:0};
 try{ const s=localStorage.getItem("twm:quizbest2"); if(s) qBests={...qBests,...JSON.parse(s)}; }catch(e){}
 
 function qScoreUI(){
-  document.getElementById("qscore").textContent=
-    `Vraag ${Math.min(qNr+1,10)}/10 · Score ${qScore} · Beste ${qBests[qMode]}`;
+  document.getElementById("qprog").textContent=`Vraag ${Math.min(qNr+1,10)} van 10`;
+  document.getElementById("qsb").textContent=
+    `score ${qScore}${qBests[qMode]?` · beste ${qBests[qMode]}`:""}`;
+  document.getElementById("qtrack").style.width=Math.min(qNr,10)*10+"%";
+}
+/* 7b: the picker shows the three games as cards with a face and a record chip */
+function qPicker(){
+  document.getElementById("qplay").hidden=true;
+  document.getElementById("qpick").hidden=false;
+  const bestMode=Object.keys(qBests).reduce((a,b)=>qBests[b]>qBests[a]?b:a);
+  document.querySelectorAll(".qcard").forEach(c=>{
+    const m=c.dataset.qm, chip=c.querySelector(".qbest");
+    chip.hidden=!qBests[m];                    // no record yet → no "0/10"
+    if(qBests[m]) chip.textContent=`beste ${qBests[m]}/10`;
+    chip.classList.toggle("top",m===bestMode&&qBests[m]>0);
+    c.classList.toggle("ring",m===bestMode&&qBests[m]>0);
+  });
 }
 function qStart(mode){
   qMode=mode||qMode; qNr=0; qScore=0;
-  document.querySelectorAll(".qmodes button").forEach(b=>
-    b.setAttribute("aria-pressed",b.dataset.qm===qMode?"true":"false"));
+  document.getElementById("qpick").hidden=true;
+  document.getElementById("qplay").hidden=false;
   document.getElementById("qend").hidden=true;
   document.getElementById("qart").hidden=false;
   qRound();
@@ -3735,6 +4067,11 @@ function qRound(){
   clearTimeout(qTimer);
   qLock=false;
   document.getElementById("qmsg").textContent="";
+  document.getElementById("qexpl").hidden=true;
+  document.getElementById("qnextbtn").hidden=true;
+  document.getElementById("qq").textContent=
+    qMode==="duel"?"Welke is vandaag meer waard?"
+    :qMode==="wazig"?"Wie is dat, zo wazig?":"Welke kaart is dit?";
   const art=document.getElementById("qart");
   art.classList.remove("reveal","wazig","duel");
   art.innerHTML="";
@@ -3748,10 +4085,9 @@ function qRound(){
     art.classList.add("duel");
     art.style.backgroundImage="";
     art.innerHTML=`
-      <button type="button" class="duelcard" data-du="a"><img alt="" src="${img(a[0])}"><em hidden></em></button>
-      <button type="button" class="duelcard" data-du="b"><img alt="" src="${img(b[0])}"><em hidden></em></button>`;
+      <button type="button" class="duelcard" data-du="a"><img alt="" src="${img(a[0])}"><em hidden></em><i hidden></i></button>
+      <button type="button" class="duelcard" data-du="b"><img alt="" src="${img(b[0])}"><em hidden></em><i hidden></i></button>`;
     document.getElementById("qopts").innerHTML="";
-    document.getElementById("qmsg").textContent="Tik op de kaart die vandaag het meest waard is!";
   }else{
     qCur=pick(RAW);
     art.style.backgroundImage=`url(${img(qCur[0])})`;
@@ -3777,11 +4113,14 @@ function qFinishQuestion(good,msg){
   document.getElementById("qmsg").textContent=msg;
   qScoreUI();
   qNr++;
-  qTimer=setTimeout(()=>{
-    if(document.getElementById("quiz").hidden) return;
-    if(qNr>=10) qEnd(); else qRound();
-  },1700);
+  // 7c: no clock — the answer stays on screen until "Volgende kaart"
+  const nb=document.getElementById("qnextbtn");
+  nb.hidden=false;
+  nb.textContent=qNr>=10?"Bekijk je score":"Volgende kaart";
 }
+document.getElementById("qnextbtn").addEventListener("click",()=>{
+  if(qNr>=10) qEnd(); else qRound();
+});
 function qAnswer(btn,nm){
   if(qLock) return; qLock=true;
   document.getElementById("qart").classList.add("reveal");
@@ -3798,14 +4137,25 @@ document.getElementById("qart").addEventListener("click",e=>{
   if(!d||qLock||qMode!=="duel") return;
   qLock=true;
   const good=d.dataset.du===qCur.ans;
+  const price=c=>priceOf({num:c[0],rev:false,fallback:c[3]});
+  // 7c: both prices come out, the picked one says so, the loser dims
   document.querySelectorAll(".duelcard").forEach(el=>{
     const c=el.dataset.du==="a"?qCur.a:qCur.b;
-    const em=el.querySelector("em");
-    em.hidden=false; em.textContent=eur(priceOf({num:c[0],rev:false,fallback:c[3]}));
+    const em=el.querySelector("em"), tag=el.querySelector("i");
+    em.hidden=false; em.textContent=eur(price(c));
+    if(el===d){ tag.hidden=false; tag.textContent=`jouw keuze · ${good?"juist":"mis"}`; }
     el.classList.add(el.dataset.du===qCur.ans?"good":"bad");
   });
   const w=qCur.ans==="a"?qCur.a:qCur.b;
-  qFinishQuestion(good, good?`Juist! ${w[1]} is de duurste.`:`Mis — ${w[1]} is meer waard.`);
+  const l=qCur.ans==="a"?qCur.b:qCur.a;
+  const diff=price(w)-price(l);
+  const slot=byId.get(String(w[0]));
+  const tr=slot?trendOf(slot):null;
+  document.getElementById("qexpltxt").textContent=
+    `${good?"Juist!":"Mis —"} ${w[1]} is ${eur(diff)} duurder`+
+    (tr!==null?` — en deze week ${tr>0?"▲":"▼"} ${Math.round(Math.abs(tr)*100)}%.`:".");
+  document.getElementById("qexpl").hidden=false;
+  qFinishQuestion(good,"");
 });
 function qEnd(){
   const best=qScore>qBests[qMode];
@@ -3813,6 +4163,9 @@ function qEnd(){
   document.getElementById("qart").hidden=true;
   document.getElementById("qopts").innerHTML="";
   document.getElementById("qmsg").textContent="";
+  document.getElementById("qq").textContent="";
+  document.getElementById("qexpl").hidden=true;
+  document.getElementById("qnextbtn").hidden=true;
   const e=document.getElementById("qend"); e.hidden=false;
   document.getElementById("qendscore").textContent=`${qScore}/10`;
   document.getElementById("qendmsg").textContent=
@@ -3824,9 +4177,10 @@ function qEnd(){
     best?"🏆 Nieuw record voor deze modus!":`Beste in deze modus: ${qBests[qMode]}/10`;
   if(qScore>=8) confetti();
 }
-document.querySelectorAll(".qmodes button").forEach(b=>
+document.querySelectorAll(".qcard").forEach(b=>
   b.addEventListener("click",()=>qStart(b.dataset.qm)));
 document.getElementById("qagain").addEventListener("click",()=>qStart());
+document.getElementById("qtopick").addEventListener("click",qPicker);
 
 /* ---------- deck lab ----------
    Card text, attacks and evolution lines live in cards.js, loaded the first
@@ -3847,7 +4201,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v50";   // bump with the service worker, so these load fresh per release
+const APPV="v51";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -4371,6 +4725,9 @@ document.getElementById("bkexp").addEventListener("click",async()=>{
   for(const k of BK_KEYS){ const v=localStorage.getItem(k); if(v!==null) data[k]=v; }
   const payload=JSON.stringify({app:"twm-binder",v:1,ts:Date.now(),data},null,1);
   const name=`twm-backup-${new Date().toISOString().slice(0,10)}.json`;
+  // remember that it happened: the Ik row shows date + card count (7a)
+  loadOwned();
+  try{ localStorage.setItem("twm:lastbackup",JSON.stringify({ts:Date.now(),n:owned.size})); }catch(e){}
   const file=new File([payload],name,{type:"application/json"});
   if(navigator.canShare&&navigator.canShare({files:[file]})){
     try{ await navigator.share({files:[file],title:"TWM binder backup"}); return; }catch(e){}
@@ -4922,7 +5279,53 @@ const closeFilt=()=>{ document.getElementById("filtwrap").hidden=true; };
 document.getElementById("filtback").addEventListener("click",closeFilt);
 document.getElementById("filtdone").addEventListener("click",closeFilt);
 document.getElementById("avbtn").addEventListener("click",()=>openIk());
-function openIk(){ document.getElementById("ikwrap").hidden=false; }
+function openIk(){
+  // 7a: the sheet is a small collector profile — fill the live numbers
+  if(HOMESTATS){
+    document.getElementById("ikvalue").textContent=eur(HOMESTATS.haveV);
+    document.getElementById("ikcards").textContent=HOMESTATS.haveN+HOMESTATS.dupN;
+    document.getElementById("ikdups").textContent=HOMESTATS.dupN;
+    document.getElementById("ikwishn").textContent=HOMESTATS.wishN||"";
+    document.getElementById("ikdupn").textContent=HOMESTATS.dupN||"";
+  }
+  const qb=qBests;
+  document.getElementById("ikquizbest").textContent=
+    (qb.kunst||qb.wazig||qb.duel)
+      ?`Beste: kunst ${qb.kunst}/10 · wazig ${qb.wazig}/10 · duel ${qb.duel}/10`
+      :"Kunst, wazig of prijsduel";
+  try{
+    const s=byId.get(cardOfDay().id);
+    document.getElementById("ikcotd").textContent=`Vandaag: ${s.num} ${s.name}`;
+  }catch(e){}
+  try{
+    const b=JSON.parse(localStorage.getItem("twm:lastbackup")||"null");
+    document.getElementById("ikbkdate").textContent=b
+      ?`Laatste: ${new Date(b.ts).toLocaleDateString("nl-BE",{day:"numeric",month:"long"})} · ${b.n} kaarten`
+      :"Je hele verzameling als bestand";
+  }catch(e){}
+  document.querySelectorAll("#iklangp button").forEach(x=>
+    x.classList.toggle("on",x.dataset.il===prefLang));
+  document.getElementById("ikwrap").hidden=false;
+}
+document.getElementById("ikwish").addEventListener("click",()=>{
+  closeIk(); setHomeView("1a");
+  const b=document.querySelector('#viewseg button[data-view="wish"]');
+  if(b&&b.getAttribute("aria-pressed")!=="true") b.click();
+  document.getElementById("grid").scrollIntoView({behavior:"smooth"});
+});
+document.getElementById("ikdup").addEventListener("click",()=>{
+  closeIk(); setHomeView("1a");
+  const b=document.querySelector('#viewseg button[data-view="dup"]');
+  if(b&&b.getAttribute("aria-pressed")!=="true") b.click();
+  document.getElementById("grid").scrollIntoView({behavior:"smooth"});
+});
+document.querySelectorAll("#iklangp button").forEach(b=>b.addEventListener("click",()=>{
+  lang=prefLang=b.dataset.il;
+  try{ localStorage.setItem("twm:lang",prefLang); }catch(e){}
+  if(prefLang==="fr") loadFrNames();
+  document.querySelectorAll("#iklangp button").forEach(x=>
+    x.classList.toggle("on",x===b));
+}));
 function closeIk(){ document.getElementById("ikwrap").hidden=true; }
 document.getElementById("tabik").addEventListener("click",()=>{
   const w=document.getElementById("ikwrap");
