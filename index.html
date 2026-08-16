@@ -1018,6 +1018,58 @@ footer{padding-bottom:12px}
 .bnudge>.pi:first-child{color:var(--n-a4)}
 .bnudge span{flex:1}
 
+/* ---- round 4: adding cards without a race ---- */
+.card{cursor:pointer}
+.qadd{position:absolute;bottom:6px;right:6px;width:36px;height:36px;border-radius:8px;
+  display:grid;place-items:center;font-size:20px;line-height:1;cursor:pointer;
+  background:rgba(22,24,38,.78);box-shadow:0 0 0 1px var(--n-a6);color:var(--n-a3);
+  font-family:'Inter',system-ui,sans-serif;user-select:none}
+.qadd:active{transform:scale(.9)}
+.statepills{display:flex;gap:8px;margin-bottom:10px;border:0;border-radius:0;overflow:visible;
+  width:auto;font-family:'Inter',system-ui,sans-serif}
+.statepills button{flex:0 0 auto;font-size:13px;min-height:36px;padding:0 14px;border:0;
+  border-radius:99px;background:none;box-shadow:0 0 0 1px var(--n-e8);color:var(--n-b2);
+  cursor:pointer;font-family:inherit}
+.statepills button[aria-pressed="true"]{background:var(--n-tint);color:var(--n-a3);
+  box-shadow:none;font-weight:500}
+.statepills button[data-view="wish"]{flex:0 0 auto;padding:0 12px}
+.statepills .pi{width:15px;height:15px;vertical-align:-3px}
+.rescount{font-size:12px;color:var(--n-m6);margin:0 0 10px;
+  font-family:'Inter',system-ui,sans-serif}
+#scanshort{margin-top:14px}
+.ovqty{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin:12px 0 8px;padding:13px;border-radius:8px;background:var(--n-sur);
+  box-shadow:0 0 0 1px var(--n-e8);font-family:'Inter',system-ui,sans-serif;text-align:left}
+.ovqtxt{display:flex;flex-direction:column;gap:2px}
+.ovqtxt span{font-size:14px;color:var(--n-txt)}
+.ovqtxt small{font-size:11px;color:var(--n-m6)}
+.ovqty .dupctl{display:flex;align-items:center;gap:8px}
+.ovqty .dstepbtn{width:36px;height:36px;min-height:36px}
+.ovqty b{font-size:18px;font-variant-numeric:tabular-nums;min-width:24px;text-align:center;
+  color:var(--n-txt)}
+#ovtomap{margin:6px 0 0}
+.bquickhint{max-width:560px;margin:0 auto 12px;font-size:12px;color:var(--n-b2);
+  font-family:'Inter',system-ui,sans-serif;text-align:center}
+.bquickhint b{color:var(--n-a3)}
+#bquick.on{color:var(--n-a3);box-shadow:0 0 0 1px var(--n-a6)}
+.bquickon .bslot:not(.ghost){box-shadow:0 0 0 1px var(--n-a6)}
+.bsessionbar{position:fixed;left:0;right:0;bottom:0;z-index:44;background:var(--n-sur);
+  box-shadow:0 -1px 0 #595d6c;padding:13px 17px calc(22px + env(safe-area-inset-bottom));
+  max-width:560px;margin:0 auto;border-radius:14px 14px 0 0;
+  font-family:'Inter',system-ui,sans-serif}
+.bsessrow{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.bsessthumbs{display:flex}
+.bsessthumbs img{width:30px;height:42px;border-radius:4px;object-fit:cover;
+  margin-left:-10px;box-shadow:0 0 0 1px var(--n-e8)}
+.bsessthumbs img:first-child{margin-left:0}
+.bsesstxt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.bsesstxt b{font-size:14px;font-weight:500;color:var(--n-txt)}
+.bsesstxt small{font-size:11px;color:var(--n-m6)}
+.bsessbtns{display:flex;gap:8px}
+.bsessbtns .nprim{flex:1}
+.bsessbtns .nghost.wide{width:auto;padding:0 14px;font-size:13px}
+.bsessionbar .btfoot{margin-top:8px}
+
 /* wider screens: the phone design scales up gently (desktop is not a
    designed layout yet — tiles stay card-sized, the tab bar clusters) */
 @media(min-width:700px){
@@ -1138,10 +1190,19 @@ footer{padding-bottom:12px}
       <input id="q" type="search" placeholder="Zoek naam of nummer" autocomplete="off" enterkeyhint="search">
     </label>
     <button id="filtbtn" type="button" aria-haspopup="dialog"
-            aria-label="Filters (type, zeldzaamheid, weergave)">
+            aria-label="Filters (type en zeldzaamheid)">
       <svg class="pi" aria-hidden="true"><use href="#i-sliders-horizontal"/></svg>
     </button>
   </div>
+
+  <div class="seg statepills" id="viewseg" role="group" aria-label="Tonen">
+    <button data-view="all" aria-pressed="true">Alles</button>
+    <button data-view="need" aria-pressed="false">Nog nodig</button>
+    <button data-view="have" aria-pressed="false">Heb ik</button>
+    <button data-view="dup" aria-pressed="false">Dubbels</button>
+    <button data-view="wish" aria-pressed="false" aria-label="Wenslijst"><svg class="pi" aria-hidden="true"><use href="#i-star"/></svg></button>
+  </div>
+  <p class="rescount" id="rescount" hidden></p>
 
   <div class="nsec" id="misssec">
     <div class="nsechead"><span>Nog te vinden</span>
@@ -1207,6 +1268,11 @@ footer{padding-bottom:12px}
 
   <div id="grid"></div>
   <div id="empty" class="empty" hidden><p>Niets gevonden</p><p class="sub" id="emptymsg"></p></div>
+  <button class="bnudge" id="scanshort" type="button">
+    <svg class="pi" aria-hidden="true"><use href="#i-camera"/></svg>
+    <span>Liever niet typen? Scan de kaart met de camera.</span>
+    <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+  </button>
 
   <div id="ov" hidden>
     <button id="ovclose" type="button" aria-label="Sluiten">✕</button>
@@ -1222,16 +1288,17 @@ footer{padding-bottom:12px}
       <div class="ovnm" id="ovnm"></div>
       <div class="ovsub" id="ovsub"></div>
       <div class="ovbinder" id="ovbinder"></div>
+      <button id="ovtomap" class="nlink" type="button">Bekijk in map</button>
       <div class="ovpr" id="ovpr"></div>
-      <button id="ovtick" type="button"></button>
-      <button id="ovwish" type="button" hidden></button>
-      <div id="ovdup" hidden><span>Dubbels om te ruilen</span>
+      <div class="ovqty">
+        <div class="ovqtxt"><span>Hoeveel heb ik?</span><small id="ovqsub">nog niet in je collectie</small></div>
         <div class="dupctl">
-          <button id="dupminus" type="button" aria-label="Eén dubbel minder">−</button>
-          <b id="dupn">0</b>
-          <button id="dupplus" type="button" aria-label="Eén dubbel meer">+</button>
+          <button id="ovqminus" class="dstepbtn" type="button" aria-label="Eén minder">−</button>
+          <b id="ovqn">0</b>
+          <button id="ovqplus" class="dstepbtn plus" type="button" aria-label="Eén meer">+</button>
         </div>
       </div>
+      <button id="ovwish" type="button" hidden></button>
       <div id="ovmy" hidden><span>Mijn kaart is</span>
         <div class="ovlang" id="ovmybtns">
           <button data-my="en" type="button" aria-pressed="true">English</button>
@@ -1293,6 +1360,10 @@ footer{padding-bottom:12px}
     <div class="bhead">
       <div class="bhtxt"><span>Twilight Masquerade</span><h2>Mijn map</h2></div>
       <div class="bhbtns">
+        <button id="bquick" type="button" aria-pressed="false"
+                aria-label="Snel toevoegen: elke tik op een vakje zet er één bij">
+          <svg class="pi" aria-hidden="true"><use href="#i-plus"/></svg>
+        </button>
         <button id="bfmtbtn" type="button" aria-label="Formaat van je map wisselen (3×3, 4×3 of 4×4)">
           <svg class="pi" aria-hidden="true"><use href="#i-squares-four"/></svg>
         </button>
@@ -1301,6 +1372,8 @@ footer{padding-bottom:12px}
         </button>
       </div>
     </div>
+    <p class="bquickhint" id="bquickhint" hidden>Snel toevoegen staat <b>aan</b>: elke tik zet er
+      één bij, nog eens tikken maakt een dubbel. Lang drukken opent de kaart.</p>
     <div class="bsearch" id="bsearchrow" hidden>
       <input id="bq" type="search" placeholder="Zoek een naam of nummer…" autocomplete="off" enterkeyhint="search">
       <button id="bnextm" type="button">Volgende ›</button>
@@ -1351,6 +1424,17 @@ footer{padding-bottom:12px}
         <span id="bnudgetxt"></span>
         <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
       </button>
+    </div>
+    <div class="bsessionbar" id="bsession" hidden>
+      <div class="bsessrow">
+        <span class="bsessthumbs" id="bsessthumbs"></span>
+        <span class="bsesstxt"><b id="bsesscount"></b><small id="bsesslast"></small></span>
+      </div>
+      <div class="bsessbtns">
+        <button id="bsessundo" class="nbtn nghost wide" type="button">Laatste ongedaan</button>
+        <button id="bsessdone" class="nbtn nprim" type="button">Klaar</button>
+      </div>
+      <p class="btfoot">Blijft staan tot je op Klaar tikt — geen tijdslimiet</p>
     </div>
     <div class="btdim" id="btdim" hidden></div>
     <div class="bsheet" id="bsheet" hidden role="dialog" aria-label="Herkende kaart">
@@ -1411,13 +1495,6 @@ footer{padding-bottom:12px}
     <div class="iksheet" role="dialog" aria-modal="true" aria-label="Filters">
       <div class="ikgrip" aria-hidden="true"></div>
       <select id="rarity" aria-label="Filter op zeldzaamheid"><option value="all">Alle zeldzaamheden</option></select>
-      <div class="seg" id="viewseg" role="group" aria-label="Tonen" style="margin-top:8px">
-        <button data-view="all" aria-pressed="true">Alles</button>
-        <button data-view="need" aria-pressed="false">Nog nodig</button>
-        <button data-view="have" aria-pressed="false">Heb ik</button>
-        <button data-view="dup" aria-pressed="false">Dubbels</button>
-        <button data-view="wish" aria-pressed="false" aria-label="Wenslijst"><svg class="pi" aria-hidden="true"><use href="#i-star"/></svg></button>
-      </div>
       <div class="tychips" role="group" aria-label="Filter op energietype" style="margin-top:8px">
         <button class="ty on" data-ty="">Alle types</button>
         <button class="ty" data-ty="G" style="--c:#43A047">Grass</button>
@@ -1666,14 +1743,17 @@ function build(){
     sec.innerHTML=`<div class="sechead"><h2>${r}</h2><div class="secbar"><i></i></div><span class="seccount"></span></div><div class="grid"></div>`;
     const g=sec.querySelector(".grid");
     for(const s of list){
-      const b=document.createElement("button");
-      b.className="card"; b.dataset.id=s.id; b.type="button";
+      // a div, not a button: the tile carries its own + button inside (round 4)
+      const b=document.createElement("div");
+      b.className="card"; b.dataset.id=s.id;
+      b.setAttribute("role","button"); b.tabIndex=0;
       b.setAttribute("aria-pressed","false");
       b.setAttribute("aria-label",`${s.num} ${s.name}${s.rev?" reverse holo":""}`);
       b.innerHTML=
         `<div class="shot"><img loading="lazy" decoding="async" alt="" src="${img(s.num)}">`+
         (s.rev?`<div class="rev-sheen"></div><div class="revtag">REV</div>`:``)+
-        `<div class="tick">✓</div><span class="frtag" hidden>FR</span><span class="dup" hidden></span><span class="wtag" hidden>⭐</span><span class="zoom" aria-hidden="true">🔍</span></div>`+
+        `<div class="tick">✓</div><span class="frtag" hidden>FR</span><span class="dup" hidden></span><span class="wtag" hidden>⭐</span>`+
+        `<span class="qadd" role="button" tabindex="0" aria-label="Eén ${s.name} toevoegen">+</span></div>`+
         `<div class="meta"><div class="nm"><i class="tydot" style="background:${TYCOL[TYPES[s.num-1]]||"transparent"}"></i>${s.num} ${s.name}</div>`+
         `<div class="pr"></div></div>`;
       nodes.set(s.id,b); ORDER.push(s); g.appendChild(b);
@@ -1773,6 +1853,11 @@ function paint(){
         .filter(Boolean).join(" · ");
   }
 
+  const rc=document.getElementById("rescount");
+  if(homeView==="1a"){
+    rc.hidden=false;
+    rc.textContent=`${shown} kaart${shown===1?"":"en"} · tik voor de kaart, + om toe te voegen`;
+  }
   emptyEl.hidden=shown>0;
   document.getElementById("emptymsg").textContent =
     view==="need" ? "Elke kaart in deze filter heb je al."
@@ -1867,7 +1952,9 @@ function setDupes(id,n){
   n=Math.max(0,Math.min(99,n));
   if(n>0) dupes[id]=n; else delete dupes[id];
   try{ localStorage.setItem(DKEY,JSON.stringify(dupes)); }catch(e){}
-  applyDup(id); paintDup(); paint(); refreshBinder();
+  applyDup(id);
+  if(!ov.hidden&&cur&&cur.id===id) paintOvTick();
+  paint(); refreshBinder();
 }
 function applyDup(id){
   const n=nodes.get(id); if(!n) return;
@@ -1931,20 +2018,8 @@ document.getElementById("undo").addEventListener("click",()=>{
   toast.hidden=true; toastId=null;
 });
 
-/* ---------- interaction: a tap collects, it never removes.
-   A collected card opens the big viewer instead — removing
-   happens there, behind a tap-twice confirm. ---------- */
-function collect(id){
-  const wasWish=wish.has(id);
-  setOwned(id,true);
-  if(wasWish){ loadWish(); wish.delete(id); saveWish(); applyWish(id); }
-  const n=nodes.get(id);
-  if(n){ n.classList.remove("pop"); void n.offsetWidth; n.classList.add("pop"); }
-  const s=byId.get(id);
-  showToast(`✓ ${s.num} ${s.name}${s.rev?" REV":""} → ${binderTxt(s)}${wasWish?" · ⭐ een kaart van je wenslijst!":""}`,id);
-  if(wasWish) confetti();
-  checkMilestones();
-}
+/* round 4 removed the tap-collects path: ownership is edited in place via
+   addOne/subOne (grid + button, viewer stepper, quick-add in the map). */
 
 /* ---------- milestones: confetti on big moments, each fires once ---------- */
 const MKEY="twm:milestones";
@@ -2074,13 +2149,62 @@ document.getElementById("cotd").addEventListener("click",()=>{
   document.getElementById("q").value=""; paint();
   openOv(s.id);
 });
+/* round 4: ownership is a state, not an event. A tap opens the card, the
+   + button adds one in place (no toast, no timer), a long press on + takes
+   one away — the only confirmation left is taking the last copy out. */
+const qtyOf=id=>{ loadOwned(); loadDupes(); return owned.has(id)?1+(dupes[id]||0):0; };
+function setQty(id,n){
+  if(n<=0){ setOwned(id,false); return; }
+  if(!owned.has(id)) setOwned(id,true);
+  setDupes(id,n-1);
+}
+function addOne(id,lg){
+  loadOwned();
+  if(!owned.has(id)){
+    const wasWish=wish.has(id);
+    setOwned(id,true);
+    if(wasWish){ loadWish(); wish.delete(id); saveWish(); applyWish(id); confetti(); }
+    if(lg==="fr"||lg==="ja") setMyLang(id,lg);
+    checkMilestones();
+  }else setDupes(id,(dupes[id]||0)+1);
+  if(navigator.vibrate) navigator.vibrate(15);
+  if(!ov.hidden&&cur&&cur.id===id) paintOvTick();
+}
+function subOne(id){
+  const q=qtyOf(id);
+  if(q===0) return;
+  if(q===1){
+    if(!window.confirm("Uit je collectie halen?")) return;
+    setQty(id,0);
+  }else setQty(id,q-1);
+  if(!ov.hidden&&cur&&cur.id===id) paintOvTick();
+}
+let qHoldT=null, qHeld=false;
+grid.addEventListener("pointerdown",e=>{
+  const q=e.target.closest(".qadd"); if(!q) return;
+  qHeld=false;
+  qHoldT=setTimeout(()=>{ qHeld=true; subOne(q.closest(".card").dataset.id); },550);
+});
+grid.addEventListener("pointerup",()=>clearTimeout(qHoldT));
+grid.addEventListener("pointercancel",()=>clearTimeout(qHoldT));
 grid.addEventListener("click",e=>{
-  const z=e.target.closest(".zoom");
-  if(z){ openOv(z.closest(".card").dataset.id); return; }
+  const q=e.target.closest(".qadd");
+  if(q){
+    if(qHeld){ qHeld=false; return; }   // the long press already subtracted
+    const card=q.closest(".card");
+    addOne(card.dataset.id);
+    card.classList.remove("pop"); void card.offsetWidth; card.classList.add("pop");
+    return;
+  }
   const b=e.target.closest(".card"); if(!b) return;
-  const id=b.dataset.id;
-  if(owned.has(id)){ openOv(id); return; }
-  collect(id);
+  openOv(b.dataset.id);
+});
+grid.addEventListener("keydown",e=>{
+  if(e.key!=="Enter"&&e.key!==" ") return;
+  const q=e.target.closest(".qadd");
+  if(q){ e.preventDefault(); addOne(q.closest(".card").dataset.id); return; }
+  const b=e.target.closest(".card");
+  if(b){ e.preventDefault(); openOv(b.dataset.id); }
 });
 document.getElementById("q").addEventListener("input",paint);
 document.querySelector(".tychips").addEventListener("click",e=>{
@@ -2172,16 +2296,25 @@ function renderOv(){
   document.getElementById("ovpr").innerHTML=eur(priceOf(cur))+arrow(cur,true);
   paintOvTick();
 }
-let armId=null;
 function paintOvTick(){
-  armId=null;
-  const has=owned.has(cur.id);
-  const t=document.getElementById("ovtick");
-  t.textContent=has?"✓ Heb ik! (tik om te verwijderen)":"Gevonden? Tik hier";
-  t.classList.toggle("on",has);
-  t.classList.remove("warn");
-  paintMy(); paintDup(); paintWish();
+  // round 4: a live quantity, not a found/removed toggle
+  const q=qtyOf(cur.id);
+  document.getElementById("ovqn").textContent=q;
+  document.getElementById("ovqsub").textContent=
+    q===0?"nog niet in je collectie"
+    :q===1?"1 in de map"
+    :`1 in de map · ${q-1} dubbel${q>2?"s":""}`;
+  paintMy(); paintWish();
 }
+document.getElementById("ovqplus").addEventListener("click",()=>{ if(cur) addOne(cur.id); });
+document.getElementById("ovqminus").addEventListener("click",()=>{ if(cur) subOne(cur.id); });
+document.getElementById("ovtomap").addEventListener("click",()=>{
+  if(!cur) return;
+  const page=binderPos(cur).page;
+  closeOv();
+  bView="page"; bPage=page;
+  openFov("binder");
+});
 function paintWish(){
   const b=document.getElementById("ovwish");
   const show=cur&&!owned.has(cur.id);
@@ -2194,14 +2327,6 @@ function paintWish(){
 document.getElementById("ovwish").addEventListener("click",()=>{
   if(cur) setWish(cur.id,!wish.has(cur.id));
 });
-function paintDup(){
-  const box=document.getElementById("ovdup");
-  const has=cur&&owned.has(cur.id);
-  box.hidden=!has;
-  if(has) document.getElementById("dupn").textContent=dupes[cur.id]||0;
-}
-document.getElementById("dupplus").addEventListener("click",()=>{ if(cur) setDupes(cur.id,(dupes[cur.id]||0)+1); });
-document.getElementById("dupminus").addEventListener("click",()=>{ if(cur) setDupes(cur.id,(dupes[cur.id]||0)-1); });
 function paintMy(){
   const box=document.getElementById("ovmy");
   const has=cur&&owned.has(cur.id);
@@ -2247,18 +2372,6 @@ function nav(d){
 document.getElementById("ovclose").addEventListener("click",closeOv);
 document.getElementById("ovprev").addEventListener("click",()=>nav(-1));
 document.getElementById("ovnext").addEventListener("click",()=>nav(1));
-document.getElementById("ovtick").addEventListener("click",()=>{
-  const t=document.getElementById("ovtick");
-  if(!owned.has(cur.id)){ collect(cur.id); paintOvTick(); return; }
-  if(armId!==cur.id){
-    armId=cur.id;
-    t.textContent="Echt verwijderen? Tik nog eens";
-    t.classList.add("warn");
-    setTimeout(()=>{ if(armId===cur.id) paintOvTick(); },2500);
-    return;
-  }
-  setOwned(cur.id,false); paintOvTick();
-});
 ov.addEventListener("click",e=>{ if(e.target===ov) closeOv(); });
 let tx=null;
 ov.addEventListener("touchstart",e=>{ tx=e.touches[0].clientX; },{passive:true});
@@ -2384,7 +2497,12 @@ function openFov(id){
 function closeFov(id){
   if(id==="pack") clearTimeout(revTimer);
   if(id==="scanov") stopScan();
-  if(id==="binder"&&typeof clearBinderTarget==="function") clearBinderTarget();
+  if(id==="binder"&&typeof clearBinderTarget==="function"){
+    clearBinderTarget();
+    // leaving the map keeps the adds (already saved), drops the session list
+    bSession=[];
+    document.getElementById("bsession").hidden=true;
+  }
   document.getElementById(id).hidden=true;
   if(ov.hidden) document.body.classList.remove("lock");
 }
@@ -2731,6 +2849,41 @@ function btPickId(){
   return (document.getElementById("btrev").checked&&byId.has(base+"r"))?base+"r":base;
 }
 let bView="page", bAllFilter="all";
+/* 4c quick-add: session stack instead of a timed undo */
+let bQuick=false, bSession=[], bHoldT=null, bHeld=false;
+function updateSession(){
+  const bar=document.getElementById("bsession");
+  const on=bQuick&&bSession.length>0&&!document.getElementById("binder").hidden;
+  bar.hidden=!on;
+  if(!on) return;
+  const last=byId.get(bSession[bSession.length-1].id);
+  const dubs=bSession.filter(x=>x.prev>0).length;
+  document.getElementById("bsessthumbs").innerHTML=
+    bSession.slice(-3).map(x=>`<img alt="" src="${img(byId.get(x.id).num)}">`).join("");
+  document.getElementById("bsesscount").textContent=
+    `${bSession.length} kaart${bSession.length>1?"en":""} toegevoegd`+
+    (dubs?` · ${dubs} dubbel${dubs>1?"s":""}`:"");
+  document.getElementById("bsesslast").innerHTML=`Laatste: #${pad3(last.num)} → ${binderTxt(last)}`;
+}
+document.getElementById("bsessundo").addEventListener("click",()=>{
+  const e=bSession.pop();
+  if(e) setQty(e.id,e.prev);   // an exact revert of that add needs no confirm
+  updateSession();
+});
+document.getElementById("bsessdone").addEventListener("click",()=>{
+  bSession=[]; updateSession();
+});
+document.getElementById("bquick").addEventListener("click",()=>{
+  bQuick=!bQuick;
+  const b=document.getElementById("bquick");
+  b.setAttribute("aria-pressed",String(bQuick));
+  b.classList.toggle("on",bQuick);
+  document.getElementById("bquickhint").hidden=!bQuick;
+  document.getElementById("binder").classList.toggle("bquickon",bQuick);
+  if(!bQuick){ bSession=[]; }
+  updateSession();
+  renderBinder();
+});
 function renderBinder(){
   bPage=Math.min(Math.max(1,bPage),bTotal());
   // 3b: the overlay flips between one page and the all-pages grid
@@ -2790,7 +2943,23 @@ function renderBinder(){
     }
     if(bMatches.has(s.id)) d.classList.add("hl");
     if(targetId===s.id) d.classList.add("btarget");
-    d.addEventListener("click",()=>openOv(s.id,true));
+    if(bQuick){
+      // 4c: a tap adds one, a long press opens the card
+      d.addEventListener("pointerdown",()=>{
+        bHeld=false;
+        bHoldT=setTimeout(()=>{ bHeld=true; openOv(s.id,true); },550);
+      });
+      d.addEventListener("pointerup",()=>clearTimeout(bHoldT));
+      d.addEventListener("pointercancel",()=>clearTimeout(bHoldT));
+      d.addEventListener("click",()=>{
+        if(bHeld){ bHeld=false; return; }
+        bSession.push({id:s.id,prev:qtyOf(s.id)});
+        addOne(s.id);           // its save chain re-renders this page
+        updateSession();
+      });
+    }else{
+      d.addEventListener("click",()=>openOv(s.id,true));
+    }
     g.appendChild(d);
   }
   const dots=document.getElementById("bdots"); dots.innerHTML="";
@@ -3149,7 +3318,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v44";   // bump with the service worker, so these load fresh per release
+const APPV="v45";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -4188,6 +4357,7 @@ function goNeed(){
   document.getElementById("grid").scrollIntoView({behavior:"smooth"});
 }
 document.getElementById("misslink").addEventListener("click",goNeed);
+document.getElementById("scanshort").addEventListener("click",()=>openFov("scanov"));
 document.getElementById("filtbtn").addEventListener("click",()=>{
   document.getElementById("filtwrap").hidden=false;
 });
@@ -4231,6 +4401,9 @@ function setHomeView(v,skipPaint){
   document.querySelector(".hero").hidden=!a;
   document.getElementById("misssec").hidden=!a;
   document.querySelector(".about").hidden=!a;
+  document.getElementById("viewseg").hidden=!a;
+  document.getElementById("rescount").hidden=!a;
+  document.getElementById("scanshort").hidden=!a;
   grid.hidden=!a;
   if(!a) emptyEl.hidden=true;
   document.getElementById("view1b").hidden=v!=="1b";
@@ -4391,9 +4564,9 @@ function buildHomeExtras(){
   document.querySelector(".moonrow .count").hidden=zero;
   document.getElementById("herogo").textContent=
     zero?"Beginnen met verzamelen":"Verder verzamelen";
-  // filter button: accent dot when any filter is narrowing the list
-  const view=document.querySelector('#viewseg button[aria-pressed="true"]').dataset.view;
-  const active=tyFilter!==""||document.getElementById("rarity").value!=="all"||view!=="all";
+  // filter button: accent dot when a SHEET filter narrows the list
+  // (the state pills are visible on the page itself now)
+  const active=tyFilter!==""||document.getElementById("rarity").value!=="all";
   document.getElementById("filtbtn").classList.toggle("dot",active);
 
   const mr=document.getElementById("missrow");
