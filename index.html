@@ -1045,6 +1045,64 @@ footer{padding-bottom:12px}
 .bsessbtns .nghost.wide{width:auto;padding:0 14px;font-size:13px}
 .bsessionbar .btfoot{margin-top:8px}
 
+/* ---- round 5a: the set art is the ground, not a strip ---- */
+/* full-bleed past the page's own side margins */
+.heroart{position:absolute;left:50%;width:100vw;transform:translateX(-50%);top:0;
+  height:320px;z-index:-1;overflow:hidden;display:block;padding:0;background:none}
+.heroart img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block}
+.heroscrim{position:absolute;inset:0;display:block;background:linear-gradient(180deg,
+  rgba(22,24,38,.55) 0%,rgba(22,24,38,.12) 34%,rgba(22,24,38,.78) 76%,#161826 100%)}
+.wrap{position:relative}
+.hero{background:none;box-shadow:none;border-radius:0;overflow:visible;margin-bottom:14px}
+.herotop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+  padding:4px 0 10px}
+.herotop #setlogo{width:150px;max-width:150px;filter:drop-shadow(0 2px 10px rgba(0,0,0,.75))}
+.herotop .heropill{position:static;flex:none}
+.hero .herobody{padding:0;gap:12px}
+.hero .moonrow #moonbtn{width:58px;height:58px}
+.hero .moonrow #moonbtn svg{width:58px;height:58px;
+  filter:drop-shadow(0 0 26px rgba(181,171,252,.3))}
+.mooncol .count #have{font-size:24px}
+.hero .bar{background:rgba(22,24,38,.55)}
+.hero .herometa{color:var(--n-b2);text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.avbtn span{background:rgba(22,24,38,.55);box-shadow:0 0 0 1px rgba(233,233,237,.25)}
+.htitle,#greet{text-shadow:0 1px 8px rgba(0,0,0,.55)}
+.heroacts .nghost{width:44px}
+#srow #searchclose{width:44px;height:44px;flex:none;border:0;border-radius:8px;
+  background:var(--n-sur);box-shadow:0 0 0 1px var(--n-e8);color:var(--n-b2);
+  font-size:16px;cursor:pointer}
+
+/* ---- round 5b: rarity sections become chapters carried by art ---- */
+.sec{margin-bottom:18px}
+.sechead{position:relative;margin:0 -17px 10px;height:84px;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  padding:0 17px 11px;gap:6px;background:var(--n-nav);
+  position:relative;top:auto;z-index:0}   /* it was sticky in the old design */
+.sechead::before{content:"";position:absolute;inset:0;background-size:cover;
+  background-position:50% 42%;mix-blend-mode:lighten;opacity:.9}
+.sechead::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,
+  #161826 0%,rgba(22,24,38,.82) 62%,rgba(22,24,38,0) 100%)}
+.sec:nth-of-type(3n+1) .sechead::before{background-image:url("art/band-ogerpon.webp")}
+.sec:nth-of-type(3n+2) .sechead::before{background-image:url("art/band-sinistcha.webp")}
+.sec:nth-of-type(3n) .sechead::before{background-image:url("art/band-dragapult.webp")}
+.sechead h2{position:relative;z-index:1;font-family:'Inter',system-ui,sans-serif;
+  font-size:17px;font-weight:500;color:var(--n-txt);margin:0;
+  text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.sechead .secbar{position:relative;z-index:1;width:96px;max-width:96px;flex:none;
+  height:4px;border-radius:99px;background:rgba(22,24,38,.6);overflow:hidden;margin:0}
+.sechead .secbar i{display:block;height:100%;background:var(--n-a4)}
+.sechead .seccount{position:relative;z-index:1;font-size:12px;color:var(--n-b2);
+  font-family:'Inter',system-ui,sans-serif;font-variant-numeric:tabular-nums}
+
+/* ---- the session bar clears the tab bar on the home screen ---- */
+.bsessionbar.overtab{bottom:calc(64px + env(safe-area-inset-bottom))}
+.scanshot{display:flex;align-items:center;gap:11px;max-width:420px;margin:0 auto 12px;
+  padding:10px;border-radius:8px;background:var(--n-sur);box-shadow:0 0 0 1px var(--n-e8);
+  font-family:'Inter',system-ui,sans-serif}
+.scanshot img{width:56px;height:78px;object-fit:cover;border-radius:6px;flex:none;
+  background:var(--n-tint)}
+.scanshot span{font-size:12px;color:var(--n-m5);line-height:1.45;text-align:left}
+
 /* ---- 4b: the card screen ---- */
 #ov{display:block;background:var(--n-bg);overflow-y:auto;
   padding:calc(10px + env(safe-area-inset-top)) 17px calc(20px + env(safe-area-inset-bottom))}
@@ -1270,8 +1328,13 @@ footer{padding-bottom:12px}
     <button class="hv" data-hv="1c" type="button" role="tab" aria-selected="false">Vandaag</button>
   </div>
 
+  <div class="heroart" aria-hidden="true">
+    <img src="art/band-ursaluna-r.webp" alt="" onerror="this.remove()">
+    <span class="heroscrim"></span>
+  </div>
+
   <div class="hero">
-    <div class="heroart">
+    <div class="herotop">
       <img id="setlogo" src="https://images.pokemontcg.io/sv6/logo.png" alt="Twilight Masquerade"
            onerror="this.remove()">
       <span class="heropill">Actief</span>
@@ -1304,22 +1367,23 @@ footer{padding-bottom:12px}
       <div class="herometa">Twilight Masquerade · Masterset · Scarlet &amp; Violet · <span id="slotcount">373</span> kaarten</div>
       <div class="heroacts">
         <button id="herogo" class="nbtn nprim" type="button">Verder verzamelen</button>
-        <button id="btnpack" class="nbtn nghost" type="button" aria-label="Pakje openen">
-          <svg class="pi" aria-hidden="true"><use href="#i-gift"/></svg>
+        <button id="searchbtn" class="nbtn nghost" type="button" aria-label="Zoek een kaart">
+          <svg class="pi" aria-hidden="true"><use href="#i-magnifying-glass"/></svg>
+        </button>
+        <button id="filtbtn" class="nbtn nghost" type="button" aria-haspopup="dialog"
+                aria-label="Filters (type en zeldzaamheid)">
+          <svg class="pi" aria-hidden="true"><use href="#i-sliders-horizontal"/></svg>
         </button>
       </div>
     </div>
   </div>
 
-  <div class="srow">
+  <div class="srow" id="srow" hidden>
     <label class="searchbox" for="q">
       <svg class="pi" aria-hidden="true"><use href="#i-magnifying-glass"/></svg>
       <input id="q" type="search" placeholder="Zoek naam of nummer" autocomplete="off" enterkeyhint="search">
     </label>
-    <button id="filtbtn" type="button" aria-haspopup="dialog"
-            aria-label="Filters (type en zeldzaamheid)">
-      <svg class="pi" aria-hidden="true"><use href="#i-sliders-horizontal"/></svg>
-    </button>
+    <button id="searchclose" type="button" aria-label="Zoeken sluiten">✕</button>
   </div>
 
   <div class="seg statepills" id="viewseg" role="group" aria-label="Tonen">
@@ -1589,17 +1653,6 @@ footer{padding-bottom:12px}
         <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
       </button>
     </div>
-    <div class="bsessionbar" id="bsession" hidden>
-      <div class="bsessrow">
-        <span class="bsessthumbs" id="bsessthumbs"></span>
-        <span class="bsesstxt"><b id="bsesscount"></b><small id="bsesslast"></small></span>
-      </div>
-      <div class="bsessbtns">
-        <button id="bsessundo" class="nbtn nghost wide" type="button">Laatste ongedaan</button>
-        <button id="bsessdone" class="nbtn nprim" type="button">Klaar</button>
-      </div>
-      <p class="btfoot">Blijft staan tot je op Klaar tikt — geen tijdslimiet</p>
-    </div>
     <div class="btdim" id="btdim" hidden></div>
     <div class="bsheet" id="bsheet" hidden role="dialog" aria-label="Herkende kaart">
       <div class="ikgrip" aria-hidden="true"></div>
@@ -1650,7 +1703,7 @@ footer{padding-bottom:12px}
     </div>
   </div>
 
-  <div id="toast" hidden><span id="toastmsg"></span><button id="undo" type="button">Ongedaan maken</button></div>
+  <div id="toast" hidden><span id="toastmsg"></span></div>
 
   <p class="note" id="pricenote">Prijzen van vandaag ophalen…</p>
 
@@ -1688,6 +1741,11 @@ footer{padding-bottom:12px}
         <div class="kpi" id="stWishWrap" hidden><small>Wenslijst</small><b id="stWish"></b></div>
         <div class="kpi" id="stLangWrap" hidden><small>Talen in je verzameling</small><b id="stLang"></b></div>
       </div>
+      <button id="btnpack" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-gift"/></svg>
+        <span>Pakje openen<small>Negen pakjes in de doos — puur voor de fun</small></span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
       <button id="btnquiz" class="ikrow" type="button">
         <svg class="pi" aria-hidden="true"><use href="#i-game-controller"/></svg>
         <span>Quiz<small>Kunst, wazig of prijsduel — records per modus</small></span>
@@ -1716,6 +1774,18 @@ footer{padding-bottom:12px}
       <input id="bkfile" type="file" accept="application/json,.json" hidden>
       <button id="install" type="button">Installeer op deze telefoon</button>
     </div>
+  </div>
+
+  <div class="bsessionbar" id="bsession" hidden>
+    <div class="bsessrow">
+      <span class="bsessthumbs" id="bsessthumbs"></span>
+      <span class="bsesstxt"><b id="bsesscount"></b><small id="bsesslast"></small></span>
+    </div>
+    <div class="bsessbtns">
+      <button id="bsessundo" class="nbtn nghost wide" type="button">Laatste ongedaan</button>
+      <button id="bsessdone" class="nbtn nprim" type="button">Klaar</button>
+    </div>
+    <p class="btfoot">Blijft staan tot je op Klaar tikt — geen tijdslimiet</p>
   </div>
 
   <nav class="tabbar" aria-label="Navigatie">
@@ -1819,6 +1889,10 @@ footer{padding-bottom:12px}
       <input id="scanfile" type="file" accept="image/*" hidden>
     </div>
     <div id="scanres" hidden>
+      <div id="scanshot" class="scanshot" hidden>
+        <img id="scanshotimg" alt="Wat de camera zag">
+        <span id="scanshottxt"></span>
+      </div>
       <p class="fovnote" style="margin-top:0">Welke kaart is het? Tik ze aan.</p>
       <div id="scancands"></div>
       <div class="packrow"><button id="scanagain" type="button"><svg class="pi" aria-hidden="true"><use href="#i-camera-rotate"/></svg> Opnieuw scannen</button></div>
@@ -2178,23 +2252,15 @@ document.addEventListener("visibilitychange",()=>{
 
 /* ---------- toast with undo ---------- */
 const toast=document.getElementById("toast");
-let toastTimer=null, toastId=null;
-function showToast(html,id){
-  toastId=id;
+/* one undo model in the whole app: the session bar. The toast only tells
+   you things — it never asks for a decision inside a time limit. */
+let toastTimer=null;
+function showToast(html){
   document.getElementById("toastmsg").innerHTML=html;
-  document.getElementById("undo").hidden=!id;
   toast.hidden=false;
   clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>{ toast.hidden=true; toastId=null; },6000);
+  toastTimer=setTimeout(()=>{ toast.hidden=true; },6000);
 }
-document.getElementById("undo").addEventListener("click",()=>{
-  if(toastId){
-    const id=toastId;
-    setOwned(id,false);
-    if(!ov.hidden&&cur&&cur.id===id) paintOvTick();
-  }
-  toast.hidden=true; toastId=null;
-});
 
 /* round 4 removed the tap-collects path: ownership is edited in place via
    addOne/subOne (grid + button, viewer stepper, quick-add in the map). */
@@ -2337,7 +2403,8 @@ function setQty(id,n){
   setDupes(id,n-1);
 }
 function addOne(id,lg){
-  loadOwned();
+  loadOwned(); loadDupes();
+  bSession.push({id,prev:owned.has(id)?1+(dupes[id]||0):0});   // one undo surface
   if(!owned.has(id)){
     const wasWish=wish.has(id);
     setOwned(id,true);
@@ -2347,6 +2414,7 @@ function addOne(id,lg){
   }else setDupes(id,(dupes[id]||0)+1);
   if(navigator.vibrate) navigator.vibrate(15);
   if(!ov.hidden&&cur&&cur.id===id) paintOvTick();
+  updateSession();
 }
 function subOne(id){
   const q=qtyOf(id);
@@ -2765,18 +2833,16 @@ function openFov(id){
   if(id==="pack") packChoose();
   if(id==="deck") openDeck();
   if(id==="scanov") startScan();
+  if(typeof updateSession==="function") updateSession();   // bar drops to the edge
 }
 function closeFov(id){
   if(id==="pack") clearTimeout(revTimer);
   if(id==="scanov") stopScan();
-  if(id==="binder"&&typeof clearBinderTarget==="function"){
-    clearBinderTarget();
-    // leaving the map keeps the adds (already saved), drops the session list
-    bSession=[];
-    document.getElementById("bsession").hidden=true;
-  }
+  if(id==="binder"&&typeof clearBinderTarget==="function") clearBinderTarget();
   document.getElementById(id).hidden=true;
   if(ov.hidden) document.body.classList.remove("lock");
+  // the session survives leaving a screen; only "Klaar" ends it
+  if(typeof updateSession==="function") updateSession();
 }
 document.getElementById("btnpack").addEventListener("click",()=>openFov("pack"));
 document.getElementById("btnbinder").addEventListener("click",()=>openFov("binder"));
@@ -3125,8 +3191,10 @@ let bView="page", bAllFilter="all";
 let bQuick=false, bSession=[], bHoldT=null, bHeld=false;
 function updateSession(){
   const bar=document.getElementById("bsession");
-  const on=bQuick&&bSession.length>0&&!document.getElementById("binder").hidden;
+  const on=bSession.length>0;         // any add path, any screen
   bar.hidden=!on;
+  // it sits above the tab bar on the home screen, at the edge inside overlays
+  bar.classList.toggle("overtab",!document.body.classList.contains("lock"));
   if(!on) return;
   const last=byId.get(bSession[bSession.length-1].id);
   const dubs=bSession.filter(x=>x.prev>0).length;
@@ -3152,8 +3220,6 @@ document.getElementById("bquick").addEventListener("click",()=>{
   b.classList.toggle("on",bQuick);
   document.getElementById("bquickhint").hidden=!bQuick;
   document.getElementById("binder").classList.toggle("bquickon",bQuick);
-  if(!bQuick){ bSession=[]; }
-  updateSession();
   renderBinder();
 });
 function renderBinder(){
@@ -3225,9 +3291,7 @@ function renderBinder(){
       d.addEventListener("pointercancel",()=>clearTimeout(bHoldT));
       d.addEventListener("click",()=>{
         if(bHeld){ bHeld=false; return; }
-        bSession.push({id:s.id,prev:qtyOf(s.id)});
         addOne(s.id);           // its save chain re-renders this page
-        updateSession();
       });
     }else{
       d.addEventListener("click",()=>openOv(s.id,true));
@@ -3395,18 +3459,9 @@ document.getElementById("btrev").addEventListener("change",()=>{
 });
 document.getElementById("btok").addEventListener("click",()=>{
   if(!bTarget) return;
-  const id=btPickId(), lang=bTarget.lang;
-  loadOwned();
-  if(!owned.has(id)){
-    // the pocket filling IS the feedback (3c): collect, but without the toast
-    const wasWish=wish.has(id);
-    setOwned(id,true);
-    if(wasWish){ loadWish(); wish.delete(id); saveWish(); applyWish(id); }
-    if(lang==="fr"||lang==="ja") setMyLang(id,lang);
-    checkMilestones();
-  }else{
-    setDupes(id,(dupes[id]||0)+1);
-  }
+  const id=btPickId();
+  // the pocket filling IS the feedback (3c) — addOne carries the session
+  addOne(id,bTarget.lang);
   if(navigator.vibrate) navigator.vibrate(40);
   clearBinderTarget();
   renderBinder();
@@ -3590,7 +3645,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v47";   // bump with the service worker, so these load fresh per release
+const APPV="v48";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -4281,7 +4336,7 @@ document.getElementById("slotcount").textContent=SLOTS.length;
    recognises it against every EN/FR/JP print and one tap collects it.
    Matching is a 512-bit dHash + colour-grid nearest neighbour computed
    entirely on the phone — nothing is uploaded anywhere. ---------- */
-let scanStream=null, SCANDB=null, scanBusy=false, scanPick=null;
+let scanStream=null, SCANDB=null, scanBusy=false, scanPick=null, scanLastShot=null;
 const scanEl=id=>document.getElementById(id);
 
 async function ensureScanDB(){
@@ -4527,6 +4582,15 @@ function scanThumb(o){
   return img(o.num);
 }
 function showScanRes(top){
+  const shot=scanEl("scanshot");
+  shot.hidden=!scanLastShot;
+  if(scanLastShot){
+    scanEl("scanshotimg").src=scanLastShot;
+    const m=top.length>1?Math.round(top[1].score-top[0].score):0;
+    scanEl("scanshottxt").textContent=m>=250
+      ? "Dit zag ik — een duidelijke match."
+      : "Dit zag ik. Staat de kaart klein, schuin of met veel glans in beeld? Dan raad ik minder zeker.";
+  }
   const box=scanEl("scancands"); box.innerHTML="";
   top.forEach((o,i)=>{
     const s=byId.get(String(o.num));
@@ -4541,6 +4605,9 @@ function showScanRes(top){
   scanShow("res");
 }
 function scanRunOn(padded){
+  // keep what the camera actually handed us: if a scan goes wrong, seeing
+  // the capture explains it faster than any score does
+  try{ scanLastShot=padded.toDataURL("image/jpeg",0.7); }catch(e){ scanLastShot=null; }
   const top=scanRecognize(padded);
   if(navigator.vibrate) navigator.vibrate(25);
   const f=scanEl("scanframe");
@@ -4639,6 +4706,16 @@ document.getElementById("scanshort").addEventListener("click",()=>openFov("scano
 document.getElementById("filtbtn").addEventListener("click",()=>{
   document.getElementById("filtwrap").hidden=false;
 });
+/* 5a: the field itself is the search screen; the icon is the way in */
+document.getElementById("searchbtn").addEventListener("click",()=>{
+  document.getElementById("srow").hidden=false;
+  document.getElementById("q").focus();
+});
+document.getElementById("searchclose").addEventListener("click",()=>{
+  const q=document.getElementById("q");
+  q.value=""; paint();
+  document.getElementById("srow").hidden=true;
+});
 const closeFilt=()=>{ document.getElementById("filtwrap").hidden=true; };
 document.getElementById("filtback").addEventListener("click",closeFilt);
 document.getElementById("filtdone").addEventListener("click",closeFilt);
@@ -4677,6 +4754,7 @@ function setHomeView(v,skipPaint){
   });
   const a=v==="1a";
   document.querySelector(".hero").hidden=!a;
+  document.querySelector(".heroart").hidden=!a;
   document.getElementById("misssec").hidden=!a;
   document.querySelector(".about").hidden=!a;
   document.getElementById("viewseg").hidden=!a;
@@ -4839,6 +4917,7 @@ function buildHomeExtras(){
   // set story step aside so the results own the screen (4a)
   const onHome1a=homeView==="1a";
   document.querySelector(".hero").hidden=!onHome1a||searching;
+  document.querySelector(".heroart").hidden=!onHome1a||searching;
   document.querySelector(".about").hidden=!onHome1a||searching;
   // hero: first-run line instead of a wall of zeros (FIXES §2)
   const zero=!HOMESTATS||HOMESTATS.haveN===0;
