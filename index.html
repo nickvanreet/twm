@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0D0A22">
+<meta name="theme-color" content="#161826">
 <title>Twilight Masquerade — mijn verzameling</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700..800&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700..800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --night:#141033; --deep:#0D0A22; --panel:#1E1846; --panel2:#241C52;
@@ -800,12 +800,60 @@ footer{padding-bottom:12px}
 .cotdcard .nbtn{margin-top:6px;align-self:flex-start;padding:0 14px;flex:none}
 #vtasks .ikrow{font-family:inherit}
 
+/* ---- round 2 fixes: self-hosted Inter, 2a set card, filter sheet ---- */
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;
+  src:url("fonts/inter-var.woff2") format("woff2")}
+:root{color-scheme:dark}   /* Samsung/Chrome force-dark must leave us alone */
+
+.avbtn{width:48px;height:48px;background:none;border:0;padding:0;cursor:pointer;
+  display:grid;place-items:center}
+.avbtn span{width:34px;height:34px;border-radius:50%;background:var(--n-e9);
+  box-shadow:0 0 0 1px var(--n-e8);display:grid;place-items:center;color:var(--n-b2)}
+.avbtn .pi{width:18px;height:18px}
+.avbtn:active span{transform:scale(.92)}
+
+.hviews{box-shadow:inset 0 -1px 0 var(--n-e9)}
+.hv{padding:8px 0 9px}
+
+.heroart{height:80px}
+.heroart #setlogo{width:120px;max-width:120px}
+.moonrow{display:flex;align-items:center;gap:12px}
+#moonbtn{width:52px;height:52px;background:none;box-shadow:none;border-radius:50%;padding:0}
+.mooncol{display:flex;flex-direction:column;gap:2px;min-width:0}
+.mooncol .count{font-family:'Inter',system-ui,sans-serif;font-weight:400;color:var(--n-m5)}
+.mooncol .count #have{font-size:22px;font-weight:500;color:var(--n-txt);
+  font-variant-numeric:tabular-nums}
+.mooncol .count span{font-size:15px;color:var(--n-m5)}
+.mooncol .heur{font-size:12px;color:var(--n-b2)}
+.herometa{margin-top:0}
+
+.searchbox,#filtbtn{height:44px}
+#filtbtn{width:44px;position:relative}
+#filtbtn.dot::after{content:"";position:absolute;top:9px;right:9px;width:6px;height:6px;
+  border-radius:50%;background:var(--n-a4)}
+
+#rarrows{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rarcard{border:0;border-radius:8px;background:var(--n-sur);box-shadow:0 0 0 1px var(--n-e8);
+  padding:10px 11px;cursor:pointer;font-family:'Inter',system-ui,sans-serif;
+  color:var(--n-txt);display:flex;flex-direction:column;gap:7px;text-align:left}
+.rartop{display:flex;align-items:center;gap:7px;font-size:13px}
+.rartop .pi{width:16px;height:16px;color:var(--n-a4)}
+.rartop span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rartop b{font-weight:500;color:var(--n-a3);font-variant-numeric:tabular-nums}
+.rarcard:active{transform:scale(.98)}
+
+.iksheet .tychips{flex-wrap:wrap;overflow:visible;padding-bottom:0}
+.iksheet .seg .pi{width:16px;height:16px;vertical-align:-3px}
+.qmodes .pi{width:15px;height:15px;vertical-align:-2px}
+.psum{width:16px;height:16px;vertical-align:-3px;color:var(--n-a4)}
+#scansnap .pi,#scanpickbtn .pi,.scanbtns .pi{width:16px;height:16px;vertical-align:-3px}
+
 /* wider screens: the phone design scales up gently (desktop is not a
    designed layout yet — tiles stay card-sized, the tab bar clusters) */
 @media(min-width:700px){
   .misscard,.missmore{max-width:150px}
   .missrow{justify-content:flex-start}
-  .heroart{height:180px}
+  .heroart{height:120px}
   .tabbar{padding-left:calc(50vw - 270px);padding-right:calc(50vw - 270px)}
   .iksheet{max-width:560px;left:50%;right:auto;transform:translateX(-50%);
     border-radius:14px 14px 0 0}
@@ -838,6 +886,15 @@ footer{padding-bottom:12px}
 <symbol id="i-sliders-horizontal" viewBox="0 0 256 256"><path d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"/></symbol>
 <symbol id="i-sparkle" viewBox="0 0 256 256"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"/></symbol>
 <symbol id="i-stack" viewBox="0 0 256 256"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></symbol>
+<symbol id="i-info" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"/></symbol>
+<symbol id="i-magnifying-glass-plus" viewBox="0 0 256 256"><path d="M152,112a8,8,0,0,1-8,8H120v24a8,8,0,0,1-16,0V120H80a8,8,0,0,1,0-16h24V80a8,8,0,0,1,16,0v24h24A8,8,0,0,1,152,112Zm77.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88.11,88.11,0,1,1,11.31-11.31l50.07,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z"/></symbol>
+<symbol id="i-drop-half" viewBox="0 0 256 256"><path d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75ZM200,144a70.57,70.57,0,0,1-.46,8H136V136h63.64Q200,140,200,144ZM183.39,88H136V72h36.89A175.85,175.85,0,0,1,183.39,88ZM136,200h37.19A71.67,71.67,0,0,1,136,215.54Zm0-16V168h59.87a72,72,0,0,1-8,16Zm0-64V104h55.39a116.84,116.84,0,0,1,5.45,16Zm23.89-64H136V32.6A257.22,257.22,0,0,1,159.89,56ZM56,144c0-50,42.26-92.71,64-111.4V215.54A72.08,72.08,0,0,1,56,144Z"/></symbol>
+<symbol id="i-scales" viewBox="0 0 256 256"><path d="M239.43,133l-32-80h0a8,8,0,0,0-9.16-4.84L136,62V40a8,8,0,0,0-16,0V65.58L54.26,80.19A8,8,0,0,0,48.57,85h0v.06L16.57,165a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32a7.92,7.92,0,0,0-.57-3L66.92,93.77,120,82V208H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16H136V78.42L187,67.1,160.57,133a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32A7.92,7.92,0,0,0,239.43,133ZM56,184c-7.53,0-22.76-3.61-23.93-14.64L56,109.54l23.93,59.82C78.76,180.39,63.53,184,56,184Zm144-32c-7.53,0-22.76-3.61-23.93-14.64L200,77.54l23.93,59.82C222.76,148.39,207.53,152,200,152Z"/></symbol>
+<symbol id="i-star" viewBox="0 0 256 256"><path d="M239.18,97.26A16.38,16.38,0,0,0,224.92,86l-59-4.76L143.14,26.15a16.36,16.36,0,0,0-30.27,0L90.11,81.23,31.08,86a16.46,16.46,0,0,0-9.37,28.86l45,38.83L53,211.75a16.38,16.38,0,0,0,24.5,17.82L128,198.49l50.53,31.08A16.4,16.4,0,0,0,203,211.75l-13.76-58.07,45-38.83A16.43,16.43,0,0,0,239.18,97.26Zm-15.34,5.47-48.7,42a8,8,0,0,0-2.56,7.91l14.88,62.8a.37.37,0,0,1-.17.48c-.18.14-.23.11-.38,0l-54.72-33.65a8,8,0,0,0-8.38,0L69.09,215.94c-.15.09-.19.12-.38,0a.37.37,0,0,1-.17-.48l14.88-62.8a8,8,0,0,0-2.56-7.91l-48.7-42c-.12-.1-.23-.19-.13-.5s.18-.27.33-.29l63.92-5.16A8,8,0,0,0,103,91.86l24.62-59.61c.08-.17.11-.25.35-.25s.27.08.35.25L153,91.86a8,8,0,0,0,6.75,4.92l63.92,5.16c.15,0,.24,0,.33.29S224,102.63,223.84,102.73Z"/></symbol>
+<symbol id="i-image" viewBox="0 0 256 256"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"/></symbol>
+<symbol id="i-arrow-u-up-left" viewBox="0 0 256 256"><path d="M232,144a64.07,64.07,0,0,1-64,64H80a8,8,0,0,1,0-16h88a48,48,0,0,0,0-96H51.31l34.35,34.34a8,8,0,0,1-11.32,11.32l-48-48a8,8,0,0,1,0-11.32l48-48A8,8,0,0,1,85.66,45.66L51.31,80H168A64.07,64.07,0,0,1,232,144Z"/></symbol>
+<symbol id="i-user" viewBox="0 0 256 256"><path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"/></symbol>
+<symbol id="i-grid-nine" viewBox="0 0 256 256"><path d="M216,48H40A16,16,0,0,0,24,64V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48ZM104,144V112h48v32Zm48,16v32H104V160ZM40,112H88v32H40Zm64-16V64h48V96Zm64,16h48v32H168Zm48-16H168V64h48ZM88,64V96H40V64ZM40,160H88v32H40Zm176,32H168V160h48v32Z"/></symbol>
 </defs></svg>
 
   <div class="hgreet">
@@ -845,15 +902,8 @@ footer{padding-bottom:12px}
       <span id="greet">Goedemiddag</span>
       <h1 class="htitle">Mijn collectie</h1>
     </div>
-    <button id="moonbtn" type="button" aria-label="Mijn maan-voortgang">
-      <svg width="34" height="34" viewBox="0 0 62 62" aria-hidden="true">
-        <title>De maan vult zich naarmate je verzameling groeit</title>
-        <defs><clipPath id="mf"><rect id="mfr" x="0" y="62" width="62" height="0"/></clipPath></defs>
-        <circle cx="31" cy="31" r="26" fill="none" stroke="#796cbf" stroke-width="3" opacity=".7"/>
-        <circle cx="31" cy="31" r="26" fill="#F5B944" clip-path="url(#mf)" opacity=".9"/>
-        <text id="mpct" x="31" y="37" text-anchor="middle" font-size="16" font-weight="600"
-              fill="#F5B944" font-family="Inter,system-ui,sans-serif">0%</text>
-      </svg>
+    <button id="avbtn" class="avbtn" type="button" aria-label="Mijn hoek openen">
+      <span><svg class="pi" aria-hidden="true"><use href="#i-user"/></svg></span>
     </button>
   </div>
 
@@ -863,42 +913,6 @@ footer{padding-bottom:12px}
     <button class="hv" data-hv="1c" type="button" role="tab" aria-selected="false">Vandaag</button>
   </div>
 
-  <div class="srow">
-    <label class="searchbox" for="q">
-      <svg class="pi" aria-hidden="true"><use href="#i-magnifying-glass"/></svg>
-      <input id="q" type="search" placeholder="Zoek kaart of nummer (EN/FR)" autocomplete="off" enterkeyhint="search">
-    </label>
-    <button id="filtbtn" type="button" aria-expanded="false" aria-controls="filtersheet"
-            aria-label="Filters tonen of verbergen">
-      <svg class="pi" aria-hidden="true"><use href="#i-sliders-horizontal"/></svg>
-    </button>
-  </div>
-
-  <div id="filtersheet" class="filtersheet" hidden>
-    <select id="rarity" aria-label="Filter op zeldzaamheid"><option value="all">Alle zeldzaamheden</option></select>
-    <div class="seg" role="group" aria-label="Tonen">
-      <button data-view="all" aria-pressed="true">Alles</button>
-      <button data-view="need" aria-pressed="false">Nog nodig</button>
-      <button data-view="have" aria-pressed="false">Heb ik</button>
-      <button data-view="dup" aria-pressed="false">Dubbels</button>
-      <button data-view="wish" aria-pressed="false" aria-label="Wenslijst">⭐</button>
-    </div>
-    <div class="tychips" role="group" aria-label="Filter op energietype">
-      <button class="ty on" data-ty="">Alle types</button>
-      <button class="ty" data-ty="G" style="--c:#43A047">Grass</button>
-      <button class="ty" data-ty="R" style="--c:#E53935">Fire</button>
-      <button class="ty" data-ty="W" style="--c:#1E88E5">Water</button>
-      <button class="ty" data-ty="L" style="--c:#FDD835">Lightning</button>
-      <button class="ty" data-ty="P" style="--c:#8E24AA">Psychic</button>
-      <button class="ty" data-ty="F" style="--c:#BF6B39">Fighting</button>
-      <button class="ty" data-ty="D" style="--c:#455A64">Darkness</button>
-      <button class="ty" data-ty="M" style="--c:#90A4AE">Metal</button>
-      <button class="ty" data-ty="N" style="--c:#C8A028">Dragon</button>
-      <button class="ty" data-ty="C" style="--c:#D9D2BC">Colorless</button>
-      <button class="ty" data-ty="T" style="--c:#8B6BC7">Trainer</button>
-    </div>
-  </div>
-
   <div class="hero">
     <div class="heroart">
       <img id="setlogo" src="https://images.pokemontcg.io/sv6/logo.png" alt="Twilight Masquerade"
@@ -906,8 +920,23 @@ footer{padding-bottom:12px}
       <span class="heropill">Actief</span>
     </div>
     <div class="herobody">
-      <div class="herotitle">Twilight Masquerade</div>
-      <div class="herometa">Masterset · <span id="slotcount">373</span> kaarten · Scarlet &amp; Violet</div>
+      <div class="moonrow">
+        <button id="moonbtn" type="button" aria-label="Mijn maan-voortgang">
+          <svg width="52" height="52" viewBox="0 0 62 62" aria-hidden="true">
+            <title>De maan vult zich naarmate je verzameling groeit</title>
+            <defs><clipPath id="mf"><rect id="mfr" x="0" y="62" width="62" height="0"/></clipPath></defs>
+            <circle cx="31" cy="31" r="28" fill="#292b31" stroke="#423a6a" stroke-width="2"/>
+            <circle cx="31" cy="31" r="28" fill="#b5abfc" clip-path="url(#mf)"/>
+            <text id="mpct" x="31" y="37" text-anchor="middle" font-size="15" font-weight="600"
+                  fill="#d2cefd" font-family="Inter,system-ui,sans-serif">0%</text>
+          </svg>
+        </button>
+        <div class="mooncol">
+          <span class="count"><span id="have">0</span><span id="of"></span></span>
+          <span class="heur" id="heroline">nog <b id="stCost">€0</b> te gaan · de maan staat op <span id="moonpct2">0%</span></span>
+          <span class="heur" id="herozero" hidden>Nog geen kaarten — scan je eerste kaart of open een pakje.</span>
+        </div>
+      </div>
       <div class="bar">
         <i id="fill" style="width:0%"><em id="barpct">0%</em></i>
         <s style="left:10%" data-t="10">✦</s>
@@ -915,10 +944,7 @@ footer{padding-bottom:12px}
         <s style="left:50%" data-t="50">✦</s>
         <s style="left:75%" data-t="75">✦</s>
       </div>
-      <div class="herostats">
-        <span class="count"><span id="have">0</span><span id="of"></span></span>
-        <span class="heur">nog <b id="stCost">€0</b> te gaan</span>
-      </div>
+      <div class="herometa">Twilight Masquerade · Masterset · Scarlet &amp; Violet · <span id="slotcount">373</span> kaarten</div>
       <div class="heroacts">
         <button id="herogo" class="nbtn nprim" type="button">Verder verzamelen</button>
         <button id="btnpack" class="nbtn nghost" type="button" aria-label="Pakje openen">
@@ -926,6 +952,17 @@ footer{padding-bottom:12px}
         </button>
       </div>
     </div>
+  </div>
+
+  <div class="srow">
+    <label class="searchbox" for="q">
+      <svg class="pi" aria-hidden="true"><use href="#i-magnifying-glass"/></svg>
+      <input id="q" type="search" placeholder="Zoek naam of nummer" autocomplete="off" enterkeyhint="search">
+    </label>
+    <button id="filtbtn" type="button" aria-haspopup="dialog"
+            aria-label="Filters (type, zeldzaamheid, weergave)">
+      <svg class="pi" aria-hidden="true"><use href="#i-sliders-horizontal"/></svg>
+    </button>
   </div>
 
   <div class="nsec" id="misssec">
@@ -941,13 +978,14 @@ footer{padding-bottom:12px}
   </div>
 
   <div id="view1b" hidden>
+    <p class="heur" id="v1bempty" hidden>Nog geen kaarten — scan je eerste kaart of open een pakje.</p>
     <div class="vkick">Waarde collectie</div>
     <div class="vrow"><span class="vbig" id="vbig">€0,00</span><span class="vdelta" id="vdelta"></span></div>
     <div class="spark" id="spark" aria-label="Waarde per dag"></div>
     <div class="vstats">
       <div><span>Kaarten</span><b id="vCards">0</b></div>
       <div><span>Dubbels</span><b id="vDup">0</b></div>
-      <div><span>⭐ Wenslijst</span><b id="vWish">0</b></div>
+      <div><span>Wenslijst</span><b id="vWish">0</b></div>
     </div>
     <div class="nsechead"><span>Mijn zeldzaamheden</span><span class="vsort">op voortgang</span></div>
     <div id="vrar"></div>
@@ -962,7 +1000,7 @@ footer{padding-bottom:12px}
   </div>
 
   <details class="about">
-    <summary>🎭 Over deze set</summary>
+    <summary><svg class="pi psum" aria-hidden="true"><use href="#i-info"/></svg> Over deze set</summary>
     <img class="aboutbanner" src="art/about-banner.webp" alt="" loading="lazy"
          onerror="this.remove()">
     <div class="aboutstars" aria-label="De sterren van de set">
@@ -1102,9 +1140,9 @@ footer{padding-bottom:12px}
     <img class="fovband" src="art/band-dragapult.webp" alt="" loading="lazy" onerror="this.remove()">
     <div class="fovhead">🎮 Quiz<span class="qscore" id="qscore"></span></div>
     <div class="seg qmodes" role="group" aria-label="Kies een spel">
-      <button data-qm="kunst" aria-pressed="true">🔍 Kunst</button>
-      <button data-qm="wazig" aria-pressed="false">🔮 Wazig</button>
-      <button data-qm="duel" aria-pressed="false">💰 Prijsduel</button>
+      <button data-qm="kunst" aria-pressed="true"><svg class="pi" aria-hidden="true"><use href="#i-magnifying-glass-plus"/></svg> Kunst</button>
+      <button data-qm="wazig" aria-pressed="false"><svg class="pi" aria-hidden="true"><use href="#i-drop-half"/></svg> Wazig</button>
+      <button data-qm="duel" aria-pressed="false"><svg class="pi" aria-hidden="true"><use href="#i-scales"/></svg> Prijsduel</button>
     </div>
     <div class="qart" id="qart"></div>
     <div class="qopts" id="qopts"></div>
@@ -1121,6 +1159,36 @@ footer{padding-bottom:12px}
 
   <p class="note" id="pricenote">Prijzen van vandaag ophalen…</p>
 
+  <div id="filtwrap" hidden>
+    <div class="ikback" id="filtback"></div>
+    <div class="iksheet" role="dialog" aria-modal="true" aria-label="Filters">
+      <div class="ikgrip" aria-hidden="true"></div>
+      <select id="rarity" aria-label="Filter op zeldzaamheid"><option value="all">Alle zeldzaamheden</option></select>
+      <div class="seg" id="viewseg" role="group" aria-label="Tonen" style="margin-top:8px">
+        <button data-view="all" aria-pressed="true">Alles</button>
+        <button data-view="need" aria-pressed="false">Nog nodig</button>
+        <button data-view="have" aria-pressed="false">Heb ik</button>
+        <button data-view="dup" aria-pressed="false">Dubbels</button>
+        <button data-view="wish" aria-pressed="false" aria-label="Wenslijst"><svg class="pi" aria-hidden="true"><use href="#i-star"/></svg></button>
+      </div>
+      <div class="tychips" role="group" aria-label="Filter op energietype" style="margin-top:8px">
+        <button class="ty on" data-ty="">Alle types</button>
+        <button class="ty" data-ty="G" style="--c:#43A047">Grass</button>
+        <button class="ty" data-ty="R" style="--c:#E53935">Fire</button>
+        <button class="ty" data-ty="W" style="--c:#1E88E5">Water</button>
+        <button class="ty" data-ty="L" style="--c:#FDD835">Lightning</button>
+        <button class="ty" data-ty="P" style="--c:#8E24AA">Psychic</button>
+        <button class="ty" data-ty="F" style="--c:#BF6B39">Fighting</button>
+        <button class="ty" data-ty="D" style="--c:#455A64">Darkness</button>
+        <button class="ty" data-ty="M" style="--c:#90A4AE">Metal</button>
+        <button class="ty" data-ty="N" style="--c:#C8A028">Dragon</button>
+        <button class="ty" data-ty="C" style="--c:#D9D2BC">Colorless</button>
+        <button class="ty" data-ty="T" style="--c:#8B6BC7">Trainer</button>
+      </div>
+      <button id="filtdone" class="nbtn nprim" type="button" style="width:100%;margin-top:12px">Klaar</button>
+    </div>
+  </div>
+
   <div id="ikwrap" hidden>
     <div class="ikback"></div>
     <div class="iksheet" role="dialog" aria-modal="true" aria-label="Mijn hoek">
@@ -1129,7 +1197,7 @@ footer{padding-bottom:12px}
         <div class="kpi"><small>Waarde van mijn kaarten</small><b id="value"></b></div>
         <div class="kpi" id="stBestWrap" hidden><small>Mijn beste kaart</small><b id="stBest"></b></div>
         <div class="kpi" id="stDupWrap" hidden><small>Dubbels om te ruilen</small><b id="stDup"></b></div>
-        <div class="kpi" id="stWishWrap" hidden><small>⭐ Wenslijst</small><b id="stWish"></b></div>
+        <div class="kpi" id="stWishWrap" hidden><small>Wenslijst</small><b id="stWish"></b></div>
         <div class="kpi" id="stLangWrap" hidden><small>Talen in je verzameling</small><b id="stLang"></b></div>
       </div>
       <button id="btnquiz" class="ikrow" type="button">
@@ -1167,7 +1235,7 @@ footer{padding-bottom:12px}
       <svg class="pi" aria-hidden="true"><use href="#i-cards-fill"/></svg><span>Set</span>
     </button>
     <button id="btnbinder" class="tb" type="button">
-      <svg class="pi" aria-hidden="true"><use href="#i-books"/></svg><span>Map</span>
+      <svg class="pi" aria-hidden="true"><use href="#i-grid-nine"/></svg><span>Map</span>
     </button>
     <button id="tabscan" class="tbscan" type="button" aria-label="Scan een kaart met de camera">
       <span class="tbring"><svg class="pi" aria-hidden="true"><use href="#i-camera"/></svg></span><span>Scan</span>
@@ -1244,12 +1312,12 @@ footer{padding-bottom:12px}
       </div>
       <p class="fovnote" id="scanhint">Leg je kaart mooi recht in het kader en druk op Scan.</p>
       <div class="packrow">
-        <button id="scansnap" type="button">📸 Scan!</button>
+        <button id="scansnap" type="button"><svg class="pi" aria-hidden="true"><use href="#i-camera"/></svg> Scan!</button>
         <button id="scantorch" type="button" hidden>🔦 Lamp</button>
       </div>
       <p class="fovnote">Lukt de camera niet?</p>
       <div class="packrow">
-        <button id="scanpickbtn" type="button" class="scanghost">📁 Kies een foto van je kaart</button>
+        <button id="scanpickbtn" type="button" class="scanghost"><svg class="pi" aria-hidden="true"><use href="#i-image"/></svg> Kies een foto van je kaart</button>
       </div>
       <input id="scanfile" type="file" accept="image/*" hidden>
     </div>
@@ -1267,7 +1335,7 @@ footer{padding-bottom:12px}
       <div class="scanbtns">
         <button id="scanown" type="button" class="scanmain"></button>
         <button id="scanopen" type="button">🔍 Bekijk de kaart groot</button>
-        <button id="scanback" type="button">↩ Nee, terug</button>
+        <button id="scanback" type="button"><svg class="pi" aria-hidden="true"><use href="#i-arrow-u-up-left"/></svg> Nee, terug</button>
       </div>
     </div>
   </div>
@@ -1376,7 +1444,7 @@ const fold=t=>t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 function paint(){
   let shown=0, haveN=0, haveV=0, totalV=0;
   const q=fold(document.getElementById("q").value.trim());
-  const view=document.querySelector('.seg button[aria-pressed="true"]').dataset.view;
+  const view=document.querySelector('#viewseg button[aria-pressed="true"]').dataset.view;
   const rar=document.getElementById("rarity").value;
   const per=new Map(); for(const r of secs.keys()) per.set(r,{have:0,vis:0});
   visList.length=0;
@@ -1426,7 +1494,7 @@ function paint(){
   }
 
   document.getElementById("have").textContent=haveN;
-  document.getElementById("of").textContent="/"+SLOTS.length;
+  document.getElementById("of").textContent=" van "+SLOTS.length;
   document.getElementById("value").textContent=`${eur(haveV)} van ${eur(totalV)}`;
   const pct=haveN/SLOTS.length;
   document.getElementById("fill").style.width=(pct*100)+"%";
@@ -1435,7 +1503,8 @@ function paint(){
   r.setAttribute("y",(62-62*pct).toFixed(1));
   const mp=document.getElementById("mpct");
   mp.textContent=Math.round(pct*100)+"%";
-  mp.setAttribute("fill",pct>=.45?"#0D0A22":"#F5B944");
+  mp.setAttribute("fill",pct>=.45?"#161826":"#d2cefd");
+  document.getElementById("moonpct2").textContent=Math.round(pct*100)+"%";
   document.getElementById("barpct").textContent=Math.round(pct*100)+"%";
   document.querySelectorAll(".bar s").forEach(t=>
     t.classList.toggle("on",pct*100>=+t.dataset.t));
@@ -1778,8 +1847,8 @@ document.querySelector(".tychips").addEventListener("click",e=>{
   paint();
 });
 document.getElementById("rarity").addEventListener("change",paint);
-document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{
-  document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed","false"));
+document.querySelectorAll("#viewseg button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll("#viewseg button").forEach(x=>x.setAttribute("aria-pressed","false"));
   b.setAttribute("aria-pressed","true"); paint();
 }));
 
@@ -2030,13 +2099,21 @@ window.addEventListener("beforeinstallprompt",e=>{
   e.preventDefault(); deferred=e; installBtn.style.display="block";
 });
 installBtn.addEventListener("click",async()=>{
-  if(!deferred) return;
+  if(!deferred){
+    // Samsung Internet never fires beforeinstallprompt — explain its own menu
+    showToast("Installeren: menu <b>≡</b> onderaan → <b>Pagina toevoegen aan</b> → <b>Startscherm</b>");
+    return;
+  }
   installBtn.style.display="none";
   deferred.prompt();
   await deferred.userChoice;
   deferred=null;
 });
 window.addEventListener("appinstalled",()=>{ installBtn.style.display="none"; deferred=null; });
+if(/SamsungBrowser/i.test(navigator.userAgent)
+   &&!matchMedia("(display-mode: standalone)").matches){
+  installBtn.style.display="block";
+}
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",()=>{
@@ -2626,7 +2703,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v41";   // bump with the service worker, so these load fresh per release
+const APPV="v42";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -3589,17 +3666,18 @@ document.getElementById("herogo").addEventListener("click",()=>{
   document.getElementById("grid").scrollIntoView({behavior:"smooth"});
 });
 function goNeed(){
-  const b=document.querySelector('.seg button[data-view="need"]');
+  const b=document.querySelector('#viewseg button[data-view="need"]');
   if(b&&b.getAttribute("aria-pressed")!=="true") b.click();
   document.getElementById("grid").scrollIntoView({behavior:"smooth"});
 }
 document.getElementById("misslink").addEventListener("click",goNeed);
 document.getElementById("filtbtn").addEventListener("click",()=>{
-  const fs=document.getElementById("filtersheet"), b=document.getElementById("filtbtn");
-  fs.hidden=!fs.hidden;
-  b.setAttribute("aria-expanded",String(!fs.hidden));
-  b.classList.toggle("on",!fs.hidden);
+  document.getElementById("filtwrap").hidden=false;
 });
+const closeFilt=()=>{ document.getElementById("filtwrap").hidden=true; };
+document.getElementById("filtback").addEventListener("click",closeFilt);
+document.getElementById("filtdone").addEventListener("click",closeFilt);
+document.getElementById("avbtn").addEventListener("click",()=>openIk());
 function openIk(){ document.getElementById("ikwrap").hidden=false; }
 function closeIk(){ document.getElementById("ikwrap").hidden=true; }
 document.getElementById("tabik").addEventListener("click",()=>{
@@ -3609,8 +3687,10 @@ document.getElementById("tabik").addEventListener("click",()=>{
 document.querySelector(".ikback").addEventListener("click",closeIk);
 document.querySelectorAll(".iksheet .ikrow").forEach(b=>b.addEventListener("click",closeIk));
 document.addEventListener("keydown",e=>{
-  if(e.key==="Escape"&&!ov.hidden) return;   // the card viewer closes first
-  if(e.key==="Escape"&&!document.getElementById("ikwrap").hidden){ closeIk(); e.stopImmediatePropagation(); }
+  if(e.key!=="Escape") return;
+  if(!ov.hidden) return;   // the card viewer closes first
+  if(!document.getElementById("filtwrap").hidden){ closeFilt(); e.stopImmediatePropagation(); return; }
+  if(!document.getElementById("ikwrap").hidden){ closeIk(); e.stopImmediatePropagation(); }
 },true);
 const GREETTXT=(()=>{
   const h=new Date().getHours();
@@ -3665,6 +3745,14 @@ function snapshotValue(){
 function renderOverzicht(){
   if(homeView!=="1b"||!HOMESTATS) return;
   const S=HOMESTATS;
+  // empty collection: one line, no wall of zeros (FIXES §2)
+  const zero=S.haveN===0;
+  document.getElementById("v1bempty").hidden=!zero;
+  for(const sel of [".vkick",".vrow","#spark",".vstats",".nsechead","#vrar"]){
+    const el=document.querySelector("#view1b "+sel);
+    if(el) el.style.display=zero?"none":"";
+  }
+  if(zero) return;
   document.getElementById("vbig").textContent=eur(S.haveV);
   let h=[];
   try{ h=JSON.parse(localStorage.getItem(VHKEY)||"[]"); }catch(e){}
@@ -3750,7 +3838,7 @@ function renderVandaag(){
   const S=HOMESTATS;
   const toView=view=>()=>{
     setHomeView("1a");
-    const b=document.querySelector(`.seg button[data-view="${view}"]`);
+    const b=document.querySelector(`#viewseg button[data-view="${view}"]`);
     if(b&&b.getAttribute("aria-pressed")!=="true") b.click();
     document.getElementById("grid").scrollIntoView({behavior:"smooth"});
   };
@@ -3779,6 +3867,18 @@ function renderVandaag(){
 /* the "Nog te vinden" preview and "Bijna compleet" rows follow the live
    collection: rebuilt by paint() via this hook */
 function buildHomeExtras(){
+  // hero: first-run line instead of a wall of zeros (FIXES §2)
+  const zero=!HOMESTATS||HOMESTATS.haveN===0;
+  document.getElementById("heroline").hidden=zero;
+  document.getElementById("herozero").hidden=!zero;
+  document.querySelector(".moonrow .count").hidden=zero;
+  document.getElementById("herogo").textContent=
+    zero?"Beginnen met verzamelen":"Verder verzamelen";
+  // filter button: accent dot when any filter is narrowing the list
+  const view=document.querySelector('#viewseg button[aria-pressed="true"]').dataset.view;
+  const active=tyFilter!==""||document.getElementById("rarity").value!=="all"||view!=="all";
+  document.getElementById("filtbtn").classList.toggle("dot",active);
+
   const mr=document.getElementById("missrow");
   if(mr){
     const missing=[];
@@ -3788,42 +3888,43 @@ function buildHomeExtras(){
       if(missing.length===3) break;
     }
     const missTotal=SLOTS.reduce((n,s)=>n+(owned.has(s.id)?0:1),0);
+    document.getElementById("misssec").hidden=missTotal===0||homeView!=="1a";
     mr.innerHTML="";
     for(const s of missing){
       const b=document.createElement("button");
       b.type="button"; b.className="misscard";
       b.setAttribute("aria-label",`${s.num} ${s.name}`);
-      b.innerHTML=`<img loading="lazy" alt="" src="${img(s.num)}"><span>#${pad3(s.num)}</span>`;
+      b.innerHTML=`<img loading="lazy" decoding="async" alt="" src="${img(s.num)}"><span>#${pad3(s.num)}</span>`;
       b.addEventListener("click",()=>openOv(s.id));
       mr.appendChild(b);
     }
-    const more=document.createElement("button");
-    more.type="button"; more.className="missmore";
-    more.innerHTML=missTotal>3
-      ?`+${missTotal-3}<small>bekijk</small>`
-      :(missTotal===0?`🏆<small>compleet!</small>`:`✔<small>bijna!</small>`);
-    more.addEventListener("click",goNeed);
-    mr.appendChild(more);
+    if(missTotal>3){
+      const more=document.createElement("button");
+      more.type="button"; more.className="missmore";
+      more.innerHTML=`+${missTotal-3}<small>bekijk</small>`;
+      more.addEventListener("click",goNeed);
+      mr.appendChild(more);
+    }
   }
   const rr=document.getElementById("rarrows");
   if(rr){
+    // compact two-column cards, only rarities at 50%+ (FIXES §2)
     const rows=[];
     for(const r of RARITIES){
       const list=SLOTS.filter(s=>s.rarity===r);
       if(!list.length) continue;
       const have=list.reduce((n,s)=>n+(owned.has(s.id)?1:0),0);
       const pct=have/list.length;
-      if(pct>0&&pct<1) rows.push({r,pct,sample:list.find(s=>!s.rev)||list[0]});
+      if(pct>=0.5&&pct<1) rows.push({r,pct});
     }
     rows.sort((a,b)=>b.pct-a.pct);
     rr.innerHTML="";
     for(const row of rows.slice(0,2)){
       const d=document.createElement("button");
-      d.type="button"; d.className="rarrow";
-      d.innerHTML=`<img loading="lazy" alt="" src="${img(row.sample.num)}">`
-        +`<span class="rrmid"><span>${row.r}</span>`
-        +`<i class="rrtrack"><i style="width:${Math.round(row.pct*100)}%"></i></i></span>`
-        +`<b>${Math.round(row.pct*100)}%</b>`;
+      d.type="button"; d.className="rarcard";
+      d.innerHTML=`<span class="rartop"><svg class="pi" aria-hidden="true"><use href="#i-cards"/></svg>`
+        +`<span>${row.r}</span><b>${Math.round(row.pct*100)}%</b></span>`
+        +`<i class="rrtrack"><i style="width:${Math.round(row.pct*100)}%"></i></i>`;
       d.addEventListener("click",()=>{
         const sel=document.getElementById("rarity");
         sel.value=row.r; sel.dispatchEvent(new Event("change"));
