@@ -1045,6 +1045,86 @@ footer{padding-bottom:12px}
 .bsessbtns .nghost.wide{width:auto;padding:0 14px;font-size:13px}
 .bsessionbar .btfoot{margin-top:8px}
 
+/* ---- round 6a: the nine-pack display box ---- */
+#pack .fovhead:empty{display:none}
+.packbox{position:relative;display:flex;flex-direction:column;gap:12px;
+  max-width:560px;margin:0 auto;min-height:calc(100vh - 190px);
+  font-family:'Inter',system-ui,sans-serif}
+.packboxart{position:absolute;left:0;right:0;top:-14px;height:420px;z-index:-1;
+  overflow:hidden;border-radius:14px;
+  background:url("art/band-ogerpon.webp") 50% 40%/cover no-repeat;
+  opacity:.5;mix-blend-mode:lighten}
+.packbox::before{content:"";position:absolute;left:0;right:0;top:-14px;height:420px;z-index:-1;
+  background:linear-gradient(180deg,rgba(22,24,38,.35) 0%,rgba(22,24,38,.72) 62%,#161826 100%)}
+#packchoose.packchoose{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  flex:1;min-height:0;align-content:start;max-width:none;margin:0}
+#packchoose .booster{aspect-ratio:5/9;border-radius:8px;border:0;padding:0;overflow:hidden;
+  position:relative;cursor:pointer;background:var(--n-tint);
+  box-shadow:0 8px 18px rgba(0,0,0,.45)}
+#packchoose .booster:nth-child(odd){transform:rotate(-2.5deg)}
+#packchoose .booster:nth-child(even){transform:rotate(2deg)}
+#packchoose .booster.jpack{box-shadow:0 0 0 2px var(--n-a4),0 8px 18px rgba(0,0,0,.45)}
+#packchoose .booster.picked{box-shadow:0 0 0 2px var(--n-acc),0 0 22px rgba(181,171,252,.4),
+  0 8px 18px rgba(0,0,0,.45);transform:rotate(0) scale(1.04);z-index:1}
+#packchoose .jpill{position:absolute;left:6px;bottom:6px;font-size:10px;font-weight:600;
+  background:var(--n-a4);color:var(--n-bg);border-radius:99px;padding:2px 6px}
+.packcap{text-align:center}
+.packcap b{display:block;font-size:15px;font-weight:500;color:var(--n-txt)}
+.packcap span{font-size:12px;color:var(--n-m6)}
+.packfoot{display:flex;flex-direction:column;gap:6px}
+.packfoot .nprim{width:100%;flex:none;min-height:46px}
+.packfoot .nprim:disabled{opacity:.45;cursor:default}
+
+/* ---- round 6b: tearing ---- */
+#packtear .tearwrap{width:min(320px,86vw);aspect-ratio:320/620;max-height:66vh;
+  margin:0 auto;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.65);
+  position:relative;overflow:hidden;touch-action:none}
+#packtear{position:relative}
+#packtear::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(60% 40% at 50% 42%,rgba(43,39,65,.5) 0%,transparent 70%)}
+.tearstrip{position:absolute;left:0;right:0;top:0;height:3px;border-radius:0;
+  background:linear-gradient(90deg,transparent,#b5abfc,transparent);
+  box-shadow:0 0 18px rgba(181,171,252,.6);z-index:3}
+.tearstrip.gone{opacity:0;transition:opacity .3s}
+.tearpill{position:absolute;left:50%;top:14px;transform:translateX(-50%);z-index:3;
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+  background:rgba(22,24,38,.78);color:var(--n-a3);border-radius:99px;padding:6px 12px;
+  font-family:'Inter',system-ui,sans-serif;font-size:12px}
+.tearpill .pi{width:16px;height:16px}
+#tearfallback{align-items:center;gap:10px;justify-content:center;margin-top:14px}
+.tearor{font-size:12px;color:var(--n-m6);font-family:'Inter',system-ui,sans-serif}
+#tearfallback .nsec{flex:0 0 auto;padding:0 16px}
+
+/* ---- round 6c: reveal ---- */
+#packreveal{position:relative}
+#packreveal::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(55% 34% at 50% 38%,rgba(181,171,252,.16) 0%,transparent 72%)}
+.revcount{text-align:center;font-family:'Inter',system-ui,sans-serif;font-size:13px;
+  color:var(--n-b2);margin-bottom:10px;font-variant-numeric:tabular-nums}
+#packreveal .revcard{width:236px}
+#packreveal .revcard.flip .revfront{box-shadow:0 0 0 1px #b5abfc,0 20px 50px rgba(0,0,0,.6),
+  0 0 70px rgba(181,171,252,.32)}
+.revkick{text-align:center;font-family:'Inter',system-ui,sans-serif;font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--n-a4);margin:12px 0 0}
+.filmstrip{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin:12px 0 4px}
+.filmstrip .fsl{width:34px;aspect-ratio:63/88;border-radius:3px;object-fit:cover;
+  opacity:.5;display:block;background:var(--n-e9);box-shadow:inset 0 0 0 1px var(--n-e8)}
+.filmstrip .fsl.now{opacity:1;box-shadow:0 0 0 1px var(--n-a4)}
+.packvalue{max-width:420px;margin:0 auto 12px;border-radius:8px;background:var(--n-sur);
+  box-shadow:0 0 0 1px var(--n-e8);padding:12px;font-family:'Inter',system-ui,sans-serif}
+.pvrow{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:4px}
+.pvrow b{font-size:22px;font-weight:500;color:var(--n-txt);font-variant-numeric:tabular-nums}
+.pvrank{font-size:12px;color:var(--n-a3)}
+.pvbar{position:relative;display:block;height:5px;border-radius:99px;background:var(--n-e9);
+  overflow:visible;margin:10px 0 6px}
+.pvbar i{display:block;height:100%;border-radius:99px;background:var(--n-a4)}
+.pvbar s{position:absolute;top:-2px;width:2px;height:9px;background:#cfd3e5;
+  text-decoration:none;transform:translateX(-1px)}
+.pvnote{font-size:11px;color:var(--n-m6);font-variant-numeric:tabular-nums}
+#packgrid.sidebyside{grid-template-columns:repeat(5,1fr)!important;gap:5px}
+#packdone .packrow{display:flex;gap:8px;max-width:420px;margin:0 auto}
+#packdone .packrow .nbtn{flex:1}
+
 /* ---- round 5a: the set art is the ground, not a strip ---- */
 /* full-bleed past the page's own side margins */
 .heroart{position:absolute;left:50%;width:100vw;transform:translateX(-50%);top:0;
@@ -1309,6 +1389,7 @@ footer{padding-bottom:12px}
 <symbol id="i-arrow-left" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></symbol>
 <symbol id="i-star-fill" viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></symbol>
 <symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></symbol>
+<symbol id="i-hand-swipe-right" viewBox="0 0 256 256"><path d="M216,140v36c0,25.59-8.49,42.85-8.85,43.58A8,8,0,0,1,200,224a7.9,7.9,0,0,1-3.57-.85,8,8,0,0,1-3.58-10.73c.06-.12,7.16-14.81,7.16-36.42V140a12,12,0,0,0-24,0v4a8,8,0,0,1-16,0V124a12,12,0,0,0-24,0v12a8,8,0,0,1-16,0V68a12,12,0,0,0-24,0V176a8,8,0,0,1-14.79,4.23l-18.68-30-.14-.23A12,12,0,1,0,41.6,162L70.89,212A8,8,0,1,1,57.08,220l-29.32-50a28,28,0,0,1,48.41-28.17L80,148V68a28,28,0,0,1,56,0V98.7a28,28,0,0,1,38.65,16.69A28,28,0,0,1,216,140Zm37.66-89.66-32-32a8,8,0,0,0-11.31,11.32L228.68,48H176a8,8,0,0,0,0,16h52.69L210.34,82.34a8,8,0,0,0,11.31,11.32l32-32A8,8,0,0,0,253.66,50.34Z"/></symbol>
 <symbol id="i-magic-wand" viewBox="0 0 256 256"><path d="M48,64a8,8,0,0,1,8-8H72V40a8,8,0,0,1,16,0V56h16a8,8,0,0,1,0,16H88V88a8,8,0,0,1-16,0V72H56A8,8,0,0,1,48,64ZM184,192h-8v-8a8,8,0,0,0-16,0v8h-8a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16Zm56-48H224V128a8,8,0,0,0-16,0v16H192a8,8,0,0,0,0,16h16v16a8,8,0,0,0,16,0V160h16a8,8,0,0,0,0-16ZM219.31,80,80,219.31a16,16,0,0,1-22.62,0L36.68,198.63a16,16,0,0,1,0-22.63L176,36.69a16,16,0,0,1,22.63,0l20.68,20.68A16,16,0,0,1,219.31,80Zm-54.63,32L144,91.31l-96,96L68.68,208ZM208,68.69,187.31,48l-32,32L176,100.69Z"/></symbol>
 </defs></svg>
 
@@ -1539,20 +1620,39 @@ footer{padding-bottom:12px}
 
   <div id="pack" class="fullov" hidden>
     <button class="fovclose" data-close="pack" type="button" aria-label="Sluiten">✕</button>
-    <div class="fovhead" id="packhead">🎁 Kies een pakje</div>
+    <div class="fovhead" id="packhead">Kies een pakje</div>
 
-    <div id="packchoose" class="packchoose"></div>
+    <div id="packbox" class="packbox">
+      <div class="packboxart" aria-hidden="true"></div>
+      <div id="packchoose" class="packchoose"></div>
+      <div class="packcap">
+        <b>Negen pakjes in de doos</b>
+        <span>Acht Engelse, één Japanse · tik het pakje dat je wil</span>
+      </div>
+      <div class="packfoot">
+        <button id="packtake" class="nbtn nprim" type="button" disabled>Pakje pakken</button>
+        <p class="fovnote">4 commons, 3 uncommons, 1 basisenergie, 1 reverse holo en 1 rare of
+          beter — het Japanse pakje heeft 5 kaarten en geen energie. Wat je trekt komt niet in
+          je verzameling.</p>
+      </div>
+    </div>
 
     <div id="packtear" hidden>
       <div class="tearwrap" id="tearwrap">
-        <div class="tearstrip" id="tearstrip"></div>
+        <div class="tearstrip" id="tearstrip" aria-hidden="true"></div>
         <div class="tearbody" id="tearbody"></div>
+        <div class="tearpill" id="tearpill">
+          <svg class="pi" aria-hidden="true"><use href="#i-hand-swipe-right"/></svg> Veeg over de bovenrand
+        </div>
       </div>
-      <p class="fovnote" id="tearhint">Veeg met je vinger over de bovenrand om het pakje open te scheuren.</p>
-      <div class="packrow"><button id="tearbtn" type="button">Toch maar openscheuren</button></div>
+      <div class="packrow" id="tearfallback" hidden>
+        <span class="tearor">of</span>
+        <button id="tearbtn" class="nbtn nsec" type="button">Toch maar openscheuren</button>
+      </div>
     </div>
 
     <div id="packreveal" hidden>
+      <div class="revcount" id="revcount"></div>
       <div class="revwrap">
         <div class="revstage">
           <div class="revstack" id="revstack"></div>
@@ -1564,23 +1664,23 @@ footer{padding-bottom:12px}
           </div>
         </div>
       </div>
+      <p class="revkick" id="revkick" hidden></p>
       <p class="revlabel" id="revlabel"></p>
+      <div class="filmstrip" id="filmstrip"></div>
       <div class="revstats" id="revstats"></div>
-      <div class="revdots" id="revdots"></div>
-      <div class="packrow"><button id="revnext" type="button">Draai om</button></div>
+      <div class="packrow"><button id="revnext" class="nbtn nprim" type="button">Draai om</button></div>
     </div>
 
     <div id="packdone" hidden>
       <div class="packgrid" id="packgrid"></div>
+      <div class="packvalue" id="packvalue"></div>
       <div class="packsum" id="packsum"></div>
-      <div class="packrow"><button id="packopen" type="button">Nog een pakje!</button></div>
+      <div class="packrow">
+        <button id="packside" class="nbtn nsec" type="button">Alles naast elkaar</button>
+        <button id="packopen" class="nbtn nprim" type="button">Nog een pakje</button>
+      </div>
+      <p class="fovnote">Puur voor de fun — deze kaarten gaan niet in je verzameling.</p>
     </div>
-
-    <p class="fovnote">Puur voor de fun — wat je trekt komt niet in je verzameling.
-      Elk pakje bevat 4 commons, 3 uncommons, 1 basisenergie (uit de SVE-reeks, echt zo),
-      1 reverse holo en 1 rare of beter, net als een echt pakje. Het Japanse pakje bevat
-      5 kaarten en geen energie — ook dat is echt zo, met betere kansen op mooie kaarten.
-      De kansen zijn bij benadering.</p>
   </div>
 
   <div id="binder" class="fullov" hidden>
@@ -2971,10 +3071,11 @@ const cardBackDrawn=()=>`<div class="cardback"><div class="cbmid">
   <div class="cbnm">TWILIGHT<br>MASQUERADE</div></div><div class="cbsheen"></div></div>`;
 
 /* stage 1 — a few packs on the table, pick one */
+let packPicked=-1;
 function packChoose(){
   clearTimeout(revTimer);          // a pending card flip must not reopen the reveal
-  packCards=[]; revIdx=0; revFlipped=false;
-  document.getElementById("packhead").textContent="🎁 Kies een pakje";
+  packCards=[]; revIdx=0; revFlipped=false; packPicked=-1;
+  document.getElementById("packhead").textContent="Kies een pakje";
   const box=document.getElementById("packchoose");
   box.hidden=false; box.innerHTML="";
   // two of each English design plus the one Japanese pack, shuffled
@@ -2983,15 +3084,29 @@ function packChoose(){
   packTable.forEach((p,k)=>{
     const f=PACK_FACES[p.face];
     const b=document.createElement("button");
-    b.type="button"; b.className="booster"; b.dataset.slot=k;
-    b.setAttribute("aria-label",`Pakje met ${f.nm} kiezen`);
-    b.innerHTML=boosterArt(f);
+    b.type="button"; b.className="booster"+(f.ja?" jpack":""); b.dataset.slot=k;
+    b.setAttribute("aria-label",`Pakje met ${f.nm}${f.ja?", Japans":""} kiezen`);
+    b.innerHTML=boosterArt(f)+(f.ja?`<span class="jpill">日本語</span>`:"");
     box.appendChild(b);
   });
+  const take=document.getElementById("packtake");
+  take.disabled=true; take.textContent="Pakje pakken";
+  document.getElementById("packbox").hidden=false;
   document.getElementById("packtear").hidden=true;
   document.getElementById("packreveal").hidden=true;
   document.getElementById("packdone").hidden=true;
 }
+function packSelect(slot){
+  packPicked=slot;
+  document.querySelectorAll("#packchoose .booster").forEach(b=>
+    b.classList.toggle("picked",+b.dataset.slot===slot));
+  const take=document.getElementById("packtake");
+  take.disabled=false;
+  take.textContent=`Dit pakje pakken${PACK_FACES[packTable[slot].face].ja?" (Japans)":""}`;
+}
+document.getElementById("packtake").addEventListener("click",()=>{
+  if(packPicked>=0) packTear(packPicked);
+});
 
 /* stage 2 — swipe the foil strip off the top */
 function packTear(slotIdx){
@@ -3001,33 +3116,45 @@ function packTear(slotIdx){
   chosenSlot=slotIdx||0;
   packCards=packTable[chosenSlot].cards;
   packFace=PACK_FACES[packTable[chosenSlot].face];
-  document.getElementById("packhead").textContent="✋ Scheur het open";
-  document.getElementById("packchoose").hidden=true;
+  document.getElementById("packhead").textContent="Scheur het open";
+  document.getElementById("packbox").hidden=true;
   document.getElementById("packtear").hidden=false;
   const strip=document.getElementById("tearstrip");
   const body=document.getElementById("tearbody");
-  strip.className="tearstrip"; strip.style.transform="";
-  strip.textContent="▸ veeg hier ▸";
+  const pill=document.getElementById("tearpill");
+  strip.className="tearstrip"; strip.style.transform=""; strip.textContent="";
+  pill.hidden=false;
   body.className="tearbody"; body.innerHTML=boosterArt(packFace);
+  // the fallback appears after a few seconds — it never opens by itself
+  const fb=document.getElementById("tearfallback");
+  fb.hidden=true;
+  clearTimeout(tearFbTimer);
+  tearFbTimer=setTimeout(()=>{ fb.hidden=false; },3000);
 
+  // the grip is the top edge itself: the accent line follows your finger
   let x0=null;
-  const w=()=>document.getElementById("tearwrap").getBoundingClientRect().width||200;
-  const down=e=>{ x0=(e.touches?e.touches[0]:e).clientX; };
+  const wrap=document.getElementById("tearwrap");
+  const w=()=>wrap.getBoundingClientRect().width||200;
+  const down=e=>{ x0=(e.touches?e.touches[0]:e).clientX; pill.hidden=true; };
   const move=e=>{
     if(x0===null) return;
     const dx=(e.touches?e.touches[0]:e).clientX-x0;
     if(dx>0){
-      strip.style.transform=`translate(${dx}px,${-dx*0.25}px) rotate(${dx*0.06}deg)`;
+      strip.style.transform=`translateX(${dx}px)`;
+      strip.style.opacity=String(Math.max(0,1-dx/w()));
       if(dx>w()*0.45){ x0=null; tearDone(); }
     }
   };
-  const up=()=>{ if(x0!==null){ strip.style.transform=""; x0=null; } };
-  strip.onpointerdown=down; strip.onpointermove=move; strip.onpointerup=up;
-  strip.ontouchstart=down; strip.ontouchmove=move; strip.ontouchend=up;
+  const up=()=>{ if(x0!==null){ strip.style.transform=""; strip.style.opacity=""; x0=null; pill.hidden=false; } };
+  wrap.onpointerdown=down; wrap.onpointermove=move; wrap.onpointerup=up;
+  wrap.ontouchstart=down; wrap.ontouchmove=move; wrap.ontouchend=up;
 }
+let tearFbTimer=null;
 function tearDone(){
+  clearTimeout(tearFbTimer);
+  document.getElementById("tearpill").hidden=true;
   const strip=document.getElementById("tearstrip");
-  strip.style.transform=""; strip.classList.add("gone");
+  strip.style.transform=""; strip.style.opacity=""; strip.classList.add("gone");
   document.getElementById("tearbody").classList.add("opened");
   setTimeout(packReveal,480);
 }
@@ -3041,7 +3168,9 @@ function packReveal(){
 }
 function showRev(){
   const pc=packCards[revIdx];
-  document.getElementById("packhead").textContent=`🎁 Kaart ${revIdx+1} van ${packCards.length}`;
+  document.getElementById("packhead").textContent="";
+  document.getElementById("revcount").textContent=`${revIdx+1} van ${packCards.length}`;
+  renderFilmstrip();
   const card=document.getElementById("revcard");
   // snap back face-down WITHOUT animating, or the next card flashes by mid-turn
   const inner=card.querySelector(".revinner");
@@ -3087,9 +3216,24 @@ function flipRev(){
     : `<b>${pc.c[0]} ${pc.c[1]}${pc.rev?" REV":""}</b>
        <span>${pc.ja&&JPX[pc.c[0]]?JPX[pc.c[0]][1]+" · ":""}${pc.rev?"Reverse holo · ":""}${pc.c[2]} · ${eur(pval(pc))}</span>`;
   document.getElementById("revstats").innerHTML=revStats(pc);
+  // a kicker over the card when it is one of the good ones
+  const kick=document.getElementById("revkick");
+  const bigRar=pc.c&&["Double Rare","ACE SPEC Rare","Illustration Rare","Ultra Rare",
+    "Special Illustration Rare","Hyper Rare"].includes(pc.c[2]);
+  kick.hidden=!(pc.hit||pc.big||bigRar);
+  if(!kick.hidden) kick.textContent=(pc.c?pc.c[2]:"").toUpperCase();
+  renderFilmstrip();
   if(pc.big) confetti();
   document.getElementById("revnext").textContent=
     revIdx===packCards.length-1?"Bekijk je pakje":"Volgende kaart";
+}
+/* what you have turned over so far, the current one ringed */
+function renderFilmstrip(){
+  document.getElementById("filmstrip").innerHTML=packCards.map((pc,i)=>{
+    if(i>revIdx||(i===revIdx&&!revFlipped))
+      return `<i class="fsl${i===revIdx?" now":""}"></i>`;
+    return `<img class="fsl${i===revIdx?" now":""}" loading="lazy" alt="" src="${pcImg(pc)}">`;
+  }).join("");
 }
 /* the numbers a collector actually wants when a card turns over */
 function revStats(pc){
@@ -3115,10 +3259,12 @@ function revStats(pc){
 }
 
 function nextRev(){
+  const card=document.getElementById("revcard");
+  // a card already sliding away must finish: without this, tapping fast
+  // keeps resetting the timer and the reveal never advances
+  if(card.classList.contains("out")) return;
   if(!revFlipped){ flipRev(); return; }
   if(revIdx===packCards.length-1){ packSummary(); return; }
-  // slide the finished card away, then bring the next one forward
-  const card=document.getElementById("revcard");
   card.classList.add("out");
   clearTimeout(revTimer);
   revTimer=setTimeout(()=>{ revIdx++; revFlipped=false; showRev(); },320);
@@ -3155,11 +3301,25 @@ function packSummary(){
   const rows=others.map(o=>
     `<span class="orow${o.val>total?" beat":""}"><span>${o.nm}</span><b>${eur(o.val)}</b></span>`).join("");
 
+  // the value statistic: this pack against every pack you opened this session
+  packHistory.push(total);
+  const n=packHistory.length;
+  const bestEver=Math.max(...packHistory);
+  const avg=packHistory.reduce((a,b)=>a+b,0)/n;
+  const rank=packHistory.filter(v=>v>total).length+1;
+  const ord=r=>r===1?"beste":`${r}e beste`;
+  document.getElementById("packvalue").innerHTML=
+    `<span class="vkick">Waarde van dit pakje</span>
+     <div class="pvrow"><b>${eur(total)}</b>${
+       n>1?`<span class="pvrank">${rank===1?"▲ ":""}je ${ord(rank)} van ${n}</span>`:""}</div>
+     ${n>1?`<i class="pvbar"><i style="width:${Math.round(total/bestEver*100)}%"></i>
+       <s style="left:${Math.round(Math.min(avg/bestEver,1)*100)}%"></s></i>
+       <small class="pvnote">gemiddeld ${eur(avg)} / beste ${eur(bestEver)} · pakje ${n}</small>`:""}`;
+
   document.getElementById("packsum").innerHTML=
     `<div class="revstats">
        ${chip("Beste trek",`${best.c[0]} ${best.c[1]}`)}
        ${chip("Zeldzaamheid",best.c[2])}
-       ${chip("Waarde",eur(total))}
        ${chip("Nieuw voor jou",`${isNew} van ${real.length}`)}
      </div>
      <div class="othr">
@@ -3167,7 +3327,15 @@ function packSummary(){
           :`De pakjes die je liet liggen (${beaten} deed beter):`}</b>
        ${rows}
      </div>`;
+  document.getElementById("packgrid").classList.remove("sidebyside");
+  document.getElementById("packside").textContent="Alles naast elkaar";
 }
+let packHistory=[];   // totals of the packs opened this session
+document.getElementById("packside").addEventListener("click",e=>{
+  const g=document.getElementById("packgrid");
+  const on=g.classList.toggle("sidebyside");
+  e.currentTarget.textContent=on?"Groter tonen":"Alles naast elkaar";
+});
 
 document.getElementById("packchoose").addEventListener("click",e=>{
   const b=e.target.closest(".booster");
@@ -3645,7 +3813,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v48";   // bump with the service worker, so these load fresh per release
+const APPV="v49";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
