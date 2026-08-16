@@ -4322,7 +4322,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v52";   // bump with the service worker, so these load fresh per release
+const APPV="v53";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -5346,12 +5346,15 @@ function scanRunOn(padded){
   else showScanRes(top);
 }
 /* continuous commit: flash pill, session bar, keep the camera rolling */
-let scanCoolNum=0, scanCoolT=0;
+/* A card must LEAVE the frame before it can be added again. A timer was
+   wrong: hold one card for four seconds while you reach for the next and
+   it would quietly count twice. Moving it out and back is also the natural
+   gesture for "I really do own two of these". */
+let scanCoolNum=0, scanArmed=true;
 function scanCommit(o){
   const id=String(o.num);
-  const now=Date.now();
-  if(o.num===scanCoolNum&&now-scanCoolT<3000) return;   // same card lingering in frame
-  scanCoolNum=o.num; scanCoolT=now;
+  if(o.num===scanCoolNum&&!scanArmed) return;
+  scanCoolNum=o.num; scanArmed=false;
   addOne(id,o.lang);
   const s=byId.get(id), b=binderPos(s);
   scanEl("scanflashtxt").textContent=
@@ -5372,7 +5375,7 @@ document.getElementById("scancont").addEventListener("click",()=>{
   document.getElementById("scanshutrow").hidden=scanCont;
   document.querySelector(".scanfoot").hidden=scanCont;
   document.getElementById("scanov").classList.toggle("cont",scanCont);
-  scanCoolNum=0;
+  scanCoolNum=0; scanArmed=true;
   updateSession();
 });
 scanEl("scansnap").addEventListener("click",()=>{
@@ -5396,6 +5399,8 @@ function startScanLoop(g){
     const padded=scanGrab(); if(!padded) return;
     const q=scanQuick(padded);
     const st=scanEl("scanstatus");
+    // the frame no longer holds the card we just added → ready for it again
+    if(q.num!==scanCoolNum||q.margin<25) scanArmed=true;
     if(q.margin>=25){
       const s=byId.get(String(q.num));
       st.hidden=false;
