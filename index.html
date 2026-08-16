@@ -852,8 +852,10 @@ footer{padding-bottom:12px}
 #scansnap .pi,#scanpickbtn .pi,.scanbtns .pi{width:16px;height:16px;vertical-align:-3px}
 
 /* ---- 3a: the map as one page ---- */
-.bhead{display:flex;align-items:center;justify-content:space-between;
-  max-width:560px;margin:0 auto 12px;font-family:'Inter',system-ui,sans-serif}
+/* the overlay's fixed ✕ lives at top-right: keep the header buttons clear of it */
+.bhead{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  max-width:560px;margin:0 auto 12px;padding-right:52px;
+  font-family:'Inter',system-ui,sans-serif}
 .bhtxt span{font-size:12px;color:var(--n-m6)}
 .bhtxt h2{margin:0;font-size:20px;font-weight:500;letter-spacing:-.01em;
   color:var(--n-txt);font-family:inherit}
@@ -1070,6 +1072,113 @@ footer{padding-bottom:12px}
 .bsessbtns .nghost.wide{width:auto;padding:0 14px;font-size:13px}
 .bsessionbar .btfoot{margin-top:8px}
 
+/* ---- 4a: search results as rows ---- */
+#results{max-width:640px;margin:0 auto}
+.rrow{display:flex;align-items:center;gap:11px;padding:11px 0;cursor:pointer;
+  box-shadow:inset 0 -1px 0 var(--n-e9);font-family:'Inter',system-ui,sans-serif;
+  color:var(--n-txt)}
+.rrow img{width:40px;height:56px;border-radius:4px;object-fit:cover;object-position:top;
+  flex:none;background:var(--n-tint)}
+.rrtxt{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.rrname{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rrtxt small{font-size:11px;color:var(--n-m5);font-variant-numeric:tabular-nums}
+.rrow.want{opacity:.6}
+.rrow.want .rrtxt small{color:var(--n-a3)}
+.rrpill{font-size:11px;color:var(--n-a3);background:var(--n-tint);border-radius:99px;
+  padding:4px 9px;flex:none;white-space:nowrap}
+.rrplus{width:36px;height:36px;border-radius:8px;flex:none;display:grid;place-items:center;
+  box-shadow:0 0 0 1px var(--n-a6);color:var(--n-a3);font-size:20px;line-height:1;
+  cursor:pointer;user-select:none}
+.rrplus:active{transform:scale(.9)}
+.rrow .scl{font-style:normal;font-size:10px;font-weight:700;background:var(--n-acc);
+  color:#fff;border-radius:99px;padding:1px 5px;margin-left:3px}
+
+/* ---- 4b: the card as the add screen ---- */
+.ovqrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ovqty{display:block}
+.ovtrade{display:flex;align-items:center;gap:10px;margin-top:11px;padding-top:11px;
+  box-shadow:inset 0 1px 0 var(--n-e8);font-size:14px;color:var(--n-txt)}
+.ovtrade .pi{color:var(--n-a4);flex:none}
+.ovtrade span{flex:1;text-align:left}
+.ovtrade.off{opacity:.45}
+.pillsw{width:44px;height:26px;border-radius:99px;border:0;flex:none;cursor:pointer;
+  background:var(--n-e9);box-shadow:inset 0 0 0 1px var(--n-e8);padding:3px;
+  display:flex;justify-content:flex-start}
+.pillsw i{width:20px;height:20px;border-radius:50%;background:var(--n-m6);
+  transition:background .15s ease}
+.pillsw.on{background:#423a6a;box-shadow:inset 0 0 0 1px var(--n-a6);justify-content:flex-end}
+.pillsw.on i{background:var(--n-a3)}
+.ovsavenote{font-size:12px;color:var(--n-m6);margin:0 0 10px;text-align:left;
+  font-family:'Inter',system-ui,sans-serif;line-height:1.5}
+/* the language pickers become Nocturne pills (4b) */
+.ovlang{border:0;gap:6px;display:inline-flex;flex-wrap:wrap;justify-content:center}
+.ovlang button{border-radius:99px!important;font-size:13px;background:none;
+  box-shadow:0 0 0 1px var(--n-e8);color:var(--n-b2);
+  font-family:'Inter',system-ui,sans-serif}
+.ovlang button[aria-pressed="true"]{background:var(--n-tint);color:var(--n-a3);
+  box-shadow:0 0 0 1px var(--n-a6);font-weight:500}
+
+/* ---- 2b/2c: the deck lab on the Nocturne palette ---- */
+.dtabs{display:flex;gap:22px;border:0;border-radius:0;overflow:visible;width:auto;
+  box-shadow:inset 0 -1px 0 var(--n-e9);max-width:560px;margin:0 auto 14px;
+  font-family:'Inter',system-ui,sans-serif}
+.dtabs button,.qmodes button{flex:0 0 auto;font-size:14px;padding:0 0 9px;min-height:0;
+  background:none;border:0;color:var(--n-m5);font-family:inherit;cursor:pointer}
+.dtabs button[aria-pressed="true"],.qmodes button[aria-pressed="true"]{
+  background:none;color:var(--n-txt);font-weight:500;box-shadow:inset 0 -2px 0 var(--n-a4)}
+.qmodes{display:flex;gap:18px;border:0;border-radius:0;overflow:visible;width:auto;
+  box-shadow:inset 0 -1px 0 var(--n-e9);margin-bottom:14px;justify-content:center;
+  font-family:'Inter',system-ui,sans-serif}
+.dstatus{background:var(--n-bg);gap:8px;font-family:'Inter',system-ui,sans-serif;
+  max-width:560px;margin:0 auto;padding-bottom:12px}
+.dstatus .ok{color:var(--n-a3);font-weight:500;font-size:13px}
+.dstatus .bad{color:#F09090;font-weight:500;font-size:13px}
+#dmiss{color:var(--n-m5)!important}
+/* block, not flex: an auto margin inside a flex column shrinks each row to
+   its own content — that is what made the energy rows sit ragged */
+.dsplitrow{display:block;margin:0}
+.dprob{max-width:560px;margin:0 auto 10px;color:#F09090;font-family:'Inter',system-ui,sans-serif}
+.dneed{max-width:560px;margin:0 auto 10px;color:var(--n-m5);font-family:'Inter',system-ui,sans-serif}
+.dneed b{color:var(--n-txt);font-weight:500}
+.etype{background:var(--n-tint);color:var(--n-a3);border:0;font-weight:500;
+  padding:4px 9px;margin:0 4px 4px 0;font-family:'Inter',system-ui,sans-serif}
+.dctl{max-width:560px;margin:0 auto 10px}
+.dctl input{background:var(--n-sur);border:0;box-shadow:0 0 0 1px var(--n-e8);
+  color:var(--n-txt);border-radius:8px}
+.dsavebtn{background:none;border:1px solid var(--n-acc);color:var(--n-a3);border-radius:8px;
+  font-weight:500;font-family:'Inter',system-ui,sans-serif;display:inline-flex;
+  align-items:center;gap:6px}
+.dsavebtn .pi{width:16px;height:16px}
+.pool{max-width:560px;margin:0 auto}
+.pool button{background:var(--n-sur);border:0;box-shadow:0 0 0 1px var(--n-e8);
+  border-radius:8px;margin-bottom:6px;color:var(--n-txt);
+  font-family:'Inter',system-ui,sans-serif}
+.pool button small{color:var(--n-m5)}
+.myrow{background:var(--n-sur);border:0;box-shadow:0 0 0 1px var(--n-e8);border-radius:8px;
+  color:var(--n-txt);font-family:'Inter',system-ui,sans-serif}
+.myrow .nm2{font-weight:500}
+.myrow small{color:var(--n-m5)}
+.myrow button{background:none;border:0;box-shadow:0 0 0 1px var(--n-e8);border-radius:8px;
+  color:var(--n-b2);font-weight:500;font-family:inherit}
+.dcard{background:var(--n-sur);border:0;box-shadow:0 0 0 1px var(--n-e8);border-radius:14px;
+  font-family:'Inter',system-ui,sans-serif}
+.dcard h3{font-family:inherit;font-size:16px;font-weight:500;color:var(--n-txt)}
+.dcard .lvl{background:var(--n-tint);color:var(--n-a3);font-weight:500}
+.dcard p{color:var(--n-m5)}
+.dcard p b{color:var(--n-txt);font-weight:500}
+.dcard .own{color:var(--n-m5)}
+.combo{border-left:2px solid var(--n-a6);color:var(--n-b2)}
+.combo b{color:var(--n-txt);font-weight:500}
+.upg{background:var(--n-nav);border-radius:8px;color:var(--n-b2)}
+.upg b{color:var(--n-txt);font-weight:500}
+.ownbar{background:var(--n-e9)}
+.ownbar i{background:var(--n-a4)}
+.dlistbox span.has{color:var(--n-txt)}
+.tag2.p{background:var(--n-a6);color:#fff}
+.tag2.t{background:var(--n-e8);color:var(--n-b2)}
+.tag2.ace{background:var(--n-a4);color:var(--n-bg)}
+.tag2.no{background:none;box-shadow:inset 0 0 0 1px var(--n-e8);color:var(--n-m5)}
+
 /* wider screens: the phone design scales up gently (desktop is not a
    designed layout yet — tiles stay card-sized, the tab bar clusters) */
 @media(min-width:700px){
@@ -1124,6 +1233,7 @@ footer{padding-bottom:12px}
 <symbol id="i-camera-rotate" viewBox="0 0 256 256"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM176,96v24a8,8,0,0,1-8,8H144a8,8,0,0,1,0-16h5.15a32.12,32.12,0,0,0-40.34-1.61A8,8,0,0,1,99.19,97.6,48.21,48.21,0,0,1,160,100.23V96a8,8,0,0,1,16,0Zm-17.61,59.2a8,8,0,0,1-1.58,11.2A48.21,48.21,0,0,1,96,163.77V168a8,8,0,0,1-16,0V144a8,8,0,0,1,8-8h24a8,8,0,0,1,0,16h-5.15a32.12,32.12,0,0,0,40.34,1.61A8,8,0,0,1,158.39,155.2Z"/></symbol>
 <symbol id="i-lightning" viewBox="0 0 256 256"><path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17ZM109.37,214l10.47-52.38a8,8,0,0,0-5-9.06L62,132.71l84.62-90.66L136.16,94.43a8,8,0,0,0,5,9.06l52.8,19.8Z"/></symbol>
 <symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
+<symbol id="i-copy" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"/></symbol>
 <symbol id="i-magic-wand" viewBox="0 0 256 256"><path d="M48,64a8,8,0,0,1,8-8H72V40a8,8,0,0,1,16,0V56h16a8,8,0,0,1,0,16H88V88a8,8,0,0,1-16,0V72H56A8,8,0,0,1,48,64ZM184,192h-8v-8a8,8,0,0,0-16,0v8h-8a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16Zm56-48H224V128a8,8,0,0,0-16,0v16H192a8,8,0,0,0,0,16h16v16a8,8,0,0,0,16,0V160h16a8,8,0,0,0,0-16ZM219.31,80,80,219.31a16,16,0,0,1-22.62,0L36.68,198.63a16,16,0,0,1,0-22.63L176,36.69a16,16,0,0,1,22.63,0l20.68,20.68A16,16,0,0,1,219.31,80Zm-54.63,32L144,91.31l-96,96L68.68,208ZM208,68.69,187.31,48l-32,32L176,100.69Z"/></symbol>
 </defs></svg>
 
@@ -1266,6 +1376,7 @@ footer{padding-bottom:12px}
     <div id="aboutfacts"></div>
   </details>
 
+  <div id="results" hidden></div>
   <div id="grid"></div>
   <div id="empty" class="empty" hidden><p>Niets gevonden</p><p class="sub" id="emptymsg"></p></div>
   <button class="bnudge" id="scanshort" type="button">
@@ -1291,13 +1402,23 @@ footer{padding-bottom:12px}
       <button id="ovtomap" class="nlink" type="button">Bekijk in map</button>
       <div class="ovpr" id="ovpr"></div>
       <div class="ovqty">
-        <div class="ovqtxt"><span>Hoeveel heb ik?</span><small id="ovqsub">nog niet in je collectie</small></div>
-        <div class="dupctl">
-          <button id="ovqminus" class="dstepbtn" type="button" aria-label="Eén minder">−</button>
-          <b id="ovqn">0</b>
-          <button id="ovqplus" class="dstepbtn plus" type="button" aria-label="Eén meer">+</button>
+        <div class="ovqrow">
+          <div class="ovqtxt"><span>Hoeveel heb ik?</span><small id="ovqsub">nog niet in je collectie</small></div>
+          <div class="dupctl">
+            <button id="ovqminus" class="dstepbtn" type="button" aria-label="Eén minder">−</button>
+            <b id="ovqn">0</b>
+            <button id="ovqplus" class="dstepbtn plus" type="button" aria-label="Eén meer">+</button>
+          </div>
+        </div>
+        <div class="ovtrade" id="ovtrade">
+          <svg class="pi" aria-hidden="true"><use href="#i-copy"/></svg>
+          <span>Dubbel te ruilen zetten</span>
+          <button id="ovtradesw" class="pillsw" type="button" role="switch" aria-checked="false"
+                  aria-label="Dubbel te ruilen zetten"><i></i></button>
         </div>
       </div>
+      <p class="ovsavenote">Alles bewaart zichzelf. Zet je het aantal op 0, dan gaat de kaart uit je
+        collectie — dat vragen we één keer na.</p>
       <button id="ovwish" type="button" hidden></button>
       <div id="ovmy" hidden><span>Mijn kaart is</span>
         <div class="ovlang" id="ovmybtns">
@@ -1662,13 +1783,16 @@ footer{padding-bottom:12px}
   </div>
 
   <footer>
-    Tik op een kaart om ze te verzamelen — het bericht zegt in welke pagina en welk vakje
-    van je map ze hoort (je kiest zelf het formaat van je map, op kaartnummer gesorteerd).
-    Tik je op een kaart die je al hebt, dan opent ze groot; verwijderen gebeurt daar en vraagt
-    twee keer bevestiging. Met 🔍 bekijk je een kaart zonder ze te verzamelen.
-    Met de 📷-knop scan je een echte kaart met de camera: de app herkent ze (ook Franse en
-    Japanse exemplaren) en vinkt ze na jouw bevestiging af — alles gebeurt op je telefoon zelf,
-    er wordt niets geüpload.<br><br>
+    Tik op een kaart om ze groot te bekijken; met de +-knop zet je er één bij zonder het scherm
+    te verlaten. Lang drukken op diezelfde + haalt er één af. Op de kaart zelf staat hoeveel
+    exemplaren je hebt, in welke taal, en in welke pagina en welk vakje van je map ze hoort
+    (je kiest zelf het formaat van je map, op kaartnummer gesorteerd). Alles bewaart zichzelf —
+    zet je het aantal op 0, dan vragen we dat één keer na. Voor een hele stapel zet je in de map
+    <b>Snel toevoegen</b> aan: elke tik op een vakje telt er één bij, en de balk onderaan houdt
+    bij wat je toevoegde tot jij op Klaar tikt.<br><br>
+    Met de Scan-knop herken je een echte kaart met de camera (ook Franse en Japanse exemplaren).
+    De kaart landt meteen in je map, met het juiste vakje al aangeduid — alles gebeurt op je
+    telefoon zelf, er wordt niets geüpload.<br><br>
     Prijzen zijn Cardmarket-gemiddelden over 30 dagen, opgehaald via de Pokémon TCG API en één
     keer per dag ververst. ▲ of ▼ betekent dat het gemiddelde van de voorbije week minstens 5%
     hoger of lager ligt dan dat van 30 dagen — die kaart gaat omhoog of omlaag. Het is een ruwe
@@ -1773,7 +1897,7 @@ function paint(){
   const per=new Map(); for(const r of secs.keys()) per.set(r,{have:0,vis:0});
   visList.length=0;
 
-  let best=null, bestP=0, dupN=0, dupV=0, wishN=0, wishV=0, frC=0, jaC=0;
+  let best=null, bestP=0, dupN=0, dupV=0, wishN=0, wishV=0, frC=0, jaC=0, tradeN=0;
   for(const s of ORDER){
     const p=priceOf(s); totalV+=p;
     const has=owned.has(s.id);
@@ -1783,7 +1907,7 @@ function paint(){
       if(langMap[s.id]==="fr") frC++; else if(langMap[s.id]==="ja") jaC++;
     }
     const dc=dupes[s.id]||0;
-    if(dc){ dupN+=dc; dupV+=dc*p; }
+    if(dc){ dupN+=dc; dupV+=dc*p; if(trade.has(s.id)) tradeN+=dc; }
     if(wish.has(s.id)&&!has){ wishN++; wishV+=p; }
 
     let ok=true;
@@ -1841,7 +1965,8 @@ function paint(){
   bw.dataset.slot=best?best.id:"";
   if(best) document.getElementById("stBest").textContent=`${best.name}${best.rev?" REV":""} ${eur(bestP)}`;
   document.getElementById("stDupWrap").hidden=!dupN;
-  if(dupN) document.getElementById("stDup").textContent=`${dupN} (${eur(dupV)})`;
+  if(dupN) document.getElementById("stDup").textContent=
+    `${dupN} (${eur(dupV)})`+(tradeN?` · ${tradeN} te ruilen`:"");
   document.getElementById("stWishWrap").hidden=!wishN;
   if(wishN) document.getElementById("stWish").textContent=`${wishN} te vinden (${eur(wishV)})`;
   const langMix=haveN>0&&(frC+jaC)>0;
@@ -1854,10 +1979,16 @@ function paint(){
   }
 
   const rc=document.getElementById("rescount");
-  if(homeView==="1a"){
+  const onHome=homeView==="1a";
+  searching=q!=="";
+  if(onHome){
     rc.hidden=false;
     rc.textContent=`${shown} kaart${shown===1?"":"en"} · tik voor de kaart, + om toe te voegen`;
   }
+  // searching swaps the sectioned grid for the result list (4a)
+  document.getElementById("results").hidden=!(onHome&&searching);
+  grid.hidden=!onHome||searching;
+  if(onHome&&searching) renderResults();
   emptyEl.hidden=shown>0;
   document.getElementById("emptymsg").textContent =
     view==="need" ? "Elke kaart in deze filter heb je al."
@@ -1912,6 +2043,10 @@ function setOwned(id,on){
       delete langMap[id];
       try{ localStorage.setItem(LKEY,JSON.stringify(langMap)); }catch(e){}
       applyArt(id);
+    }
+    loadTrade();                 // ...nor a spare to trade
+    if(trade.delete(id)){
+      try{ localStorage.setItem(TKEY,JSON.stringify([...trade])); }catch(e){}
     }
   }
   paint();
@@ -2179,6 +2314,67 @@ function subOne(id){
   }else setQty(id,q-1);
   if(!ov.hidden&&cur&&cur.id===id) paintOvTick();
 }
+/* which duplicates are offered for trade (4b) */
+const TKEY="twm:trade";
+let trade=new Set();
+function loadTrade(){ try{ const s=localStorage.getItem(TKEY); trade=s?new Set(JSON.parse(s)):new Set(); }catch(e){} }
+function setTrade(id,on){
+  loadTrade();
+  on?trade.add(id):trade.delete(id);
+  try{ localStorage.setItem(TKEY,JSON.stringify([...trade])); }catch(e){}
+  paint();
+}
+/* 4a: while searching, the rarity grid gives way to result rows — each row
+   says what you own, where it lives, and adds a copy without leaving */
+function myThumb(s){
+  const my=langMap[s.id];
+  if(my==="fr") return `https://assets.tcgdex.net/fr/sv/sv06/${pad3(s.num)}/low.webp`;
+  if(my==="ja"&&JPX[s.num]) return `https://assets.tcgdex.net/ja/SV/${JPX[s.num][0]}/low.webp`;
+  return img(s.num);
+}
+function renderResults(){
+  document.getElementById("results").innerHTML=visList.map(s=>{
+    const q=owned.has(s.id)?1+(dupes[s.id]||0):0;
+    const b=binderPos(s), my=langMap[s.id];
+    return `<div class="rrow${q?"":" want"}" data-id="${s.id}" role="button" tabindex="0">
+      <img loading="lazy" decoding="async" alt="" src="${myThumb(s)}"
+           onerror="this.onerror=null;this.src='${img(s.num)}'">
+      <span class="rrtxt">
+        <span class="rrname">${s.name}${s.rev?" reverse holo":""}${
+          my?` <i class="scl">${my==="fr"?"FR":"JP"}</i>`:""}</span>
+        <small>#${pad3(s.num)} · ${eur(priceOf(s))} · ${
+          q?`pagina ${b.page}, vakje ${b.pocket}`:"nog nodig"}</small>
+      </span>
+      ${q?`<span class="rrpill">heb ik${q>1?` ×${q}`:""}</span>`:""}
+      <span class="rrplus" role="button" tabindex="0" aria-label="Eén ${s.name} toevoegen">+</span>
+    </div>`;
+  }).join("");
+}
+const results=document.getElementById("results");
+results.addEventListener("pointerdown",e=>{
+  const p=e.target.closest(".rrplus"); if(!p) return;
+  qHeld=false;
+  qHoldT=setTimeout(()=>{ qHeld=true; subOne(p.closest(".rrow").dataset.id); },550);
+});
+results.addEventListener("pointerup",()=>clearTimeout(qHoldT));
+results.addEventListener("pointercancel",()=>clearTimeout(qHoldT));
+results.addEventListener("click",e=>{
+  const p=e.target.closest(".rrplus");
+  if(p){
+    if(qHeld){ qHeld=false; return; }
+    addOne(p.closest(".rrow").dataset.id);
+    return;
+  }
+  const row=e.target.closest(".rrow");
+  if(row) openOv(row.dataset.id);
+});
+results.addEventListener("keydown",e=>{
+  if(e.key!=="Enter"&&e.key!==" ") return;
+  const p=e.target.closest(".rrplus");
+  if(p){ e.preventDefault(); e.stopPropagation(); addOne(p.closest(".rrow").dataset.id); return; }
+  const row=e.target.closest(".rrow");
+  if(row){ e.preventDefault(); openOv(row.dataset.id); }
+});
 let qHoldT=null, qHeld=false;
 grid.addEventListener("pointerdown",e=>{
   const q=e.target.closest(".qadd"); if(!q) return;
@@ -2304,8 +2500,22 @@ function paintOvTick(){
     q===0?"nog niet in je collectie"
     :q===1?"1 in de map"
     :`1 in de map · ${q-1} dubbel${q>2?"s":""}`;
+  // the trade switch only means something once you have a spare
+  loadTrade();
+  const can=q>=2, on=can&&trade.has(cur.id);
+  const sw=document.getElementById("ovtradesw");
+  document.getElementById("ovtrade").classList.toggle("off",!can);
+  sw.disabled=!can;
+  sw.setAttribute("aria-checked",String(on));
+  sw.classList.toggle("on",on);
   paintMy(); paintWish();
 }
+document.getElementById("ovtradesw").addEventListener("click",()=>{
+  if(!cur||qtyOf(cur.id)<2) return;
+  loadTrade();
+  setTrade(cur.id,!trade.has(cur.id));
+  paintOvTick();
+});
 document.getElementById("ovqplus").addEventListener("click",()=>{ if(cur) addOne(cur.id); });
 document.getElementById("ovqminus").addEventListener("click",()=>{ if(cur) subOne(cur.id); });
 document.getElementById("ovtomap").addEventListener("click",()=>{
@@ -3318,7 +3528,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v45";   // bump with the service worker, so these load fresh per release
+const APPV="v46";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -3831,9 +4041,9 @@ function askTiltPermission(){
 }
 
 /* ---------- backup & restore (import merges, never deletes) ---------- */
-const BK_KEYS=["twm:collection","twm:langmap","twm:doubles","twm:wish",
+const BK_KEYS=["twm:collection","twm:langmap","twm:doubles","twm:wish","twm:trade",
                "twm:milestones","twm:quizbest","twm:quizbest2","twm:lang","twm:bpage",
-               "twm:deck","twm:binderfmt","twm:mydecks"];
+               "twm:deck","twm:binderfmt","twm:mydecks","twm:homeview","twm:valuehist"];
 document.getElementById("bkexp").addEventListener("click",async()=>{
   const data={};
   for(const k of BK_KEYS){ const v=localStorage.getItem(k); if(v!==null) data[k]=v; }
@@ -3862,6 +4072,9 @@ document.getElementById("bkfile").addEventListener("change",async e=>{
   const dp=parse("twm:doubles",{}); for(const k in dp) dupes[k]=Math.max(dupes[k]||0,dp[k]);
   for(const id of parse("twm:wish",[])) wish.add(id);
   for(const id of owned) wish.delete(id);   // nothing already collected stays wished
+  loadTrade();
+  for(const id of parse("twm:trade",[])) trade.add(id);
+  try{ localStorage.setItem(TKEY,JSON.stringify([...trade])); }catch(err){}
   let ms; try{ ms=new Set(JSON.parse(localStorage.getItem(MKEY)||"[]")); }catch(err){ ms=new Set(); }
   for(const m of parse("twm:milestones",[])) ms.add(m);
   try{                                            // quiz records: keep the highest per game
@@ -4386,7 +4599,7 @@ const GREETTXT=(()=>{
 document.getElementById("greet").textContent=GREETTXT;
 
 /* ---- three home views: 1a Verzamelen / 1b Overzicht / 1c Vandaag ---- */
-let HOMESTATS=null;
+let HOMESTATS=null, searching=false;
 const HVKEY="twm:homeview", VHKEY="twm:valuehist";
 let homeView="1a";
 try{ const v=localStorage.getItem(HVKEY); if(v==="1b"||v==="1c") homeView=v; }catch(e){}
@@ -4557,6 +4770,11 @@ function renderVandaag(){
 /* the "Nog te vinden" preview and "Bijna compleet" rows follow the live
    collection: rebuilt by paint() via this hook */
 function buildHomeExtras(){
+  // searching turns the page into the result list: hero, previews and the
+  // set story step aside so the results own the screen (4a)
+  const onHome1a=homeView==="1a";
+  document.querySelector(".hero").hidden=!onHome1a||searching;
+  document.querySelector(".about").hidden=!onHome1a||searching;
   // hero: first-run line instead of a wall of zeros (FIXES §2)
   const zero=!HOMESTATS||HOMESTATS.haveN===0;
   document.getElementById("heroline").hidden=zero;
@@ -4578,7 +4796,7 @@ function buildHomeExtras(){
       if(missing.length===3) break;
     }
     const missTotal=SLOTS.reduce((n,s)=>n+(owned.has(s.id)?0:1),0);
-    document.getElementById("misssec").hidden=missTotal===0||homeView!=="1a";
+    document.getElementById("misssec").hidden=missTotal===0||!onHome1a||searching;
     mr.innerHTML="";
     for(const s of missing){
       const b=document.createElement("button");
@@ -4622,14 +4840,14 @@ function buildHomeExtras(){
       });
       rr.appendChild(d);
     }
-    document.getElementById("rarsec").hidden=!rows.length||homeView!=="1a";
+    document.getElementById("rarsec").hidden=!rows.length||!onHome1a||searching;
   }
   snapshotValue();
   renderOverzicht();
   renderVandaag();
 }
 
-build(); loadLangMap(); loadDupes(); loadWish();
+build(); loadLangMap(); loadDupes(); loadWish(); loadTrade();
 setHomeView(homeView,true);   // restore the last-used home view before first paint
 applyAllArt(); applyAllDup(); applyAllWish(); paint(); loadFrNames();
 
