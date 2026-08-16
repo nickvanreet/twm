@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700..800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700..800&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --night:#141033; --deep:#0D0A22; --panel:#1E1846; --panel2:#241C52;
@@ -646,6 +646,134 @@ body.lock{overflow:hidden}
 .empty p:first-child{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin:0 0 4px}
 footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.22);font-size:11px;color:var(--mute);line-height:1.6}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ============== Collectie Home — Nocturne tokens (design 1a) ============== */
+:root{--n-bg:#161826;--n-sur:#232532;--n-nav:#1b1d2c;--n-tint:#2b2741;--n-txt:#e9e9ed;
+  --n-acc:#9184d9;--n-a3:#d2cefd;--n-a4:#b5abfc;--n-a6:#796cbf;
+  --n-m5:#9397ab;--n-m6:#75798c;--n-e8:#3f424d;--n-e9:#292b31;--n-b2:#b2b6ca}
+body{background:var(--n-bg);padding-bottom:calc(86px + env(safe-area-inset-bottom))}
+.pi{width:20px;height:20px;fill:currentColor;flex:none}
+
+.hgreet{display:flex;align-items:center;justify-content:space-between;
+  margin:calc(8px + env(safe-area-inset-top)) 0 17px;font-family:'Inter',system-ui,sans-serif}
+.hgtxt{display:flex;flex-direction:column;gap:1px}
+#greet{font-size:12px;color:var(--n-m6)}
+.htitle{margin:0;font-family:'Inter',system-ui,sans-serif;font-size:20px;font-weight:500;
+  letter-spacing:-.01em;color:var(--n-txt)}
+#moonbtn{background:var(--n-e9);border:0;border-radius:50%;width:38px;height:38px;
+  box-shadow:0 0 0 1px var(--n-e8);cursor:pointer;padding:2px;line-height:0}
+
+.srow{display:flex;gap:8px;margin-bottom:17px;font-family:'Inter',system-ui,sans-serif}
+.searchbox{flex:1;display:flex;align-items:center;gap:8px;height:40px;padding:0 11px;
+  border-radius:8px;background:var(--n-sur);box-shadow:0 0 0 1px var(--n-e8);color:var(--n-m6)}
+.searchbox input{flex:1;border:0;background:none;color:var(--n-txt);font-size:16px;
+  font-family:inherit;outline:none;padding:0;min-width:0;min-height:0}
+#filtbtn{width:40px;height:40px;flex:none;border-radius:8px;border:0;background:var(--n-sur);
+  box-shadow:0 0 0 1px var(--n-e8);color:var(--n-b2);cursor:pointer;display:grid;place-items:center}
+#filtbtn.on{color:var(--n-a4);box-shadow:0 0 0 1px var(--n-a6)}
+
+.filtersheet{margin:-6px 0 17px;padding:11px;border-radius:8px;background:var(--n-nav);
+  box-shadow:0 0 0 1px var(--n-e8);display:flex;flex-direction:column;gap:8px}
+
+.hero{border-radius:14px;overflow:hidden;background:var(--n-sur);
+  box-shadow:0 0 0 1px var(--n-e8);margin-bottom:17px;font-family:'Inter',system-ui,sans-serif}
+.heroart{height:132px;position:relative;
+  background:url("art/band-ursaluna-r.webp") 64% 30%/cover no-repeat var(--n-tint);
+  display:flex;align-items:flex-end;padding:11px 14px}
+.heroart #setlogo{width:150px;max-width:150px;filter:drop-shadow(0 2px 10px rgba(0,0,0,.75))}
+.heropill{position:absolute;top:11px;right:14px;font-size:11px;color:var(--n-a3);
+  background:rgba(22,24,38,.72);padding:4px 8px;border-radius:999px}
+.herobody{padding:14px;display:flex;flex-direction:column;gap:11px}
+.herotitle{font-size:18px;font-weight:500;letter-spacing:-.01em;color:var(--n-txt)}
+.herometa{font-size:12px;color:var(--n-m6);margin-top:-8px}
+.hero .bar{margin-bottom:0;height:6px;background:var(--n-e9);box-shadow:none}
+.hero .bar i{background:var(--n-a4);box-shadow:none;min-width:8px}
+.hero #barpct{display:none}
+.hero .bar s{font-size:9px}
+.herostats{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:12px;color:var(--n-b2)}
+.herostats .count{font-family:'Inter',system-ui,sans-serif;font-size:12px;
+  color:var(--n-b2);font-weight:400}
+.herostats .count #have{color:var(--n-txt);font-weight:600}
+.herostats .count span{font-size:inherit}
+.heur b{color:var(--n-txt);font-weight:500;font-variant-numeric:tabular-nums}
+.heroacts{display:flex;gap:8px}
+.nbtn{font-family:'Inter',system-ui,sans-serif;font-size:14px;font-weight:500;min-height:40px;
+  border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.nprim{flex:1;background:none;border:1px solid var(--n-acc);color:var(--n-a3)}
+.nprim:active{background:rgba(145,132,217,.14)}
+.nghost{width:44px;border:1px solid var(--n-e8);background:none;color:var(--n-b2)}
+
+.nsec{margin-bottom:17px;font-family:'Inter',system-ui,sans-serif}
+.nsechead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:11px}
+.nsechead>span{font-size:15px;font-weight:500;color:var(--n-txt)}
+.nlink{font-family:inherit;font-size:12px;color:var(--n-a4);background:none;border:0;
+  cursor:pointer;padding:0}
+.nlink b{color:inherit;font-weight:600}
+.missrow{display:flex;gap:8px}
+.misscard{flex:1;position:relative;aspect-ratio:5/7;border-radius:8px;overflow:hidden;
+  border:0;padding:0;background:var(--n-e9);box-shadow:0 0 0 1px var(--n-e8);cursor:pointer}
+.misscard img{width:100%;height:100%;object-fit:cover;display:block}
+.misscard span{position:absolute;left:6px;bottom:6px;font-family:ui-monospace,monospace;
+  font-size:9px;color:#fff;background:rgba(22,24,38,.72);padding:2px 5px;border-radius:4px}
+.missmore{flex:1;aspect-ratio:5/7;border-radius:8px;border:0;padding:0;background:none;
+  box-shadow:0 0 0 1px var(--n-e8);color:var(--n-a4);font-family:inherit;font-size:14px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer}
+.missmore small{font-size:11px;color:var(--n-m6)}
+.rarrow{width:100%;display:flex;align-items:center;gap:11px;padding:8px;margin-bottom:8px;
+  border-radius:8px;background:var(--n-sur);border:0;cursor:pointer;
+  font-family:inherit;text-align:left;color:var(--n-txt)}
+.rarrow img{width:34px;height:34px;border-radius:4px;object-fit:cover;object-position:top}
+.rrmid{flex:1;display:flex;flex-direction:column;gap:5px;min-width:0}
+.rrmid>span{font-size:13px}
+.rrtrack{display:block;height:4px;border-radius:999px;background:var(--n-e9);overflow:hidden}
+.rrtrack i{display:block;height:100%;background:var(--n-a6)}
+.rarrow b{font-size:13px;color:var(--n-a3);font-weight:500;font-variant-numeric:tabular-nums}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:35;display:flex;
+  justify-content:space-around;align-items:flex-end;
+  padding:10px 8px calc(10px + env(safe-area-inset-bottom));
+  background:var(--n-nav);box-shadow:0 -1px 0 var(--n-e9);
+  font-family:'Inter',system-ui,sans-serif}
+.tb,.tbscan{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;
+  background:none;color:var(--n-m6);font-size:10px;font-family:inherit;cursor:pointer;padding:0}
+.tb .pi{width:21px;height:21px}
+.tb.on{color:var(--n-a4)}
+.tb:active,.tbscan:active{transform:scale(.94)}
+.tbscan{color:var(--n-a3);gap:6px;margin-bottom:-2px}
+.tbring{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  background:var(--n-tint);box-shadow:0 0 0 1px var(--n-a6),0 0 24px rgba(181,171,252,.28)}
+.tbscan .pi{width:24px;height:24px}
+
+#ikwrap{position:fixed;inset:0;z-index:38}
+.ikback{position:absolute;inset:0;background:rgba(10,9,20,.6)}
+.iksheet{position:absolute;left:0;right:0;bottom:calc(62px + env(safe-area-inset-bottom));
+  max-height:70vh;overflow-y:auto;border-radius:14px 14px 0 0;background:var(--n-nav);
+  box-shadow:0 0 0 1px var(--n-e8);padding:8px 14px 14px;
+  font-family:'Inter',system-ui,sans-serif}
+.ikgrip{width:36px;height:4px;border-radius:99px;background:var(--n-e8);margin:4px auto 10px}
+.iksheet .stats{margin-bottom:8px}
+.ikrow{width:100%;display:flex;align-items:center;gap:11px;padding:12px 2px;border:0;
+  background:none;color:var(--n-txt);font-family:inherit;font-size:14px;text-align:left;
+  cursor:pointer;box-shadow:inset 0 -1px 0 var(--n-e9)}
+.ikrow>.pi:first-child{color:var(--n-a4)}
+.ikrow span{flex:1;display:flex;flex-direction:column;gap:1px}
+.ikrow small{font-size:12px;color:var(--n-m6)}
+.ikc{color:var(--n-m6);width:16px;height:16px}
+.iksheet #install{margin-top:10px}
+
+footer{padding-bottom:12px}
+
+/* wider screens: the phone design scales up gently (desktop is not a
+   designed layout yet — tiles stay card-sized, the tab bar clusters) */
+@media(min-width:700px){
+  .misscard,.missmore{max-width:150px}
+  .missrow{justify-content:flex-start}
+  .heroart{height:180px}
+  .tabbar{padding-left:calc(50vw - 270px);padding-right:calc(50vw - 270px)}
+  .iksheet{max-width:560px;left:50%;right:auto;transform:translateX(-50%);
+    border-radius:14px 14px 0 0}
+}
 </style>
 </head>
 <body>
@@ -659,73 +787,59 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
   </div>
 </div>
 <div class="wrap">
-  <header>
-    <div class="grow">
-      <h1>
-        <img id="setlogo" src="https://images.pokemontcg.io/sv6/logo.png"
-             alt="Twilight Masquerade" onerror="this.replaceWith('Twilight Masquerade')">
-      </h1>
-      <p class="sub"><img class="setsym" src="https://images.pokemontcg.io/sv6/symbol.png"
-        alt="" onerror="this.remove()"><span>Masterset · <span id="slotcount">0</span> kaarten te vinden</span></p>
+<svg hidden aria-hidden="true"><defs>
+<symbol id="i-books" viewBox="0 0 256 256"><path d="M231.65,194.55,198.46,36.75a16,16,0,0,0-19-12.39L132.65,34.42a16.08,16.08,0,0,0-12.3,19l33.19,157.8A16,16,0,0,0,169.16,224a16.25,16.25,0,0,0,3.38-.36l46.81-10.06A16.09,16.09,0,0,0,231.65,194.55ZM136,50.15c0-.06,0-.09,0-.09l46.8-10,3.33,15.87L139.33,66Zm6.62,31.47,46.82-10.05,3.34,15.9L146,97.53Zm6.64,31.57,46.82-10.06,13.3,63.24-46.82,10.06ZM216,197.94l-46.8,10-3.33-15.87L212.67,182,216,197.85C216,197.91,216,197.94,216,197.94ZM104,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V48A16,16,0,0,0,104,32ZM56,48h48V64H56Zm0,32h48v96H56Zm48,128H56V192h48v16Z"/></symbol>
+<symbol id="i-camera" viewBox="0 0 256 256"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM128,88a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,88Zm0,72a28,28,0,1,1,28-28A28,28,0,0,1,128,160Z"/></symbol>
+<symbol id="i-cards-fill" viewBox="0 0 256 256"><path d="M200,88V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V88A16,16,0,0,1,40,72H184A16,16,0,0,1,200,88Zm16-48H64a8,8,0,0,0,0,16H216V176a8,8,0,0,0,16,0V56A16,16,0,0,0,216,40Z"/></symbol>
+<symbol id="i-cards" viewBox="0 0 256 256"><path d="M184,72H40A16,16,0,0,0,24,88V200a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V88A16,16,0,0,0,184,72Zm0,128H40V88H184V200ZM232,56V176a8,8,0,0,1-16,0V56H64a8,8,0,0,1,0-16H216A16,16,0,0,1,232,56Z"/></symbol>
+<symbol id="i-caret-right" viewBox="0 0 256 256"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></symbol>
+<symbol id="i-floppy-disk" viewBox="0 0 256 256"><path d="M219.31,72,184,36.69A15.86,15.86,0,0,0,172.69,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V83.31A15.86,15.86,0,0,0,219.31,72ZM168,208H88V152h80Zm40,0H184V152a16,16,0,0,0-16-16H88a16,16,0,0,0-16,16v56H48V48H172.69L208,83.31ZM160,72a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h56A8,8,0,0,1,160,72Z"/></symbol>
+<symbol id="i-game-controller" viewBox="0 0 256 256"><path d="M176,112H152a8,8,0,0,1,0-16h24a8,8,0,0,1,0,16ZM104,96H96V88a8,8,0,0,0-16,0v8H72a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16ZM241.48,200.65a36,36,0,0,1-54.94,4.81c-.12-.12-.24-.24-.35-.37L146.48,160h-37L69.81,205.09l-.35.37A36.08,36.08,0,0,1,44,216,36,36,0,0,1,8.56,173.75a.68.68,0,0,1,0-.14L24.93,89.52A59.88,59.88,0,0,1,83.89,40H172a60.08,60.08,0,0,1,59,49.25c0,.06,0,.12,0,.18l16.37,84.17a.68.68,0,0,1,0,.14A35.74,35.74,0,0,1,241.48,200.65ZM172,144a44,44,0,0,0,0-88H83.89A43.9,43.9,0,0,0,40.68,92.37l0,.13L24.3,176.59A20,20,0,0,0,58,194.3l41.92-47.59a8,8,0,0,1,6-2.71Zm59.7,32.59-8.74-45A60,60,0,0,1,172,160h-4.2L198,194.31a20.09,20.09,0,0,0,17.46,5.39,20,20,0,0,0,16.23-23.11Z"/></symbol>
+<symbol id="i-gift" viewBox="0 0 256 256"><path d="M216,72H180.92c.39-.33.79-.65,1.17-1A29.53,29.53,0,0,0,192,49.57,32.62,32.62,0,0,0,158.44,16,29.53,29.53,0,0,0,137,25.91a54.94,54.94,0,0,0-9,14.48,54.94,54.94,0,0,0-9-14.48A29.53,29.53,0,0,0,97.56,16,32.62,32.62,0,0,0,64,49.57,29.53,29.53,0,0,0,73.91,71c.38.33.78.65,1.17,1H40A16,16,0,0,0,24,88v32a16,16,0,0,0,16,16v64a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V136a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72ZM149,36.51a13.69,13.69,0,0,1,10-4.5h.49A16.62,16.62,0,0,1,176,49.08a13.69,13.69,0,0,1-4.5,10c-9.49,8.4-25.24,11.36-35,12.4C137.7,60.89,141,45.5,149,36.51Zm-64.09.36A16.63,16.63,0,0,1,96.59,32h.49a13.69,13.69,0,0,1,10,4.5c8.39,9.48,11.35,25.2,12.39,34.92-9.72-1-25.44-4-34.92-12.39a13.69,13.69,0,0,1-4.5-10A16.6,16.6,0,0,1,84.87,36.87ZM40,88h80v32H40Zm16,48h64v64H56Zm144,64H136V136h64Zm16-80H136V88h80v32Z"/></symbol>
+<symbol id="i-magnifying-glass" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></symbol>
+<symbol id="i-moon-stars" viewBox="0 0 256 256"><path d="M240,96a8,8,0,0,1-8,8H216v16a8,8,0,0,1-16,0V104H184a8,8,0,0,1,0-16h16V72a8,8,0,0,1,16,0V88h16A8,8,0,0,1,240,96ZM144,56h8v8a8,8,0,0,0,16,0V56h8a8,8,0,0,0,0-16h-8V32a8,8,0,0,0-16,0v8h-8a8,8,0,0,0,0,16Zm72.77,97a8,8,0,0,1,1.43,8A96,96,0,1,1,95.07,37.8a8,8,0,0,1,10.6,9.06A88.07,88.07,0,0,0,209.14,150.33,8,8,0,0,1,216.77,153Zm-19.39,14.88c-1.79.09-3.59.14-5.38.14A104.11,104.11,0,0,1,88,64c0-1.79,0-3.59.14-5.38A80,80,0,1,0,197.38,167.86Z"/></symbol>
+<symbol id="i-share-network" viewBox="0 0 256 256"><path d="M176,160a39.89,39.89,0,0,0-28.62,12.09l-46.1-29.63a39.8,39.8,0,0,0,0-28.92l46.1-29.63a40,40,0,1,0-8.66-13.45l-46.1,29.63a40,40,0,1,0,0,55.82l46.1,29.63A40,40,0,1,0,176,160Zm0-128a24,24,0,1,1-24,24A24,24,0,0,1,176,32ZM64,152a24,24,0,1,1,24-24A24,24,0,0,1,64,152Zm112,72a24,24,0,1,1,24-24A24,24,0,0,1,176,224Z"/></symbol>
+<symbol id="i-sliders-horizontal" viewBox="0 0 256 256"><path d="M40,88H73a32,32,0,0,0,62,0h81a8,8,0,0,0,0-16H135a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16Zm64-24A16,16,0,1,1,88,80,16,16,0,0,1,104,64ZM216,168H199a32,32,0,0,0-62,0H40a8,8,0,0,0,0,16h97a32,32,0,0,0,62,0h17a8,8,0,0,0,0-16Zm-48,24a16,16,0,1,1,16-16A16,16,0,0,1,168,192Z"/></symbol>
+<symbol id="i-sparkle" viewBox="0 0 256 256"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"/></symbol>
+<symbol id="i-stack" viewBox="0 0 256 256"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></symbol>
+</defs></svg>
+
+  <div class="hgreet">
+    <div class="hgtxt">
+      <span id="greet">Goedemiddag</span>
+      <h1 class="htitle">Mijn collectie</h1>
     </div>
-    <div class="hright">
-      <div>
-        <div class="count"><span id="have">0</span><span id="of"></span></div>
-        <div class="val" id="value"></div>
-      </div>
-      <button id="moonbtn" type="button" aria-label="Toon mijn verzamelkaart">
-      <svg width="54" height="54" viewBox="0 0 62 62" aria-hidden="true">
+    <button id="moonbtn" type="button" aria-label="Mijn maan-voortgang">
+      <svg width="34" height="34" viewBox="0 0 62 62" aria-hidden="true">
         <title>De maan vult zich naarmate je verzameling groeit</title>
         <defs><clipPath id="mf"><rect id="mfr" x="0" y="62" width="62" height="0"/></clipPath></defs>
-        <circle cx="55" cy="8" r="1.6" fill="#F5B944" opacity=".8"/>
-        <circle cx="6" cy="16" r="1.1" fill="#8B6BC7" opacity=".9"/>
-        <circle cx="59" cy="30" r="1" fill="#8B6BC7" opacity=".7"/>
-        <circle cx="31" cy="31" r="26" fill="none" stroke="#8B6BC7" stroke-width="2" opacity=".45"/>
+        <circle cx="31" cy="31" r="26" fill="none" stroke="#796cbf" stroke-width="3" opacity=".7"/>
         <circle cx="31" cy="31" r="26" fill="#F5B944" clip-path="url(#mf)" opacity=".9"/>
-        <text id="mpct" x="31" y="36" text-anchor="middle" font-size="14" font-weight="700"
-              fill="#F5B944" font-family="Georgia,serif">0%</text>
+        <text id="mpct" x="31" y="37" text-anchor="middle" font-size="16" font-weight="600"
+              fill="#F5B944" font-family="Inter,system-ui,sans-serif">0%</text>
       </svg>
-      </button>
-    </div>
-  </header>
-
-  <div class="bar">
-    <i id="fill" style="width:0%"><em id="barpct">0%</em></i>
-    <s style="left:10%" data-t="10">✦</s>
-    <s style="left:25%" data-t="25">✦</s>
-    <s style="left:50%" data-t="50">✦</s>
-    <s style="left:75%" data-t="75">✦</s>
+    </button>
   </div>
 
-  <div class="stats">
-    <div class="kpi"><small>Nog te vinden</small><b id="stTogo">373</b></div>
-    <div class="kpi gold"><small>Set afmaken</small><b id="stCost">€0</b></div>
-    <div class="kpi" id="stBestWrap" hidden><small>Mijn beste kaart</small><b id="stBest"></b></div>
-    <div class="kpi" id="stDupWrap" hidden><small>Dubbels om te ruilen</small><b id="stDup"></b></div>
-    <div class="kpi" id="stWishWrap" hidden><small>⭐ Wenslijst</small><b id="stWish"></b></div>
-    <div class="kpi" id="stLangWrap" hidden><small>Talen in je verzameling</small><b id="stLang"></b></div>
+  <div class="srow">
+    <label class="searchbox" for="q">
+      <svg class="pi" aria-hidden="true"><use href="#i-magnifying-glass"/></svg>
+      <input id="q" type="search" placeholder="Zoek kaart of nummer (EN/FR)" autocomplete="off" enterkeyhint="search">
+    </label>
+    <button id="filtbtn" type="button" aria-expanded="false" aria-controls="filtersheet"
+            aria-label="Filters tonen of verbergen">
+      <svg class="pi" aria-hidden="true"><use href="#i-sliders-horizontal"/></svg>
+    </button>
   </div>
 
-  <div class="funrow">
-    <button id="btnpack" type="button">🎁 Pakjes</button>
-    <button id="btnbinder" type="button">📖 Map</button>
-    <button id="btnquiz" type="button">🎮 Quiz</button>
-    <button id="btndeck" type="button">🃏 Decks</button>
-    <button id="btnshare" type="button">📸 Delen</button>
-    <button id="cotd" type="button">✨ Dagkaart</button>
-  </div>
-
-  <div class="controls">
-    <input id="q" type="search" placeholder="Zoek een naam (EN of FR) of nummer" autocomplete="off" enterkeyhint="search">
-    <div class="filters">
-      <select id="rarity" aria-label="Filter op zeldzaamheid"><option value="all">Alle zeldzaamheden</option></select>
-      <div class="seg" role="group" aria-label="Tonen">
-        <button data-view="all" aria-pressed="true">Alles</button>
-        <button data-view="need" aria-pressed="false">Nog nodig</button>
-        <button data-view="have" aria-pressed="false">Heb ik</button>
-        <button data-view="dup" aria-pressed="false">Dubbels</button>
-        <button data-view="wish" aria-pressed="false" aria-label="Wenslijst">⭐</button>
-      </div>
+  <div id="filtersheet" class="filtersheet" hidden>
+    <select id="rarity" aria-label="Filter op zeldzaamheid"><option value="all">Alle zeldzaamheden</option></select>
+    <div class="seg" role="group" aria-label="Tonen">
+      <button data-view="all" aria-pressed="true">Alles</button>
+      <button data-view="need" aria-pressed="false">Nog nodig</button>
+      <button data-view="have" aria-pressed="false">Heb ik</button>
+      <button data-view="dup" aria-pressed="false">Dubbels</button>
+      <button data-view="wish" aria-pressed="false" aria-label="Wenslijst">⭐</button>
     </div>
     <div class="tychips" role="group" aria-label="Filter op energietype">
       <button class="ty on" data-ty="">Alle types</button>
@@ -743,7 +857,46 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
     </div>
   </div>
 
-  <button id="install" type="button">Installeer op deze telefoon</button>
+  <div class="hero">
+    <div class="heroart">
+      <img id="setlogo" src="https://images.pokemontcg.io/sv6/logo.png" alt="Twilight Masquerade"
+           onerror="this.remove()">
+      <span class="heropill">Actief</span>
+    </div>
+    <div class="herobody">
+      <div class="herotitle">Twilight Masquerade</div>
+      <div class="herometa">Masterset · <span id="slotcount">373</span> kaarten · Scarlet &amp; Violet</div>
+      <div class="bar">
+        <i id="fill" style="width:0%"><em id="barpct">0%</em></i>
+        <s style="left:10%" data-t="10">✦</s>
+        <s style="left:25%" data-t="25">✦</s>
+        <s style="left:50%" data-t="50">✦</s>
+        <s style="left:75%" data-t="75">✦</s>
+      </div>
+      <div class="herostats">
+        <span class="count"><span id="have">0</span><span id="of"></span></span>
+        <span class="heur">nog <b id="stCost">€0</b> te gaan</span>
+      </div>
+      <div class="heroacts">
+        <button id="herogo" class="nbtn nprim" type="button">Verder verzamelen</button>
+        <button id="btnpack" class="nbtn nghost" type="button" aria-label="Pakje openen">
+          <svg class="pi" aria-hidden="true"><use href="#i-gift"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="nsec">
+    <div class="nsechead"><span>Nog te vinden</span>
+      <button id="misslink" class="nlink" type="button"><b id="stTogo">373</b> kaarten</button>
+    </div>
+    <div class="missrow" id="missrow"></div>
+  </div>
+
+  <div class="nsec" id="rarsec">
+    <div class="nsechead"><span>Bijna compleet</span></div>
+    <div id="rarrows"></div>
+  </div>
 
   <details class="about">
     <summary>🎭 Over deze set</summary>
@@ -905,11 +1058,64 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
 
   <p class="note" id="pricenote">Prijzen van vandaag ophalen…</p>
 
-  <div class="bkrow">
-    <button id="bkexp" type="button">💾 Back-up bewaren</button>
-    <button id="bkimp" type="button">📥 Back-up terugzetten</button>
-    <input id="bkfile" type="file" accept="application/json,.json" hidden>
+  <div id="ikwrap" hidden>
+    <div class="ikback"></div>
+    <div class="iksheet" role="dialog" aria-modal="true" aria-label="Mijn hoek">
+      <div class="ikgrip" aria-hidden="true"></div>
+      <div class="stats">
+        <div class="kpi"><small>Waarde van mijn kaarten</small><b id="value"></b></div>
+        <div class="kpi" id="stBestWrap" hidden><small>Mijn beste kaart</small><b id="stBest"></b></div>
+        <div class="kpi" id="stDupWrap" hidden><small>Dubbels om te ruilen</small><b id="stDup"></b></div>
+        <div class="kpi" id="stWishWrap" hidden><small>⭐ Wenslijst</small><b id="stWish"></b></div>
+        <div class="kpi" id="stLangWrap" hidden><small>Talen in je verzameling</small><b id="stLang"></b></div>
+      </div>
+      <button id="btnquiz" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-game-controller"/></svg>
+        <span>Quiz<small>Kunst, wazig of prijsduel — records per modus</small></span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
+      <button id="cotd" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-sparkle"/></svg>
+        <span>Kaart van de dag<small>Elke dag een andere verrassing</small></span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
+      <button id="btnshare" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-share-network"/></svg>
+        <span>Mijn verzamelkaart<small>Om te delen met vrienden</small></span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
+      <button id="bkexp" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-floppy-disk"/></svg>
+        <span>Back-up bewaren<small>Je hele verzameling als bestand</small></span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
+      <button id="bkimp" class="ikrow" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-floppy-disk"/></svg>
+        <span>Back-up terugzetten<small>Alles komt terug, niets gaat verloren</small></span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>
+      </button>
+      <input id="bkfile" type="file" accept="application/json,.json" hidden>
+      <button id="install" type="button">Installeer op deze telefoon</button>
+    </div>
   </div>
+
+  <nav class="tabbar" aria-label="Navigatie">
+    <button id="tabsets" class="tb on" type="button" aria-current="page">
+      <svg class="pi" aria-hidden="true"><use href="#i-cards-fill"/></svg><span>Set</span>
+    </button>
+    <button id="btnbinder" class="tb" type="button">
+      <svg class="pi" aria-hidden="true"><use href="#i-books"/></svg><span>Map</span>
+    </button>
+    <button id="tabscan" class="tbscan" type="button" aria-label="Scan een kaart met de camera">
+      <span class="tbring"><svg class="pi" aria-hidden="true"><use href="#i-camera"/></svg></span><span>Scan</span>
+    </button>
+    <button id="btndeck" class="tb" type="button">
+      <svg class="pi" aria-hidden="true"><use href="#i-stack"/></svg><span>Decks</span>
+    </button>
+    <button id="tabik" class="tb" type="button" aria-haspopup="dialog">
+      <svg class="pi" aria-hidden="true"><use href="#i-moon-stars"/></svg><span>Ik</span>
+    </button>
+  </nav>
 
   <div id="deck" class="fullov" hidden>
     <button class="fovclose" data-close="deck" type="button">✕</button>
@@ -1002,8 +1208,6 @@ footer{margin-top:26px;padding-top:16px;border-top:1px solid rgba(139,107,199,.2
       </div>
     </div>
   </div>
-
-  <button id="scanfab" type="button" aria-label="Scan een kaart met de camera">📷</button>
 
   <footer>
     Tik op een kaart om ze te verzamelen — het bericht zegt in welke pagina en welk vakje
@@ -1199,6 +1403,8 @@ function paint(){
     : view==="dup" ? "Nog geen dubbels — open een kaart die je twee keer hebt en gebruik de +-knop."
     : view==="wish" ? "Nog geen sterren — open een kaart waarvan je droomt en tik op ☆."
     : "Probeer een andere zoekterm of zeldzaamheid.";
+
+  buildHomeExtras();   // home hero preview + rarity rows follow every repaint
 }
 
 /* ---------- binder position (page size is a setting; cards stay in numeric order) ---------- */
@@ -2355,7 +2561,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v38";   // bump with the service worker, so these load fresh per release
+const APPV="v39";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -3201,7 +3407,101 @@ scanEl("scanagain").addEventListener("click",()=>{
   scanShow("stage");
   scanEl("scanhint").textContent="Leg je kaart mooi recht in het kader en druk op Scan.";
 });
-scanEl("scanfab").addEventListener("click",()=>openFov("scanov"));
+/* ---------- Collectie Home (design 1a "Verzamelen eerst") ---------- */
+document.getElementById("tabscan").addEventListener("click",()=>openFov("scanov"));
+document.getElementById("tabsets").addEventListener("click",()=>{
+  closeIk(); window.scrollTo({top:0,behavior:"smooth"});
+});
+document.getElementById("herogo").addEventListener("click",()=>{
+  document.getElementById("grid").scrollIntoView({behavior:"smooth"});
+});
+function goNeed(){
+  const b=document.querySelector('.seg button[data-view="need"]');
+  if(b&&b.getAttribute("aria-pressed")!=="true") b.click();
+  document.getElementById("grid").scrollIntoView({behavior:"smooth"});
+}
+document.getElementById("misslink").addEventListener("click",goNeed);
+document.getElementById("filtbtn").addEventListener("click",()=>{
+  const fs=document.getElementById("filtersheet"), b=document.getElementById("filtbtn");
+  fs.hidden=!fs.hidden;
+  b.setAttribute("aria-expanded",String(!fs.hidden));
+  b.classList.toggle("on",!fs.hidden);
+});
+function openIk(){ document.getElementById("ikwrap").hidden=false; }
+function closeIk(){ document.getElementById("ikwrap").hidden=true; }
+document.getElementById("tabik").addEventListener("click",()=>{
+  const w=document.getElementById("ikwrap");
+  w.hidden?openIk():closeIk();
+});
+document.querySelector(".ikback").addEventListener("click",closeIk);
+document.querySelectorAll(".iksheet .ikrow").forEach(b=>b.addEventListener("click",closeIk));
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&!ov.hidden) return;   // the card viewer closes first
+  if(e.key==="Escape"&&!document.getElementById("ikwrap").hidden){ closeIk(); e.stopImmediatePropagation(); }
+},true);
+{
+  const h=new Date().getHours();
+  document.getElementById("greet").textContent=
+    h<6?"Goedenacht":h<12?"Goedemorgen":h<18?"Goedemiddag":"Goedenavond";
+}
+/* the "Nog te vinden" preview and "Bijna compleet" rows follow the live
+   collection: rebuilt by paint() via this hook */
+function buildHomeExtras(){
+  const mr=document.getElementById("missrow");
+  if(mr){
+    const missing=[];
+    for(const s of SLOTS){
+      if(s.rev) continue;                       // preview shows base prints
+      if(!owned.has(s.id)) missing.push(s);
+      if(missing.length===3) break;
+    }
+    const missTotal=SLOTS.reduce((n,s)=>n+(owned.has(s.id)?0:1),0);
+    mr.innerHTML="";
+    for(const s of missing){
+      const b=document.createElement("button");
+      b.type="button"; b.className="misscard";
+      b.setAttribute("aria-label",`${s.num} ${s.name}`);
+      b.innerHTML=`<img loading="lazy" alt="" src="${img(s.num)}"><span>#${pad3(s.num)}</span>`;
+      b.addEventListener("click",()=>openOv(s.id));
+      mr.appendChild(b);
+    }
+    const more=document.createElement("button");
+    more.type="button"; more.className="missmore";
+    more.innerHTML=missTotal>3
+      ?`+${missTotal-3}<small>bekijk</small>`
+      :(missTotal===0?`🏆<small>compleet!</small>`:`✔<small>bijna!</small>`);
+    more.addEventListener("click",goNeed);
+    mr.appendChild(more);
+  }
+  const rr=document.getElementById("rarrows");
+  if(rr){
+    const rows=[];
+    for(const r of RARITIES){
+      const list=SLOTS.filter(s=>s.rarity===r);
+      if(!list.length) continue;
+      const have=list.reduce((n,s)=>n+(owned.has(s.id)?1:0),0);
+      const pct=have/list.length;
+      if(pct>0&&pct<1) rows.push({r,pct,sample:list.find(s=>!s.rev)||list[0]});
+    }
+    rows.sort((a,b)=>b.pct-a.pct);
+    rr.innerHTML="";
+    for(const row of rows.slice(0,2)){
+      const d=document.createElement("button");
+      d.type="button"; d.className="rarrow";
+      d.innerHTML=`<img loading="lazy" alt="" src="${img(row.sample.num)}">`
+        +`<span class="rrmid"><span>${row.r}</span>`
+        +`<i class="rrtrack"><i style="width:${Math.round(row.pct*100)}%"></i></i></span>`
+        +`<b>${Math.round(row.pct*100)}%</b>`;
+      d.addEventListener("click",()=>{
+        const sel=document.getElementById("rarity");
+        sel.value=row.r; sel.dispatchEvent(new Event("change"));
+        document.getElementById("grid").scrollIntoView({behavior:"smooth"});
+      });
+      rr.appendChild(d);
+    }
+    document.getElementById("rarsec").hidden=!rows.length;
+  }
+}
 
 build(); loadLangMap(); loadDupes(); loadWish();
 applyAllArt(); applyAllDup(); applyAllWish(); paint(); loadFrNames();
