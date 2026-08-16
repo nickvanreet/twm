@@ -1482,6 +1482,94 @@ footer{padding-bottom:12px}
   background:none;box-shadow:0 0 0 1px var(--n-e8);color:var(--n-a3);font-size:12px}
 .stread b{color:var(--n-txt);font-weight:500}
 
+/* ---- round 9: the scan camera ---- */
+.scanfull{padding:0;overflow:hidden}
+#scanvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+#scanstage{position:absolute;inset:0;display:flex;flex-direction:column}
+.scanfull .scanframe{position:absolute;left:50%;top:22%;transform:translateX(-50%);
+  width:min(258px,66vw);aspect-ratio:258/361;border-radius:12px;border:0;
+  box-shadow:0 0 0 9999px rgba(15,16,24,.72);pointer-events:none;transition:none}
+.scanfull.cont .scanframe{width:min(242px,62vw);top:20%}
+.cm{position:absolute;width:34px;height:34px;border:3px solid #b5abfc}
+.cm.tl{left:-1px;top:-1px;border-right:0;border-bottom:0;border-radius:12px 0 0 0}
+.cm.tr{right:-1px;top:-1px;border-left:0;border-bottom:0;border-radius:0 12px 0 0}
+.cm.bl{left:-1px;bottom:-1px;border-right:0;border-top:0;border-radius:0 0 0 12px}
+.cm.br{right:-1px;bottom:-1px;border-left:0;border-top:0;border-radius:0 0 12px 0}
+.scanframe.hit .cm{border-color:#7BE39A}
+.scantop{position:relative;z-index:2;display:flex;align-items:center;gap:10px;
+  padding:calc(10px + env(safe-area-inset-top)) 17px 0;
+  font-family:'Inter',system-ui,sans-serif}
+.scnbtn{width:44px;height:44px;flex:none;border:0;border-radius:50%;cursor:pointer;
+  background:rgba(15,16,24,.6);box-shadow:0 0 0 1px rgba(233,233,237,.22);
+  color:var(--n-txt);display:grid;place-items:center;position:static;font-size:0}
+.scnbtn.acc{box-shadow:0 0 0 1px var(--n-a6);color:var(--n-a3)}
+.scnbtn.acc[aria-pressed="true"]{background:var(--n-a4);color:var(--n-bg)}
+.scantitle{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:0;background:none;color:var(--n-txt);font-family:inherit;font-size:14px;
+  cursor:pointer;min-height:44px}
+.scantitle .pi{width:15px;height:15px;opacity:.55}
+.scantitle.on{color:var(--n-a3)}
+.scantitle.on .pi{opacity:1}
+.scanpill{position:absolute;left:50%;transform:translateX(-50%);z-index:2;margin:0;
+  white-space:nowrap;border-radius:999px;padding:7px 14px;
+  font-family:'Inter',system-ui,sans-serif}
+.scanpill.top{top:15%;background:rgba(15,16,24,.6);font-size:13px;color:var(--n-txt)}
+.scanpill.low{top:68%;background:rgba(15,16,24,.72);font-size:12px;color:#cfd3e5}
+.scanflash{position:absolute;left:50%;top:62%;transform:translateX(-50%);z-index:3;
+  display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+  background:var(--n-a4);color:var(--n-bg);border-radius:999px;padding:8px 14px;
+  font-family:'Inter',system-ui,sans-serif;font-size:13px;font-weight:500}
+.scanflash .pi{width:16px;height:16px}
+.scanshutrow{position:relative;z-index:2;margin-top:auto;display:flex;align-items:center;
+  justify-content:center;gap:16px;padding:0 17px 8px}
+.scnsq{width:52px;height:52px;flex:none;border:0;border-radius:14px;cursor:pointer;
+  background:rgba(15,16,24,.6);box-shadow:0 0 0 1px rgba(233,233,237,.22);
+  color:var(--n-txt);display:grid;place-items:center}
+.scnsq .pi,.scnbtn .pi{width:20px;height:20px}
+.scanshutter{width:76px;height:76px;flex:none;border:0;border-radius:50%;cursor:pointer;
+  background:var(--n-a4);color:var(--n-bg);display:grid;place-items:center;
+  box-shadow:0 0 0 5px rgba(181,171,252,.22)}
+.scanshutter .pi{width:30px;height:30px}
+.scanshutter:active{transform:scale(.94)}
+.scanshutter:disabled{opacity:.45}
+.scanfoot{position:relative;z-index:2;margin:0;text-align:center;font-size:11px;
+  color:var(--n-m5);padding:6px 0 calc(14px + env(safe-area-inset-bottom));
+  font-family:'Inter',system-ui,sans-serif}
+/* 9b sheet */
+#scanres{position:absolute;inset:0;z-index:4;background:rgba(15,16,24,.72);
+  display:flex;flex-direction:column}
+.scancap{flex:none;display:flex;justify-content:center;
+  padding:calc(58px + env(safe-area-inset-top)) 0 14px}
+.scancap img{width:128px;aspect-ratio:5/7;object-fit:cover;border-radius:10px;
+  filter:blur(1px);box-shadow:0 10px 30px rgba(0,0,0,.5);background:var(--n-tint)}
+.scansheet{flex:1;min-height:0;overflow-y:auto;background:var(--n-sur);
+  border-radius:14px 14px 0 0;box-shadow:0 -1px 0 #595d6c;
+  padding:15px 17px calc(24px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;gap:12px;font-family:'Inter',system-ui,sans-serif;
+  max-width:560px;margin:0 auto;width:100%}
+.scst{font-size:17px;font-weight:500;color:var(--n-txt)}
+.scsub{font-size:12px;color:var(--n-m5);margin-top:-8px}
+#scancands{display:flex;flex-direction:column;gap:11px}
+.scrow{display:flex;align-items:center;gap:11px;padding:9px;border:0;border-radius:8px;
+  background:none;box-shadow:0 0 0 1px var(--n-e8);cursor:pointer;text-align:left;
+  font-family:inherit;color:var(--n-txt)}
+.scrow.sel{background:var(--n-tint);box-shadow:0 0 0 1px var(--n-a6)}
+.scrow img{width:44px;aspect-ratio:5/7;object-fit:cover;border-radius:5px;flex:none;
+  background:var(--n-nav)}
+.scmid{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.scrow .scnm{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scrow small{font-size:11px;color:var(--n-m5)}
+.scrow.sel small{color:#cfd3e5}
+.scpct{flex:none;font-size:12px;font-weight:600;border-radius:99px;padding:4px 9px;
+  box-shadow:0 0 0 1px var(--n-e8);color:var(--n-b2);font-variant-numeric:tabular-nums}
+.scrow.sel .scpct{background:var(--n-a4);color:var(--n-bg);box-shadow:none}
+.sctip{display:flex;gap:10px;align-items:flex-start;border-radius:8px;background:var(--n-bg);
+  padding:11px;font-size:12px;color:var(--n-b2);line-height:1.5}
+.sctip .pi{color:var(--n-a4);flex:none;margin-top:1px}
+.scacts{display:flex;gap:8px;margin-top:auto}
+.scacts .nbtn{flex:1}
+.bsessionbar{z-index:46}
+
 /* wider screens: the phone design scales up gently (desktop is not a
    designed layout yet — tiles stay card-sized, the tab bar clusters) */
 @media(min-width:700px){
@@ -2291,33 +2379,66 @@ footer{padding-bottom:12px}
     </div>
   </div>
 
-  <div id="scanov" class="fullov" hidden>
-    <button class="fovclose" data-close="scanov" type="button" aria-label="Sluiten">✕</button>
-    <div class="fovhead">Kaart scannen</div>
+  <div id="scanov" class="fullov scanfull" hidden>
+    <video id="scanvid" autoplay playsinline muted></video>
+
     <div id="scanstage">
-      <div class="scanview">
-        <video id="scanvid" autoplay playsinline muted></video>
-        <div class="scanframe" id="scanframe" aria-hidden="true"></div>
+      <div class="scanframe" id="scanframe" aria-hidden="true">
+        <span class="cm tl"></span><span class="cm tr"></span>
+        <span class="cm bl"></span><span class="cm br"></span>
       </div>
-      <p class="fovnote" id="scanhint">Leg je kaart mooi recht in het kader en druk op Scan.</p>
-      <div class="packrow">
-        <button id="scansnap" type="button"><svg class="pi" aria-hidden="true"><use href="#i-camera"/></svg> Scan!</button>
-        <button id="scantorch" type="button" hidden>🔦 Lamp</button>
+      <div class="scantop">
+        <button class="scnbtn fovclose" data-close="scanov" type="button" aria-label="Sluiten">
+          <svg class="pi" aria-hidden="true"><use href="#i-x"/></svg>
+        </button>
+        <button class="scantitle" id="scancont" type="button" aria-pressed="false"
+                title="Doorscannen aan of uit">
+          <svg class="pi" aria-hidden="true"><use href="#i-camera-rotate"/></svg>
+          <span id="sconttxt">Kaart scannen</span>
+        </button>
+        <button id="scantorch" class="scnbtn acc" type="button" hidden aria-pressed="false"
+                aria-label="Lamp aan of uit">
+          <svg class="pi" aria-hidden="true"><use href="#i-lightning"/></svg>
+        </button>
       </div>
-      <p class="fovnote">Lukt de camera niet?</p>
-      <div class="packrow">
-        <button id="scanpickbtn" type="button" class="scanghost"><svg class="pi" aria-hidden="true"><use href="#i-image"/></svg> Kies een foto van je kaart</button>
+      <p class="scanpill top" id="scanhint">Leg de kaart recht in het kader</p>
+      <p class="scanpill low" id="scanstatus" hidden></p>
+      <div class="scanflash" id="scanflash" hidden>
+        <svg class="pi" aria-hidden="true"><use href="#i-check-circle"/></svg>
+        <span id="scanflashtxt"></span>
       </div>
+      <div class="scanshutrow" id="scanshutrow">
+        <button id="scanpickbtn" class="scnsq" type="button" aria-label="Kies een foto van je kaart">
+          <svg class="pi" aria-hidden="true"><use href="#i-image"/></svg>
+        </button>
+        <button id="scansnap" class="scanshutter" type="button" aria-label="Scan de kaart">
+          <svg class="pi" aria-hidden="true"><use href="#i-camera"/></svg>
+        </button>
+        <button id="scanlens" class="scnsq" type="button" hidden aria-label="Andere cameralens">
+          <svg class="pi" aria-hidden="true"><use href="#i-camera-rotate"/></svg>
+        </button>
+      </div>
+      <p class="scanfoot">Herkend op je toestel zelf · er wordt niets geüpload</p>
       <input id="scanfile" type="file" accept="image/*" hidden>
     </div>
+
     <div id="scanres" hidden>
-      <div id="scanshot" class="scanshot" hidden>
-        <img id="scanshotimg" alt="Wat de camera zag">
-        <span id="scanshottxt"></span>
+      <div class="scancap"><img id="scanshotimg" alt="Wat de camera zag"></div>
+      <div class="scansheet">
+        <b class="scst">Drie kaarten lijken erop</b>
+        <small class="scsub">Tik de juiste — of scan opnieuw met meer licht</small>
+        <div id="scancands"></div>
+        <div class="sctip" id="sctip">
+          <svg class="pi" aria-hidden="true"><use href="#i-sparkle"/></svg>
+          <span id="sctiptxt"></span>
+        </div>
+        <div class="scacts">
+          <button id="scanagain" class="nbtn nsec" type="button">
+            <svg class="pi" aria-hidden="true"><use href="#i-camera-rotate"/></svg> Opnieuw
+          </button>
+          <button id="scantake" class="nbtn nprim" type="button" disabled>Dit is 'm</button>
+        </div>
       </div>
-      <p class="fovnote" style="margin-top:0">Welke kaart is het? Tik ze aan.</p>
-      <div id="scancands"></div>
-      <div class="packrow"><button id="scanagain" type="button"><svg class="pi" aria-hidden="true"><use href="#i-camera-rotate"/></svg> Opnieuw scannen</button></div>
     </div>
   </div>
 
@@ -4201,7 +4322,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v51";   // bump with the service worker, so these load fresh per release
+const APPV="v52";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -5064,13 +5185,14 @@ async function startScan(){
     return;
   }
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
-    scanEl("scanhint").textContent="Deze browser heeft geen camera-toegang — kies hieronder een foto van je kaart.";
+    scanEl("scanhint").textContent="Deze browser heeft geen camera-toegang — kies een foto met de galerijknop onderaan.";
     scanEl("scansnap").disabled=true;
     return;
   }
   try{
     const stream=await navigator.mediaDevices.getUserMedia(
-      {video:{facingMode:{ideal:"environment"},width:{ideal:1280},height:{ideal:1280}}});
+      {video:{...(scanDevId?{deviceId:{exact:scanDevId}}:{facingMode:{ideal:"environment"}}),
+        width:{ideal:1280},height:{ideal:1280}}});
     if(g!==scanGen||document.getElementById("scanov").hidden){
       stream.getTracks().forEach(t=>t.stop());
       return;
@@ -5086,13 +5208,31 @@ async function startScan(){
     });
     const caps=track.getCapabilities?track.getCapabilities():{};
     scanEl("scantorch").hidden=!caps.torch;
+    scanListCams();
     startScanLoop(g);
   }catch(e){
     if(g!==scanGen) return;
-    scanEl("scanhint").textContent="Geen camera of geen toestemming — kies hieronder een foto van je kaart.";
+    scanEl("scanhint").textContent="Geen camera of geen toestemming — kies een foto met de galerijknop onderaan.";
     scanEl("scansnap").disabled=true;
   }
 }
+/* Samsung phones expose several back lenses; recognition drops on the
+   ultrawide, so the lens button cycles them (FIXES §6.7) */
+let scanDevId=null, scanCams=[];
+async function scanListCams(){
+  try{
+    const ds=await navigator.mediaDevices.enumerateDevices();
+    scanCams=ds.filter(d=>d.kind==="videoinput");
+    scanEl("scanlens").hidden=scanCams.length<2;
+  }catch(e){}
+}
+scanEl("scanlens").addEventListener("click",()=>{
+  if(scanCams.length<2) return;
+  const cur=scanCams.findIndex(d=>d.deviceId===scanDevId);
+  scanDevId=scanCams[(cur+1)%scanCams.length].deviceId;
+  if(scanStream){ scanStream.getTracks().forEach(t=>t.stop()); scanStream=null; }
+  startScan();
+});
 function stopScan(){
   scanGen++;
   clearInterval(scanTick);
@@ -5115,7 +5255,8 @@ scanEl("scantorch").addEventListener("click",async()=>{
 function scanGrab(){
   const v=scanEl("scanvid");
   if(!v.videoWidth) return null;
-  const view=document.querySelector(".scanview").getBoundingClientRect();
+  // the preview is full-bleed cover: map the cutout back to video pixels
+  const view=v.getBoundingClientRect();
   const fr=scanEl("scanframe").getBoundingClientRect();
   const s=Math.max(view.width/v.videoWidth, view.height/v.videoHeight);
   const offx=(v.videoWidth*s-view.width)/2, offy=(v.videoHeight*s-view.height)/2;
@@ -5140,39 +5281,100 @@ function scanThumb(o){
   if(o.lang==="ja"&&JPX[o.num]) return `https://assets.tcgdex.net/ja/SV/${JPX[o.num][0]}/low.webp`;
   return img(o.num);
 }
+/* 9b: uncertainty is a choice, not a dead end — three candidates with their
+   confidence and your ownership, so the right one is decidable in place */
+let scanSel=null;
 function showScanRes(top){
-  const shot=scanEl("scanshot");
-  shot.hidden=!scanLastShot;
-  if(scanLastShot){
-    scanEl("scanshotimg").src=scanLastShot;
-    const m=top.length>1?Math.round(top[1].score-top[0].score):0;
-    scanEl("scanshottxt").textContent=m>=250
-      ? "Dit zag ik — een duidelijke match."
-      : "Dit zag ik. Staat de kaart klein, schuin of met veel glans in beeld? Dan raad ik minder zeker.";
-  }
+  top=top.slice(0,3);
+  if(scanLastShot) scanEl("scanshotimg").src=scanLastShot;
+  // scores → display confidence
+  const w=top.map(o=>Math.exp(-(o.score-top[0].score)/140));
+  const sum=w.reduce((a,b)=>a+b,0);
+  const pct=w.map(x=>Math.max(1,Math.round(100*x/sum)));
   const box=scanEl("scancands"); box.innerHTML="";
+  scanSel=null;
   top.forEach((o,i)=>{
     const s=byId.get(String(o.num));
-    const b=document.createElement("button"); b.type="button"; b.className="scand";
+    const q=qtyOf(String(o.num));
+    const b=document.createElement("button"); b.type="button"; b.className="scrow";
     b.innerHTML=`<img src="${scanThumb(o)}" alt="">`
-      +(i===0?`<span class="scbest">beste match</span>`:``)
-      +`<span class="scnm">${o.num} ${s?s.name:""}`
-      +(o.lang!=="en"?` <i class="scl">${o.lang==="fr"?"FR":"JP"}</i>`:``)+`</span>`;
-    b.addEventListener("click",()=>scanChoose(o));
+      +`<span class="scmid"><span class="scnm">${s?s.name:o.num}`
+      +(o.lang!=="en"?` <i class="scl">${o.lang==="fr"?"FR":"JP"}</i>`:``)+`</span>`
+      +`<small>#${pad3(o.num)} · ${eur(priceOf(s||{num:o.num,fallback:0}))} · ${
+          q?`heb ik${q>1?` ×${q}`:""}`:"heb ik nog niet"}</small></span>`
+      +`<b class="scpct">${pct[i]}%</b>`;
+    b.addEventListener("click",()=>{
+      scanSel=o;
+      [...box.children].forEach(x=>x.classList.toggle("sel",x===b));
+      scanEl("scantake").disabled=false;
+    });
     box.appendChild(b);
+    if(i===0) b.click();               // the leading row starts selected
   });
+  // the tip rotates with the likely failure
+  const tips=[
+    "Glans van een sleeve? Kantel de kaart een tikje weg van het licht.",
+    "Hou je telefoon even stil zodat de camera kan scherpstellen.",
+    "Vul het kader zo goed mogelijk — hoeken binnen de hoekjes.",
+    "Weinig licht? Probeer de lamp rechtsboven."];
+  scanEl("sctiptxt").textContent=tips[scanTipN++%tips.length];
   scanShow("res");
 }
+let scanTipN=0;
+scanEl("scantake").addEventListener("click",()=>{ if(scanSel) scanChoose(scanSel); });
+const SCONF=220;   // margin above which the top match needs no second opinion
 function scanRunOn(padded){
   // keep what the camera actually handed us: if a scan goes wrong, seeing
   // the capture explains it faster than any score does
   try{ scanLastShot=padded.toDataURL("image/jpeg",0.7); }catch(e){ scanLastShot=null; }
+  scanEl("scanstatus").hidden=false;
+  scanEl("scanstatus").textContent="Herkennen…";
   const top=scanRecognize(padded);
+  scanEl("scanstatus").hidden=true;
   if(navigator.vibrate) navigator.vibrate(25);
   const f=scanEl("scanframe");
   f.classList.add("hit"); setTimeout(()=>f.classList.remove("hit"),350);
-  showScanRes(top);
+  const margin=top.length>1?top[1].score-top[0].score:9999;
+  if(scanCont){
+    // 9c: a sure hit goes straight into the session; doubt opens the sheet
+    if(margin>=SCONF){ scanCommit(top[0]); return; }
+    showScanRes(top);
+    return;
+  }
+  // 9a→3c: sure means the map; anything less means "kies zelf" (9b)
+  if(margin>=SCONF) scanChoose(top[0]);
+  else showScanRes(top);
 }
+/* continuous commit: flash pill, session bar, keep the camera rolling */
+let scanCoolNum=0, scanCoolT=0;
+function scanCommit(o){
+  const id=String(o.num);
+  const now=Date.now();
+  if(o.num===scanCoolNum&&now-scanCoolT<3000) return;   // same card lingering in frame
+  scanCoolNum=o.num; scanCoolT=now;
+  addOne(id,o.lang);
+  const s=byId.get(id), b=binderPos(s);
+  scanEl("scanflashtxt").textContent=
+    `#${pad3(o.num)} toegevoegd · pagina ${b.page}, vakje ${b.pocket}`;
+  const fl=scanEl("scanflash");
+  fl.hidden=false;
+  clearTimeout(scanFlashT);
+  scanFlashT=setTimeout(()=>{ fl.hidden=true; },1200);
+  if(navigator.vibrate) navigator.vibrate(40);
+}
+let scanFlashT=null, scanCont=false;
+document.getElementById("scancont").addEventListener("click",()=>{
+  scanCont=!scanCont;
+  const b=document.getElementById("scancont");
+  b.setAttribute("aria-pressed",String(scanCont));
+  b.classList.toggle("on",scanCont);
+  document.getElementById("sconttxt").textContent=scanCont?"Doorscannen aan":"Kaart scannen";
+  document.getElementById("scanshutrow").hidden=scanCont;
+  document.querySelector(".scanfoot").hidden=scanCont;
+  document.getElementById("scanov").classList.toggle("cont",scanCont);
+  scanCoolNum=0;
+  updateSession();
+});
 scanEl("scansnap").addEventListener("click",()=>{
   if(scanBusy||!SCANDB) return;
   scanBusy=true;
@@ -5183,7 +5385,7 @@ scanEl("scansnap").addEventListener("click",()=>{
 });
 /* live preview loop: a cheap centre guess every ~700ms shows what the
    scanner is thinking, and two confident hits in a row fire the real scan */
-const SCANHINT="Leg je kaart in het kader — de scanner kijkt mee.";
+const SCANHINT="Leg de kaart recht in het kader";
 let scanTick=null, scanLastNum=0, scanLockCount=0;
 function startScanLoop(g){
   clearInterval(scanTick);
@@ -5193,9 +5395,11 @@ function startScanLoop(g){
     if(scanEl("scanstage").hidden) return;      // paused behind candidates
     const padded=scanGrab(); if(!padded) return;
     const q=scanQuick(padded);
+    const st=scanEl("scanstatus");
     if(q.margin>=25){
       const s=byId.get(String(q.num));
-      scanEl("scanhint").textContent=`🔎 Ik denk: ${q.num} ${s?s.name:""} — scan om te bevestigen`;
+      st.hidden=false;
+      st.textContent=`Ik denk: ${q.num} ${s?s.name:""}`;
       if(q.num===scanLastNum) scanLockCount++;
       else{ scanLastNum=q.num; scanLockCount=1; }
       if(scanLockCount>=2&&q.margin>=60){
@@ -5203,7 +5407,8 @@ function startScanLoop(g){
         scanLastNum=0; scanLockCount=0;
       }
     }else{
-      scanEl("scanhint").textContent=SCANHINT;
+      st.hidden=false;
+      st.textContent="Houd even stil · scherpstellen";
       scanLastNum=0; scanLockCount=0;
     }
   },700);
