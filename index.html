@@ -764,6 +764,42 @@ body{background:var(--n-bg);padding-bottom:calc(86px + env(safe-area-inset-botto
 
 footer{padding-bottom:12px}
 
+/* ---- home view switcher + the Overzicht (1b) and Vandaag (1c) views ---- */
+.hviews{display:flex;gap:22px;margin-bottom:17px;box-shadow:inset 0 -1px 0 var(--n-e8);
+  font-family:'Inter',system-ui,sans-serif}
+.hv{font-family:inherit;font-size:14px;padding:0 0 9px;background:none;border:0;
+  cursor:pointer;color:var(--n-m5)}
+.hv.on{color:var(--n-txt);box-shadow:inset 0 -2px 0 var(--n-a4)}
+#view1b,#view1c{font-family:'Inter',system-ui,sans-serif;margin-bottom:17px}
+.vkick{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--n-m5)}
+.vrow{display:flex;align-items:flex-end;gap:8px;margin-top:6px}
+.vbig{font-size:40px;font-weight:500;letter-spacing:-.03em;line-height:1;
+  color:var(--n-txt);font-variant-numeric:tabular-nums}
+.vdelta{font-size:13px;color:var(--n-a4);padding-bottom:4px}
+.spark{display:flex;align-items:flex-end;gap:3px;height:42px;margin-top:12px}
+.spark i{flex:1;border-radius:2px;display:block}
+.vstats{display:flex;gap:28px;margin:22px 0}
+.vstats div{display:flex;flex-direction:column;gap:2px}
+.vstats span{font-size:12px;color:var(--n-m5)}
+.vstats b{font-size:20px;font-weight:500;color:var(--n-txt);font-variant-numeric:tabular-nums}
+.vsort{font-size:12px;color:var(--n-m5)}
+.vrarrow{width:100%;display:flex;align-items:center;gap:11px;padding:11px 0;border:0;
+  background:none;box-shadow:inset 0 -1px 0 var(--n-e8);cursor:pointer;
+  font-family:inherit;text-align:left;color:var(--n-txt)}
+.vrarrow img{width:42px;height:56px;border-radius:4px;object-fit:cover;object-position:top;flex:none}
+.vrarrow .rrmid>span{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vrarrow small{font-size:11px;color:var(--n-m5);font-variant-numeric:tabular-nums}
+.vrarrow b{font-size:14px;color:var(--n-a3);font-weight:500;font-variant-numeric:tabular-nums;flex:none}
+.vrarrow .rrtrack i{background:var(--n-a4)}
+.cotdcard{border-radius:14px;background:var(--n-sur);box-shadow:0 0 0 1px var(--n-e8);
+  padding:17px;display:flex;gap:14px;align-items:center;margin-bottom:22px}
+.cotdcard img{width:76px;height:106px;border-radius:8px;object-fit:cover;flex:none}
+.cotdcard>div{display:flex;flex-direction:column;gap:6px;min-width:0}
+.cotdcard b{font-size:17px;font-weight:500;color:var(--n-txt)}
+.cotdcard small{font-size:12px;color:var(--n-m6)}
+.cotdcard .nbtn{margin-top:6px;align-self:flex-start;padding:0 14px;flex:none}
+#vtasks .ikrow{font-family:inherit}
+
 /* wider screens: the phone design scales up gently (desktop is not a
    designed layout yet — tiles stay card-sized, the tab bar clusters) */
 @media(min-width:700px){
@@ -819,6 +855,12 @@ footer{padding-bottom:12px}
               fill="#F5B944" font-family="Inter,system-ui,sans-serif">0%</text>
       </svg>
     </button>
+  </div>
+
+  <div class="hviews" role="tablist" aria-label="Weergave van de startpagina">
+    <button class="hv on" data-hv="1a" type="button" role="tab" aria-selected="true">Verzamelen</button>
+    <button class="hv" data-hv="1b" type="button" role="tab" aria-selected="false">Overzicht</button>
+    <button class="hv" data-hv="1c" type="button" role="tab" aria-selected="false">Vandaag</button>
   </div>
 
   <div class="srow">
@@ -886,7 +928,7 @@ footer{padding-bottom:12px}
     </div>
   </div>
 
-  <div class="nsec">
+  <div class="nsec" id="misssec">
     <div class="nsechead"><span>Nog te vinden</span>
       <button id="misslink" class="nlink" type="button"><b id="stTogo">373</b> kaarten</button>
     </div>
@@ -896,6 +938,27 @@ footer{padding-bottom:12px}
   <div class="nsec" id="rarsec">
     <div class="nsechead"><span>Bijna compleet</span></div>
     <div id="rarrows"></div>
+  </div>
+
+  <div id="view1b" hidden>
+    <div class="vkick">Waarde collectie</div>
+    <div class="vrow"><span class="vbig" id="vbig">€0,00</span><span class="vdelta" id="vdelta"></span></div>
+    <div class="spark" id="spark" aria-label="Waarde per dag"></div>
+    <div class="vstats">
+      <div><span>Kaarten</span><b id="vCards">0</b></div>
+      <div><span>Dubbels</span><b id="vDup">0</b></div>
+      <div><span>⭐ Wenslijst</span><b id="vWish">0</b></div>
+    </div>
+    <div class="nsechead"><span>Mijn zeldzaamheden</span><span class="vsort">op voortgang</span></div>
+    <div id="vrar"></div>
+  </div>
+
+  <div id="view1c" hidden>
+    <div class="cotdcard" id="cotdcard"></div>
+    <div class="nsec">
+      <div class="nsechead"><span>Nog te doen</span></div>
+      <div id="vtasks"></div>
+    </div>
   </div>
 
   <details class="about">
@@ -1404,7 +1467,9 @@ function paint(){
     : view==="wish" ? "Nog geen sterren — open een kaart waarvan je droomt en tik op ☆."
     : "Probeer een andere zoekterm of zeldzaamheid.";
 
-  buildHomeExtras();   // home hero preview + rarity rows follow every repaint
+  // the three home views read these numbers after every repaint
+  HOMESTATS={haveN,haveV,totalV,dupN,dupV,wishN,wishV};
+  buildHomeExtras();
 }
 
 /* ---------- binder position (page size is a setting; cards stay in numeric order) ---------- */
@@ -2561,7 +2626,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v39";   // bump with the service worker, so these load fresh per release
+const APPV="v40";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -3439,10 +3504,169 @@ document.addEventListener("keydown",e=>{
   if(e.key==="Escape"&&!ov.hidden) return;   // the card viewer closes first
   if(e.key==="Escape"&&!document.getElementById("ikwrap").hidden){ closeIk(); e.stopImmediatePropagation(); }
 },true);
-{
+const GREETTXT=(()=>{
   const h=new Date().getHours();
+  return h<6?"Goedenacht":h<12?"Goedemorgen":h<18?"Goedemiddag":"Goedenavond";
+})();
+document.getElementById("greet").textContent=GREETTXT;
+
+/* ---- three home views: 1a Verzamelen / 1b Overzicht / 1c Vandaag ---- */
+let HOMESTATS=null;
+const HVKEY="twm:homeview", VHKEY="twm:valuehist";
+let homeView="1a";
+try{ const v=localStorage.getItem(HVKEY); if(v==="1b"||v==="1c") homeView=v; }catch(e){}
+function setHomeView(v,skipPaint){
+  homeView=v;
+  try{ localStorage.setItem(HVKEY,v); }catch(e){}
+  document.querySelectorAll(".hv").forEach(b=>{
+    const on=b.dataset.hv===v;
+    b.classList.toggle("on",on); b.setAttribute("aria-selected",String(on));
+  });
+  const a=v==="1a";
+  document.querySelector(".hero").hidden=!a;
+  document.getElementById("misssec").hidden=!a;
+  document.querySelector(".about").hidden=!a;
+  grid.hidden=!a;
+  if(!a) emptyEl.hidden=true;
+  document.getElementById("view1b").hidden=v!=="1b";
+  document.getElementById("view1c").hidden=v!=="1c";
   document.getElementById("greet").textContent=
-    h<6?"Goedenacht":h<12?"Goedemorgen":h<18?"Goedemiddag":"Goedenavond";
+    v==="1c"?new Date().toLocaleDateString("nl-BE",{weekday:"long",day:"numeric",month:"long"}):GREETTXT;
+  if(!skipPaint) paint();
+}
+document.querySelectorAll(".hv").forEach(b=>
+  b.addEventListener("click",()=>setHomeView(b.dataset.hv)));
+document.getElementById("q").addEventListener("focus",()=>{
+  if(homeView!=="1a") setHomeView("1a");   // searching means browsing cards
+});
+
+/* the value sparkline needs history: one snapshot per day, updated live */
+function snapshotValue(){
+  if(!HOMESTATS) return;
+  try{
+    const key=new Date().toISOString().slice(0,10);
+    let h=[];
+    try{ h=JSON.parse(localStorage.getItem(VHKEY)||"[]"); }catch(e){}
+    const last=h[h.length-1];
+    if(last&&last.d===key) last.v=HOMESTATS.haveV;
+    else h.push({d:key,v:HOMESTATS.haveV});
+    if(h.length>60) h=h.slice(-60);
+    localStorage.setItem(VHKEY,JSON.stringify(h));
+  }catch(e){}
+}
+function renderOverzicht(){
+  if(homeView!=="1b"||!HOMESTATS) return;
+  const S=HOMESTATS;
+  document.getElementById("vbig").textContent=eur(S.haveV);
+  let h=[];
+  try{ h=JSON.parse(localStorage.getItem(VHKEY)||"[]"); }catch(e){}
+  const vd=document.getElementById("vdelta");
+  if(h.length>=2){
+    const today=h[h.length-1];
+    const cutoff=new Date(Date.now()-7*864e5).toISOString().slice(0,10);
+    let ref=h[0];
+    for(const e of h) if(e.d<=cutoff) ref=e;
+    const days=Math.max(1,Math.round((new Date(today.d)-new Date(ref.d))/864e5));
+    const diff=today.v-ref.v;
+    vd.textContent=`${diff>=0?"▲":"▼"} ${eur(Math.abs(diff))} ${days>=6?"deze week":`in ${days} dag${days>1?"en":""}`}`;
+    vd.style.color=diff>=0?"var(--n-a4)":"#F09090";
+  }else vd.textContent="we volgen de waarde vanaf vandaag";
+  const sp=document.getElementById("spark");
+  const win=h.slice(-9);
+  sp.innerHTML="";
+  sp.hidden=win.length<2;
+  if(win.length>=2){
+    const max=Math.max(...win.map(e=>e.v),0.01);
+    win.forEach((e,i)=>{
+      const b=document.createElement("i");
+      const f=i/(win.length-1);
+      b.style.height=Math.max(8,Math.round(e.v/max*100))+"%";
+      b.style.background=i===win.length-1?"#b5abfc":f<0.34?"#423a6a":f<0.67?"#5d5294":"#796cbf";
+      b.title=`${e.d}: ${eur(e.v)}`;
+      sp.appendChild(b);
+    });
+  }
+  document.getElementById("vCards").textContent=S.haveN+S.dupN;
+  document.getElementById("vDup").textContent=S.dupN;
+  document.getElementById("vWish").textContent=S.wishN;
+  const vr=document.getElementById("vrar");
+  vr.innerHTML="";
+  const rows=[];
+  for(const r of RARITIES){
+    const list=SLOTS.filter(s=>s.rarity===r);
+    if(!list.length) continue;
+    let have=0, left=0;
+    for(const s of list){ if(owned.has(s.id)) have++; else left+=priceOf(s); }
+    rows.push({r,have,total:list.length,left,pct:have/list.length,
+               sample:list.find(s=>!s.rev)||list[0]});
+  }
+  rows.sort((a,b)=>b.pct-a.pct);
+  for(const row of rows){
+    const d=document.createElement("button");
+    d.type="button"; d.className="vrarrow";
+    d.innerHTML=`<img loading="lazy" alt="" src="${img(row.sample.num)}">`
+      +`<span class="rrmid"><span>${row.r}</span>`
+      +`<i class="rrtrack"><i style="width:${Math.round(row.pct*100)}%"></i></i>`
+      +`<small>${row.have} / ${row.total}${row.left>0?` · nog ${eur(row.left)}`:""}</small></span>`
+      +`<b>${Math.round(row.pct*100)}%</b>`;
+    d.addEventListener("click",()=>{
+      const sel=document.getElementById("rarity");
+      sel.value=row.r; sel.dispatchEvent(new Event("change"));
+      setHomeView("1a");
+      document.getElementById("grid").scrollIntoView({behavior:"smooth"});
+    });
+    vr.appendChild(d);
+  }
+}
+function renderVandaag(){
+  if(homeView!=="1c"||!HOMESTATS) return;
+  const s=cardOfDay(), p=priceOf(s);
+  const cc=document.getElementById("cotdcard");
+  cc.innerHTML=`<img alt="" src="${img(s.num)}">`
+    +`<div><span class="vkick">Kaart van de dag</span>`
+    +`<b>${s.num} ${s.name}${s.rev?" REV":""}</b>`
+    +`<small>Twilight Masquerade · ${eur(p)}</small>`
+    +`<button class="nbtn nprim" id="cotdgo" type="button">Bekijk kaart</button></div>`;
+  cc.querySelector("#cotdgo").addEventListener("click",()=>openOv(s.id));
+  const t=document.getElementById("vtasks");
+  t.innerHTML="";
+  const addTask=(icon,title,sub,fn)=>{
+    const b=document.createElement("button");
+    b.type="button"; b.className="ikrow";
+    b.innerHTML=`<svg class="pi" aria-hidden="true"><use href="#i-${icon}"/></svg>`
+      +`<span>${title}<small>${sub}</small></span>`
+      +`<svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>`;
+    b.addEventListener("click",fn);
+    t.appendChild(b);
+  };
+  const S=HOMESTATS;
+  const toView=view=>()=>{
+    setHomeView("1a");
+    const b=document.querySelector(`.seg button[data-view="${view}"]`);
+    if(b&&b.getAttribute("aria-pressed")!=="true") b.click();
+    document.getElementById("grid").scrollIntoView({behavior:"smooth"});
+  };
+  if(S.wishN) addTask("sparkle",`${S.wishN} wenskaart${S.wishN>1?"en":""} nog te vinden`,
+    `Samen ${eur(S.wishV)}`,toView("wish"));
+  if(S.dupN) addTask("cards",`${S.dupN} dubbel${S.dupN>1?"s":""} om te ruilen`,
+    `Waarde ${eur(S.dupV)}`,toView("dup"));
+  let bestRar=null;
+  for(const r of RARITIES){
+    const list=SLOTS.filter(x=>x.rarity===r);
+    if(!list.length) continue;
+    const have=list.reduce((n,x)=>n+(owned.has(x.id)?1:0),0);
+    const pct=have/list.length;
+    if(pct>0&&pct<1&&(!bestRar||pct>bestRar.pct)) bestRar={r,pct,left:list.length-have};
+  }
+  if(bestRar) addTask("cards-fill",`Maak ${bestRar.r} af`,
+    `Nog ${bestRar.left} kaart${bestRar.left>1?"en":""} te gaan`,()=>{
+      const sel=document.getElementById("rarity");
+      sel.value=bestRar.r; sel.dispatchEvent(new Event("change"));
+      setHomeView("1a");
+      document.getElementById("grid").scrollIntoView({behavior:"smooth"});
+    });
+  addTask("game-controller","Dagelijkse quiz","Kunst, wazig of prijsduel",()=>openFov("quiz"));
+  addTask("gift","Pakje openen","Wat zit erin vandaag?",()=>openFov("pack"));
 }
 /* the "Nog te vinden" preview and "Bijna compleet" rows follow the live
    collection: rebuilt by paint() via this hook */
@@ -3499,11 +3723,15 @@ function buildHomeExtras(){
       });
       rr.appendChild(d);
     }
-    document.getElementById("rarsec").hidden=!rows.length;
+    document.getElementById("rarsec").hidden=!rows.length||homeView!=="1a";
   }
+  snapshotValue();
+  renderOverzicht();
+  renderVandaag();
 }
 
 build(); loadLangMap(); loadDupes(); loadWish();
+setHomeView(homeView,true);   // restore the last-used home view before first paint
 applyAllArt(); applyAllDup(); applyAllWish(); paint(); loadFrNames();
 
 /* Boot splash: the app is painted at this point — hold it a beat so the
