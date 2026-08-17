@@ -1860,11 +1860,12 @@ footer{padding-bottom:12px}
 /* ---- round 14: Vandaag ----
    Four things that are different today than yesterday and can be finished
    today. The old chore list is gone, so is its CSS. */
-#view1c{font-family:'Inter',system-ui,sans-serif;margin-bottom:17px;
+/* the view itself cancels body's 12px (not 100vw, which counts the desktop
+   scrollbar and would add a horizontal scroll), so the hero is full-bleed and
+   the cards below can measure their 17px from the screen edge like the hero text */
+#view1c{font-family:'Inter',system-ui,sans-serif;margin:0 -12px 17px;
   display:flex;flex-direction:column;gap:15px}
-/* full-bleed by cancelling body's 12px, not by 100vw: 100vw counts the desktop
-   scrollbar and gives the page a horizontal scroll */
-.vhero{position:relative;display:block;margin:0 -12px;height:232px;overflow:hidden;
+.vhero{position:relative;display:block;height:232px;overflow:hidden;
   border:0;padding:0;background:var(--n-nav);cursor:pointer;text-align:left;
   font-family:inherit;color:var(--n-txt)}
 .vheroart{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
@@ -2151,7 +2152,9 @@ footer{padding-bottom:12px}
 
   <!-- round 14: four things that are actually today, and can be finished today -->
   <div id="view1c" hidden>
-    <button class="vhero" id="vhero" type="button" aria-label="Lees het verhaal van de kaart van de dag">
+    <!-- no aria-label: it would replace the kicker, the headline and the fact,
+         and those are the only new thing on the screen -->
+    <button class="vhero" id="vhero" type="button">
       <img class="vheroart" id="vheroart" alt="">
       <span class="vheroscrim"></span>
       <span class="vherorow">
@@ -5118,7 +5121,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v62";   // bump with the service worker, so these load fresh per release
+const APPV="v63";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -6826,18 +6829,33 @@ function snapshotValue(){
   if(!HOMESTATS) return;
   try{
     const key=cotdToday();   // local, same day boundary as the daily card
+    // On the first launch of a day the price cache is over MAXAGE, so `live` is
+    // still null while the fetch runs and priceOf() hands back the built-in
+    // launch-era prices. Those are a legitimate offline fallback, but they are a
+    // different SOURCE, not a different day: comparing them against a fetched
+    // day invents a move of tens of euros. So stamp the source and never
+    // downgrade a day that already had real prices.
+    const fb=!live;
     let h=[];
     try{ h=JSON.parse(localStorage.getItem(VHKEY)||"[]"); }catch(e){}
     const last=h[h.length-1];
-    if(last&&last.d===key) last.v=HOMESTATS.haveV;
-    else h.push({d:key,v:HOMESTATS.haveV});
+    if(last&&last.d===key){
+      if(fb&&!last.f) return;            // today already has real prices: leave them
+      last.v=HOMESTATS.haveV;
+      if(fb) last.f=1; else delete last.f;
+    }else h.push(fb?{d:key,v:HOMESTATS.haveV,f:1}:{d:key,v:HOMESTATS.haveV});
     if(h.length>60) h=h.slice(-60);
     // Round 14 wants to name the card that moved most, and a total cannot say
     // which one that was. So keep a per-card map — but only on the two newest
-    // days, or 60 days × the whole collection would fill the quota.
-    const pm={};
-    for(const s of SLOTS) if(owned.has(s.id)) pm[s.id]=+priceOf(s).toFixed(2);
-    h[h.length-1].p=pm;
+    // days, or 60 days × the whole collection would fill the quota. Never from
+    // fallback prices: a mover computed across two sources is a fiction.
+    const cur=h[h.length-1];
+    if(fb) delete cur.p;
+    else{
+      const pm={};
+      for(const s of SLOTS) if(owned.has(s.id)) pm[s.id]=+priceOf(s).toFixed(2);
+      cur.p=pm;
+    }
     for(let i=0;i<h.length-2;i++) if(h[i].p) delete h[i].p;
     localStorage.setItem(VHKEY,JSON.stringify(h));
   }catch(e){}
@@ -6987,7 +7005,9 @@ function renderGames(){
    finishable today. That rules out a to-do list: the old one looked identical
    every morning, which is why there was no reason to come back. */
 const DQKEY="twm:daily";
-const vYest=()=>new Date(Date.now()-864e5).toLocaleDateString("sv-SE");
+/* one calendar day back, not 24 hours: the clock change makes a Sunday 23 or 25
+   hours long, and "now minus 864e5" then lands on the wrong date and eats a streak */
+const vYest=()=>{ const d=new Date(); d.setDate(d.getDate()-1); return d.toLocaleDateString("sv-SE"); };
 function dqGet(){
   let st=null;
   try{ st=JSON.parse(localStorage.getItem(DQKEY)||"null"); }catch(e){}
@@ -7021,7 +7041,11 @@ function dqToday(){
   }
   return {st,q};
 }
-function dqAnswer(nm){
+function dqAnswer(nm,day){
+  // the buttons on screen belong to the day they were drawn for. Tap one after
+  // midnight and dqToday() would hand back TOMORROW's question, scoring the old
+  // name against a card that was never shown and burning the new day's one shot
+  if(day&&day!==cotdToday()){ vqOpen=false; vqSig=""; vRenderQuestion(); return; }
   const {st,q}=dqToday();
   if(st.answered) return;              // one shot, and that was it for today
   st.answered=true; st.correct=nm===q.name; st.given=nm;
@@ -7073,18 +7097,29 @@ function vHist(){
 }
 function vRenderDelta(){
   const box=document.getElementById("vdeltacard"), h=vHist();
-  if(h.length<2){
+  const t=h[h.length-1];
+  // today's own prices have to be real before any of this means anything
+  if(t&&t.f){
+    box.innerHTML='<p class="vnone">De prijzen van vandaag zijn er nog niet — '
+      +'even geduld.</p>';
+    return;
+  }
+  // and the day we compare against has to come from the same source
+  let p=null;
+  for(let i=h.length-2;i>=0;i--) if(!h[i].f){ p=h[i]; break; }
+  if(!t||!p){
     // no label above it: "Je map bewoog vandaag" over "nog geen geschiedenis"
     // contradicts itself
     box.innerHTML='<p class="vnone">Nog geen geschiedenis — '
       +'morgen staat hier hoeveel je map bewoog.</p>';
     return;
   }
-  const t=h[h.length-1], p=h[h.length-2];
   const diff=t.v-p.v, flat=Math.abs(diff)<0.005;
   // the snapshot only lands on days the app is opened, so "vandaag" can be a lie
   const gap=Math.max(1,Math.round((new Date(t.d)-new Date(p.d))/864e5));
-  const win=h.slice(-7), vals=win.map(e=>e.v);
+  // a day whose prices were the built-in ones would draw as a spike that never
+  // happened, so it is not a bar either
+  const win=h.filter(e=>!e.f).slice(-7), vals=win.map(e=>e.v);
   const lo=Math.min(...vals), hi=Math.max(...vals);
   const span=hi-lo;
   const bars=win.map((e,i)=>{
@@ -7154,10 +7189,11 @@ function vRenderQuestion(){
   if(vqOpen){
     const g=document.createElement("div");
     g.className="vqopts";
+    const day=st.date;
     for(const nm of q.opts){
       const b=document.createElement("button");
       b.type="button"; b.textContent=nm;
-      b.addEventListener("click",()=>dqAnswer(nm));
+      b.addEventListener("click",()=>dqAnswer(nm,day));
       g.appendChild(b);
     }
     box.appendChild(g);
@@ -7170,11 +7206,15 @@ function vRenderQuestion(){
 function oneMove(){
   const per=bPer(), pages=[];
   for(let p=1;p<=bTotal();p++){
-    const miss=SLOTS.slice((p-1)*per,p*per).filter(s=>!owned.has(s.id));
-    if(miss.length) pages.push({page:p,miss});
+    const slots=SLOTS.slice((p-1)*per,p*per);
+    const miss=slots.filter(s=>!owned.has(s.id));
+    if(miss.length) pages.push({page:p,miss,slots:slots.length});
   }
   if(!pages.length) return {kind:"done"};
-  const near=pages.filter(x=>x.miss.length<=2)
+  // "nearly full" has to mean something: the last page holds one slot (373 does
+  // not divide by 12), and an empty one-slot page is not nearly full — it would
+  // otherwise win every time and the row would name the same card forever
+  const near=pages.filter(x=>x.miss.length<=2&&x.miss.length<x.slots)
                   .sort((a,b)=>a.miss.length-b.miss.length||a.page-b.page)[0];
   if(near) return {kind:"page",page:near.page,miss:near.miss};
   let cheap=null;
