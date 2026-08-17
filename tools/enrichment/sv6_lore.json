@@ -1,0 +1,1710 @@
+{
+  "meta": {
+    "set_id": "sv6",
+    "entity_count": 164
+  },
+  "entities": [
+    {
+      "entity": "Tangela",
+      "entity_type": "Pokémon",
+      "headline": "Tangela in the Spotlight",
+      "lore_fact": "Its real body is hidden beneath a mass of constantly growing blue vines, making its true appearance one of Pokémon’s long-running little mysteries.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-1"
+      ]
+    },
+    {
+      "entity": "Tangrowth",
+      "entity_type": "Pokémon",
+      "headline": "Tangrowth in the Spotlight",
+      "lore_fact": "Its arms are bundles of vines that can stretch and regrow, so losing a vine is hardly a problem for this powerful Grass-type.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-2"
+      ]
+    },
+    {
+      "entity": "Pinsir",
+      "entity_type": "Pokémon",
+      "headline": "Pinsir in the Spotlight",
+      "lore_fact": "It is famous for enormous pincers and remarkable strength, using those horns to grab, lift, and crush opponents.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-3",
+        "sv6-168"
+      ]
+    },
+    {
+      "entity": "Spinarak",
+      "entity_type": "Pokémon",
+      "headline": "Spinarak in the Spotlight",
+      "lore_fact": "The web pattern on its back resembles a face, and its strong silk can be used to make sturdy fishing nets.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-4"
+      ]
+    },
+    {
+      "entity": "Ariados",
+      "entity_type": "Pokémon",
+      "headline": "Ariados in the Spotlight",
+      "lore_fact": "A nocturnal spider Pokémon that uses silk from both its mouth and abdomen to trap prey and mark trails.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-5"
+      ]
+    },
+    {
+      "entity": "Sunkern",
+      "entity_type": "Pokémon",
+      "headline": "Sunkern in the Spotlight",
+      "lore_fact": "One of the smallest and lightest Pokémon, it stores nutrients while waiting for the chance to evolve into Sunflora.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-6"
+      ]
+    },
+    {
+      "entity": "Sunflora",
+      "entity_type": "Pokémon",
+      "headline": "Sunflora in the Spotlight",
+      "lore_fact": "It converts sunlight into energy and becomes much more active in bright daylight, fitting its sunflower-like design perfectly.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-7",
+        "sv6-169"
+      ]
+    },
+    {
+      "entity": "Heracross",
+      "entity_type": "Pokémon",
+      "headline": "Heracross in the Spotlight",
+      "lore_fact": "This rhinoceros-beetle Pokémon is astonishingly strong and is known for lifting objects many times its own weight.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-8"
+      ]
+    },
+    {
+      "entity": "Volbeat",
+      "entity_type": "Pokémon",
+      "headline": "Volbeat in the Spotlight",
+      "lore_fact": "Its glowing tail is used to communicate and to draw patterns in the night sky, often in connection with Illumise.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-9"
+      ]
+    },
+    {
+      "entity": "Illumise",
+      "entity_type": "Pokémon",
+      "headline": "Illumise in the Spotlight",
+      "lore_fact": "It guides groups of Volbeat to create glowing patterns in the night sky, giving the pair one of Pokémon’s most unusual partnerships.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-10"
+      ]
+    },
+    {
+      "entity": "Leafeon",
+      "entity_type": "Pokémon",
+      "headline": "Leafeon in the Spotlight",
+      "lore_fact": "An Eevee evolution adapted to forests; its cells behave somewhat like plants and can produce energy from sunlight.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-11"
+      ]
+    },
+    {
+      "entity": "Phantump",
+      "entity_type": "Pokémon",
+      "headline": "Phantump in the Spotlight",
+      "lore_fact": "Folklore says this little Ghost-type is a spirit inhabiting a tree stump, giving its cute appearance a slightly eerie edge.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-12"
+      ]
+    },
+    {
+      "entity": "Trevenant",
+      "entity_type": "Pokémon",
+      "headline": "Trevenant in the Spotlight",
+      "lore_fact": "It can control trees with its roots and is fiercely protective of forests, especially against people who harm woodland Pokémon.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-13"
+      ]
+    },
+    {
+      "entity": "Grookey",
+      "entity_type": "Pokémon",
+      "headline": "Grookey in the Spotlight",
+      "lore_fact": "It carries a special stick from its forest home and creates rhythm by tapping it against objects.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-14"
+      ]
+    },
+    {
+      "entity": "Thwackey",
+      "entity_type": "Pokémon",
+      "headline": "Thwackey in the Spotlight",
+      "lore_fact": "Its sense of rhythm becomes more important as it evolves, and it practices drumming almost obsessively.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-15"
+      ]
+    },
+    {
+      "entity": "Rillaboom",
+      "entity_type": "Pokémon",
+      "headline": "Rillaboom in the Spotlight",
+      "lore_fact": "A powerful drummer whose beats can control roots and plants; its design turns Grookey’s tiny stick into a full drum kit.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-16"
+      ]
+    },
+    {
+      "entity": "Applin",
+      "entity_type": "Pokémon",
+      "headline": "Applin in the Spotlight",
+      "lore_fact": "A tiny dragon that hides inside an apple, borrowing the fruit as both shelter and disguise.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-17",
+        "sv6-126",
+        "sv6-185"
+      ]
+    },
+    {
+      "entity": "Dipplin",
+      "entity_type": "Pokémon",
+      "headline": "Dipplin in the Spotlight",
+      "lore_fact": "This Kitakami evolution of Applin lives inside a syrup-coated apple and is actually formed by two creatures working together.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-18",
+        "sv6-127",
+        "sv6-170"
+      ]
+    },
+    {
+      "entity": "Iron Leaves",
+      "entity_type": "Pokémon",
+      "headline": "Iron Leaves in the Spotlight",
+      "lore_fact": "A futuristic Paradox Pokémon resembling Virizion, with glowing blade-like horns and a sleek mechanical appearance.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-19"
+      ]
+    },
+    {
+      "entity": "Poltchageist",
+      "entity_type": "Pokémon",
+      "headline": "A Haunted Cup of Matcha",
+      "lore_fact": "It resembles Sinistea but is unrelated; it is a matcha-based Ghost Pokémon said to have formed from the regrets of a tea master.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-20",
+        "sv6-21",
+        "sv6-171"
+      ]
+    },
+    {
+      "entity": "Sinistcha",
+      "entity_type": "Pokémon",
+      "headline": "Tea with a Ghostly Twist",
+      "lore_fact": "The evolution of Poltchageist lives in a fine teacup and builds energy by stirring with the tea whisk on its head.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-22",
+        "sv6-23",
+        "sv6-189",
+        "sv6-210"
+      ]
+    },
+    {
+      "entity": "Teal Mask Ogerpon",
+      "entity_type": "Pokémon",
+      "headline": "The Face of Kitakami",
+      "lore_fact": "Ogerpon is the central Legendary Pokémon of Kitakami’s Teal Mask story, and this mask represents its natural Grass-type form.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-24",
+        "sv6-25",
+        "sv6-190",
+        "sv6-211",
+        "sv6-221"
+      ]
+    },
+    {
+      "entity": "Vulpix",
+      "entity_type": "Pokémon",
+      "headline": "Vulpix in the Spotlight",
+      "lore_fact": "It is born with a single pale tail that gradually divides into six beautiful curled tails as it grows.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-26"
+      ]
+    },
+    {
+      "entity": "Ninetales",
+      "entity_type": "Pokémon",
+      "headline": "Ninetales in the Spotlight",
+      "lore_fact": "Its nine tails are tied to old legends, and stories warn that mistreating one can bring a very long-lasting curse.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-27"
+      ]
+    },
+    {
+      "entity": "Slugma",
+      "entity_type": "Pokémon",
+      "headline": "Slugma in the Spotlight",
+      "lore_fact": "Its body is made of extremely hot magma; if it stops moving, its molten body can begin to harden.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-28"
+      ]
+    },
+    {
+      "entity": "Magcargo",
+      "entity_type": "Pokémon",
+      "headline": "Magcargo in the Spotlight",
+      "lore_fact": "Its shell is hardened magma, while the inside remains incredibly hot—one of the most volcanically themed Pokémon in the series.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-29",
+        "sv6-191"
+      ]
+    },
+    {
+      "entity": "Torkoal",
+      "entity_type": "Pokémon",
+      "headline": "Torkoal in the Spotlight",
+      "lore_fact": "It burns coal inside its shell and releases smoke from its nostrils and back, with the smoke revealing how healthy it is.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-30",
+        "sv6-172"
+      ]
+    },
+    {
+      "entity": "Chimchar",
+      "entity_type": "Pokémon",
+      "headline": "Chimchar in the Spotlight",
+      "lore_fact": "Its tail flame is produced by burning gas in its belly and can even go out when it sleeps.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-31"
+      ]
+    },
+    {
+      "entity": "Monferno",
+      "entity_type": "Pokémon",
+      "headline": "Monferno in the Spotlight",
+      "lore_fact": "It intimidates enemies with the flame on its tail and uses walls and ceilings to attack from unexpected angles.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-32"
+      ]
+    },
+    {
+      "entity": "Infernape",
+      "entity_type": "Pokémon",
+      "headline": "Infernape in the Spotlight",
+      "lore_fact": "Inspired by the Monkey King, it combines acrobatics, martial arts, and blazing punches in a fast, aggressive fighting style.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-33",
+        "sv6-173"
+      ]
+    },
+    {
+      "entity": "Darumaka",
+      "entity_type": "Pokémon",
+      "headline": "Darumaka in the Spotlight",
+      "lore_fact": "It stores heat inside its body and becomes extremely energetic when that internal fire is burning strongly.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-34"
+      ]
+    },
+    {
+      "entity": "Darmanitan",
+      "entity_type": "Pokémon",
+      "headline": "Darmanitan in the Spotlight",
+      "lore_fact": "Known for explosive physical power, it can switch between very different battle styles depending on form and ability.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-35"
+      ]
+    },
+    {
+      "entity": "Litwick",
+      "entity_type": "Pokémon",
+      "headline": "Litwick in the Spotlight",
+      "lore_fact": "Its candle flame looks welcoming, but Pokédex lore says it can absorb life energy from those who follow its light.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-36"
+      ]
+    },
+    {
+      "entity": "Lampent",
+      "entity_type": "Pokémon",
+      "headline": "Lampent in the Spotlight",
+      "lore_fact": "It is often associated with hospitals and places where life is fading, making it one of the darker Ghost-type designs.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-37"
+      ]
+    },
+    {
+      "entity": "Chandelure",
+      "entity_type": "Pokémon",
+      "headline": "Chandelure in the Spotlight",
+      "lore_fact": "Its eerie flames are said to burn spirits rather than bodies, fitting its haunted chandelier design.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-38"
+      ]
+    },
+    {
+      "entity": "Chi-Yu",
+      "entity_type": "Pokémon",
+      "headline": "Chi-Yu in the Spotlight",
+      "lore_fact": "One of Paldea’s Treasures of Ruin, it was born from beads linked to human envy and can melt rock with intense flames.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-39"
+      ]
+    },
+    {
+      "entity": "Hearthflame Mask Ogerpon",
+      "entity_type": "Pokémon",
+      "headline": "Ogerpon’s Fiery Mask",
+      "lore_fact": "With the Hearthflame Mask, Ogerpon takes on a fiery Grass/Fire form associated with a fierce, aggressive fighting style.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-40",
+        "sv6-192",
+        "sv6-212"
+      ]
+    },
+    {
+      "entity": "Poliwag",
+      "entity_type": "Pokémon",
+      "headline": "Poliwag in the Spotlight",
+      "lore_fact": "Its transparent belly shows a spiral-shaped internal organ pattern, one of the oldest visual quirks in the Pokédex.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-41"
+      ]
+    },
+    {
+      "entity": "Poliwhirl",
+      "entity_type": "Pokémon",
+      "headline": "Poliwhirl in the Spotlight",
+      "lore_fact": "The spiral on its belly can mesmerize opponents, and its newly developed arms make it much more capable on land.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-42"
+      ]
+    },
+    {
+      "entity": "Poliwrath",
+      "entity_type": "Pokémon",
+      "headline": "Poliwrath in the Spotlight",
+      "lore_fact": "A superb swimmer with powerful muscles; it can cross large bodies of water using multiple swimming styles.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-43"
+      ]
+    },
+    {
+      "entity": "Goldeen",
+      "entity_type": "Pokémon",
+      "headline": "Goldeen in the Spotlight",
+      "lore_fact": "Its elegant fins make it look like a dancer underwater, but its horn can be surprisingly dangerous.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-44"
+      ]
+    },
+    {
+      "entity": "Seaking",
+      "entity_type": "Pokémon",
+      "headline": "Seaking in the Spotlight",
+      "lore_fact": "During breeding season it swims upstream and uses its horn to carve nests into rocks.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-45"
+      ]
+    },
+    {
+      "entity": "Jynx",
+      "entity_type": "Pokémon",
+      "headline": "Jynx in the Spotlight",
+      "lore_fact": "Its dance-like movements and unusual vocalizations have always made it one of the series’ most distinctive humanoid Pokémon.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-46"
+      ]
+    },
+    {
+      "entity": "Corphish",
+      "entity_type": "Pokémon",
+      "headline": "Corphish in the Spotlight",
+      "lore_fact": "Originally from overseas, it is extremely hardy and can thrive even in polluted or stagnant water.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-47"
+      ]
+    },
+    {
+      "entity": "Crawdaunt",
+      "entity_type": "Pokémon",
+      "headline": "Crawdaunt in the Spotlight",
+      "lore_fact": "Aggressive and territorial, it uses its massive claws to drive nearly everything else away from its pond.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-48"
+      ]
+    },
+    {
+      "entity": "Feebas",
+      "entity_type": "Pokémon",
+      "headline": "Feebas in the Spotlight",
+      "lore_fact": "Famously shabby-looking and extremely hardy, it can survive in poor water conditions before evolving into the elegant Milotic.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-49"
+      ]
+    },
+    {
+      "entity": "Milotic",
+      "entity_type": "Pokémon",
+      "headline": "Milotic in the Spotlight",
+      "lore_fact": "Often described as one of the most beautiful Pokémon, it is said to calm anger and conflict with its soothing presence.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-50"
+      ]
+    },
+    {
+      "entity": "Snorunt",
+      "entity_type": "Pokémon",
+      "headline": "Snorunt in the Spotlight",
+      "lore_fact": "It survives in snowy regions and is said in folklore to bring prosperity to homes it visits.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-51"
+      ]
+    },
+    {
+      "entity": "Glalie",
+      "entity_type": "Pokémon",
+      "headline": "Glalie in the Spotlight",
+      "lore_fact": "It freezes moisture in the air into armor and can rapidly freeze prey with icy breath.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-52"
+      ]
+    },
+    {
+      "entity": "Froslass",
+      "entity_type": "Pokémon",
+      "headline": "Froslass in the Spotlight",
+      "lore_fact": "Inspired by the Japanese yuki-onna snow spirit, it is associated with icy mountains and eerie frozen victims.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-53",
+        "sv6-174"
+      ]
+    },
+    {
+      "entity": "Glaceon",
+      "entity_type": "Pokémon",
+      "headline": "Glaceon in the Spotlight",
+      "lore_fact": "An Eevee evolution that lowers its body temperature to freeze moisture in the air into glittering ice crystals.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-54"
+      ]
+    },
+    {
+      "entity": "Phione",
+      "entity_type": "Pokémon",
+      "headline": "Phione in the Spotlight",
+      "lore_fact": "A small sea-dwelling Mythical Pokémon that drifts in warm oceans and can always return to its birthplace.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-55",
+        "sv6-175"
+      ]
+    },
+    {
+      "entity": "Froakie",
+      "entity_type": "Pokémon",
+      "headline": "Froakie in the Spotlight",
+      "lore_fact": "It protects itself with flexible bubbles called Frubbles, which cushion blows and hide how light and agile it is.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-56"
+      ]
+    },
+    {
+      "entity": "Frogadier",
+      "entity_type": "Pokémon",
+      "headline": "Frogadier in the Spotlight",
+      "lore_fact": "It can throw bubble-covered pebbles with surprising accuracy and move rapidly through trees and rocky terrain.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-57"
+      ]
+    },
+    {
+      "entity": "Cramorant",
+      "entity_type": "Pokémon",
+      "headline": "Cramorant in the Spotlight",
+      "lore_fact": "Its Gulp Missile gimmick has it dive for prey and sometimes return with something far more surprising than a fish.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-58",
+        "sv6-176"
+      ]
+    },
+    {
+      "entity": "Finizen",
+      "entity_type": "Pokémon",
+      "headline": "Finizen in the Spotlight",
+      "lore_fact": "A playful dolphin Pokémon that uses the water ring around its tail and bonds closely with companions.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-59"
+      ]
+    },
+    {
+      "entity": "Palafin",
+      "entity_type": "Pokémon",
+      "headline": "A Secret Superhero",
+      "lore_fact": "Its ordinary Zero Form hides a superhero transformation: after switching out in battle, it returns as the dramatically stronger Hero Form.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-60",
+        "sv6-61",
+        "sv6-193"
+      ]
+    },
+    {
+      "entity": "Iron Bundle",
+      "entity_type": "Pokémon",
+      "headline": "Iron Bundle in the Spotlight",
+      "lore_fact": "A futuristic Paradox Pokémon resembling Delibird, with a robotic body and a water cannon hidden in its tail-like sack.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-62"
+      ]
+    },
+    {
+      "entity": "Walking Wake",
+      "entity_type": "Pokémon",
+      "headline": "Walking Wake in the Spotlight",
+      "lore_fact": "An ancient-looking Paradox Pokémon resembling Suicune, reimagined as a powerful reptilian creature.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-63"
+      ]
+    },
+    {
+      "entity": "Wellspring Mask Ogerpon",
+      "entity_type": "Pokémon",
+      "headline": "Ogerpon of the Wellspring",
+      "lore_fact": "The Wellspring Mask changes Ogerpon into a Grass/Water form, connecting it with flowing water and a more graceful battle style.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-64",
+        "sv6-194",
+        "sv6-213"
+      ]
+    },
+    {
+      "entity": "Zapdos",
+      "entity_type": "Pokémon",
+      "headline": "Zapdos in the Spotlight",
+      "lore_fact": "One of Kanto’s legendary birds, associated with thunderstorms and crackling electricity.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-65"
+      ]
+    },
+    {
+      "entity": "Shinx",
+      "entity_type": "Pokémon",
+      "headline": "Shinx in the Spotlight",
+      "lore_fact": "Its muscles generate electricity when they move, causing its fur to glow before it releases a shock.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-66"
+      ]
+    },
+    {
+      "entity": "Luxio",
+      "entity_type": "Pokémon",
+      "headline": "Luxio in the Spotlight",
+      "lore_fact": "Its claws can channel electricity, allowing members of a group to communicate or stun opponents.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-67"
+      ]
+    },
+    {
+      "entity": "Luxray",
+      "entity_type": "Pokémon",
+      "headline": "Luxray in the Spotlight",
+      "lore_fact": "Its extraordinary eyesight can see through solid objects, helping it locate hidden prey or missing young.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-68",
+        "sv6-195"
+      ]
+    },
+    {
+      "entity": "Emolga",
+      "entity_type": "Pokémon",
+      "headline": "Emolga in the Spotlight",
+      "lore_fact": "A flying squirrel Pokémon that stores electricity in its cheeks and glides using membrane-like flaps between its limbs.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-69"
+      ]
+    },
+    {
+      "entity": "Helioptile",
+      "entity_type": "Pokémon",
+      "headline": "Helioptile in the Spotlight",
+      "lore_fact": "It spreads the frills on its head to absorb sunlight and generate enough electricity to power itself without eating.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-70"
+      ]
+    },
+    {
+      "entity": "Heliolisk",
+      "entity_type": "Pokémon",
+      "headline": "Heliolisk in the Spotlight",
+      "lore_fact": "Its solar-powered frills can generate impressive amounts of electricity, matching its desert-lizard inspiration.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-71",
+        "sv6-177"
+      ]
+    },
+    {
+      "entity": "Morpeko",
+      "entity_type": "Pokémon",
+      "headline": "Morpeko in the Spotlight",
+      "lore_fact": "Its Hunger Switch changes both its mood and appearance, flipping between Full Belly and Hangry modes.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-72"
+      ]
+    },
+    {
+      "entity": "Tadbulb",
+      "entity_type": "Pokémon",
+      "headline": "Tadbulb in the Spotlight",
+      "lore_fact": "It floats using electricity generated by shaking its tail and can light up its whole body like a tiny bulb.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-73"
+      ]
+    },
+    {
+      "entity": "Bellibolt",
+      "entity_type": "Pokémon",
+      "headline": "Bellibolt in the Spotlight",
+      "lore_fact": "Its eye-like bumps are actually false eyes; the real eyes are the small yellow dots above its mouth.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-74"
+      ]
+    },
+    {
+      "entity": "Wattrel",
+      "entity_type": "Pokémon",
+      "headline": "Wattrel in the Spotlight",
+      "lore_fact": "A seabird Pokémon that uses wind and its wings to generate electricity while flying over the ocean.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-75",
+        "sv6-178"
+      ]
+    },
+    {
+      "entity": "Kilowattrel",
+      "entity_type": "Pokémon",
+      "headline": "Kilowattrel in the Spotlight",
+      "lore_fact": "It combines the speed of a seabird with powerful electrical organs, storing energy in its throat sac.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-76"
+      ]
+    },
+    {
+      "entity": "Iron Thorns",
+      "entity_type": "Pokémon",
+      "headline": "Iron Thorns in the Spotlight",
+      "lore_fact": "A futuristic Paradox Pokémon resembling Tyranitar, covered in angular armor and glowing green elements.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-77",
+        "sv6-196"
+      ]
+    },
+    {
+      "entity": "Clefairy",
+      "entity_type": "Pokémon",
+      "headline": "Clefairy in the Spotlight",
+      "lore_fact": "Long associated with the moon, it is famously shy and said to gather under moonlight on special nights.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-78"
+      ]
+    },
+    {
+      "entity": "Clefable",
+      "entity_type": "Pokémon",
+      "headline": "Clefable in the Spotlight",
+      "lore_fact": "Its sensitive hearing lets it detect tiny sounds from far away, and it prefers quiet mountain areas.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-79"
+      ]
+    },
+    {
+      "entity": "Abra",
+      "entity_type": "Pokémon",
+      "headline": "Abra in the Spotlight",
+      "lore_fact": "It sleeps for most of the day but can teleport even while asleep when it senses danger.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-80"
+      ]
+    },
+    {
+      "entity": "Kadabra",
+      "entity_type": "Pokémon",
+      "headline": "Kadabra in the Spotlight",
+      "lore_fact": "Its psychic powers are so strong that electronics can malfunction nearby, and it amplifies them with its spoon.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-81"
+      ]
+    },
+    {
+      "entity": "Alakazam",
+      "entity_type": "Pokémon",
+      "headline": "Alakazam in the Spotlight",
+      "lore_fact": "Its brain continues growing throughout its life, giving it extraordinary memory and psychic intelligence.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-82"
+      ]
+    },
+    {
+      "entity": "Girafarig",
+      "entity_type": "Pokémon",
+      "headline": "Girafarig in the Spotlight",
+      "lore_fact": "Its tail has a small brain of its own and can react independently, even biting enemies behind it.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-83"
+      ]
+    },
+    {
+      "entity": "Farigiraf",
+      "entity_type": "Pokémon",
+      "headline": "Farigiraf in the Spotlight",
+      "lore_fact": "After evolving, Girafarig’s tail-head merges over its main head like a protective helmet, boosting its psychic power.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-84"
+      ]
+    },
+    {
+      "entity": "Chimecho",
+      "entity_type": "Pokémon",
+      "headline": "Chimecho in the Spotlight",
+      "lore_fact": "It creates sound by vibrating its body and uses its long tail to hang from branches or structures.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-85",
+        "sv6-179"
+      ]
+    },
+    {
+      "entity": "Flabébé",
+      "entity_type": "Pokémon",
+      "headline": "Flabébé in the Spotlight",
+      "lore_fact": "It bonds with a single flower soon after birth and carries that flower for the rest of its life.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-86"
+      ]
+    },
+    {
+      "entity": "Floette",
+      "entity_type": "Pokémon",
+      "headline": "Floette in the Spotlight",
+      "lore_fact": "It draws power from flowers and is particularly associated with beautifully maintained gardens.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-87"
+      ]
+    },
+    {
+      "entity": "Florges",
+      "entity_type": "Pokémon",
+      "headline": "Florges in the Spotlight",
+      "lore_fact": "It controls flower gardens and can live for centuries, turning floral energy into powerful Fairy-type attacks.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-88"
+      ]
+    },
+    {
+      "entity": "Swirlix",
+      "entity_type": "Pokémon",
+      "headline": "Swirlix in the Spotlight",
+      "lore_fact": "Its body is as light and sweet as cotton candy because it eats almost nothing but sugary foods.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-89"
+      ]
+    },
+    {
+      "entity": "Slurpuff",
+      "entity_type": "Pokémon",
+      "headline": "Slurpuff in the Spotlight",
+      "lore_fact": "Its incredible sense of smell is millions of times more sensitive than a human’s, making it excellent at identifying scents.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-90"
+      ]
+    },
+    {
+      "entity": "Sandygast",
+      "entity_type": "Pokémon",
+      "headline": "Sandygast in the Spotlight",
+      "lore_fact": "A possessed pile of sand that can compel people and Pokémon to add more sand to its body.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-91"
+      ]
+    },
+    {
+      "entity": "Palossand",
+      "entity_type": "Pokémon",
+      "headline": "Palossand in the Spotlight",
+      "lore_fact": "It controls sand to trap prey and grows into a haunted sandcastle large enough to dominate a beach.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-92"
+      ]
+    },
+    {
+      "entity": "Enamorus",
+      "entity_type": "Pokémon",
+      "headline": "Enamorus in the Spotlight",
+      "lore_fact": "A Legendary Pokémon associated with spring; its arrival is said to signal the end of harsh winter weather.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-93",
+        "sv6-180"
+      ]
+    },
+    {
+      "entity": "Scream Tail",
+      "entity_type": "Pokémon",
+      "headline": "Scream Tail in the Spotlight",
+      "lore_fact": "An ancient Paradox Pokémon resembling Jigglypuff but with fangs, wild hair, and a much more feral appearance.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-94",
+        "sv6-197"
+      ]
+    },
+    {
+      "entity": "Munkidori",
+      "entity_type": "Pokémon",
+      "headline": "Brains of the Loyal Three",
+      "lore_fact": "One of Kitakami’s so-called Loyal Three; its chain is linked to heightened cleverness and strong psychic abilities.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-95"
+      ]
+    },
+    {
+      "entity": "Fezandipiti",
+      "entity_type": "Pokémon",
+      "headline": "Beauty of the Loyal Three",
+      "lore_fact": "One of the Loyal Three, known for beauty and charm enhanced by the strange chain around its body.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-96"
+      ]
+    },
+    {
+      "entity": "Sandshrew",
+      "entity_type": "Pokémon",
+      "headline": "Sandshrew in the Spotlight",
+      "lore_fact": "Its dry, tough hide lets it thrive in deserts, and it curls into a ball to protect itself from danger.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-97"
+      ]
+    },
+    {
+      "entity": "Sandslash",
+      "entity_type": "Pokémon",
+      "headline": "Sandslash in the Spotlight",
+      "lore_fact": "Its back is covered in hard spikes, and it can curl into a defensive ball or slash with long claws.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-98"
+      ]
+    },
+    {
+      "entity": "Hisuian Growlithe",
+      "entity_type": "Pokémon",
+      "headline": "Hisuian Growlithe in the Spotlight",
+      "lore_fact": "This regional Growlithe has thick fur and a rocky horn, adaptations suited to the colder Hisui region.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-99",
+        "sv6-181"
+      ]
+    },
+    {
+      "entity": "Hisuian Arcanine",
+      "entity_type": "Pokémon",
+      "headline": "Hisuian Arcanine in the Spotlight",
+      "lore_fact": "Its Hisuian form combines Fire and Rock traits and has a much more rugged, volcanic look than the familiar Arcanine.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-100"
+      ]
+    },
+    {
+      "entity": "Nosepass",
+      "entity_type": "Pokémon",
+      "headline": "Nosepass in the Spotlight",
+      "lore_fact": "Its magnetic nose always points north, making groups of Nosepass unable to face one another directly.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-101"
+      ]
+    },
+    {
+      "entity": "Probopass",
+      "entity_type": "Pokémon",
+      "headline": "Probopass in the Spotlight",
+      "lore_fact": "It controls three small magnetic units called Mini-Noses and uses magnetism to attack and navigate.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-102",
+        "sv6-182"
+      ]
+    },
+    {
+      "entity": "Timburr",
+      "entity_type": "Pokémon",
+      "headline": "Timburr in the Spotlight",
+      "lore_fact": "It always carries a wooden beam and uses it both for training and for construction work.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-103",
+        "sv6-183"
+      ]
+    },
+    {
+      "entity": "Gurdurr",
+      "entity_type": "Pokémon",
+      "headline": "Gurdurr in the Spotlight",
+      "lore_fact": "It carries an iron beam to strengthen itself and is skilled enough to help build large structures.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-104"
+      ]
+    },
+    {
+      "entity": "Conkeldurr",
+      "entity_type": "Pokémon",
+      "headline": "Conkeldurr in the Spotlight",
+      "lore_fact": "It is said to have taught humans how to make concrete, fighting with two massive concrete pillars.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-105"
+      ]
+    },
+    {
+      "entity": "Greninja",
+      "entity_type": "Pokémon",
+      "headline": "Greninja in the Spotlight",
+      "lore_fact": "A ninja-inspired Pokémon that creates sharp water weapons and moves with exceptional speed and stealth.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-106",
+        "sv6-198",
+        "sv6-214"
+      ]
+    },
+    {
+      "entity": "Hawlucha",
+      "entity_type": "Pokémon",
+      "headline": "Hawlucha in the Spotlight",
+      "lore_fact": "A luchador-inspired Pokémon that fights with dramatic aerial wrestling moves and uses its wings for balance.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-107"
+      ]
+    },
+    {
+      "entity": "Glimmet",
+      "entity_type": "Pokémon",
+      "headline": "Glimmet in the Spotlight",
+      "lore_fact": "Its mineral-like petals contain poison, and it clings to cave walls where it absorbs nutrients from stone.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-108"
+      ]
+    },
+    {
+      "entity": "Glimmora",
+      "entity_type": "Pokémon",
+      "headline": "Glimmora in the Spotlight",
+      "lore_fact": "Its toxic crystal petals open like a flower when threatened, scattering poisonous material around it.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-109"
+      ]
+    },
+    {
+      "entity": "Ting-Lu",
+      "entity_type": "Pokémon",
+      "headline": "Ting-Lu in the Spotlight",
+      "lore_fact": "One of the Treasures of Ruin, formed around a ritual vessel and powerful enough to split the earth with its weight.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-110"
+      ]
+    },
+    {
+      "entity": "Okidogi",
+      "entity_type": "Pokémon",
+      "headline": "One of the Loyal Three",
+      "lore_fact": "One of Kitakami’s Loyal Three; the chain around its neck greatly increased its physical strength.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-111"
+      ]
+    },
+    {
+      "entity": "Cornerstone Mask Ogerpon",
+      "entity_type": "Pokémon",
+      "headline": "Ogerpon Stands Like Stone",
+      "lore_fact": "The Cornerstone Mask gives Ogerpon a Grass/Rock form built around toughness, defense, and a stone-like stance.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-112",
+        "sv6-199",
+        "sv6-215"
+      ]
+    },
+    {
+      "entity": "Poochyena",
+      "entity_type": "Pokémon",
+      "headline": "Poochyena in the Spotlight",
+      "lore_fact": "It has an excellent sense of smell and will chase prey persistently, though it can lose nerve against stronger foes.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-113"
+      ]
+    },
+    {
+      "entity": "Mightyena",
+      "entity_type": "Pokémon",
+      "headline": "Mightyena in the Spotlight",
+      "lore_fact": "It lives and hunts in packs with strict social order, following experienced leaders with impressive discipline.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-114"
+      ]
+    },
+    {
+      "entity": "Venipede",
+      "entity_type": "Pokémon",
+      "headline": "Venipede in the Spotlight",
+      "lore_fact": "It senses its surroundings with the feelers on its head and tail and injects poison through sharp fangs.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-115"
+      ]
+    },
+    {
+      "entity": "Whirlipede",
+      "entity_type": "Pokémon",
+      "headline": "Whirlipede in the Spotlight",
+      "lore_fact": "It is protected by a hard shell and can roll at high speed, building momentum before striking.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-116"
+      ]
+    },
+    {
+      "entity": "Scolipede",
+      "entity_type": "Pokémon",
+      "headline": "Scolipede in the Spotlight",
+      "lore_fact": "A huge centipede Pokémon that chases prey relentlessly and attacks with toxic horns on its head.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-117"
+      ]
+    },
+    {
+      "entity": "Brute Bonnet",
+      "entity_type": "Pokémon",
+      "headline": "Brute Bonnet in the Spotlight",
+      "lore_fact": "An ancient Paradox Pokémon resembling Amoonguss, but with a rougher, more prehistoric body.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-118"
+      ]
+    },
+    {
+      "entity": "Skarmory",
+      "entity_type": "Pokémon",
+      "headline": "Skarmory in the Spotlight",
+      "lore_fact": "Its metal feathers are razor-sharp, and despite its armored body it can fly at surprisingly high speed.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-119"
+      ]
+    },
+    {
+      "entity": "Aron",
+      "entity_type": "Pokémon",
+      "headline": "Aron in the Spotlight",
+      "lore_fact": "It eats iron ore—and sometimes man-made metal—to build the tough armor covering its body.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-120"
+      ]
+    },
+    {
+      "entity": "Lairon",
+      "entity_type": "Pokémon",
+      "headline": "Lairon in the Spotlight",
+      "lore_fact": "It lives in mountains rich in iron and fiercely defends feeding territory from rivals.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-121",
+        "sv6-184"
+      ]
+    },
+    {
+      "entity": "Aggron",
+      "entity_type": "Pokémon",
+      "headline": "Aggron in the Spotlight",
+      "lore_fact": "A heavily armored Pokémon that treats an entire mountain as its territory and repairs environmental damage there.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-122"
+      ]
+    },
+    {
+      "entity": "Heatran",
+      "entity_type": "Pokémon",
+      "headline": "Heatran in the Spotlight",
+      "lore_fact": "A Legendary Pokémon with a body of molten steel, found crawling across volcanic cave walls using cross-shaped claws.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-123"
+      ]
+    },
+    {
+      "entity": "Varoom",
+      "entity_type": "Pokémon",
+      "headline": "Varoom in the Spotlight",
+      "lore_fact": "A Poison/Steel Pokémon formed when a mysterious substance entered an abandoned engine and brought it to life.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-124"
+      ]
+    },
+    {
+      "entity": "Revavroom",
+      "entity_type": "Pokémon",
+      "headline": "Revavroom in the Spotlight",
+      "lore_fact": "An engine-like Pokémon that uses toxic exhaust and multiple cylinders to generate tremendous power.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-125"
+      ]
+    },
+    {
+      "entity": "Dreepy",
+      "entity_type": "Pokémon",
+      "headline": "Dreepy in the Spotlight",
+      "lore_fact": "A tiny Dragon/Ghost Pokémon based on an ancient species; it is weak alone and often stays near stronger evolutions.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-128"
+      ]
+    },
+    {
+      "entity": "Drakloak",
+      "entity_type": "Pokémon",
+      "headline": "Drakloak in the Spotlight",
+      "lore_fact": "It carries Dreepy on its head and will search for another one if separated, making the evolution line unusually family-like.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-129"
+      ]
+    },
+    {
+      "entity": "Dragapult",
+      "entity_type": "Pokémon",
+      "headline": "Dragapult in the Spotlight",
+      "lore_fact": "It launches the Dreepy living in its horn-like head openings at high speed—apparently with the Dreepy enjoying the ride.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-130",
+        "sv6-200"
+      ]
+    },
+    {
+      "entity": "Tatsugiri",
+      "entity_type": "Pokémon",
+      "headline": "Tiny Sushi, Big Brain",
+      "lore_fact": "A tiny sushi-like Dragon Pokémon that is extremely intelligent and forms a famous partnership with Dondozo.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-131",
+        "sv6-186"
+      ]
+    },
+    {
+      "entity": "Farfetch'd",
+      "entity_type": "Pokémon",
+      "headline": "Farfetch'd in the Spotlight",
+      "lore_fact": "It carries a leek-like stalk as a weapon and tool; the stalk is so important that it carefully chooses and protects it.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-132"
+      ]
+    },
+    {
+      "entity": "Chansey",
+      "entity_type": "Pokémon",
+      "headline": "Chansey in the Spotlight",
+      "lore_fact": "Known for kindness and healing, it carries a nutritious egg and often shares it with injured people or Pokémon.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-133",
+        "sv6-187"
+      ]
+    },
+    {
+      "entity": "Blissey",
+      "entity_type": "Pokémon",
+      "headline": "Blissey in the Spotlight",
+      "lore_fact": "The evolved form of Chansey is strongly associated with compassion and healing, and its egg is said to make people feel happier.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-134",
+        "sv6-201"
+      ]
+    },
+    {
+      "entity": "Eevee",
+      "entity_type": "Pokémon",
+      "headline": "The Evolution Pokémon",
+      "lore_fact": "Its unstable genetic structure lets it evolve into many different forms, making it the symbol of branching evolution in Pokémon.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-135",
+        "sv6-188"
+      ]
+    },
+    {
+      "entity": "Snorlax",
+      "entity_type": "Pokémon",
+      "headline": "Snorlax in the Spotlight",
+      "lore_fact": "It spends most of its time eating and sleeping, but can digest almost anything and is incredibly powerful when motivated.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-136"
+      ]
+    },
+    {
+      "entity": "Aipom",
+      "entity_type": "Pokémon",
+      "headline": "Aipom in the Spotlight",
+      "lore_fact": "Its hand-like tail is so useful for climbing and grabbing that its actual arms have become comparatively less important.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-137"
+      ]
+    },
+    {
+      "entity": "Ambipom",
+      "entity_type": "Pokémon",
+      "headline": "Ambipom in the Spotlight",
+      "lore_fact": "After evolving, it gains two hand-like tails and uses them with remarkable dexterity for almost everything.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-138"
+      ]
+    },
+    {
+      "entity": "Ducklett",
+      "entity_type": "Pokémon",
+      "headline": "Ducklett in the Spotlight",
+      "lore_fact": "It is an excellent swimmer and sprays water from its feathers while preening to keep them clean.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-139"
+      ]
+    },
+    {
+      "entity": "Swanna",
+      "entity_type": "Pokémon",
+      "headline": "Swanna in the Spotlight",
+      "lore_fact": "It dances elegantly at dusk and can fly for thousands of miles using powerful wings.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-140"
+      ]
+    },
+    {
+      "entity": "Bloodmoon Ursaluna",
+      "entity_type": "Pokémon",
+      "headline": "The Bloodmoon Beast",
+      "lore_fact": "The mysterious “Bloodmoon Beast” is a unique Ursaluna found in Kitakami, marked by a red moon-like feature on its forehead and the signature move Blood Moon.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-141",
+        "sv6-202",
+        "sv6-216",
+        "sv6-222"
+      ]
+    },
+    {
+      "entity": "Accompanying Flute",
+      "entity_type": "Trainer/Energy",
+      "headline": "Accompanying Flute in the Spotlight",
+      "lore_fact": "A Kitakami-flavored Item card whose flute imagery fits the set’s festival and folklore atmosphere.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-142"
+      ]
+    },
+    {
+      "entity": "Bug Catching Set",
+      "entity_type": "Trainer/Energy",
+      "headline": "Bug Catching Set in the Spotlight",
+      "lore_fact": "A Trainer Item themed around catching and studying bugs, matching the rural, outdoorsy feel of Kitakami.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-143"
+      ]
+    },
+    {
+      "entity": "Caretaker",
+      "entity_type": "Trainer/Energy",
+      "headline": "Caretaker in the Spotlight",
+      "lore_fact": "A Supporter representing one of the adults connected with Blueberry Academy and the wider Scarlet & Violet school setting.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-144",
+        "sv6-203"
+      ]
+    },
+    {
+      "entity": "Carmine",
+      "entity_type": "Trainer/Energy",
+      "headline": "Kitakami’s Fierce Big Sister",
+      "lore_fact": "A major character from The Teal Mask. She is Kieran’s older sister: proud, competitive, and deeply connected to Kitakami.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-145",
+        "sv6-204",
+        "sv6-217"
+      ]
+    },
+    {
+      "entity": "Community Center",
+      "entity_type": "Trainer/Energy",
+      "headline": "Community Center in the Spotlight",
+      "lore_fact": "A Stadium tied directly to Kitakami’s village life and the communal setting seen throughout The Teal Mask story.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-146"
+      ]
+    },
+    {
+      "entity": "Cook",
+      "entity_type": "Trainer/Energy",
+      "headline": "Cook in the Spotlight",
+      "lore_fact": "A Supporter built around the simple Pokémon-world idea of preparing food to help your team.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-147"
+      ]
+    },
+    {
+      "entity": "Enhanced Hammer",
+      "entity_type": "Trainer/Energy",
+      "headline": "Enhanced Hammer in the Spotlight",
+      "lore_fact": "A returning disruptive Item with a long TCG history; its identity is all about removing troublesome Special Energy.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-148",
+        "sv6-224"
+      ]
+    },
+    {
+      "entity": "Festival Grounds",
+      "entity_type": "Trainer/Energy",
+      "headline": "A Festival of Mischief & Mystery",
+      "lore_fact": "A Stadium that captures Twilight Masquerade’s central Kitakami festival theme more directly than almost any other card in the set.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-149"
+      ]
+    },
+    {
+      "entity": "Handheld Fan",
+      "entity_type": "Trainer/Energy",
+      "headline": "Handheld Fan in the Spotlight",
+      "lore_fact": "A Pokémon Tool with a festival accessory look, fitting the warm-weather celebration aesthetic of Kitakami.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-150"
+      ]
+    },
+    {
+      "entity": "Hassel",
+      "entity_type": "Trainer/Energy",
+      "headline": "Hassel in the Spotlight",
+      "lore_fact": "An Elite Four member and art teacher from Paldea, known for his dramatic personality and deep love of art.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-151",
+        "sv6-205"
+      ]
+    },
+    {
+      "entity": "Hyper Aroma",
+      "entity_type": "Trainer/Energy",
+      "headline": "Hyper Aroma in the Spotlight",
+      "lore_fact": "An ACE SPEC Item—meaning you can include only one ACE SPEC card in your deck—centered on finding Evolution Pokémon.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-152"
+      ]
+    },
+    {
+      "entity": "Jamming Tower",
+      "entity_type": "Trainer/Energy",
+      "headline": "Jamming Tower in the Spotlight",
+      "lore_fact": "A Stadium themed around interference, mechanically fitting the idea of shutting down or disrupting equipment.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-153"
+      ]
+    },
+    {
+      "entity": "Kieran",
+      "entity_type": "Trainer/Energy",
+      "headline": "The Boy Who Idolized Ogerpon",
+      "lore_fact": "A central character in The Teal Mask whose admiration for Ogerpon becomes a major part of his personal story and rivalry with the player.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-154",
+        "sv6-206",
+        "sv6-218"
+      ]
+    },
+    {
+      "entity": "Lana's Aid",
+      "entity_type": "Trainer/Energy",
+      "headline": "Lana's Aid in the Spotlight",
+      "lore_fact": "A Supporter featuring Lana, the Water-type Trial Captain from Alola, returning here as a useful recovery-themed Trainer card.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-155",
+        "sv6-207",
+        "sv6-219"
+      ]
+    },
+    {
+      "entity": "Love Ball",
+      "entity_type": "Trainer/Energy",
+      "headline": "Love Ball in the Spotlight",
+      "lore_fact": "A Poké Ball originally introduced in Johto, designed around the idea of catching Pokémon of the same species and opposite gender.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-156"
+      ]
+    },
+    {
+      "entity": "Lucian",
+      "entity_type": "Trainer/Energy",
+      "headline": "Lucian in the Spotlight",
+      "lore_fact": "A Psychic-type Elite Four member from Sinnoh, recognizable for his calm, scholarly personality and love of reading.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-157",
+        "sv6-208"
+      ]
+    },
+    {
+      "entity": "Lucky Helmet",
+      "entity_type": "Trainer/Energy",
+      "headline": "Lucky Helmet in the Spotlight",
+      "lore_fact": "A Pokémon Tool whose protective helmet theme is paired with a reward when the attached Pokémon is attacked.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-158"
+      ]
+    },
+    {
+      "entity": "Ogre's Mask",
+      "entity_type": "Trainer/Energy",
+      "headline": "Ogre's Mask in the Spotlight",
+      "lore_fact": "An Item directly tied to Ogerpon’s masks, the central objects behind Twilight Masquerade’s Kitakami story and its four Ogerpon forms.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-159"
+      ]
+    },
+    {
+      "entity": "Perrin",
+      "entity_type": "Trainer/Energy",
+      "headline": "Hunting the Bloodmoon Beast",
+      "lore_fact": "A photographer introduced in The Teal Mask who asks the player to help photograph rare Pokémon and is closely linked to the Bloodmoon Ursaluna quest.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-160",
+        "sv6-209",
+        "sv6-220"
+      ]
+    },
+    {
+      "entity": "Raifort",
+      "entity_type": "Trainer/Energy",
+      "headline": "Raifort in the Spotlight",
+      "lore_fact": "Paldea’s history teacher, fascinated by legends and ancient mysteries—including the Treasures of Ruin.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-161"
+      ]
+    },
+    {
+      "entity": "Scoop Up Cyclone",
+      "entity_type": "Trainer/Energy",
+      "headline": "Scoop Up Cyclone in the Spotlight",
+      "lore_fact": "A returning ACE SPEC Item with a classic TCG identity: a powerful one-per-deck way to pick up one of your Pokémon and its attached cards.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-162"
+      ]
+    },
+    {
+      "entity": "Secret Box",
+      "entity_type": "Trainer/Energy",
+      "headline": "Secret Box in the Spotlight",
+      "lore_fact": "An ACE SPEC Item themed around trading resources for access to several different Trainer-card options.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-163"
+      ]
+    },
+    {
+      "entity": "Survival Brace",
+      "entity_type": "Trainer/Energy",
+      "headline": "Survival Brace in the Spotlight",
+      "lore_fact": "An ACE SPEC Pokémon Tool designed around surviving a hit that would otherwise Knock Out the attached Pokémon.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-164"
+      ]
+    },
+    {
+      "entity": "Unfair Stamp",
+      "entity_type": "Trainer/Energy",
+      "headline": "Unfair Stamp in the Spotlight",
+      "lore_fact": "An ACE SPEC Item that becomes especially disruptive after one of your Pokémon has been Knocked Out.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-165"
+      ]
+    },
+    {
+      "entity": "Boomerang Energy",
+      "entity_type": "Trainer/Energy",
+      "headline": "Boomerang Energy in the Spotlight",
+      "lore_fact": "A Special Energy whose identity is exactly what the name suggests: it can return after being discarded under the right condition.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-166"
+      ]
+    },
+    {
+      "entity": "Legacy Energy",
+      "entity_type": "Trainer/Energy",
+      "headline": "Legacy Energy in the Spotlight",
+      "lore_fact": "An ACE SPEC Special Energy and one of the set’s most unusual cards, because ACE SPEC rules normally make these cards one-per-deck choices.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-167"
+      ]
+    },
+    {
+      "entity": "Buddy-Buddy Poffin",
+      "entity_type": "Trainer/Energy",
+      "headline": "Buddy-Buddy Poffin in the Spotlight",
+      "lore_fact": "A popular Item for setting up small Basic Pokémon early, themed after the Poffins used as Pokémon treats in Sinnoh.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-223"
+      ]
+    },
+    {
+      "entity": "Rescue Board",
+      "entity_type": "Trainer/Energy",
+      "headline": "Rescue Board in the Spotlight",
+      "lore_fact": "A Pokémon Tool built around making a Pokémon easier to retreat, especially when it has taken damage.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-225"
+      ]
+    },
+    {
+      "entity": "Luminous Energy",
+      "entity_type": "Trainer/Energy",
+      "headline": "Luminous Energy in the Spotlight",
+      "lore_fact": "A flexible Special Energy that can provide different Energy types, but with restrictions that reward careful deck building.",
+      "source_basis": "Pokemon.com Pokédex / official game lore / card flavor text",
+      "card_ids": [
+        "sv6-226"
+      ]
+    }
+  ]
+}

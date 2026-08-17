@@ -1,0 +1,222 @@
+[
+ {
+  "id": "sv6-169",
+  "observation": "Een vrolijke groep Sunflora vult een zonnige tuin, met een watermeloen vooraan en overal bloemen. Koele blauwe lijnen tegen de geelgroene planten maken de hele kaart helder en speels.",
+  "story_hook": "De tekening maakt van Sunflora's liefde voor zonlicht een echt feest van een zomerdag.",
+  "mood": [
+   "zonnig",
+   "vrolijk",
+   "speels"
+  ],
+  "visual_style": "kleurrijke tuintekening"
+ },
+ {
+  "id": "sv6-172",
+  "observation": "Torkoal is verwerkt in een scène in een pottenbakkerij, waar zijn hitte vanzelf past naast ovens, potten en een oudere ambachtsman aan het werk. Aardse bruintinten en rook laten de Pokémon aanvoelen als een deel van de werkplaats zelf.",
+  "story_hook": "De kool en rook van Torkoal worden hier nuttige hitte voor het ambacht, niet alleen een aanval.",
+  "mood": [
+   "warm",
+   "aards",
+   "hardwerkend"
+  ],
+  "visual_style": "geschilderde werkplaatsscène"
+ },
+ {
+  "id": "sv6-175",
+  "observation": "Phione zweeft onder zacht verlichte blauwgroene golven, terwijl andere Phione-vormen rondom in het water verdwijnen. Het zachte licht en het enorme gevoel van water maken de kleine Pokémon rustig en gewichtloos.",
+  "story_hook": "In plaats van een aanval te tonen, laat de kaart Phione gewoon zweven, zoals in zijn verhaal.",
+  "mood": [
+   "dromerig",
+   "kalm",
+   "onderwater"
+  ],
+  "visual_style": "zachte onderwatertekening"
+ },
+ {
+  "id": "sv6-178",
+  "observation": "Wattrel duikt onder water door schuimende blauwe branding, omringd door kleinere vogels en dunne knetterende lijnen elektriciteit. Een elektrische vogel onder de golven zien geeft de kaart een verrassend gevoel van snelheid en gevaar.",
+  "story_hook": "Door de ongewone hoek onder water lijkt deze kleine kustvogel een duikende torpedo.",
+  "mood": [
+   "avontuurlijk",
+   "snel",
+   "elektrisch"
+  ],
+  "visual_style": "onderwater-actietekening"
+ },
+ {
+  "id": "sv6-181",
+  "observation": "Hisuian Growlithe springt blij door een gloeiend groengouden bos, omkaderd door de benen en schoenen van mensen net buiten de actie. Door het lage standpunt lijkt het alsof de kleine Growlithe recht naar jou toe rent.",
+  "story_hook": "De kaart voelt als een blije foto tijdens een wandeling, niet als een geposeerd Pokémon-portret.",
+  "mood": [
+   "blij",
+   "warm",
+   "avontuurlijk"
+  ],
+  "visual_style": "geschilderde spontane scène"
+ },
+ {
+  "id": "sv6-184",
+  "observation": "Lairon verkent een volgestouwde schroothoop of werkplaats vol buizen, gereedschap, bouten en afgedankt metaal. Zijn gepantserde lichaam gaat vanzelf op in de industriële rommel, bijna als nog een stuk machine.",
+  "story_hook": "Een staal-Pokémon die zich tussen metaalschroot verstopt, is een perfecte camouflagetruc.",
+  "mood": [
+   "stoer",
+   "industrieel",
+   "nieuwsgierig"
+  ],
+  "visual_style": "volle mechanische scène"
+ },
+ {
+  "id": "sv6-187",
+  "observation": "Chansey draagt een hoge stapel pakjes door een druk Pokémon Center, terwijl Blissey achter de toonbank werkt, Snorlax vlakbij ligt te slapen en andere Pokémon de zaal vullen. Overal waar je kijkt zitten kleine grapjes op de achtergrond.",
+  "story_hook": "Deze kaart is een tweede blik waard, want de achtergrond zit vol kleine verhaaltjes uit het Pokémon Center.",
+  "mood": [
+   "gezellig",
+   "druk",
+   "vriendelijk"
+  ],
+  "visual_style": "gedetailleerde Pokémon Center-scène"
+ },
+ {
+  "id": "sv6-190",
+  "observation": "Teal Mask Ogerpon ex staat op een felgroen full-art portret, met het masker helemaal vooraan in beeld. Kristalachtige Tera-vormen en diepgroene details maken het masker bijna zo mooi als een edelsteen.",
+  "story_hook": "Op deze print is de Teal Mask niet gewoon een accessoire, maar de ster van de kaart.",
+  "mood": [
+   "fel",
+   "magisch",
+   "energiek"
+  ],
+  "visual_style": "Tera full-art portret"
+ },
+ {
+  "id": "sv6-193",
+  "observation": "Palafin ex krijgt een full-art in superheldenstijl, waarbij zijn krachtige, veranderde lichaam een blauwpaarse grafische achtergrond overheerst. Door de pose zie je extra goed dat Hero Form op striphelden is gebaseerd.",
+  "story_hook": "Het geheime superheldenidee van Palafin is veel beter te zien nu de kaart hem het hele beeld geeft.",
+  "mood": [
+   "heldhaftig",
+   "sterk",
+   "stripachtig"
+  ],
+  "visual_style": "luxe full-art heldenportret"
+ },
+ {
+  "id": "sv6-196",
+  "observation": "Iron Thorns ex krijgt een futuristische full-art met harde geometrische vormen en felgroene technologische accenten. Door de kale omgeving valt zijn mechanische, bijna wapenachtige silhouet extra op.",
+  "story_hook": "De kaart lijkt minder op het portret van een wild dier en meer op een machine die opstart.",
+  "mood": [
+   "futuristisch",
+   "krachtig",
+   "mechanisch"
+  ],
+  "visual_style": "luxe futuristische full art"
+ },
+ {
+  "id": "sv6-199",
+  "observation": "Cornerstone Mask Ogerpon ex krijgt een aardse, steenkleurige full-art met brede hoekige vormen rond het masker. De opbouw voelt zwaarder en steviger dan bij de andere Ogerpon-maskers.",
+  "story_hook": "Door het rotsmasker lijkt deze Ogerpon minder een danser en meer een klein fort.",
+  "mood": [
+   "stevig",
+   "stabiel",
+   "imposant"
+  ],
+  "visual_style": "Tera full-art portret"
+ },
+ {
+  "id": "sv6-202",
+  "observation": "Bloodmoon Ursaluna ex krijgt een stevige full-art close-up, waarin zijn enorme lichaam en het opvallende rode maanteken het hele beeld vullen. Door de eenvoudigere luxe achtergrond kun je het Bloodmoon-kenmerk niet missen.",
+  "story_hook": "Het rode maanteken is het teken dat dit geen gewone Ursaluna is.",
+  "mood": [
+   "krachtig",
+   "dreigend",
+   "gedurfd"
+  ],
+  "visual_style": "luxe full-art portret"
+ },
+ {
+  "id": "sv6-205",
+  "observation": "Hassel krijgt een Supporter-portret ten voeten uit, waarin zijn expressieve pose en zijn typische look van leraar én kunstenaar het beeld dragen. De sierlijke achtergrond houdt de aandacht volledig bij het personage.",
+  "story_hook": "Hassel is een personage dat zijn gevoelens openlijk toont, en een full-art portret past daar perfect bij.",
+  "mood": [
+   "expressief",
+   "warm",
+   "theatraal"
+  ],
+  "visual_style": "full-art Trainer-portret"
+ },
+ {
+  "id": "sv6-208",
+  "observation": "Lucian staat op een verzorgd Supporter-portret ten voeten uit, met een rustige pose en een sobere achtergrond die passen bij zijn slimme Elite Four-imago. Het is meer een studie van het personage dan een actiescène.",
+  "story_hook": "Een stille, rustige full art past bij een personage dat bekend is om winnen met strategie in plaats van met lawaai.",
+  "mood": [
+   "kalm",
+   "slim",
+   "formeel"
+  ],
+  "visual_style": "full-art Trainer-portret"
+ },
+ {
+  "id": "sv6-211",
+  "observation": "Teal Mask Ogerpon ex stormt naar voren in een beeld dat helemaal rond het masker is opgebouwd, vol diepe groenen, blauwgroenen en scherpe vormen met veel contrast. Het beeld voelt als een uitbarsting van festivalenergie, niet als een geposeerd portret.",
+  "story_hook": "Het masker lijkt er als eerste uit te springen, waardoor Ogerpon tegelijk speels en krachtig aanvoelt.",
+  "mood": [
+   "blij",
+   "energiek",
+   "magisch"
+  ],
+  "visual_style": "dynamische Special Illustration Rare rond het masker"
+ },
+ {
+  "id": "sv6-214",
+  "observation": "Greninja ex barst door wervelende banen felle kleur die tegelijk op gespatte inkt, verf en water lijken. De invloed van Japanse prentkunst en inkttekeningen wordt gemengd met neonkleuren, wat een van de meest herkenbare actiebeelden van de set oplevert.",
+  "story_hook": "Het lijkt alsof een klassiek inktschilderij plots een ninja-special effect heeft geleerd.",
+  "mood": [
+   "snel",
+   "artistiek",
+   "spectaculair"
+  ],
+  "visual_style": "actietekening met inktspatten"
+ },
+ {
+  "id": "sv6-217",
+  "observation": "Carmine wordt gevat in een warm moment op het festival bij nacht, met een gekonfijte appel in haar hand en zachte lichtjes die achter haar gloeien. Door de nabije, spontane kadrering voelt het als een foto van het Festival of Masks in plaats van een officieel Trainer-portret.",
+  "story_hook": "Vergeleken met #204 is dit niet 'Carmine die poseert voor een kaart' — het voelt alsof je haar toevallig tegenkomt op het festival.",
+  "mood": [
+   "warm",
+   "feestelijk",
+   "spontaan"
+  ],
+  "visual_style": "filmische personagescène"
+ },
+ {
+  "id": "sv6-220",
+  "observation": "Perrin heft haar camera tussen felgroen-gouden bladeren om Hisuian Growlithe te fotograferen, waardoor de kaart over het maken van een foto gaat. Ze past bijzonder goed bij Growlithe #181, waardoor de twee tekeningen aanvoelen als foto's van dezelfde uitstap die bij elkaar horen.",
+  "story_hook": "Dit is een Pokémon-kaart over een fotografe die een foto van een Pokémon maakt — en een andere kaart in de set geeft Growlithe zijn eigen kant van het avontuur.",
+  "mood": [
+   "zonnig",
+   "avontuurlijk",
+   "liefdevol"
+  ],
+  "visual_style": "fotoscène over het fotograferen zelf"
+ },
+ {
+  "id": "sv6-223",
+  "observation": "Buddy-Buddy Poffin wordt een gouden verzamelobject: het kleine snackje staat alleen, omringd door sierlijke patronen die op metaal lijken. Een alledaags Trainer-item iets kostbaars laten lijken hoort bij de grap en de charme van Hyper Rares.",
+  "story_hook": "Een klein Pokémon-snackje is op de een of andere manier opgeklommen tot schatkistniveau.",
+  "mood": [
+   "glanzend",
+   "speels",
+   "verzamelbaar"
+  ],
+  "visual_style": "gouden Hyper Rare-itemstijl"
+ },
+ {
+  "id": "sv6-226",
+  "observation": "Luminous Energy sluit de reeks geheime kaarten af met een gouden uitvoering rond het Energy-symbool en een uitstralend patroon dat op metaal lijkt. Omdat er geen personage of scène is, kiest het ontwerp volledig voor symmetrie, gloed en verzamelglans.",
+  "story_hook": "Het lijkt minder op brandstof voor een Pokémon en meer op een kleine gouden krachtbron.",
+  "mood": [
+   "stralend",
+   "gepolijst",
+   "speciaal"
+  ],
+  "visual_style": "gouden Hyper Rare Energy-stijl"
+ }
+]

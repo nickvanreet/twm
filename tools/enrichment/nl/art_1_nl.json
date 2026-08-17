@@ -1,0 +1,142 @@
+[
+ {
+  "id": "sv6-168",
+  "observation": "Je ziet Pinsir van achteren onder een boom, terwijl hij uitkijkt over een helder landschap met velden en bergen in de verte. De eenvoudige, stevige vormen maken van het tafereel eerder een rustige zomerse prentkaart dan een gevecht.",
+  "story_hook": "Een stoere Pokémon krijgt een verrassend vredig moment om van het uitzicht te genieten.",
+  "mood": ["stil", "zomers", "buiten"],
+  "visual_style": "krachtig grafisch landschap"
+ },
+ {
+  "id": "sv6-171",
+  "observation": "Poltchageist zweeft in een schemerige, volgestouwde kamer terwijl een nieuwsgierig kind in de buurt komt kijken. Warme, stoffige kleuren, rekken en kleine voorwerpen maken er eerder een klein bovennatuurlijk verhaal van dan een gevechtskaart.",
+  "story_hook": "Het lijkt alsof iemand net ontdekt heeft dat het oude theebusje in de kamer leeft.",
+  "mood": ["mysterieus", "gezellig", "nieuwsgierig"],
+  "visual_style": "interieur als uit een verhalenboek"
+ },
+ {
+  "id": "sv6-174",
+  "observation": "Froslass staat in een schaduwrijke, traditioneel aanvoelende omgeving terwijl strepen gekleurd licht door de donkere achtergrond snijden. Door dat contrast lijkt haar bleke lichaam extra spookachtig en krijgt het tafereel een griezelige, elegante sfeer.",
+  "story_hook": "De kaart speelt in op het idee dat Froslass net zo goed een spookverhaal is als een Ice-Pokémon.",
+  "mood": ["griezelig", "elegant", "koud"],
+  "visual_style": "sfeervolle architectuurillustratie"
+ },
+ {
+  "id": "sv6-177",
+  "observation": "Heliolisk spat door zonnig, nat gras met druppels die in het rond vliegen, en op de achtergrond is een kleinere Helioptile te zien. Sterke schuine beweging en fel groen licht maken het tafereel warm, nat en energiek.",
+  "story_hook": "Een Pokémon die van zonlicht houdt, krijgt een kaart vol schittering, water en beweging.",
+  "mood": ["energiek", "zonnig", "fris"],
+  "visual_style": "natuurtafereel vol beweging"
+ },
+ {
+  "id": "sv6-180",
+  "observation": "Enamorus beheerst een grafisch vlak van roze tinten, hartjes, glinsteringen en krullende lijnen. Het ontwerp lijkt meer op een opvallende poster dan op een landschap, waardoor de mythologie rond liefde de volledige beeldtaal van de kaart wordt.",
+  "story_hook": "Alles in het beeld, van het kleurenpalet tot de vormen, verwijst naar de band van Enamorus met liefde.",
+  "mood": ["romantisch", "gedurfd", "magisch"],
+  "visual_style": "grafische popillustratie"
+ },
+ {
+  "id": "sv6-183",
+  "observation": "Timburr werkt hard op een drukke bouwwerf: hij zwaait met balken en sleept hout, terwijl werkmannen, gereedschap en stapels materiaal de achtergrond vullen. Zijn houten balk lijkt eindelijk minder een wapen en meer het werktuig waarvoor hij geboren is.",
+  "story_hook": "De illustratie laat zien wat Timburr misschien doet als er niemand aan het vechten is.",
+  "mood": ["druk", "werklustig", "vrolijk"],
+  "visual_style": "gedetailleerd tafereel op de werf"
+ },
+ {
+  "id": "sv6-186",
+  "observation": "Verschillende vormen van Tatsugiri komen steeds terug op een felblauwe achtergrond, in een opvallend popartpatroon. Dikke lijnen en herhaalde poses maken er eerder een speelse poster of stofprint van dan een gewoon Pokémon-tafereel.",
+  "story_hook": "De verschillende vormen van Tatsugiri worden zelf het patroon, zodat de hele kaart hun variatie viert.",
+  "mood": ["leuk", "grafisch", "eigenzinnig"],
+  "visual_style": "popartpatroon"
+ },
+ {
+  "id": "sv6-189",
+  "observation": "Sinistcha krijgt een strakke full-art-presentatie: haar theekopvormige lichaam en de krullende groene spookthee worden groot getoond tegen een gestileerde groene achtergrond. Omdat er bijna geen decor is dat afleidt, wordt de vreemde vorm van de Pokémon de grootste trekpleister.",
+  "story_hook": "De Ultra Rare-behandeling maakt van het rare theegeest-silhouet van Sinistcha de hele compositie.",
+  "mood": ["mysterieus", "verzorgd", "theeachtig"],
+  "visual_style": "luxueus full-art-portret"
+ },
+ {
+  "id": "sv6-192",
+  "observation": "Hearthflame Mask Ogerpon ex krijgt een vurige full-art in rood en oranje, met het masker en de kristalachtige Tera-details helemaal naar voren geschoven. Het voelt scherper en agressiever aan dan de groene Teal Mask-versie.",
+  "story_hook": "Een ander masker verandert de hele sfeer: deze Ogerpon lijkt klaar om recht in de strijd te stormen.",
+  "mood": ["vurig", "fel", "energiek"],
+  "visual_style": "Tera full-art-portret"
+ },
+ {
+  "id": "sv6-195",
+  "observation": "Luxray ex wordt groot getoond tegen een elektrische full-art-achtergrond, waar scherpe blauwe, zwarte en gele vormen zijn vacht en het bliksemthema herhalen. Het ontwerp voelt als een krachtige elektrische poster.",
+  "story_hook": "Het stekelige silhouet en de bliksemkleuren van Luxray vertellen hier bijna het hele verhaal.",
+  "mood": ["elektrisch", "zelfzeker", "scherp"],
+  "visual_style": "luxueus full-art-portret"
+ },
+ {
+  "id": "sv6-198",
+  "observation": "Greninja ex verschijnt in een scherp, kristalachtig Tera full-art-ontwerp, met hoekige facetten en felle kleuren rond zijn ninja-achtige pose. Naast de gewone kaart voelt deze luxeversie meer als een actiefiguur bedekt met juwelen.",
+  "story_hook": "De bekende sluipende ninja wordt plots een van de opvallendste Pokémon van de set.",
+  "mood": ["scherp", "snel", "spectaculair"],
+  "visual_style": "Tera full-art-portret"
+ },
+ {
+  "id": "sv6-201",
+  "observation": "Blissey ex krijgt een felroze full-art-portret, met haar ronde lichaam en vrolijke blik helemaal vooraan. De luxebehandeling is eenvoudig, vriendelijk en bewust heel anders dan de donkerdere topkaarten eromheen.",
+  "story_hook": "Niet elke zeldzame kaart moet fel lijken. De superkracht van Blissey is nu net dat ze geruststellend overkomt.",
+  "mood": ["vrolijk", "zacht", "vriendelijk"],
+  "visual_style": "luxueus full-art-portret"
+ },
+ {
+  "id": "sv6-204",
+  "observation": "Carmine staat er als een zelfzeker Trainer-portret, van kop tot voeten en met warme, energieke kleuren. Het is een strakkere personagekaart dan haar latere Special Illustration Rare, die haar terugzet in de wereld van het festival.",
+  "story_hook": "Deze print is de ‘personageposter’ van Carmine; #217 is het kleine verhaaltafereel.",
+  "mood": ["zelfzeker", "levendig", "personagegericht"],
+  "visual_style": "full-art-Trainerportret"
+ },
+ {
+  "id": "sv6-207",
+  "observation": "Lana's Aid wordt een felle full-art-Trainerkaart die Lana en haar vriendelijke, ietwat eigenzinnige karakter centraal zet. Door de rustige opbouw is het ontwerp meteen duidelijk, zelfs op het kleine formaat in de app.",
+  "story_hook": "Dit is de posterversie van Lana; de SIR voegt later Corphish en veel meer humor toe.",
+  "mood": ["vriendelijk", "speels", "helder"],
+  "visual_style": "full-art-Trainerportret"
+ },
+ {
+  "id": "sv6-210",
+  "observation": "Sinistcha zit in een warme, volle kamer met boeken, notities en theespullen, waardoor de kaart eerder een klein bewoond studeerkamertje wordt dan een monsterportret. Groene en bruine tinten laten de spookachtige thee-Pokémon zich vreemd genoeg thuis voelen tussen gewone voorwerpen.",
+  "story_hook": "Het plezier zit in het zien hoe natuurlijk een bovennatuurlijk kopje thee past in een rommelige mensenkamer.",
+  "mood": ["gezellig", "mysterieus", "boekachtig"],
+  "visual_style": "gedetailleerd interieur uit een verhalenboek"
+ },
+ {
+  "id": "sv6-213",
+  "observation": "Wellspring Mask Ogerpon ex gebruikt koelere blauwe tinten en vloeiende vormen rond haar watermasker, waardoor hetzelfde personage soepeler en gracieuzer aanvoelt. Het werkt als visuele tegenhanger van de vurige Hearthflame-kaart.",
+  "story_hook": "De vier maskers zijn bijna een les over kleur en sfeer: deze voelt als water in beweging.",
+  "mood": ["koel", "gracieus", "vloeiend"],
+  "visual_style": "dynamische SIR rond het masker"
+ },
+ {
+  "id": "sv6-216",
+  "observation": "Bloodmoon Ursaluna ex staat in een rustig maanlichttafereel met zachte, gedempte schilderachtige kleuren. De enorme beer voelt kalm aan in plaats van aanvallend, terwijl het rode maanteken op zijn kop stil verwijst naar de hemelse sfeer eromheen.",
+  "story_hook": "De illustratie laat de “Bloodmoon Beast” aanvoelen als een legendarisch dier dat je 's nachts even ziet, niet enkel als een sterke vechter.",
+  "mood": ["stil", "mysterieus", "majestueus"],
+  "visual_style": "zacht geschilderd nachttafereel"
+ },
+ {
+  "id": "sv6-219",
+  "observation": "Lana en Corphish beleven een heerlijk zot moment, waarbij hun grote ogen elkaar visueel nadoen. Het hele tafereel draait om karakter en humor, en niet om de Supporter glamoureus of heldhaftig te laten lijken.",
+  "story_hook": "Het mooiste detail is dat Trainer en Pokémon op de een of andere manier hetzelfde gezicht trekken.",
+  "mood": ["grappig", "vriendelijk", "expressief"],
+  "visual_style": "SIR vol personagehumor"
+ },
+ {
+  "id": "sv6-222",
+  "observation": "Bloodmoon Ursaluna ex krijgt een dramatische gouden Hyper Rare-opsmuk, waarbij de massieve beer en zijn maanteken opgebouwd zijn uit metaalachtige lijnen en patronen. Het is bewust veel opvallender dan de rustige, geschilderde SIR bij #216.",
+  "story_hook": "De SIR fluistert ‘mysterieus beest’; de gouden kaart roept ‘schat’.",
+  "mood": ["luxueus", "krachtig", "dramatisch"],
+  "visual_style": "gouden Hyper Rare-behandeling"
+ },
+ {
+  "id": "sv6-225",
+  "observation": "Rescue Board krijgt dezelfde gouden Hyper Rare-aandacht, waardoor een handig Trainer-hulpmiddel een verzorgd icoon wordt tegen een gegraveerd metaalachtig patroon. Het eenvoudige silhouet blijft heel duidelijk, ook in die ene kleur.",
+  "story_hook": "Door het goud lijkt zelfs noodmateriaal een trofee voor verzamelaars.",
+  "mood": ["strak", "glanzend", "verzamelbaar"],
+  "visual_style": "gouden Hyper Rare-behandeling voor items"
+ }
+]

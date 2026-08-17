@@ -1,0 +1,135 @@
+[
+ {
+  "id": "sv6-170",
+  "observation": "Dipplin lijkt de sterattractie van een kleurrijk snoepkraampje op een festival, omringd door vormen van snoepappels en felle versiering. Het tafereel verbindt zijn appelachtige ontwerp rechtstreeks met het eten en de festivalsfeer van Kitakami.",
+  "story_hook": "Dipplin lijkt bijna een van de lekkernijen op het kraampje — en dat is precies de grap.",
+  "mood": ["feestelijk", "zoet", "druk"],
+  "visual_style": "fel festivaltafereel"
+ },
+ {
+  "id": "sv6-173",
+  "observation": "Infernape vult de kaart in een explosieve close-up, omringd door zwiepende vlammen en blauwe flitsen bij zijn handen en gezicht. De strakke uitsnede maakt het beeld snel, luid en bijna te energiek om binnen het kader te blijven.",
+  "story_hook": "Dit is Infernape op volle kracht — het beeld voelt als het moment net voor een enorme aanval inslaat.",
+  "mood": ["vurig", "intens", "explosief"],
+  "visual_style": "dynamische actiekunst in close-up"
+ },
+ {
+  "id": "sv6-176",
+  "observation": "Cramorant staat scherp in beeld terwijl de wereld achter hem oplost in zachte pastelvlekken en drukke kleur. Zijn lege, lichtjes verbouwereerde blik maakt die mooie achtergrond deel van de grap.",
+  "story_hook": "Cramorant slaagt erin volkomen serieus te kijken terwijl alles rondom hem hilarisch chaotisch is.",
+  "mood": ["dwaas", "kleurrijk", "luchtig"],
+  "visual_style": "pastelillustratie met zachte focus"
+ },
+ {
+  "id": "sv6-179",
+  "observation": "Chimecho hangt tussen kleurrijke windgongen in zacht daglicht en valt bijna weg tussen de versiering rondom. De ondiepe scherpte en de zachte beweging maken dit een van de stillere, vredigere illustraties uit de set.",
+  "story_hook": "Je moet twee keer kijken om te zien welke hangende windgong eigenlijk de Pokémon is.",
+  "mood": ["vredig", "luchtig", "fijn"],
+  "visual_style": "zacht alledaags tafereel"
+ },
+ {
+  "id": "sv6-182",
+  "observation": "Probopass zit als een vreemd standbeeld midden op een levendig stadsplein, omringd door voorbijgangers, vogels en gewone straatdrukte. De doodernstige manier waarop zo'n rare Pokémon daar neergezet is, maakt het hele tafereel heerlijk grappig.",
+  "story_hook": "Iedereen gaat gewoon door met zijn dag terwijl een gigantische magnetische neus-Pokémon rustig het plein inpalmt.",
+  "mood": ["druk", "grappig", "stedelijk"],
+  "visual_style": "gedetailleerd alledaags stadstafereel"
+ },
+ {
+  "id": "sv6-185",
+  "observation": "Een grote appelboom hangt vol vruchten — en tussen de appels verstoppen zich meerdere Applin, die door takken en manden loeren. De landelijke achtergrond maakt van de appelvermomming van de Pokémon een speels verstoppertjesbeeld.",
+  "story_hook": "Tel de appels goed: sommige kijken terug.",
+  "mood": ["hartverwarmend", "landelijk", "speels"],
+  "visual_style": "boomgaardtafereel als uit een verhalenboek"
+ },
+ {
+  "id": "sv6-188",
+  "observation": "Acht Eevee liggen, spelen en rollen door een warm, zonnig huis vol kussens, boeken, planten en bloemen. De zachte aquarelstijl maakt de kamer heerlijk gezellig — en geeft elke Eevee een lichtjes andere persoonlijkheid.",
+  "story_hook": "In plaats van één portret van Eevee geeft de kaart je een heel huis vol om te ontdekken.",
+  "mood": ["gezellig", "vrolijk", "schattig"],
+  "visual_style": "zacht aquarelinterieur"
+ },
+ {
+  "id": "sv6-191",
+  "observation": "Magcargo ex vult het volledige full-art kader met zijn gloeiende lichaam en enorme schelp, omringd door hete roodoranje effecten. De uitgeklede achtergrond laat de Pokémon nog heter en zwaarder lijken.",
+  "story_hook": "De full-art behandeling maakt van Magcargo een wandelend stuk lava.",
+  "mood": ["heet", "zwaar", "dramatisch"],
+  "visual_style": "luxe full-art portret"
+ },
+ {
+  "id": "sv6-194",
+  "observation": "Wellspring Mask Ogerpon ex staat in een koele, blauwe kristalachtige compositie, met het masker centraal tussen geslepen Tera-vormen. Het waterige kleurenpalet maakt deze versie rustiger en vloeiender dan de Hearthflame-print.",
+  "story_hook": "Dezelfde Ogerpon voelt helemaal anders als het masker, het kleurenpalet en het element overschakelen naar water.",
+  "mood": ["koel", "vloeiend", "magisch"],
+  "visual_style": "Tera full-art portret"
+ },
+ {
+  "id": "sv6-197",
+  "observation": "Scream Tail ex vult een felroze-magenta full-art achtergrond, en met zijn enorme haar en ronde ogen krijgt het ontwerp een bewust vreemde, prehistorisch-schattige look. De simpele achtergrond laat dat bizarre silhouet al het werk doen.",
+  "story_hook": "Het lijkt een halve seconde schattig — dan zie je pas hoe gigantisch die haarstaart echt is.",
+  "mood": ["wild", "vreemd", "speels"],
+  "visual_style": "luxe full-art portret"
+ },
+ {
+  "id": "sv6-200",
+  "observation": "Dragapult ex strekt zich uit over een strakke full-art compositie, waarin spookachtige blauwgroene en donkere tinten zijn lange, gestroomlijnde vorm benadrukken. Het luxe portret maakt zijn rare mix van draak, spook en levende lanceerder extra futuristisch.",
+  "story_hook": "Weinig Pokémon hebben zo'n vreemd silhouet als Dragapult, en de full art geeft die vorm ruimte om te vliegen.",
+  "mood": ["snel", "griezelig", "strak"],
+  "visual_style": "luxe full-art portret"
+ },
+ {
+  "id": "sv6-203",
+  "observation": "Caretaker krijgt de klassieke Supporter Ultra Rare behandeling: een portret van kop tot voeten met een vereenvoudigde, versierde achtergrond. Nu de omgeving weg is, vallen kleren, houding en gezichtsuitdrukking als eerste op bij verzamelaars.",
+  "story_hook": "Trainer Ultra Rares werken bijna als posters van een personage — de persoon is het verhaal, niet de plek.",
+  "mood": ["vriendelijk", "personagegericht"],
+  "visual_style": "full-art Trainer portret"
+ },
+ {
+  "id": "sv6-206",
+  "observation": "Kieran staat in een strakke Trainer-compositie van kop tot voeten, waarbij zijn houding en donkerdere kleren opvallen tegen de vereenvoudigde achtergrond. Het voelt terughoudender en meer op het personage gericht dan zijn festival-SIR bij #218.",
+  "story_hook": "De twee zeldzame Kieran-kaarten vertellen verschillende verhalen: deze stelt het personage voor, de SIR pakt een moment uit zijn wereld.",
+  "mood": ["terughoudend", "bedachtzaam", "personagegericht"],
+  "visual_style": "full-art Trainer portret"
+ },
+ {
+  "id": "sv6-209",
+  "observation": "Perrin krijgt een Trainer-portret van kop tot voeten, waarop je haar camera-uitrusting en haar werk als fotograaf meteen leest. Het werkt bijna als het coverbeeld, voordat de SIR bij #220 haar echt een foto laat nemen.",
+  "story_hook": "Deze kaart vertelt je dat Perrin fotograaf is; #220 toont je hoe dat er in actie uitziet.",
+  "mood": ["nieuwsgierig", "avontuurlijk", "personagegericht"],
+  "visual_style": "full-art Trainer portret"
+ },
+ {
+  "id": "sv6-212",
+  "observation": "Hearthflame Mask Ogerpon ex maakt het idee van de vier Ogerpon-SIR's vurig: roodoranje energie en harde, levendige vormen omringen het vlammenmasker. Het is het heetste en meest agressief uitziende lid van het viertal.",
+  "story_hook": "Leg de vier Ogerpon-SIR's samen en dit is degene waarbij het kampvuur net lijkt op te laaien.",
+  "mood": ["vurig", "fel", "feestelijk"],
+  "visual_style": "dynamische SIR met het masker centraal"
+ },
+ {
+  "id": "sv6-215",
+  "observation": "Cornerstone Mask Ogerpon ex sluit het viertal Ogerpon-SIR's af met aardse tinten en zwaardere, hoekige vormen. Het masker lijkt uitgehouwen, als een monument, en geeft de kleine Pokémon een verrassend stevige, stabiele aanwezigheid.",
+  "story_hook": "Waar de andere maskers dansen met bladeren, vuur of water, lijkt dit masker gemaakt om stand te houden.",
+  "mood": ["stabiel", "stevig", "oud"],
+  "visual_style": "dynamische SIR met het masker centraal"
+ },
+ {
+  "id": "sv6-218",
+  "observation": "Kieran staat op het festival in een zachter, onbeschermd moment, waarin snoepappels en warm avondlicht het tafereel persoonlijk maken in plaats van competitief. De festivalgangers op de achtergrond vervagen, zodat de aandacht bij zijn gezicht blijft.",
+  "story_hook": "Deze zeldzame kaart toont de stillere Kieran van voor het verhaal veel heviger wordt.",
+  "mood": ["zacht", "bedachtzaam", "weemoedig"],
+  "visual_style": "filmisch festivaltafereel"
+ },
+ {
+  "id": "sv6-221",
+  "observation": "Teal Mask Ogerpon ex is uitgekleed tot de gouden Hyper Rare behandeling van de set: de Pokémon en het masker worden een glanzend gegraveerd middelpunt tegen metaalachtige gouden patronen. Het resultaat voelt meer als een trofeeversie van de kaart dan als een verhaaltafereel.",
+  "story_hook": "Dit is dezelfde Teal Mask Ogerpon, omgetoverd tot de gouden medaille van het verzamelen.",
+  "mood": ["luxueus", "feestelijk", "glanzend"],
+  "visual_style": "gouden Hyper Rare behandeling"
+ },
+ {
+  "id": "sv6-224",
+  "observation": "Enhanced Hammer is getekend als een gouden prijs, met de bekende Tool-vorm in metaalachtige lijnen en een gouden achtergrond met patronen. Het gewone gereedschap lijkt plots absurd duur.",
+  "story_hook": "Het is nog altijd een hamer — maar nu een die in een koninklijke schatkamer lijkt te horen.",
+  "mood": ["gedurfd", "glanzend", "grappig"],
+  "visual_style": "gouden Hyper Rare behandeling voor een item"
+ }
+]
