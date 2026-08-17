@@ -1,7 +1,7 @@
 /* Twilight Masquerade binder — offline support.
    Bump SHELL_CACHE when index.html changes, or phones keep the old copy. */
 
-const SHELL_CACHE = "twm-shell-v57";
+const SHELL_CACHE = "twm-shell-v58";
 const IMG_CACHE = "twm-cards-v1";
 
 const SHELL = [

@@ -60,12 +60,6 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:800;font-size:clamp(22px,6.2
 .sub{color:var(--mute);font-size:13px;margin:6px 0 0}
 .setsym{width:15px;height:15px;object-fit:contain;vertical-align:-3px;margin-right:5px}
 
-header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;
-  margin:calc(10px + env(safe-area-inset-top)) 0 12px;padding:18px 14px;min-height:118px;
-  border-radius:14px;border:1px solid rgba(139,107,199,.25);overflow:hidden;
-  background:
-    linear-gradient(90deg,rgba(22,24,38,.90) 0%,rgba(22,24,38,.55) 45%,rgba(22,24,38,.06) 100%),
-    url("art/band-ursaluna-r.webp") right 28%/cover no-repeat var(--night)}
 .hright{margin-left:auto;display:flex;align-items:center;gap:12px;text-align:right}
 .fovband{display:block;width:100%;max-width:560px;margin:0 auto 12px;border-radius:12px;
   box-shadow:0 6px 22px rgba(0,0,0,.45)}
@@ -121,10 +115,6 @@ header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;
 
 /* ---- phone layout: taller header with the bear in view, tighter chrome ---- */
 @media(max-width:640px){
-  header{min-height:236px;align-content:space-between;padding:14px 14px 12px;
-    background:
-      linear-gradient(180deg,rgba(22,24,38,.88) 0%,rgba(22,24,38,.34) 36%,rgba(22,24,38,.05) 62%,rgba(22,24,38,.52) 100%),
-      url("art/band-ursaluna-r.webp") 64% 30%/cover no-repeat var(--night)}
   .grow{flex-basis:100%}
   #setlogo{max-width:198px}
   .sub{max-width:220px;text-shadow:0 1px 6px rgba(0,0,0,.8)}
@@ -624,9 +614,6 @@ body{background:var(--n-bg);padding-bottom:calc(86px + env(safe-area-inset-botto
 
 .hero{border-radius:14px;overflow:hidden;background:var(--n-sur);
   box-shadow:0 0 0 1px var(--n-e8);margin-bottom:17px;font-family:'Inter',system-ui,sans-serif}
-.heroart{height:132px;position:relative;
-  background:url("art/band-ursaluna-r.webp") 64% 30%/cover no-repeat var(--n-tint);
-  display:flex;align-items:flex-end;padding:11px 14px}
 .heroart #setlogo{width:150px;max-width:150px;filter:drop-shadow(0 2px 10px rgba(0,0,0,.75))}
 .heropill{position:absolute;top:11px;right:14px;font-size:11px;color:var(--n-a3);
   background:rgba(22,24,38,.72);padding:4px 8px;border-radius:999px}
@@ -1139,7 +1126,9 @@ footer{padding-bottom:12px}
 /* full-bleed past the page's own side margins */
 .heroart{position:absolute;left:50%;width:100vw;transform:translateX(-50%);top:0;
   height:320px;z-index:-1;overflow:hidden;display:block;padding:0;background:none}
-.heroart img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block}
+/* 72% 34%: the designer's refined crop for a band that carries text — the bear
+   sits right of the copy instead of behind it */
+.heroart img{width:100%;height:100%;object-fit:cover;object-position:72% 34%;display:block}
 .heroscrim{position:absolute;inset:0;display:block;background:linear-gradient(180deg,
   rgba(22,24,38,.55) 0%,rgba(22,24,38,.12) 34%,rgba(22,24,38,.78) 76%,#161826 100%)}
 .wrap{position:relative}
@@ -1368,7 +1357,7 @@ footer{padding-bottom:12px}
 
 /* ---- 10b / 10c: the story and the artwork note ---- */
 .cotdfull{padding:0;overflow:hidden;display:flex;flex-direction:column}
-.cohead{position:relative;height:214px;flex:none}
+.cohead{position:absolute;top:0;left:0;right:0;height:214px;overflow:hidden}
 .cotdfull.hasart .cohead{height:196px}
 #cohart{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   mix-blend-mode:lighten}
@@ -1382,8 +1371,11 @@ footer{padding-bottom:12px}
   padding:0 17px calc(20px + env(safe-area-inset-bottom));
   display:flex;flex-direction:column;gap:11px;font-family:'Inter',system-ui,sans-serif;
   max-width:560px;margin:0 auto;width:100%}
-.cotop{display:flex;gap:14px;margin-top:-96px}
-.cotdfull.hasart .cotop{margin-top:-60px}
+/* the header is absolute and the card is pushed down into it, rather than the
+   content being pulled up by a negative margin: same picture, but nothing can
+   end up outside the scroll container's padding box */
+.cotop{display:flex;gap:14px;margin-top:118px}
+.cotdfull.hasart .cotop{margin-top:136px}
 #coimg{width:104px;flex:none;aspect-ratio:5/7;border-radius:10px;object-fit:cover;
   box-shadow:0 0 0 1px #595d6c,0 0 28px rgba(181,171,252,.3);background:var(--n-tint)}
 .cotdfull.hasart #coimg{width:112px;box-shadow:0 0 0 1px #595d6c}
@@ -3866,7 +3858,10 @@ document.getElementById("btnbinder").addEventListener("click",()=>openFov("binde
 document.getElementById("btnquiz").addEventListener("click",()=>{
   closeIk(); setHomeView("games"); window.scrollTo({top:0,behavior:"smooth"});
 });
-document.querySelectorAll(".fovclose").forEach(b=>b.addEventListener("click",()=>closeFov(b.dataset.close)));
+// delegate on the attribute, not the class: round 10's back arrow carries
+// data-close but is styled as a glass button, so it never closed anything
+document.querySelectorAll("[data-close]").forEach(b=>
+  b.addEventListener("click",()=>closeFov(b.dataset.close)));
 document.addEventListener("keydown",e=>{
   if(!ov.hidden) return;                    // the card viewer handles its own keys
   const open=["pack","binder","quiz","shareov","deck","scanov","aboutov","story1","story2","cotdov"]
@@ -4822,7 +4817,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v57";   // bump with the service worker, so these load fresh per release
+const APPV="v58";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
