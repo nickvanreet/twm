@@ -1309,6 +1309,65 @@ footer{padding-bottom:12px}
 .drowstrat{display:block;font-style:normal;font-size:11px;color:var(--n-m6);
   line-height:1.4;margin-top:2px}
 
+/* ---- round 11c: the share screen ---- */
+#shareov .bhead{padding-right:52px}
+.shtabs{max-width:560px;margin:0 auto 14px}
+.shtab:disabled{opacity:.4;cursor:default}
+#shareimg{display:block;width:min(272px,72vw);margin:0 auto 14px;border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);background:var(--n-sur)}
+.shval{display:flex;align-items:center;gap:10px;max-width:420px;margin:0 auto 8px;
+  padding:11px;border-radius:8px;background:var(--n-sur);box-shadow:0 0 0 1px var(--n-e8);
+  font-family:'Inter',system-ui,sans-serif;font-size:13px;color:var(--n-txt)}
+.shval .pi{width:18px;height:18px;color:var(--n-a4);flex:none}
+.shval span{flex:1}
+.shnote{max-width:420px;margin:0 auto 12px;font-size:11px;line-height:1.45;color:var(--n-m6);
+  font-family:'Inter',system-ui,sans-serif;text-align:center}
+.sharow{max-width:420px;margin:0 auto}
+
+/* ---- round 12: the Games view ---- */
+.hviews{gap:20px;padding:0}
+#viewgames{font-family:'Inter',system-ui,sans-serif;margin-bottom:17px;
+  display:flex;flex-direction:column;gap:14px}
+.gpackcard{display:flex;gap:14px;padding:14px;border-radius:14px;background:var(--n-sur);
+  box-shadow:0 0 0 1px var(--n-e8)}
+.gpackcard img{width:76px;flex:none;aspect-ratio:63/100;border-radius:6px;object-fit:cover;
+  box-shadow:0 6px 18px rgba(0,0,0,.5),inset 0 0 0 1px rgba(181,171,252,.25)}
+.gpmid{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.gpmid b{font-size:17px;font-weight:500;color:var(--n-txt)}
+.gpmid small{font-size:12px;color:var(--n-m6);font-variant-numeric:tabular-nums}
+.gpmid .nprim{margin-top:auto;width:100%}
+.gpackhero{display:flex;flex-direction:column;align-items:center;gap:11px;padding:18px 14px;
+  border-radius:14px;background:var(--n-sur);box-shadow:0 0 0 1px var(--n-e8);text-align:center}
+.gpackhero b{font-size:18px;font-weight:500;color:var(--n-txt)}
+.gpackhero span{font-size:12px;line-height:1.5;color:var(--n-m5);max-width:300px}
+.gpackhero .nprim{width:100%}
+.gfan{display:flex;align-items:flex-end;justify-content:center;gap:-6px;height:120px}
+.gfan img{aspect-ratio:63/100;object-fit:cover;border-radius:6px;
+  box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.gfan .gf1{width:62px;transform:rotate(-4deg);margin-right:-8px}
+.gfan .gf2{width:84px;position:relative;z-index:1}
+.gfan .gf3{width:62px;transform:rotate(4deg);margin-left:-8px}
+.gqgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gqcard{border:0;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;gap:5px}
+.gqband{position:relative;display:block;aspect-ratio:4/3;border-radius:8px;overflow:hidden;
+  background:var(--n-tint);box-shadow:0 0 0 1px var(--n-e8)}
+.gqband img{width:100%;height:100%;object-fit:cover;display:block}
+.gqband .gqblur{filter:blur(7px);transform:scale(1.08)}
+.gqduel{position:absolute;inset:0;display:grid;place-items:center;background:var(--n-tint)}
+.gqduel img{position:absolute;width:44%;height:auto;aspect-ratio:63/88;border-radius:3px}
+.gqduel img:first-child{transform:rotate(-4deg) translateX(-24%)}
+.gqduel img:last-child{transform:rotate(4deg) translateX(24%)}
+.gqrec{position:absolute;right:5px;bottom:5px;font-style:normal;font-size:10px;font-weight:600;
+  background:rgba(22,24,38,.72);color:#cfd3e5;border-radius:99px;padding:2px 6px;
+  font-variant-numeric:tabular-nums}
+.gqrec.best{background:var(--n-a4);color:var(--n-bg)}
+.gqnm{font-size:12px;color:var(--n-b2);text-align:left}
+.gqlist{display:flex;flex-direction:column}
+.gqic{width:34px;height:34px;flex:none;border-radius:8px;background:var(--n-tint);
+  display:grid;place-items:center;color:var(--n-a3)}
+.gqic .pi{width:17px;height:17px}
+.gnote{margin:0 auto}
+
 /* ---- round 10a: the card-of-the-day block on the home tab ---- */
 .cotdblock{display:flex;gap:12px;width:100%;padding:12px;border:0;border-radius:14px;
   background:var(--n-sur);box-shadow:0 0 0 1px var(--n-e8);cursor:pointer;text-align:left;
@@ -1798,10 +1857,11 @@ footer{padding-bottom:12px}
     </button>
   </div>
 
-  <div class="hviews" role="tablist" aria-label="Weergave van de startpagina">
+  <div class="hviews" id="hvmain" role="tablist" aria-label="Weergave van de startpagina">
     <button class="hv on" data-hv="1a" type="button" role="tab" aria-selected="true">Verzamelen</button>
     <button class="hv" data-hv="1b" type="button" role="tab" aria-selected="false">Overzicht</button>
     <button class="hv" data-hv="1c" type="button" role="tab" aria-selected="false">Vandaag</button>
+    <button class="hv" data-hv="games" type="button" role="tab" aria-selected="false">Games</button>
   </div>
 
   <div class="heroart" aria-hidden="true">
@@ -1907,6 +1967,18 @@ footer{padding-bottom:12px}
     </div>
     <div class="nsechead"><span>Mijn zeldzaamheden</span><span class="vsort">op voortgang</span></div>
     <div id="vrar"></div>
+  </div>
+
+  <div id="viewgames" hidden>
+    <div id="gpack"></div>
+    <div class="nsechead" id="gqhead"><span>Quiz</span><span class="vsort">10 vragen per spel</span></div>
+    <div id="gquiz"></div>
+    <div class="drule gnote">
+      <svg class="pi" aria-hidden="true"><use href="#i-info"/></svg>
+      <span>Pakjes hier zijn voor de fun: ze veranderen je map niet. Trek je iets in het echt?
+        Scan het dan.</span>
+    </div>
+    <p class="cofoot" id="gfoot"></p>
   </div>
 
   <div id="view1c" hidden>
@@ -2090,8 +2162,12 @@ footer{padding-bottom:12px}
       <div class="packvalue" id="packvalue"></div>
       <div class="packsum" id="packsum"></div>
       <div class="packrow">
-        <button id="packside" class="nbtn nsec" type="button">Alles naast elkaar</button>
+        <button id="packshare" class="nbtn nsec" type="button">
+          <svg class="pi" aria-hidden="true"><use href="#i-share-network"/></svg> Delen</button>
         <button id="packopen" class="nbtn nprim" type="button">Nog een pakje</button>
+      </div>
+      <div class="packrow" style="margin-top:8px">
+        <button id="packside" class="nbtn nsec" type="button">Alles naast elkaar</button>
       </div>
       <p class="fovnote">Puur voor de fun — deze kaarten gaan niet in je verzameling.</p>
     </div>
@@ -2565,12 +2641,29 @@ footer{padding-bottom:12px}
   </div>
 
   <div id="shareov" class="fullov" hidden>
-    <button class="fovclose" data-close="shareov" type="button">✕</button>
-    <div class="fovhead">Mijn verzamelkaart</div>
-    <img id="shareimg" alt="Deelafbeelding van de verzameling">
-    <div class="packrow">
-      <button id="sharesend" type="button">Delen maar!</button>
-      <button id="sharesave" type="button">Afbeelding bewaren</button>
+    <div class="bhead">
+      <div class="bhtxt"><h2>Delen</h2></div>
+    </div>
+    <button class="fovclose" data-close="shareov" type="button" aria-label="Sluiten">✕</button>
+    <div class="hviews shtabs" role="tablist" aria-label="Wat wil je delen">
+      <button class="hv shtab on" data-sh="map" type="button" role="tab" aria-selected="true">Mijn map</button>
+      <button class="hv shtab" data-sh="pull" type="button" role="tab" aria-selected="false" disabled>Deze kaart</button>
+    </div>
+    <img id="shareimg" alt="Deelafbeelding">
+    <div class="shval">
+      <svg class="pi" aria-hidden="true"><use href="#i-scales"/></svg>
+      <span id="shvaltxt">Waarde meesturen</span>
+      <button id="shvalsw" class="pillsw on" type="button" role="switch" aria-checked="true"
+              aria-label="Waarde meesturen"><i></i></button>
+    </div>
+    <p class="shnote">De afbeelding wordt op je toestel gemaakt · geen naam, geen account,
+      niets naar een server</p>
+    <div class="coacts sharow">
+      <button id="sharesend" class="nbtn nprim" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-share-network"/></svg> Delen</button>
+      <button id="sharesave" class="nbtn nsec cosq" type="button" aria-label="Afbeelding bewaren">
+        <svg class="pi" aria-hidden="true"><use href="#i-floppy-disk"/></svg>
+      </button>
     </div>
   </div>
 
@@ -3750,7 +3843,10 @@ function closeFov(id){
 }
 document.getElementById("btnpack").addEventListener("click",()=>openFov("pack"));
 document.getElementById("btnbinder").addEventListener("click",()=>openFov("binder"));
-document.getElementById("btnquiz").addEventListener("click",()=>openFov("quiz"));
+// one quiz, one place: the Ik row is a shortcut to the Games view
+document.getElementById("btnquiz").addEventListener("click",()=>{
+  closeIk(); setHomeView("games"); window.scrollTo({top:0,behavior:"smooth"});
+});
 document.querySelectorAll(".fovclose").forEach(b=>b.addEventListener("click",()=>closeFov(b.dataset.close)));
 document.addEventListener("keydown",e=>{
   if(!ov.hidden) return;                    // the card viewer handles its own keys
@@ -4106,8 +4202,26 @@ function packSummary(){
   const rows=others.map(o=>
     `<span class="orow${o.val>total?" beat":""}"><span>${o.nm}</span><b>${eur(o.val)}</b></span>`).join("");
 
-  // the value statistic: this pack against every pack you opened this session
+  // the value statistic: this pack against every pack you ever opened
   packHistory.push(total);
+  packStats.opened=(packStats.opened||0)+1;
+  packStats.history=packHistory.slice(-200);
+  if(total>(packStats.bestTotal||0)){
+    packStats.bestTotal=total;
+    packStats.bestCardId=best&&best.c?String(best.c[0]):null;
+  }
+  savePackStats();
+  if(homeView==="games") renderGames();
+  // capture what the pull card needs while the reveal state is still here
+  if(best&&best.c){
+    const bs=SLOTS.find(s=>s.num===best.c[0]&&!!s.rev===!!best.rev)
+            ||SLOTS.find(s=>s.num===best.c[0]);
+    const rank=packHistory.filter(v=>v>total).length+1;
+    lastPull={num:best.c[0],name:best.c[1],rarity:best.c[2],value:total,
+      rank:rank===1?"mijn beste":`${rank}e van ${packHistory.length}`,
+      odds:ODDS[best.c[2]]?`1 op ${ODDS[best.c[2]]}`:"vaak",
+      slot:bs?bs.id:null};
+  }
   const n=packHistory.length;
   const bestEver=Math.max(...packHistory);
   const avg=packHistory.reduce((a,b)=>a+b,0)/n;
@@ -4135,7 +4249,16 @@ function packSummary(){
   document.getElementById("packgrid").classList.remove("sidebyside");
   document.getElementById("packside").textContent="Alles naast elkaar";
 }
-let packHistory=[];   // totals of the packs opened this session
+/* pack stats survive a reload, so the Games hub can say what it knows and the
+   pack comparison can look past this one sitting */
+const PSKEY="twm:packstats";
+let packStats={opened:0,bestTotal:0,bestCardId:null,history:[]};
+try{ const s=localStorage.getItem(PSKEY); if(s) packStats=Object.assign(packStats,JSON.parse(s)); }catch(e){}
+function savePackStats(){ try{ localStorage.setItem(PSKEY,JSON.stringify(packStats)); }catch(e){} }
+let packHistory=packStats.history.slice();   // totals, this sitting continues the record
+document.getElementById("packshare").addEventListener("click",()=>{
+  closeFov("pack"); openShare("pull");
+});
 document.getElementById("packside").addEventListener("click",e=>{
   const g=document.getElementById("packgrid");
   const on=g.classList.toggle("sidebyside");
@@ -4680,7 +4803,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v55";   // bump with the service worker, so these load fresh per release
+const APPV="v56";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -5200,7 +5323,7 @@ function askTiltPermission(){
 
 /* ---------- backup & restore (import merges, never deletes) ---------- */
 const BK_KEYS=["twm:collection","twm:langmap","twm:doubles","twm:wish","twm:trade",
-               "twm:cotd","twm:cotdhist","twm:cotdseen",
+               "twm:cotd","twm:cotdhist","twm:cotdseen","twm:packstats",
                "twm:milestones","twm:quizbest","twm:quizbest2","twm:lang","twm:bpage",
                "twm:deck","twm:binderfmt","twm:mydecks","twm:homeview","twm:valuehist"];
 document.getElementById("bkexp").addEventListener("click",async()=>{
@@ -5273,98 +5396,229 @@ const loadImgCors=src=>new Promise(res=>{
   const i=new Image(); i.crossOrigin="anonymous";
   i.onload=()=>res(i); i.onerror=()=>res(null); i.src=src;
 });
+/* ---------- round 11: the two cards that leave the app ----------
+   Written against the design's half-size numbers times S=2, so the same code
+   could emit a larger export later. Canvas does not wait for webfonts, so
+   every weight is loaded before the first fillText — otherwise the export
+   silently falls back to a system serif, which is what the old card did. */
+const S=2, SW=540*S, SH=675*S;
+const SHV="twm:sharevalue";
+const shareValueOn=()=>{ try{ return localStorage.getItem(SHV)!=="0"; }catch(e){ return true; } };
+const SHF=["500 24px Inter","500 40px Inter","500 15px Inter","400 13px Inter","400 16px Inter",
+           "500 22px Inter","400 12px Inter","500 17px Inter","400 11px Inter","500 12px Inter"];
+async function shareFonts(){
+  try{
+    await Promise.all(SHF.map(f=>document.fonts.load(f)));
+    await document.fonts.ready;
+  }catch(e){}
+}
+const F=(w,s)=>`${w} ${s*S}px Inter, system-ui, sans-serif`;
+function moonDial(x,cx,cy,r,pct){
+  x.save();
+  x.strokeStyle="#796cbf"; x.lineWidth=2*S;
+  x.beginPath(); x.arc(cx,cy,r,0,7); x.stroke();
+  // the fill is computed from the percentage, never a fixed rect
+  x.beginPath(); x.rect(cx-r,cy+r-2*r*pct,2*r,2*r*pct); x.clip();
+  x.fillStyle="#b5abfc"; x.beginPath(); x.arc(cx,cy,r,0,7); x.fill();
+  x.restore();
+  x.fillStyle=pct>=.5?"#161826":"#d2cefd";
+  x.font=F(500,15); x.textAlign="center"; x.textBaseline="alphabetic";
+  x.fillText(Math.round(pct*100)+"%",cx,cy+5*S);
+}
+async function drawCardInto(x,im,px,py,cw,ch,rad){
+  x.fillStyle="#232532"; rrect(x,px,py,cw,ch,rad); x.fill();
+  if(im){ x.save(); rrect(x,px,py,cw,ch,rad); x.clip(); x.drawImage(im,px,py,cw,ch); x.restore(); }
+  x.strokeStyle="#3f424d"; x.lineWidth=1*S; rrect(x,px,py,cw,ch,rad); x.stroke();
+}
+/* 11a — de mapkaart: how far the collection has come */
 async function makeShareCard(){
-  const W=1080,H=1350,cv=document.createElement("canvas");
-  cv.width=W; cv.height=H;
+  await shareFonts();
+  const cv=document.createElement("canvas"); cv.width=SW; cv.height=SH;
   const x=cv.getContext("2d");
-  const bg=x.createLinearGradient(0,0,0,H);
-  bg.addColorStop(0,"#141033"); bg.addColorStop(1,"#0D0A22");
-  x.fillStyle=bg; x.fillRect(0,0,W,H);
-  // Bloodmoon Ursaluna watches faintly from the top of the card
-  const hero=await loadImgCors("art/band-ursaluna.webp");
-  if(hero){
-    const hw=W, hh=hw*hero.height/hero.width;
-    x.globalAlpha=.30;
-    x.drawImage(hero,0,0,hw,hh);
-    const fade=x.createLinearGradient(0,0,0,hh);
-    fade.addColorStop(0,"rgba(13,10,34,.25)");
-    fade.addColorStop(1,"#141033");
-    x.fillStyle=fade; x.globalAlpha=1; x.fillRect(0,0,hw,hh);
+  const withValue=shareValueOn();
+  x.fillStyle="#161826"; x.fillRect(0,0,SW,SH);
+  // the mirrored crop: the bear sits right, so the dial and the name get sky
+  const band=await loadImgCors("art/band-ursaluna-r.webp");
+  const bh=176*S;
+  if(band){
+    const sc=Math.max(SW/band.width,bh/band.height);
+    const dw=band.width*sc, dh=band.height*sc;
+    x.drawImage(band,SW-dw,(bh-dh)*0.3,dw,dh);
   }
-  for(let i=0;i<90;i++){
-    x.globalAlpha=.25+Math.random()*.5; x.fillStyle="#F3EDE0";
-    x.beginPath(); x.arc(Math.random()*W,Math.random()*H*.45,Math.random()*2+.6,0,7); x.fill();
-  }
-  x.globalAlpha=1;
+  const sc2=x.createLinearGradient(0,0,0,bh);
+  sc2.addColorStop(0,"rgba(22,24,38,.25)"); sc2.addColorStop(.34,"rgba(22,24,38,.1)");
+  sc2.addColorStop(.82,"rgba(22,24,38,.88)"); sc2.addColorStop(1,"#161826");
+  x.fillStyle=sc2; x.fillRect(0,0,SW,bh);
   const haveN=[...owned].length, pct=haveN/SLOTS.length;
-  const mx=W/2,my=240,mr=115;
-  x.strokeStyle="#8B6BC7"; x.globalAlpha=.5; x.lineWidth=6;
-  x.beginPath(); x.arc(mx,my,mr,0,7); x.stroke(); x.globalAlpha=1;
-  x.save(); x.beginPath(); x.rect(mx-mr,my+mr-2*mr*pct,2*mr,2*mr*pct); x.clip();
-  x.fillStyle="#F5B944"; x.beginPath(); x.arc(mx,my,mr,0,7); x.fill(); x.restore();
-  x.fillStyle=pct>=.45?"#0D0A22":"#F5B944";
-  x.font="700 62px Georgia"; x.textAlign="center";
-  x.fillText(Math.round(pct*100)+"%",mx,my+22);
   let haveV=0; const mine=[];
   for(const s of SLOTS){ const p=priceOf(s); if(owned.has(s.id)){ haveV+=p; mine.push([s,p]); } }
-  x.fillStyle="#F3EDE0"; x.font="800 64px Georgia";
-  x.fillText("Twilight Masquerade",W/2,460);
-  x.fillStyle="#9188B8"; x.font="500 40px Arial";
-  x.fillText(`${haveN} / ${SLOTS.length} kaarten verzameld`,W/2,528);
-  x.fillStyle="#F5B944"; x.font="700 44px Arial";
-  x.fillText(`waarde ${eur(haveV)}`,W/2,594);
+  const PAD=30*S;
+  // moon dial pulled up over the band
+  const mr=38*S, mcx=PAD+mr, mcy=bh-46*S+mr;
+  moonDial(x,mcx,mcy,mr,pct);
+  x.textAlign="left";
+  x.fillStyle="#e9e9ed"; x.font=F(500,24);
+  x.fillText("Twilight Masquerade",mcx+mr+16*S,mcy-4*S);
+  x.fillStyle="#9397ab"; x.font=F(400,13);
+  const dstr=new Date().toLocaleDateString("nl-BE",{day:"numeric",month:"long",year:"numeric"});
+  x.fillText(`Masterset · ${dstr}`,mcx+mr+16*S,mcy+18*S);
+  // count row
+  let y=mcy+mr+40*S;
+  x.fillStyle="#e9e9ed"; x.font=F(500,40);
+  x.fillText(String(haveN),PAD,y);
+  const nw=x.measureText(String(haveN)).width;
+  x.fillStyle="#b2b6ca"; x.font=F(400,16);
+  x.fillText(` van ${SLOTS.length} kaarten`,PAD+nw+6*S,y);
+  if(withValue){
+    x.textAlign="right"; x.fillStyle="#d2cefd"; x.font=F(500,14);
+    x.fillText(eur(haveV),SW-PAD,y);
+    x.textAlign="left";
+  }
+  // progress bar
+  y+=18*S;
+  x.fillStyle="#292b31"; rrect(x,PAD,y,SW-2*PAD,8*S,4*S); x.fill();
+  if(pct>0){ x.fillStyle="#b5abfc"; rrect(x,PAD,y,Math.max(8*S,(SW-2*PAD)*pct),8*S,4*S); x.fill(); }
+  // best three cards
   mine.sort((a,b)=>b[1]-a[1]);
   const top=mine.slice(0,3);
+  y+=40*S;
   if(top.length){
-    x.fillStyle="#9188B8"; x.font="500 32px Arial";
-    x.fillText("Mijn beste kaarten",W/2,668);
-    const cw=270,ch=Math.round(cw*88/63),gap=36;
-    const x0=(W-(top.length*cw+(top.length-1)*gap))/2, y0=700;
+    x.fillStyle="#e9e9ed"; x.font=F(500,15);
+    x.fillText("Mijn beste kaarten",PAD,y);
+    const cw=110*S, ch=Math.round(cw*7/5), gap=(SW-2*PAD-3*cw)/2;
+    const y0=y+16*S;
     for(let i=0;i<top.length;i++){
-      const [s,p]=top[i], px=x0+i*(cw+gap);
+      const [s,p]=top[i], px=PAD+i*(cw+gap);
       const im=await loadImgCors(`https://assets.tcgdex.net/en/sv/sv06/${pad3(s.num)}/low.webp`);
-      if(im){ x.save(); rrect(x,px,y0,cw,ch,16); x.clip(); x.drawImage(im,px,y0,cw,ch); x.restore(); }
-      else{
-        x.fillStyle="#241C52"; rrect(x,px,y0,cw,ch,16); x.fill();
-        x.fillStyle="#9188B8"; x.font="500 26px Arial"; x.fillText(s.name,px+cw/2,y0+ch/2);
+      await drawCardInto(x,im,px,y0,cw,ch,6*S);
+      x.textAlign="center";
+      x.fillStyle="#e9e9ed"; x.font=F(400,12);
+      x.fillText(s.name.length>17?s.name.slice(0,16)+"…":s.name,px+cw/2,y0+ch+18*S);
+      if(withValue){
+        x.fillStyle="#d2cefd"; x.font=F(400,12);
+        x.fillText(eur(p)+(s.rev?" REV":""),px+cw/2,y0+ch+36*S);
       }
-      x.fillStyle="#F3EDE0"; x.font="600 26px Arial";
-      x.fillText(s.name.length>16?s.name.slice(0,15)+"…":s.name,px+cw/2,y0+ch+40);
-      x.fillStyle="#F5B944"; x.font="700 26px Arial";
-      x.fillText(eur(p)+(s.rev?" REV":""),px+cw/2,y0+ch+76);
+      x.textAlign="left";
     }
   }
-  x.fillStyle="#9188B8"; x.font="500 28px Arial";
-  x.fillText("mijn Twilight Masquerade-map 🌙",W/2,H-56);
+  // footer: the app's own moon glyph, no emoji
+  const fy=SH-26*S;
+  moonDial(x,PAD+7*S,fy-4*S,7*S,1);
+  x.fillStyle="#75798c"; x.font=F(400,12);
+  x.fillText("mijn Twilight Masquerade-map",PAD+22*S,fy);
   return cv;
 }
-let shareBlob=null;
-async function openShare(){
-  const cv=await makeShareCard();
-  cv.toBlob(b=>{
-    if(!b){ showToast("Kon de afbeelding niet maken in deze browser.",null); return; }
-    shareBlob=b;
-    document.getElementById("shareimg").src=URL.createObjectURL(b);
-    openFov("shareov");
-  },"image/png");
+/* 11b — de pull-kaart: "look what I just pulled" */
+let lastPull=null;   // captured at reveal time, per the round file
+async function makePullCard(){
+  if(!lastPull) return null;
+  await shareFonts();
+  const cv=document.createElement("canvas"); cv.width=SW; cv.height=SH;
+  const x=cv.getContext("2d");
+  const withValue=shareValueOn();
+  const P=30*S;
+  x.fillStyle="#161826"; x.fillRect(0,0,SW,SH);
+  x.textAlign="left"; x.textBaseline="alphabetic";
+  x.fillStyle="#9397ab"; x.font=F(500,12);
+  x.fillText("UIT EEN PAKJE GETROKKEN",P,P+12*S);
+  x.textAlign="right"; x.fillStyle="#75798c"; x.font=F(400,12);
+  x.fillText(new Date().toLocaleDateString("nl-BE",{day:"numeric",month:"long"}),SW-P,P+12*S);
+  // the card is the subject, so it gets the one glow in the system
+  const cw=232*S, ch=Math.round(cw*7/5), cx=(SW-cw)/2, cy=P+44*S;
+  const im=await loadImgCors(`https://assets.tcgdex.net/en/sv/sv06/${pad3(lastPull.num)}/low.webp`);
+  x.save();
+  x.shadowColor="rgba(181,171,252,0.34)"; x.shadowBlur=46*S;
+  x.fillStyle="#232532"; rrect(x,cx,cy,cw,ch,12*S); x.fill();
+  x.restore();
+  await drawCardInto(x,im,cx,cy,cw,ch,12*S);
+  x.strokeStyle="#595d6c"; x.lineWidth=1*S; rrect(x,cx,cy,cw,ch,12*S); x.stroke();
+  let y=cy+ch+40*S;
+  x.textAlign="center";
+  x.fillStyle="#e9e9ed"; x.font=F(500,22);
+  x.fillText(lastPull.name,SW/2,y);
+  y+=24*S;
+  x.fillStyle="#9397ab"; x.font=F(400,13);
+  x.fillText(`#${pad3(lastPull.num)}/167 · ${lastPull.rarity}`,SW/2,y);
+  // three stat tiles
+  y+=26*S;
+  const tiles=[["Waarde",withValue?eur(lastPull.value):"—"],
+               ["Pakje",lastPull.rank],["Kans",lastPull.odds]];
+  const tw=(SW-2*P-2*10*S)/3, th=56*S;
+  tiles.forEach(([l,v],i)=>{
+    const px=P+i*(tw+10*S);
+    x.fillStyle="#232532"; rrect(x,px,y,tw,th,8*S); x.fill();
+    x.strokeStyle="#3f424d"; x.lineWidth=1*S; rrect(x,px,y,tw,th,8*S); x.stroke();
+    x.fillStyle="#9397ab"; x.font=F(400,11);
+    x.fillText(l,px+tw/2,y+20*S);
+    x.fillStyle=l==="Waarde"?"#d2cefd":"#e9e9ed"; x.font=F(500,17);
+    x.fillText(v,px+tw/2,y+42*S);
+  });
+  x.textAlign="left";
+  const fy=SH-26*S;
+  moonDial(x,P+7*S,fy-4*S,7*S,1);
+  x.fillStyle="#75798c"; x.font=F(400,12);
+  x.fillText(`Twilight Masquerade · ${[...owned].length} van ${SLOTS.length} in mijn map`,P+22*S,fy);
+  return cv;
 }
-document.getElementById("btnshare").addEventListener("click",openShare);
+/* ---- 11c: the share screen ---- */
+let shareBlob=null, shareTab="map";
+async function renderShare(){
+  const cv=shareTab==="pull"?await makePullCard():await makeShareCard();
+  if(!cv) return;
+  await new Promise(res=>cv.toBlob(b=>{
+    if(b){ shareBlob=b; document.getElementById("shareimg").src=URL.createObjectURL(b); }
+    res();
+  },"image/png"));
+}
+async function openShare(tab){
+  shareTab=(tab==="pull"&&lastPull)?"pull":"map";
+  document.querySelectorAll(".shtab").forEach(b=>{
+    const on=b.dataset.sh===shareTab;
+    b.classList.toggle("on",on); b.setAttribute("aria-selected",String(on));
+    if(b.dataset.sh==="pull") b.disabled=!lastPull;
+  });
+  const sw=document.getElementById("shvalsw");
+  sw.classList.toggle("on",shareValueOn());
+  sw.setAttribute("aria-checked",String(shareValueOn()));
+  document.getElementById("shvaltxt").textContent=
+    `Waarde meesturen — ${eur([...SLOTS].reduce((a,s)=>a+(owned.has(s.id)?priceOf(s):0),0))} en de prijs per kaart`;
+  openFov("shareov");
+  await renderShare();
+}
+document.getElementById("btnshare").addEventListener("click",()=>{ closeIk(); openShare("map"); });
 document.getElementById("moonbtn").addEventListener("click",()=>{
   const m=document.getElementById("moonbtn");
   m.classList.remove("pulse"); void m.offsetWidth; m.classList.add("pulse");
-  setTimeout(openShare,300);
+  setTimeout(()=>openShare("map"),300);
+});
+document.querySelectorAll(".shtab").forEach(b=>b.addEventListener("click",()=>{
+  if(b.disabled) return;
+  shareTab=b.dataset.sh;
+  document.querySelectorAll(".shtab").forEach(o=>{
+    const on=o===b; o.classList.toggle("on",on); o.setAttribute("aria-selected",String(on));
+  });
+  renderShare();
+}));
+document.getElementById("shvalsw").addEventListener("click",()=>{
+  const on=!shareValueOn();
+  try{ localStorage.setItem(SHV,on?"1":"0"); }catch(e){}
+  const sw=document.getElementById("shvalsw");
+  sw.classList.toggle("on",on); sw.setAttribute("aria-checked",String(on));
+  renderShare();
 });
 document.getElementById("sharesend").addEventListener("click",async()=>{
   if(!shareBlob) return;
-  const file=new File([shareBlob],"my-twm-binder.png",{type:"image/png"});
+  const nm=shareTab==="pull"?"twm-pull.png":"twm-map.png";
+  const file=new File([shareBlob],nm,{type:"image/png"});
   if(navigator.canShare&&navigator.canShare({files:[file]})){
-    try{ await navigator.share({files:[file],title:"My Twilight Masquerade binder"}); }catch(e){}
+    try{ await navigator.share({files:[file],title:"Twilight Masquerade"}); }catch(e){}
   }else document.getElementById("sharesave").click();
 });
 document.getElementById("sharesave").addEventListener("click",()=>{
   if(!shareBlob) return;
   const a=document.createElement("a");
-  a.href=URL.createObjectURL(shareBlob); a.download="my-twm-binder.png"; a.click();
+  a.href=URL.createObjectURL(shareBlob);
+  a.download=shareTab==="pull"?"twm-pull.png":"twm-map.png"; a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),5000);
 });
 
@@ -6054,11 +6308,11 @@ document.getElementById("greet").textContent=GREETTXT;
 let HOMESTATS=null, searching=false;
 const HVKEY="twm:homeview", VHKEY="twm:valuehist";
 let homeView="1a";
-try{ const v=localStorage.getItem(HVKEY); if(v==="1b"||v==="1c") homeView=v; }catch(e){}
+try{ const v=localStorage.getItem(HVKEY); if(v==="1b"||v==="1c"||v==="games") homeView=v; }catch(e){}
 function setHomeView(v,skipPaint){
   homeView=v;
   try{ localStorage.setItem(HVKEY,v); }catch(e){}
-  document.querySelectorAll(".hv").forEach(b=>{
+  document.querySelectorAll("#hvmain .hv").forEach(b=>{
     const on=b.dataset.hv===v;
     b.classList.toggle("on",on); b.setAttribute("aria-selected",String(on));
   });
@@ -6074,11 +6328,12 @@ function setHomeView(v,skipPaint){
   if(!a) emptyEl.hidden=true;
   document.getElementById("view1b").hidden=v!=="1b";
   document.getElementById("view1c").hidden=v!=="1c";
+  document.getElementById("viewgames").hidden=v!=="games";
   document.getElementById("greet").textContent=
     v==="1c"?new Date().toLocaleDateString("nl-BE",{weekday:"long",day:"numeric",month:"long"}):GREETTXT;
   if(!skipPaint) paint();
 }
-document.querySelectorAll(".hv").forEach(b=>
+document.querySelectorAll("#hvmain .hv").forEach(b=>
   b.addEventListener("click",()=>setHomeView(b.dataset.hv)));
 document.getElementById("q").addEventListener("focus",()=>{
   if(homeView!=="1a") setHomeView("1a");   // searching means browsing cards
@@ -6169,6 +6424,74 @@ function renderOverzicht(){
     });
     vr.appendChild(d);
   }
+}
+/* ---- round 12: Games as a fourth home view ---- */
+const QMODES=[
+  {k:"kunst", nm:"Kunst", ic:"i-image", line:"Welke kaart is dit stukje kunst?", art:214, pos:"50% 22%"},
+  {k:"wazig", nm:"Wazig", ic:"i-drop-half", line:"De kaart wordt scherper bij elke gok.", art:214, pos:"50% 22%", blur:true},
+  {k:"duel",  nm:"Prijsduel", ic:"i-scales", line:"Welke van de twee is meer waard?", duel:true}
+];
+function renderGames(){
+  if(homeView!=="games") return;
+  const opened=packStats.opened||0;
+  const bests=Object.entries(qBests).filter(([,v])=>v>0);
+  const top=bests.length?bests.reduce((a,b)=>b[1]>a[1]?b:a)[0]:null;
+  // 12b: on day one the tab explains the games instead of scoring them
+  const gp=document.getElementById("gpack");
+  if(!opened){
+    gp.className="gpackhero";
+    gp.innerHTML=`<div class="gfan">
+        <img alt="" loading="lazy" src="art/pack-sinistcha.webp" class="gf1">
+        <img alt="" loading="lazy" src="art/pack-ursaluna.webp" class="gf2">
+        <img alt="" loading="lazy" src="art/pack-dragapult.webp" class="gf3"></div>
+      <b>Open je eerste pakje</b>
+      <span>Negen wikkels om uit te kiezen, tien kaarten per pakje. Kijk hoeveel je pakje waard is.</span>
+      <button class="nbtn nprim" id="gpackbtn" type="button">
+        <svg class="pi" aria-hidden="true"><use href="#i-gift"/></svg> Pakje pakken</button>`;
+  }else{
+    gp.className="gpackcard";
+    gp.innerHTML=`<img alt="" loading="lazy" src="art/pack-ursaluna.webp">
+      <div class="gpmid">
+        <span class="cbkick">Pakje</span>
+        <b>Pakje trekken</b>
+        <small>${opened} geopend · beste trek ${eur(packStats.bestTotal||0)}</small>
+        <button class="nbtn nprim" id="gpackbtn" type="button">
+          <svg class="pi" aria-hidden="true"><use href="#i-gift"/></svg> Pakje pakken</button>
+      </div>`;
+  }
+  gp.querySelector("#gpackbtn").addEventListener("click",()=>openFov("pack"));
+  if(!opened) gp.addEventListener("click",e=>{ if(e.target===gp) openFov("pack"); });
+  const gq=document.getElementById("gquiz");
+  if(!bests.length){
+    // no records yet: a plain list, nothing to compare
+    gq.className="gqlist";
+    gq.innerHTML=QMODES.map(m=>`<button class="ikrow" type="button" data-qm="${m.k}">
+        <span class="gqic"><svg class="pi" aria-hidden="true"><use href="#${m.ic}"/></svg></span>
+        <span>${m.nm}<small>${m.line}</small></span>
+        <svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg></button>`).join("");
+  }else{
+    gq.className="gqgrid";
+    gq.innerHTML=QMODES.map(m=>{
+      const rec=qBests[m.k]||0;
+      const band=m.duel
+        ? `<span class="gqduel"><img alt="" loading="lazy" src="${img(214)}"><img alt="" loading="lazy" src="${img(216)}"></span>`
+        : `<img alt="" loading="lazy" src="${img(m.art)}" style="object-position:${m.pos}"${m.blur?' class="gqblur"':''}>`;
+      return `<button class="gqcard" type="button" data-qm="${m.k}">
+        <span class="gqband">${band}${rec?`<i class="gqrec${top===m.k?" best":""}">${rec}/10</i>`:""}</span>
+        <span class="gqnm">${m.nm}</span></button>`;
+    }).join("");
+  }
+  gq.onclick=e=>{
+    const b=e.target.closest("[data-qm]"); if(!b) return;
+    openFov("quiz");
+    const pick=document.querySelector(`.qcard[data-qm="${b.dataset.qm}"]`);
+    if(pick) pick.click();
+  };
+  document.getElementById("gqhead").querySelector(".vsort").textContent=
+    bests.length?"10 vragen per spel":"drie spelletjes";
+  document.getElementById("gfoot").textContent=opened||bests.length
+    ? "Records blijven op je toestel · prijzen van vandaag"
+    : "Pakjes veranderen je map niet · records blijven op je toestel";
 }
 function renderVandaag(){
   if(homeView!=="1c"||!HOMESTATS) return;
@@ -6323,6 +6646,7 @@ function buildHomeExtras(){
   }
   snapshotValue();
   renderCotdBlock();
+  renderGames();
   renderOverzicht();
   renderVandaag();
 }
