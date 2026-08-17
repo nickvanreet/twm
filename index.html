@@ -5156,7 +5156,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v65";   // bump with the service worker, so these load fresh per release
+const APPV="v66";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
