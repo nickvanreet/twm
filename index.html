@@ -1364,6 +1364,11 @@ footer{padding-bottom:12px}
 /* the artwork sits in the upper third of a card — crop there, not through the
    ability box in the middle */
 .cotdfull.hasart #cohart{object-position:50% 24%;mix-blend-mode:normal;opacity:.9}
+.cotdfull.hasart .cohead{background:var(--n-nav)}
+/* fallback when the hires illustration does not arrive */
+#cohart.cohblur{filter:blur(14px) saturate(1.15);transform:scale(1.14);opacity:1}
+.cotdfull.hasart .cohscrim{background:linear-gradient(180deg,
+  rgba(22,24,38,.5) 0%,rgba(22,24,38,.66) 52%,rgba(22,24,38,.94) 88%,#161826 100%)}
 .cohscrim{position:absolute;inset:0;background:linear-gradient(180deg,
   rgba(22,24,38,.35) 0%,rgba(22,24,38,.15) 40%,rgba(22,24,38,.86) 78%,#161826 100%)}
 .cohback{position:absolute;top:calc(10px + env(safe-area-inset-top));left:17px;z-index:2}
@@ -4817,7 +4822,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v58";   // bump with the service worker, so these load fresh per release
+const APPV="v59";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -6146,10 +6151,18 @@ async function openCotd(){
   const c=COTD.cards[n], s=byId.get(n), st=COTD.ents[c.e], a=COTD.art[n];
   const art=!!a;
   document.getElementById("cotdov").classList.toggle("hasart",art);
-  // header art: the card's own illustration for an artwork note, else a band
+  // the header always carries art. For an artwork note that is the hires
+  // illustration; if it never arrives, the card's own image blurred behind the
+  // scrim — never a bare band, because the card no longer pulls up into the
+  // header and an empty one would read as a loading state.
   const band=["band-ogerpon","band-sinistcha","band-dragapult"][(+n)%3];
   const hd=document.getElementById("cohart");
-  hd.onerror=()=>{ hd.onerror=null; hd.src=`art/${band}.webp`; };
+  hd.classList.remove("cohblur");
+  hd.onerror=()=>{
+    hd.onerror=null;
+    if(art){ hd.classList.add("cohblur"); hd.src=img(n); }
+    else hd.src=`art/${band}.webp`;
+  };
   hd.src=art?`https://images.pokemontcg.io/sv6/${n}_hires.png`:`art/${band}.webp`;
   document.getElementById("coimg").src=img(n);
   document.getElementById("conm").textContent=s.name;
