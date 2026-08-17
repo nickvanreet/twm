@@ -507,7 +507,14 @@ select{flex:1;min-width:140px;appearance:none;
      value — and the Samsung perf rule wants transform-only anyway */
   transition:transform .12s;
   text-align:left;color:inherit;font:inherit;
-  content-visibility:auto; contain-intrinsic-size:auto 250px;
+  /* content-visibility works from Samsung Internet 14, but the two-value
+     `auto <length>` size hint only parses from SI 22. On everything between,
+     the hint is dropped and offscreen cards collapse to 0x0 — they render as
+     little empty boxes and snap to size on scroll. The plain pair is declared
+     first so it survives as the fallback. */
+  content-visibility:auto;
+  contain-intrinsic-size:170px 250px;
+  contain-intrinsic-size:auto 250px;
 }
 .card.pop{animation:pop .45s ease}
 @keyframes pop{0%{transform:scale(.9)}55%{transform:scale(1.06)}100%{transform:scale(1)}}
@@ -551,9 +558,6 @@ select{flex:1;min-width:140px;appearance:none;
 .tr{font-size:9px;margin-left:3px;vertical-align:1px}
 .tr.up{color:#7CD9A5}
 .tr.down{color:#F09090}
-.zoom{position:absolute;bottom:5px;right:5px;width:30px;height:30px;border-radius:50%;
-  background:rgba(22,24,38,.75);display:flex;align-items:center;justify-content:center;
-  font-size:14px;line-height:1}
 
 #ov{position:fixed;inset:0;z-index:50;background:rgba(22,24,38,.92);
   display:flex;align-items:center;justify-content:center;padding:14px}
@@ -1262,6 +1266,38 @@ footer{padding-bottom:12px}
 .dfstrat{font-size:13px;line-height:1.5;color:var(--n-m5);margin:0}
 .drowstrat{display:block;font-style:normal;font-size:11px;color:var(--n-m6);
   line-height:1.4;margin-top:2px}
+
+/* ---- Samsung §8: every control reaches 48dp of touch area ----
+   The visual sizes stay exactly as designed; a transparent ::after grows only
+   the hit target, so nothing in any layout moves. */
+.dstepbtn,.qadd,.rrplus,.etypestep button,#ovflang button,.iklangp button,.ty,
+.maskchips button,.myrow button,.ovlang button,.statepills button,
+.qfoot .qgo,.shtab,.hv,.bpill,.scpct{position:relative}
+.dstepbtn::after,.qadd::after,.rrplus::after,.etypestep button::after,#ovflang button::after,
+.iklangp button::after,.ty::after,.maskchips button::after,.myrow button::after,
+.ovlang button::after,.statepills button::after,.qfoot .qgo::after,
+.shtab::after,.hv::after,.bpill::after{
+  content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+  height:48px;min-height:48px}
+/* the two steppers are the most-tapped controls in the app: widen as well */
+.dstepbtn::after{left:-9px;right:-9px}
+.ovfstrip .dstepbtn::after{left:-7px;right:-7px}
+.ovqty .dstepbtn::after{left:-6px;right:-6px}
+/* the grid's + and the result row's +: the most-tapped controls of all */
+.qadd::after,.rrplus::after{left:-6px;right:-6px}
+.etypestep button::after{left:-8px;right:-8px}
+/* …but a hit area must never swallow its neighbour's: steppers sit in a row
+   with a count between them, so the count keeps its own space */
+.dupctl b,.denrow b,.dqty{position:relative;z-index:1}
+
+/* ---- Samsung §9: nothing readable below 11px ----
+   9–10px labels are illegible at arm's length and clip once the system font
+   scale goes up, because the pills around them have fixed heights. */
+.tag2,.bcount,.revtag,.frtag,.dup,.tr,.cardback .cbnm,#scancands .scl,
+.rrow .scl,.gqrec,.hero .bar s,.rstat small,.copr span,.rbtile span,
+.bminirow small,.filmstrip .fsl,.jpill,.bmosaic i{font-size:11px}
+.rstat small{font-size:11px}
+.bar s{font-size:11px}
 
 /* ---- the app's own confirm dialog ---- */
 #dlgwrap{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;
@@ -4822,7 +4858,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v59";   // bump with the service worker, so these load fresh per release
+const APPV="v60";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
