@@ -668,7 +668,9 @@ body{background:var(--n-bg);padding-bottom:calc(86px + env(safe-area-inset-botto
 .rrtrack i{display:block;height:100%;background:var(--n-a6)}
 .rarrow b{font-size:13px;color:var(--n-a3);font-weight:500;font-variant-numeric:tabular-nums}
 
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:35;display:flex;
+/* z-index above #ikwrap (38): the Ik sheet is anchored above the tab bar, so the
+   bar has to stay lit and tappable — tapping Ik again is how you close it */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:39;display:flex;
   justify-content:space-around;align-items:flex-end;
   padding:10px 8px calc(10px + env(safe-area-inset-bottom));
   background:var(--n-nav);box-shadow:0 -1px 0 var(--n-e9);
@@ -740,6 +742,9 @@ footer{padding-bottom:12px}
 .avbtn span{width:34px;height:34px;border-radius:50%;background:var(--n-e9);
   box-shadow:0 0 0 1px var(--n-e8);display:grid;place-items:center;color:var(--n-b2)}
 .avbtn .pi{width:18px;height:18px}
+/* the same face as in Mijn hoek, on every screen */
+.avbtn span{overflow:hidden}
+.avbtn img{width:100%;height:100%;object-fit:cover;object-position:50% 16%;display:block}
 .avbtn:active span{transform:scale(.92)}
 
 .hviews{box-shadow:inset 0 -1px 0 var(--n-e9)}
@@ -1645,9 +1650,30 @@ footer{padding-bottom:12px}
 .ikhead::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,
   rgba(22,24,38,.6) 0%,rgba(22,24,38,.35) 40%,var(--n-nav) 100%)}
 .ikhead>*{position:relative;z-index:1}
+/* the sheet had no way out at all: the grip is decorative and the tab bar sat
+   under the scrim, so the only exit was a thin dimmed strip nobody finds */
+.ikclose{position:absolute;top:10px;right:10px;z-index:2;width:44px;height:44px;border:0;
+  border-radius:50%;background:rgba(22,24,38,.55);box-shadow:0 0 0 1px rgba(233,233,237,.18);
+  color:var(--n-txt);font-size:17px;font-family:inherit;cursor:pointer}
 .ikav{width:50px;height:50px;border-radius:50%;background:rgba(22,24,38,.6);
   box-shadow:0 0 0 1px var(--n-a6);display:grid;place-items:center;color:var(--n-b2);
-  margin-bottom:4px}
+  margin-bottom:4px;padding:0;border:0;overflow:hidden;cursor:pointer;position:relative}
+.ikav::after{content:"";position:absolute;inset:-4px}   /* 48dp of hit area */
+.ikav img{width:100%;height:100%;object-fit:cover;object-position:50% 16%;display:block}
+.ikav .pi{width:23px;height:23px}
+/* your own card as your face: the most personal thing a collector app can offer */
+.ikfaces{display:flex;gap:8px;overflow-x:auto;padding:2px 1px 9px;margin:0 0 2px;
+  -webkit-overflow-scrolling:touch}
+.ikfaces button{flex:none;width:48px;height:66px;padding:0;border:0;border-radius:6px;
+  background:var(--n-tint);box-shadow:0 0 0 1px var(--n-e8);cursor:pointer;overflow:hidden}
+.ikfaces button.on{box-shadow:0 0 0 2px var(--n-a4)}
+.ikfaces img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.ikname{width:calc(100% - 54px);border:0;background:none;font-family:inherit;font-size:19px;
+  font-weight:500;color:var(--n-txt);padding:0;box-shadow:inset 0 -1px 0 transparent}
+.ikname::placeholder{color:var(--n-b2);font-weight:400}
+.ikname:focus{outline:none;box-shadow:inset 0 -1px 0 var(--n-a4)}
+.ikver{margin:12px 0 0;font-size:11px;color:var(--n-m6);text-align:center;
+  font-variant-numeric:tabular-nums}
 .ikhead b{font-size:19px;font-weight:500;color:var(--n-txt)}
 .ikhead small{font-size:12px;color:#cfd3e5}
 .ikstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:6px}
@@ -2678,11 +2704,15 @@ footer{padding-bottom:12px}
   <div id="ikwrap" hidden>
     <div class="ikback"></div>
     <div class="iksheet ikprofile" role="dialog" aria-modal="true" aria-label="Mijn hoek">
-      <div class="ikhead" aria-hidden="true">
-        <span class="ikav"><svg class="pi"><use href="#i-user"/></svg></span>
-        <b>Mijn verzameling</b>
+      <div class="ikhead">
+        <button class="ikclose" id="ikclose" type="button" aria-label="Sluiten">✕</button>
+        <button class="ikav" id="ikav" type="button"
+                aria-label="Kies welke kaart jouw gezicht is"></button>
+        <input class="ikname" id="ikname" type="text" maxlength="18" autocomplete="off"
+               spellcheck="false" placeholder="Zet hier je naam" aria-label="Je naam">
         <small>verzamelt Twilight Masquerade · Kitakami</small>
       </div>
+      <div class="ikfaces" id="ikfaces" hidden></div>
       <div class="ikstats">
         <div><small>Waarde</small><b id="ikvalue">€0</b></div>
         <div><small>Kaarten</small><b id="ikcards">0</b></div>
@@ -2752,6 +2782,7 @@ footer{padding-bottom:12px}
       </div>
       <button id="bkimp" class="nlink ikrestore" type="button">Back-up terugzetten</button>
       <input id="bkfile" type="file" accept="application/json,.json" hidden>
+      <p class="ikver" id="ikver"></p>
     </div>
   </div>
 
@@ -5121,7 +5152,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v63";   // bump with the service worker, so these load fresh per release
+const APPV="v64";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -5643,7 +5674,7 @@ function askTiltPermission(){
 const BK_KEYS=["twm:collection","twm:langmap","twm:doubles","twm:wish","twm:trade",
                "twm:cotd","twm:cotdhist","twm:cotdseen","twm:packstats",
                "twm:milestones","twm:quizbest","twm:quizbest2","twm:lang","twm:bpage",
-               "twm:deck","twm:binderfmt","twm:mydecks","twm:homeview","twm:valuehist",
+               "twm:deck","twm:binderfmt","twm:mydecks","twm:homeview","twm:valuehist","twm:name","twm:face",
                "twm:daily"];
 document.getElementById("bkexp").addEventListener("click",async()=>{
   const data={};
@@ -5693,6 +5724,15 @@ document.getElementById("bkfile").addEventListener("change",async e=>{
   for(const md of parse("twm:mydecks",[]))
     if(md&&md.name&&!myDecks.some(x=>x.name===md.name)) myDecks.push(md);
   saveMyDecks();
+  // your name and your face come back with the cards, unless you already typed one
+  try{
+    if(!myName&&d["twm:name"]){
+      myName=String(d["twm:name"]).slice(0,18);
+      localStorage.setItem(NKEY,myName);
+      if(homeView!=="1c") document.getElementById("greet").textContent=greetTxt();
+    }
+    if(!myFace&&d["twm:face"]){ myFace=String(d["twm:face"]); localStorage.setItem(FACEKEY,myFace); }
+  }catch(err){}
   try{
     localStorage.setItem(KEY,JSON.stringify([...owned]));
     localStorage.setItem(LKEY,JSON.stringify(langMap));
@@ -5780,7 +5820,7 @@ async function makeShareCard(){
   x.fillText("Twilight Masquerade",mcx+mr+16*S,mcy-4*S);
   x.fillStyle="#9397ab"; x.font=F(400,13);
   const dstr=new Date().toLocaleDateString("nl-BE",{day:"numeric",month:"long",year:"numeric"});
-  x.fillText(`Masterset · ${dstr}`,mcx+mr+16*S,mcy+18*S);
+  x.fillText(`${myName?myName+" · ":""}Masterset · ${dstr}`,mcx+mr+16*S,mcy+18*S);
   // count row
   let y=mcy+mr+40*S;
   x.fillStyle="#e9e9ed"; x.font=F(500,40);
@@ -6752,8 +6792,56 @@ function openIk(){
   }catch(e){}
   document.querySelectorAll("#iklangp button").forEach(x=>
     x.classList.toggle("on",x.dataset.il===prefLang));
+  paintIkHead();
+  document.getElementById("ikfaces").hidden=true;
+  document.getElementById("ikver").textContent=`Twilight Masquerade-app · ${APPV}`;
   document.getElementById("ikwrap").hidden=false;
 }
+/* whose collection this is: a name you type, and one of your own cards as your
+   face. Until you pick, your most valuable card does the job. */
+function faceSlot(){
+  if(myFace&&owned.has(myFace)) return byId.get(myFace);
+  let best=null;
+  for(const s of SLOTS) if(owned.has(s.id)){ const p=priceOf(s); if(!best||p>best.p) best={s,p}; }
+  return best?best.s:null;
+}
+function paintIkHead(){
+  const s=faceSlot();
+  const face=s?`<img alt="" src="${myThumb(s)}">`
+              :`<svg class="pi" aria-hidden="true"><use href="#i-user"/></svg>`;
+  document.getElementById("ikav").innerHTML=face;
+  document.querySelector("#avbtn span").innerHTML=face;   // the same face on the home tab
+  const n=document.getElementById("ikname");
+  if(document.activeElement!==n) n.value=myName;
+}
+document.getElementById("ikclose").addEventListener("click",closeIk);
+document.getElementById("ikname").addEventListener("input",e=>{
+  myName=e.target.value.replace(/\s+/g," ").trim().slice(0,18);
+  try{ localStorage.setItem(NKEY,myName); }catch(err){}
+  if(homeView!=="1c") document.getElementById("greet").textContent=greetTxt();
+});
+document.getElementById("ikname").addEventListener("keydown",e=>{
+  if(e.key==="Enter") e.target.blur();
+});
+document.getElementById("ikav").addEventListener("click",()=>{
+  const box=document.getElementById("ikfaces");
+  if(!box.hidden){ box.hidden=true; return; }
+  const mine=SLOTS.filter(s=>owned.has(s.id)).map(s=>({s,p:priceOf(s)}))
+    .sort((a,b)=>b.p-a.p).slice(0,40);
+  if(!mine.length){ showToast("Scan eerst een kaart — daarna kan die je gezicht worden."); return; }
+  box.innerHTML=mine.map(({s})=>`<button type="button" data-face="${s.id}"
+      class="${s.id===myFace?"on":""}" aria-label="${s.name}${s.rev?" REV":""}">
+      <img loading="lazy" decoding="async" alt="" src="${myThumb(s)}"></button>`).join("");
+  box.hidden=false;
+});
+document.getElementById("ikfaces").addEventListener("click",e=>{
+  const b=e.target.closest("[data-face]");
+  if(!b) return;
+  myFace=b.dataset.face;
+  try{ localStorage.setItem(FACEKEY,myFace); }catch(err){}
+  document.getElementById("ikfaces").hidden=true;
+  paintIkHead();
+});
 document.getElementById("ikwish").addEventListener("click",()=>{
   closeIk(); renderWish(); openFov("wishov");
 });
@@ -6784,7 +6872,13 @@ const GREETTXT=(()=>{
   const h=new Date().getHours();
   return h<6?"Goedenacht":h<12?"Goedemorgen":h<18?"Goedemiddag":"Goedenavond";
 })();
-document.getElementById("greet").textContent=GREETTXT;
+/* the app knew everything about the cards and nothing about whose they are */
+const NKEY="twm:name", FACEKEY="twm:face";
+let myName="", myFace="";
+try{ myName=(localStorage.getItem(NKEY)||"").slice(0,18); }catch(e){}
+try{ myFace=localStorage.getItem(FACEKEY)||""; }catch(e){}
+const greetTxt=()=>myName?`${GREETTXT}, ${myName}`:GREETTXT;
+document.getElementById("greet").textContent=greetTxt();
 
 /* ---- three home views: 1a Verzamelen / 1b Overzicht / 1c Vandaag ---- */
 let HOMESTATS=null, searching=false;
@@ -6815,7 +6909,7 @@ function setHomeView(v,skipPaint){
   document.getElementById("view1c").hidden=v!=="1c";
   document.getElementById("viewgames").hidden=v!=="games";
   document.getElementById("greet").textContent=
-    v==="1c"?new Date().toLocaleDateString("nl-BE",{weekday:"long",day:"numeric",month:"long"}):GREETTXT;
+    v==="1c"?new Date().toLocaleDateString("nl-BE",{weekday:"long",day:"numeric",month:"long"}):greetTxt();
   if(!skipPaint) paint();
 }
 document.querySelectorAll("#hvmain .hv").forEach(b=>
@@ -7374,6 +7468,7 @@ function buildHomeExtras(){
 build(); loadLangMap(); loadDupes(); loadWish(); loadTrade();
 setHomeView(homeView,true);   // restore the last-used home view before first paint
 applyAllArt(); applyAllDup(); applyAllWish(); paint(); loadFrNames();
+paintIkHead();   // your face is on the home tab from the first frame
 
 /* Boot splash: the app is painted at this point — hold it a beat so the
    lantern moment registers, then fade out and drop it from the DOM.
