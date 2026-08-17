@@ -814,7 +814,31 @@ footer{padding-bottom:12px}
 #filtbtn.dot::after{content:"";position:absolute;top:9px;right:9px;width:6px;height:6px;
   border-radius:50%;background:var(--n-a4)}
 
-#rarrows{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#rarrows{display:block}
+/* 5a: one full-bleed band for the rarity closest to done, with its own tiles */
+.rband{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
+  width:calc(100% + 34px);margin:0 -17px 8px;min-height:92px;padding:12px 17px;border:0;
+  overflow:hidden;cursor:pointer;background:var(--n-nav);text-align:left;
+  font-family:'Inter',system-ui,sans-serif;color:var(--n-txt)}
+.rband::before{content:"";position:absolute;inset:0;background-image:var(--art);
+  background-size:cover;background-position:50% 42%;mix-blend-mode:lighten;opacity:.9}
+.rband::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,
+  #161826 0%,rgba(22,24,38,.82) 62%,rgba(22,24,38,0) 100%)}
+.rbtxt{position:relative;z-index:1;display:flex;flex-direction:column;gap:5px;min-width:0}
+.rbtxt b{font-size:15px;font-weight:500;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.rbtxt .rrtrack{width:96px}
+.rbtxt small{font-size:11px;color:var(--n-b2);font-variant-numeric:tabular-nums}
+.rbpct{position:relative;z-index:1;font-size:15px;font-weight:500;color:var(--n-a3);
+  font-variant-numeric:tabular-nums}
+.rbrow{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.rbrow::-webkit-scrollbar{display:none}
+.rbtile{flex:0 0 82px;border:0;background:none;padding:0;cursor:pointer;
+  display:flex;flex-direction:column;gap:4px;opacity:.45}
+.rbtile.mine{opacity:1}
+.rbtile img{width:82px;aspect-ratio:63/88;object-fit:cover;border-radius:6px;
+  box-shadow:0 0 0 1px var(--n-e8);background:var(--n-tint)}
+.rbtile.mine img{box-shadow:0 0 0 1px var(--n-a6)}
+.rbtile span{font-size:10px;color:var(--n-m5);font-family:ui-monospace,monospace;text-align:center}
 .rarcard{border:0;border-radius:8px;background:var(--n-sur);box-shadow:0 0 0 1px var(--n-e8);
   padding:10px 11px;cursor:pointer;font-family:'Inter',system-ui,sans-serif;
   color:var(--n-txt);display:flex;flex-direction:column;gap:7px;text-align:left}
@@ -848,7 +872,12 @@ footer{padding-bottom:12px}
   box-shadow:0 0 0 1px var(--n-e8);color:var(--n-b2);cursor:pointer;
   display:grid;place-items:center;flex:none}
 .bpager>button.bnexta{box-shadow:0 0 0 1px var(--n-a6);color:var(--n-a3)}
-.bpmid{flex:1;text-align:center;display:flex;flex-direction:column;gap:2px;min-width:0}
+.bpmid{flex:1;text-align:center;display:flex;flex-direction:column;gap:2px;min-width:0;
+  border:0;background:none;cursor:pointer;font-family:inherit;padding:4px 0}
+.bpall{font-size:11px;color:var(--n-a3);display:inline-flex;align-items:center;
+  justify-content:center;gap:2px;margin-top:2px}
+.bpall .bcar{width:12px;height:12px}
+.bpmid:active{transform:scale(.97)}
 .bpmid #bpage{font-size:15px;color:var(--n-txt)}
 .bpmid #bpage b{font-weight:400;color:var(--n-m5)}
 .bpmid #brange{font-size:11px;color:var(--n-m6);font-family:ui-monospace,monospace}
@@ -1232,11 +1261,50 @@ footer{padding-bottom:12px}
 .ovbar{display:flex;gap:8px;margin:14px 0 6px}
 .ovbar .nprim{flex:1}
 .nsec{flex:1;background:var(--n-sur);border:0;box-shadow:0 0 0 1px var(--n-e8);color:var(--n-b2)}
-#ovfull{position:fixed;inset:0;z-index:52;background:rgba(13,10,34,.94);perspective:900px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px}
-#ovfull .ovshot{width:min(420px,86vw)}
-.ovfullnote{font-size:11px;color:var(--n-m5);margin:0;text-align:center;
+/* 5c: the card at full height, on the set's own artwork */
+/* grid, not flex: the card centres in the free space and the strip owns the
+   bottom row — with flex the strip's auto margin took every spare pixel */
+#ovfull{position:fixed;inset:0;z-index:52;perspective:900px;background:var(--n-bg);
+  display:grid;grid-template-rows:1fr auto;justify-items:center;align-items:center;
+  padding:calc(12px + env(safe-area-inset-top)) 16px 0;
   font-family:'Inter',system-ui,sans-serif}
+.ovfbg{position:absolute;inset:0;z-index:-1;
+  background:url("art/about-banner.webp") 50% 40%/cover no-repeat;
+  opacity:.85;mix-blend-mode:lighten}
+#ovfull::before{content:"";position:absolute;inset:0;z-index:-1;background:
+  radial-gradient(120% 70% at 50% 32%,rgba(43,39,65,.15) 0%,rgba(22,24,38,.82) 62%,#161826 100%)}
+.ovftop{position:absolute;top:calc(12px + env(safe-area-inset-top));left:16px;right:16px;
+  display:flex;justify-content:space-between;gap:8px;z-index:2}
+.glassbtn{width:40px;height:40px;border:0;border-radius:50%;cursor:pointer;
+  background:rgba(22,24,38,.5);box-shadow:0 0 0 1px rgba(233,233,237,.18);
+  color:var(--n-txt);display:grid;place-items:center}
+.glassbtn .pi{width:18px;height:18px}
+.glassbtn.on{color:var(--n-a3)}
+.glassbtn:disabled{opacity:.35}
+/* fixed 5:7 — a flex column would otherwise squash the card on short screens */
+#ovfull .ovshot{width:252px;max-width:72vw;flex:none;aspect-ratio:63/88;max-height:58vh;
+  border-radius:12px;
+  box-shadow:0 0 0 1px #796cbf,0 22px 50px rgba(0,0,0,.6),0 0 60px rgba(181,171,252,.18)}
+#ovfull .ovshot img{height:100%}
+.ovfstrip{width:calc(100% + 32px);margin:0 -16px;align-self:end;
+  background:rgba(35,37,50,.92);border-radius:14px 14px 0 0;
+  padding:13px 17px calc(14px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;gap:10px}
+.ovfrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ovftxt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ovftxt b{font-size:16px;font-weight:500;color:var(--n-txt);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ovftxt small{font-size:11px;color:var(--n-m5)}
+.ovfpr{font-size:17px;font-weight:500;color:var(--n-txt);flex:none;
+  font-variant-numeric:tabular-nums}
+#ovflang{gap:5px}
+#ovflang button{min-height:32px;padding:0 12px;font-size:12px}
+#ovflang button.dis{opacity:.4}
+.ovfstrip .dupctl{gap:8px}
+.ovfstrip .dstepbtn{width:34px;height:34px;min-height:34px}
+.ovfstrip #ovfn{font-size:17px;min-width:22px;text-align:center;color:var(--n-txt);
+  font-variant-numeric:tabular-nums}
+.ovffoot{margin:0;text-align:center;font-size:11px;color:var(--n-m6)}
 .dfstrat{font-size:13px;line-height:1.5;color:var(--n-m5);margin:0}
 .drowstrat{display:block;font-style:normal;font-size:11px;color:var(--n-m6);
   line-height:1.4;margin-top:2px}
@@ -1834,8 +1902,38 @@ footer{padding-bottom:12px}
     </div>
 
     <div id="ovfull" hidden>
+      <div class="ovfbg" aria-hidden="true"></div>
+      <div class="ovftop">
+        <button class="glassbtn" id="ovfclose" type="button" aria-label="Sluiten">
+          <svg class="pi" aria-hidden="true"><use href="#i-x"/></svg>
+        </button>
+        <button class="glassbtn" id="ovfwish" type="button" aria-label="Op mijn wenslijst zetten">
+          <svg class="pi" id="ovfwishicon" aria-hidden="true"><use href="#i-star"/></svg>
+        </button>
+        <button class="glassbtn" id="ovfmap" type="button" aria-label="Bekijk in map">
+          <svg class="pi" aria-hidden="true"><use href="#i-squares-four"/></svg>
+        </button>
+      </div>
       <div class="ovshot"><img id="ovimg" alt=""><div id="ovsheen" class="rev-sheen" hidden></div><div id="ovglare"></div></div>
-      <p class="ovfullnote">Tik om te sluiten — kantel je toestel voor de glans</p>
+      <div class="ovfstrip">
+        <div class="ovfrow">
+          <span class="ovftxt"><b id="ovfname"></b><small id="ovfmeta"></small></span>
+          <span class="ovfpr" id="ovfpr"></span>
+        </div>
+        <div class="ovfrow">
+          <div class="ovlang" id="ovflang" role="group" aria-label="Taal van mijn exemplaar">
+            <button data-my="en" type="button" aria-pressed="true">EN</button>
+            <button data-my="fr" type="button" aria-pressed="false">FR</button>
+            <button data-my="ja" type="button" aria-pressed="false">JP</button>
+          </div>
+          <div class="dupctl">
+            <button id="ovfminus" class="dstepbtn" type="button" aria-label="Eén minder">−</button>
+            <b id="ovfn">0</b>
+            <button id="ovfplus" class="dstepbtn plus" type="button" aria-label="Eén meer">+</button>
+          </div>
+        </div>
+        <p class="ovffoot">Veeg links of rechts voor de volgende kaart</p>
+      </div>
     </div>
   </div>
 
@@ -1932,10 +2030,12 @@ footer{padding-bottom:12px}
       <button id="bprev" type="button" aria-label="Vorige pagina">
         <svg class="pi" aria-hidden="true"><use href="#i-caret-left"/></svg>
       </button>
-      <div class="bpmid">
+      <button class="bpmid" id="ballbtn" type="button" aria-label="Alle pagina's tonen">
         <span id="bpage">Pagina 1 <b>van 32</b></span>
         <span id="brange">#001 – #012 · 4 × 3</span>
-      </div>
+        <span class="bpall">alle pagina's
+          <svg class="pi bcar" aria-hidden="true"><use href="#i-caret-right"/></svg></span>
+      </button>
       <button id="bnext" type="button" class="bnexta" aria-label="Volgende pagina">
         <svg class="pi" aria-hidden="true"><use href="#i-caret-right"/></svg>
       </button>
@@ -3139,6 +3239,28 @@ function renderOv(){
 }
 /* the full-bleed card is the art moment: hires image, holo tilt, tap to close */
 function fillOvBig(){
+  // the strip carries everything the card screen has, without leaving the art
+  const s=cur, b=binderPos(s), q=qtyOf(s.id);
+  const e=effLang();
+  const nm=(e==="ja"&&JPX[s.num])?JPX[s.num][1]
+          :(e==="fr"&&frNames&&frNames[s.num])?frNames[s.num]:s.name;
+  document.getElementById("ovfname").textContent=nm;
+  document.getElementById("ovfmeta").textContent=
+    `#${pad3(s.num)} · ${s.rarity}${s.rev?" · reverse holo":""} · pagina ${b.page}, vakje ${b.pocket}`;
+  document.getElementById("ovfpr").innerHTML=eur(priceOf(s))+arrow(s,true);
+  document.getElementById("ovfn").textContent=q;
+  const jaOK=!!JPX[s.num];
+  document.querySelectorAll("#ovflang button").forEach(x=>{
+    const isJa=x.dataset.my==="ja";
+    x.disabled=isJa&&!jaOK;
+    x.classList.toggle("dis",isJa&&!jaOK);
+    x.setAttribute("aria-pressed",x.dataset.my===e?"true":"false");
+  });
+  const wb=document.getElementById("ovfwish"), on=wish.has(s.id);
+  wb.disabled=owned.has(s.id);
+  wb.classList.toggle("on",on);
+  document.getElementById("ovfwishicon").firstElementChild
+    .setAttribute("href",on?"#i-star-fill":"#i-star");
   const shot=document.querySelector(".ovshot");
   shot.style.transform="";
   document.getElementById("ovglare").style.background="";
@@ -3155,7 +3277,28 @@ function openOvBig(){
 }
 function closeOvBig(){ document.getElementById("ovfull").hidden=true; }
 document.getElementById("ovbigbtn").addEventListener("click",openOvBig);
-document.getElementById("ovfull").addEventListener("click",closeOvBig);
+document.querySelector(".ovfbg").addEventListener("click",closeOvBig);
+document.getElementById("ovfclose").addEventListener("click",closeOvBig);
+document.getElementById("ovfwish").addEventListener("click",()=>{
+  if(cur&&!owned.has(cur.id)) setWish(cur.id,!wish.has(cur.id));
+});
+document.getElementById("ovfmap").addEventListener("click",()=>{
+  if(!cur) return;
+  const page=binderPos(cur).page;
+  closeOvBig(); closeOv();
+  bView="page"; bPage=page; openFov("binder");
+});
+document.getElementById("ovfplus").addEventListener("click",()=>{ if(cur) addOne(cur.id,lang); });
+document.getElementById("ovfminus").addEventListener("click",()=>{ if(cur) subOne(cur.id); });
+document.querySelectorAll("#ovflang button").forEach(b=>b.addEventListener("click",()=>{
+  if(!cur||b.disabled) return;
+  const l=b.dataset.my;
+  lang=prefLang=l;
+  try{ localStorage.setItem("twm:lang",l); }catch(e){}
+  if(l==="fr") loadFrNames();
+  if(owned.has(cur.id)) setMyLang(cur.id,l);
+  renderOv();
+}));
 function paintOvTick(){
   // round 4: a live quantity, not a found/removed toggle
   const q=qtyOf(cur.id);
@@ -3173,6 +3316,7 @@ function paintOvTick(){
   sw.setAttribute("aria-checked",String(on));
   sw.classList.toggle("on",on);
   paintMy(); paintWish();
+  if(!document.getElementById("ovfull").hidden) fillOvBig();   // strip follows too
 }
 document.getElementById("ovtradesw").addEventListener("click",()=>{
   if(!cur||qtyOf(cur.id)<2) return;
@@ -3866,7 +4010,15 @@ function renderBinder(){
   bPage=Math.min(Math.max(1,bPage),bTotal());
   // 3b: the overlay flips between one page and the all-pages grid
   const all=bView==="all";
-  document.querySelector(".bpager").hidden=all;
+  // the pager stays: it is the way into the overview and back out of it
+  document.getElementById("bprev").hidden=all;
+  document.getElementById("bnext").hidden=all;
+  document.querySelector(".bpall").innerHTML=(all?"terug naar pagina "+bPage:"alle pagina's")
+    +` <svg class="pi bcar" aria-hidden="true"><use href="#i-caret-right"/></svg>`;
+  if(all){
+    document.getElementById("bpage").innerHTML=`Alle pagina's`;
+    document.getElementById("brange").textContent=`${bTotal()} pagina's · ${bCols} × ${bRows}`;
+  }
   document.getElementById("bpagecard").hidden=all;
   document.getElementById("bdots").hidden=all;
   document.querySelector(".bsummary").hidden=all;
@@ -3995,8 +4147,8 @@ function renderAllPages(){
     nudge.dataset.bp=best.p;
   }
 }
-document.querySelector(".bpmid").addEventListener("click",()=>{
-  bView="all"; renderBinder();
+document.getElementById("ballbtn").addEventListener("click",()=>{
+  bView=bView==="all"?"page":"all"; renderBinder();
 });
 document.getElementById("ballgrid").addEventListener("click",e=>{
   const b=e.target.closest("[data-bp]"); if(!b) return;
@@ -4322,7 +4474,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v53";   // bump with the service worker, so these load fresh per release
+const APPV="v54";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -5786,18 +5938,37 @@ function buildHomeExtras(){
     }
     rows.sort((a,b)=>b.pct-a.pct);
     rr.innerHTML="";
-    for(const row of rows.slice(0,2)){
-      const d=document.createElement("button");
-      d.type="button"; d.className="rarcard";
-      d.innerHTML=`<span class="rartop"><svg class="pi" aria-hidden="true"><use href="#i-cards"/></svg>`
-        +`<span>${row.r}</span><b>${Math.round(row.pct*100)}%</b></span>`
-        +`<i class="rrtrack"><i style="width:${Math.round(row.pct*100)}%"></i></i>`;
-      d.addEventListener("click",()=>{
+    // 5a: the closest rarity gets a full-bleed art band with its own card row
+    const top=rows[0];
+    if(top){
+      const list=SLOTS.filter(s=>s.rarity===top.r);
+      const have=list.reduce((n,s)=>n+(owned.has(s.id)?1:0),0);
+      const art=["band-ogerpon","band-sinistcha","band-dragapult"][RARITIES.indexOf(top.r)%3];
+      const band=document.createElement("button");
+      band.type="button"; band.className="rband";
+      band.style.setProperty("--art",`url("art/${art}.webp")`);
+      band.innerHTML=`<span class="rbtxt"><b>Bijna compleet · ${top.r}</b>`
+        +`<i class="rrtrack"><i style="width:${Math.round(top.pct*100)}%"></i></i>`
+        +`<small>${have} van ${list.length} · nog ${list.length-have} te gaan</small></span>`
+        +`<b class="rbpct">${Math.round(top.pct*100)}%</b>`;
+      band.addEventListener("click",()=>{
         const sel=document.getElementById("rarity");
-        sel.value=row.r; sel.dispatchEvent(new Event("change"));
+        sel.value=top.r; sel.dispatchEvent(new Event("change"));
         document.getElementById("grid").scrollIntoView({behavior:"smooth"});
       });
-      rr.appendChild(d);
+      rr.appendChild(band);
+      const strip=document.createElement("div");
+      strip.className="rbrow";
+      const missing=list.filter(s=>!owned.has(s.id)).slice(0,4);
+      const show=missing.length?missing:list.slice(0,4);
+      strip.innerHTML=show.map(s=>
+        `<button type="button" class="rbtile${owned.has(s.id)?" mine":""}" data-id="${s.id}">
+           <img loading="lazy" decoding="async" alt="" src="${img(s.num)}">
+           <span>#${pad3(s.num)}</span></button>`).join("");
+      strip.addEventListener("click",e=>{
+        const t=e.target.closest("[data-id]"); if(t) openOv(t.dataset.id);
+      });
+      rr.appendChild(strip);
     }
     document.getElementById("rarsec").hidden=!rows.length||!onHome1a||searching;
   }
