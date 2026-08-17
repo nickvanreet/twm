@@ -708,7 +708,7 @@ footer{padding-bottom:12px}
 .hv{font-family:inherit;font-size:14px;padding:0 0 9px;background:none;border:0;
   cursor:pointer;color:var(--n-m5)}
 .hv.on{color:var(--n-txt);box-shadow:inset 0 -2px 0 var(--n-a4)}
-#view1b,#view1c{font-family:'Inter',system-ui,sans-serif;margin-bottom:17px}
+#view1b{font-family:'Inter',system-ui,sans-serif;margin-bottom:17px}
 .vkick{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--n-m5)}
 .vrow{display:flex;align-items:flex-end;gap:8px;margin-top:6px}
 .vbig{font-size:40px;font-weight:500;letter-spacing:-.03em;line-height:1;
@@ -729,14 +729,6 @@ footer{padding-bottom:12px}
 .vrarrow small{font-size:11px;color:var(--n-m5);font-variant-numeric:tabular-nums}
 .vrarrow b{font-size:14px;color:var(--n-a3);font-weight:500;font-variant-numeric:tabular-nums;flex:none}
 .vrarrow .rrtrack i{background:var(--n-a4)}
-.cotdcard{border-radius:14px;background:var(--n-sur);box-shadow:0 0 0 1px var(--n-e8);
-  padding:17px;display:flex;gap:14px;align-items:center;margin-bottom:22px}
-.cotdcard img{width:76px;height:106px;border-radius:8px;object-fit:cover;flex:none}
-.cotdcard>div{display:flex;flex-direction:column;gap:6px;min-width:0}
-.cotdcard b{font-size:17px;font-weight:500;color:var(--n-txt)}
-.cotdcard small{font-size:12px;color:var(--n-m6)}
-.cotdcard .nbtn{margin-top:6px;align-self:flex-start;padding:0 14px;flex:none}
-#vtasks .ikrow{font-family:inherit}
 
 /* ---- round 2 fixes: self-hosted Inter, 2a set card, filter sheet ---- */
 @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;
@@ -1304,10 +1296,11 @@ footer{padding-bottom:12px}
   font-variant-numeric:tabular-nums}
 .wright{display:flex;flex-direction:column;align-items:flex-end;gap:1px;flex:none}
 .wright b{font-size:14px;font-weight:500;color:var(--n-a3);font-variant-numeric:tabular-nums}
-/* on a wishlist the arrow is advice: up is bad news, down is the reason to buy now */
+/* on a wishlist the arrow is advice: up is bad news, down is the reason to buy
+   now — the app's one green/red pair, with the meanings swapped, not a new pair */
 .wtr{font-style:normal;font-size:11px}
-.wtr.up{color:#f0a0a0}
-.wtr.down{color:#9fd8b4}
+.wtr.up{color:#F09090}
+.wtr.down{color:#7CD9A5}
 .wtr.flat{color:var(--n-m5)}
 .wstar{width:34px;height:34px;flex:none;border:0;background:none;cursor:pointer;
   color:var(--n-a4);display:grid;place-items:center;position:relative}
@@ -1864,6 +1857,91 @@ footer{padding-bottom:12px}
 .scacts .nbtn{flex:1}
 .bsessionbar{z-index:46}
 
+/* ---- round 14: Vandaag ----
+   Four things that are different today than yesterday and can be finished
+   today. The old chore list is gone, so is its CSS. */
+#view1c{font-family:'Inter',system-ui,sans-serif;margin-bottom:17px;
+  display:flex;flex-direction:column;gap:15px}
+/* full-bleed by cancelling body's 12px, not by 100vw: 100vw counts the desktop
+   scrollbar and gives the page a horizontal scroll */
+.vhero{position:relative;display:block;margin:0 -12px;height:232px;overflow:hidden;
+  border:0;padding:0;background:var(--n-nav);cursor:pointer;text-align:left;
+  font-family:inherit;color:var(--n-txt)}
+.vheroart{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:50% 32%;mix-blend-mode:lighten}
+.vheroart.vblur{filter:blur(14px) saturate(1.15);transform:scale(1.14);mix-blend-mode:normal}
+.vheroscrim{position:absolute;inset:0;background:linear-gradient(180deg,
+  rgba(22,24,38,.2) 0%,rgba(22,24,38,.1) 30%,rgba(22,24,38,.9) 76%,#161826 100%)}
+.vherorow{position:absolute;left:17px;right:17px;bottom:12px;z-index:1;
+  display:flex;gap:13px;align-items:flex-end}
+.vherocard{width:74px;flex:none;aspect-ratio:5/7;border-radius:8px;object-fit:cover;
+  background:var(--n-tint);box-shadow:0 0 0 1px #595d6c,0 0 22px rgba(181,171,252,.3)}
+.vherotxt{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.vherokick{display:flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--n-b2)}
+.vherokick .pi{width:13px;height:13px;color:var(--n-a4)}
+.vheronm{font-size:17px;font-weight:500;letter-spacing:-.01em;
+  text-shadow:0 1px 10px rgba(22,24,38,.8)}
+.vherofact{font-size:12px;line-height:1.45;color:var(--n-b2);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vherocta{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--n-a3)}
+.vherocta .pi{width:13px;height:13px}
+.vfirst{margin:0 17px;font-size:13px;line-height:1.5;color:var(--n-b2)}
+.vcard{margin:0 17px;padding:13px;border-radius:14px;background:var(--n-sur);
+  box-shadow:0 0 0 1px var(--n-e8);font-family:inherit}
+.vdrow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.vdlab{display:block;font-size:12px;color:var(--n-m5)}
+.vdbig{display:block;margin-top:3px;font-size:24px;font-weight:500;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;line-height:1.15}
+/* the app has exactly one green/red pair (.tr.up/.tr.down) — reuse those values */
+.vup{color:#7CD9A5}
+.vdown{color:#F09090}
+.vflat{color:var(--n-m5);font-size:17px}
+.vspark{display:flex;align-items:flex-end;gap:2px;height:34px;flex:none}
+.vspark i{width:5px;border-radius:1px;display:block;background:var(--n-e8)}
+.vspark i.vstoday{background:var(--n-a4)}
+.vspark i.vsyest{background:var(--n-a6)}
+.vhair{margin-top:11px;padding-top:11px;box-shadow:inset 0 1px 0 var(--n-e9)}
+.vmover{display:flex;align-items:center;gap:10px;font-size:13px}
+.vmover img{width:30px;height:42px;flex:none;border-radius:4px;object-fit:cover;
+  object-position:top;background:var(--n-tint)}
+.vmnm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vmover .vup,.vmover .vdown{font-size:12px;flex:none;font-variant-numeric:tabular-nums}
+.vqtop{display:flex;gap:13px;align-items:center}
+.vqthumb{width:62px;flex:none;aspect-ratio:5/7;border-radius:6px;overflow:hidden;
+  box-shadow:0 0 0 1px var(--n-e8);background:var(--n-tint)}
+.vqthumb img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;display:block;
+  filter:blur(5px);transform:scale(1.1)}
+.vqthumb.vqopen img{filter:none;transform:none}
+.vqmid{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.vqhead{display:flex;align-items:center;gap:7px}
+.vqkick{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--n-m5)}
+.vqpill{font-size:11px;color:var(--n-bg);background:var(--n-a4);padding:2px 7px;
+  border-radius:999px;font-variant-numeric:tabular-nums;flex:none}
+.vqq{font-size:15px;font-weight:500;color:var(--n-txt)}
+.vqmeta{font-size:11px;color:var(--n-m6)}
+.vqplay{position:relative;width:40px;height:40px;flex:none;border:0;border-radius:50%;
+  background:var(--n-tint);box-shadow:0 0 0 1px var(--n-a6);color:var(--n-a3);
+  display:grid;place-items:center;cursor:pointer}
+.vqplay::after{content:"";position:absolute;inset:-4px}   /* 48dp of hit area */
+.vqplay .pi{width:17px;height:17px}
+.vqopts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.vqopts button{min-height:48px;padding:0 8px;border:0;border-radius:8px;background:none;
+  box-shadow:0 0 0 1px var(--n-e8);color:var(--n-txt);font-family:inherit;font-size:13px;
+  cursor:pointer}
+.vqopts button.good{box-shadow:0 0 0 1px #7CD9A5;color:#7CD9A5}
+.vqopts button.bad{box-shadow:0 0 0 1px #F09090;color:#F09090}
+.vqres{margin:11px 0 0;font-size:13px;color:var(--n-b2)}
+.vmove{width:auto;margin:0 17px;padding:12px 13px;display:flex;align-items:center;gap:11px;
+  border:0;border-radius:14px;background:var(--n-nav);box-shadow:0 0 0 1px var(--n-e9);
+  cursor:pointer;text-align:left;font-family:inherit;color:var(--n-txt)}
+.vmove>.pi:first-child{width:19px;height:19px;color:var(--n-a4);flex:none}
+.vmove .vmtxt{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.vmove b{font-size:14px;font-weight:400}
+.vmove small{font-size:11px;color:var(--n-m6);font-variant-numeric:tabular-nums}
+.vmove .ikc{width:15px;height:15px;color:var(--n-m6);flex:none}
+.vnone{margin:0;font-size:12px;color:var(--n-m5)}
+
 /* wider screens: the phone design scales up gently (desktop is not a
    designed layout yet — tiles stay card-sized, the tab bar clusters) */
 @media(min-width:700px){
@@ -1918,6 +1996,7 @@ footer{padding-bottom:12px}
 <symbol id="i-camera-rotate" viewBox="0 0 256 256"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM176,96v24a8,8,0,0,1-8,8H144a8,8,0,0,1,0-16h5.15a32.12,32.12,0,0,0-40.34-1.61A8,8,0,0,1,99.19,97.6,48.21,48.21,0,0,1,160,100.23V96a8,8,0,0,1,16,0Zm-17.61,59.2a8,8,0,0,1-1.58,11.2A48.21,48.21,0,0,1,96,163.77V168a8,8,0,0,1-16,0V144a8,8,0,0,1,8-8h24a8,8,0,0,1,0,16h-5.15a32.12,32.12,0,0,0,40.34,1.61A8,8,0,0,1,158.39,155.2Z"/></symbol>
 <symbol id="i-lightning" viewBox="0 0 256 256"><path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17ZM109.37,214l10.47-52.38a8,8,0,0,0-5-9.06L62,132.71l84.62-90.66L136.16,94.43a8,8,0,0,0,5,9.06l52.8,19.8Z"/></symbol>
 <symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol>
+<symbol id="i-play" viewBox="0 0 256 256"><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z"/></symbol>
 <symbol id="i-medal" viewBox="0 0 256 256"><path d="M216,96A88,88,0,1,0,72,163.83V240a8,8,0,0,0,11.58,7.16L128,225l44.43,22.21A8.07,8.07,0,0,0,176,248a8,8,0,0,0,8-8V163.83A87.85,87.85,0,0,0,216,96ZM56,96a72,72,0,1,1,72,72A72.08,72.08,0,0,1,56,96ZM168,227.06l-36.43-18.21a8,8,0,0,0-7.16,0L88,227.06V174.37a87.89,87.89,0,0,0,80,0ZM128,152A56,56,0,1,0,72,96,56.06,56.06,0,0,0,128,152Zm0-96A40,40,0,1,1,88,96,40,40,0,0,1,128,56Z"/></symbol>
 <symbol id="i-paper-plane-tilt" viewBox="0 0 256 256"><path d="M227.32,28.68a16,16,0,0,0-15.66-4.08l-.15,0L19.57,82.84a16,16,0,0,0-2.49,29.8L102,154l41.3,84.87A15.86,15.86,0,0,0,157.74,248q.69,0,1.38-.06a15.88,15.88,0,0,0,14-11.51l58.2-191.94c0-.05,0-.1,0-.15A16,16,0,0,0,227.32,28.68ZM157.83,231.85l-.05.14,0-.07-40.06-82.3,48-48a8,8,0,0,0-11.31-11.31l-48,48L24.08,98.25l-.07,0,.14,0L216,40Z"/></symbol>
 <symbol id="i-moon" viewBox="0 0 256 256"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"/></symbol>
@@ -2070,12 +2149,27 @@ footer{padding-bottom:12px}
     <p class="cofoot" id="gfoot"></p>
   </div>
 
+  <!-- round 14: four things that are actually today, and can be finished today -->
   <div id="view1c" hidden>
-    <div class="cotdcard" id="cotdcard"></div>
-    <div class="nsec">
-      <div class="nsechead"><span>Nog te doen</span></div>
-      <div id="vtasks"></div>
-    </div>
+    <button class="vhero" id="vhero" type="button" aria-label="Lees het verhaal van de kaart van de dag">
+      <img class="vheroart" id="vheroart" alt="">
+      <span class="vheroscrim"></span>
+      <span class="vherorow">
+        <img class="vherocard" id="vherocard" alt="" loading="lazy" decoding="async">
+        <span class="vherotxt">
+          <span class="vherokick">
+            <svg class="pi" aria-hidden="true"><use href="#i-moon"/></svg>Kaart van de dag</span>
+          <span class="vheronm" id="vheronm"></span>
+          <span class="vherofact" id="vherofact"></span>
+          <span class="vherocta" id="vherocta">Lees het verhaal
+            <svg class="pi" aria-hidden="true"><use href="#i-caret-right"/></svg></span>
+        </span>
+      </span>
+    </button>
+    <p class="vfirst" id="vfirst" hidden></p>
+    <div class="vcard" id="vdeltacard" hidden></div>
+    <div class="vcard" id="vqcard" hidden></div>
+    <button class="vmove" id="vmove" type="button" hidden></button>
   </div>
 
   <div id="results" hidden></div>
@@ -2594,7 +2688,7 @@ footer{padding-bottom:12px}
       <div class="stats" hidden>
         <div class="kpi"><small>Waarde van mijn kaarten</small><b id="value"></b></div>
         <div class="kpi" id="stBestWrap" hidden><small>Mijn beste kaart</small><b id="stBest"></b></div>
-        <div class="kpi" id="stDupWrap" hidden><small>Dubbels om te ruilen</small><b id="stDup"></b></div>
+        <div class="kpi" id="stDupWrap" hidden><small>Dubbels</small><b id="stDup"></b></div>
         <div class="kpi" id="stWishWrap" hidden><small>Wenslijst</small><b id="stWish"></b></div>
         <div class="kpi" id="stLangWrap" hidden><small>Talen in je verzameling</small><b id="stLang"></b></div>
       </div>
@@ -5024,7 +5118,7 @@ const loadScript=src=>new Promise((res,rej)=>{
   s.src=src; s.onload=res; s.onerror=()=>rej(new Error(src));
   document.head.appendChild(s);
 });
-const APPV="v61";   // bump with the service worker, so these load fresh per release
+const APPV="v62";   // bump with the service worker, so these load fresh per release
 let cardsLoading=null;
 function ensureCards(){
   if(cardsReady) return Promise.resolve(true);
@@ -5546,7 +5640,8 @@ function askTiltPermission(){
 const BK_KEYS=["twm:collection","twm:langmap","twm:doubles","twm:wish","twm:trade",
                "twm:cotd","twm:cotdhist","twm:cotdseen","twm:packstats",
                "twm:milestones","twm:quizbest","twm:quizbest2","twm:lang","twm:bpage",
-               "twm:deck","twm:binderfmt","twm:mydecks","twm:homeview","twm:valuehist"];
+               "twm:deck","twm:binderfmt","twm:mydecks","twm:homeview","twm:valuehist",
+               "twm:daily"];
 document.getElementById("bkexp").addEventListener("click",async()=>{
   const data={};
   for(const k of BK_KEYS){ const v=localStorage.getItem(k); if(v!==null) data[k]=v; }
@@ -6709,6 +6804,9 @@ function setHomeView(v,skipPaint){
   document.getElementById("rescount").hidden=!a;
   document.getElementById("scanshort").hidden=!a;
   grid.hidden=!a;
+  // the footer explains the card grid, so it belongs to 1a only — on Vandaag it
+  // read as a wall of leftover text under a screen that has four items
+  document.querySelector("footer").hidden=!a;
   if(!a) emptyEl.hidden=true;
   document.getElementById("view1b").hidden=v!=="1b";
   document.getElementById("view1c").hidden=v!=="1c";
@@ -6727,13 +6825,20 @@ document.getElementById("q").addEventListener("focus",()=>{
 function snapshotValue(){
   if(!HOMESTATS) return;
   try{
-    const key=new Date().toISOString().slice(0,10);
+    const key=cotdToday();   // local, same day boundary as the daily card
     let h=[];
     try{ h=JSON.parse(localStorage.getItem(VHKEY)||"[]"); }catch(e){}
     const last=h[h.length-1];
     if(last&&last.d===key) last.v=HOMESTATS.haveV;
     else h.push({d:key,v:HOMESTATS.haveV});
     if(h.length>60) h=h.slice(-60);
+    // Round 14 wants to name the card that moved most, and a total cannot say
+    // which one that was. So keep a per-card map — but only on the two newest
+    // days, or 60 days × the whole collection would fill the quota.
+    const pm={};
+    for(const s of SLOTS) if(owned.has(s.id)) pm[s.id]=+priceOf(s).toFixed(2);
+    h[h.length-1].p=pm;
+    for(let i=0;i<h.length-2;i++) if(h[i].p) delete h[i].p;
     localStorage.setItem(VHKEY,JSON.stringify(h));
   }catch(e){}
 }
@@ -6877,61 +6982,252 @@ function renderGames(){
     ? "Records blijven op je toestel · prijzen van vandaag"
     : "Pakjes veranderen je map niet · records blijven op je toestel";
 }
+/* ---- round 14: Vandaag ----
+   Everything here has to be different today than it was yesterday, and
+   finishable today. That rules out a to-do list: the old one looked identical
+   every morning, which is why there was no reason to come back. */
+const DQKEY="twm:daily";
+const vYest=()=>new Date(Date.now()-864e5).toLocaleDateString("sv-SE");
+function dqGet(){
+  let st=null;
+  try{ st=JSON.parse(localStorage.getItem(DQKEY)||"null"); }catch(e){}
+  if(!st||typeof st!=="object")
+    st={date:"",cardId:"",answered:false,correct:false,given:"",streak:0,lastPlayed:""};
+  return st;
+}
+function dqPut(st){ try{ localStorage.setItem(DQKEY,JSON.stringify(st)); }catch(e){} }
+/* read-only: a skipped day shows a broken streak without writing anything, so
+   a week away does not quietly wipe it before the app is ever opened again */
+const dqStreak=st=>(st.lastPlayed===cotdToday()||st.lastPlayed===vYest())?(st.streak||0):0;
+
+/* the same shape as the "wazig" quiz mode, but seeded by the date: one question
+   a day, the same one all day, in the same order all day */
+function dqPick(d){
+  const row=RAW[cotdHash(d+"q14")%RAW.length];
+  const names=[row[1]];
+  for(let i=0;names.length<4&&i<300;i++){
+    const nm=RAW[cotdHash(d+"q14d"+i)%RAW.length][1];
+    if(!names.includes(nm)) names.push(nm);
+  }
+  const opts=names.map((nm,i)=>[nm,cotdHash(d+"q14o"+i)])
+                  .sort((a,b)=>a[1]-b[1]).map(x=>x[0]);
+  return {cardId:String(row[0]), num:row[0], name:row[1], opts};
+}
+function dqToday(){
+  const d=cotdToday(), st=dqGet(), q=dqPick(d);
+  if(st.date!==d){
+    st.date=d; st.cardId=q.cardId; st.answered=false; st.correct=false; st.given="";
+    dqPut(st);
+  }
+  return {st,q};
+}
+function dqAnswer(nm){
+  const {st,q}=dqToday();
+  if(st.answered) return;              // one shot, and that was it for today
+  st.answered=true; st.correct=nm===q.name; st.given=nm;
+  // the streak counts days you PLAYED, not days you were right: breaking it
+  // over a wrong guess is harsh for a ten-year-old
+  st.streak=(st.lastPlayed===vYest()?(st.streak||0):0)+1;
+  st.lastPlayed=cotdToday();
+  dqPut(st);
+  vqOpen=false; vRenderQuestion();
+  if(st.correct&&navigator.vibrate) navigator.vibrate(15);
+}
+
+/* the art belongs to this card's Pokémon; a generic band would be decoration.
+   No band for it? Then its own image blurred, exactly as the story header does. */
+const VBANDS=[["ursaluna","band-ursaluna"],["sinistcha","band-sinistcha"],
+              ["dragapult","band-dragapult"],["ogerpon","band-ogerpon"]];
+let vHeroN=null;
+function vHero(){
+  ensureCotd().then(ok=>{
+    if(homeView!=="1c") return;        // the tab can change while cotd.js loads
+    const n=ok?cotdNumber():null;
+    const s=n?byId.get(n):cardOfDay();
+    if(!s) return;
+    const num=String(n||s.num);
+    const c=ok?COTD.cards[num]:null, st=c?COTD.ents[c.e]:null;
+    const seen=cotdSeen().includes(cotdToday());
+    document.getElementById("vherocta").innerHTML=
+      (seen?"Gelezen · lees opnieuw":"Lees het verhaal")
+      +' <svg class="pi" aria-hidden="true"><use href="#i-caret-right"/></svg>';
+    if(vHeroN===num) return;           // do not re-fetch the art on every paint
+    vHeroN=num;
+    const nm=s.name.toLowerCase();
+    const band=(VBANDS.find(b=>nm.includes(b[0]))||[])[1];
+    const ha=document.getElementById("vheroart");
+    ha.classList.toggle("vblur",!band);
+    ha.onerror=()=>{ ha.onerror=null; ha.classList.add("vblur"); ha.src=img(num); };
+    ha.src=band?`art/${band}.webp`:img(num);
+    document.getElementById("vherocard").src=img(num);
+    document.getElementById("vheronm").textContent=st?st.h:`${s.num} ${s.name}`;
+    document.getElementById("vherofact").textContent=
+      st?st.l:`Twilight Masquerade · ${eur(priceOf(s))}`;
+  });
+}
+document.getElementById("vhero").addEventListener("click",()=>openCotd());
+
+function vHist(){
+  let h=[]; try{ h=JSON.parse(localStorage.getItem(VHKEY)||"[]"); }catch(e){}
+  return h;
+}
+function vRenderDelta(){
+  const box=document.getElementById("vdeltacard"), h=vHist();
+  if(h.length<2){
+    // no label above it: "Je map bewoog vandaag" over "nog geen geschiedenis"
+    // contradicts itself
+    box.innerHTML='<p class="vnone">Nog geen geschiedenis — '
+      +'morgen staat hier hoeveel je map bewoog.</p>';
+    return;
+  }
+  const t=h[h.length-1], p=h[h.length-2];
+  const diff=t.v-p.v, flat=Math.abs(diff)<0.005;
+  // the snapshot only lands on days the app is opened, so "vandaag" can be a lie
+  const gap=Math.max(1,Math.round((new Date(t.d)-new Date(p.d))/864e5));
+  const win=h.slice(-7), vals=win.map(e=>e.v);
+  const lo=Math.min(...vals), hi=Math.max(...vals);
+  const span=hi-lo;
+  const bars=win.map((e,i)=>{
+    const px=span<Math.max(0.01,hi*0.01)?14:Math.round(6+(e.v-lo)/span*28);
+    const cls=i===win.length-1?"vstoday":i===win.length-2?"vsyest":"";
+    return `<i class="${cls}" style="height:${px}px" title="${e.d}: ${eur(e.v)}"></i>`;
+  }).join("");
+  const value=flat
+    ? `<span class="vdbig vflat">${gap>1?`Niets bewogen in ${gap} dagen`:"Vandaag niets bewogen"}</span>`
+    : `<span class="vdbig ${diff>0?"vup":"vdown"}">${diff>0?"+":"−"}${eur(Math.abs(diff))}</span>`;
+  box.innerHTML=`<div class="vdrow">
+      <span><span class="vdlab">Je map bewoog ${gap>1?`sinds ${gap} dagen`:"vandaag"}</span>${value}</span>
+      <span class="vspark">${bars}</span>
+    </div>`+vMover(t,p);
+}
+/* one mover, not a list: the point is "something happened", not a portfolio.
+   It appears by itself once two days of per-card prices exist — before that the
+   honest answer is nothing, not a number guessed from the ▲/▼ percentages. */
+function vMover(t,p){
+  if(!t.p||!p.p) return "";
+  let best=null;
+  for(const id in t.p){
+    if(!(id in p.p)) continue;                 // added today: it moved from nothing
+    const d=t.p[id]-p.p[id];
+    if(!best||Math.abs(d)>Math.abs(best.d)) best={id,d};
+  }
+  if(!best||Math.abs(best.d)<0.01) return "";
+  const s=byId.get(best.id); if(!s) return "";
+  const up=best.d>0;
+  return `<div class="vhair vmover">
+      <img alt="" loading="lazy" decoding="async" src="${img(s.num)}">
+      <span class="vmnm">${s.name}${s.rev?" REV":""}</span>
+      <span class="${up?"vup":"vdown"}">${up?"▲":"▼"} ${eur(Math.abs(best.d))}</span>
+    </div>`;
+}
+
+let vqOpen=false, vqSig="";
+function vRenderQuestion(){
+  const {st,q}=dqToday();
+  const streak=dqStreak(st);
+  // paint() runs on every price fetch and every add: without this guard it would
+  // wipe the four answer buttons out from under a thumb mid-tap
+  const sig=[st.date,st.cardId,st.answered,st.correct,st.given,streak,vqOpen].join("|");
+  if(sig===vqSig) return;
+  vqSig=sig;
+  const box=document.getElementById("vqcard");
+  box.innerHTML=`<div class="vqtop">
+      <span class="vqthumb${st.answered?" vqopen":""}">
+        <img alt="" loading="lazy" decoding="async" src="${img(q.num)}"></span>
+      <span class="vqmid">
+        <span class="vqhead"><span class="vqkick">Vraag van de dag</span>${
+          streak?`<span class="vqpill">${streak} dag${streak>1?"en":""}</span>`:""}</span>
+        <span class="vqq">Wie is dat, zo wazig?</span>
+        <span class="vqmeta">Eén vraag, één kans · de hele quiz staat bij Games</span>
+      </span>${st.answered||vqOpen?"":
+      `<button class="vqplay" id="vqplay" type="button" aria-label="Speel de vraag van vandaag">
+         <svg class="pi" aria-hidden="true"><use href="#i-play"/></svg></button>`}
+    </div>`;
+  if(st.answered){
+    box.insertAdjacentHTML("beforeend",
+      '<div class="vqopts">'+q.opts.map(nm=>
+        `<button type="button" disabled class="${nm===q.name?"good":(nm===st.given?"bad":"")}"
+          >${nm}</button>`).join("")+'</div>'
+      +`<p class="vqres">${st.correct?`Juist! ${q.num} ${q.name}.`:`Het was ${q.num} ${q.name}.`}</p>`);
+    return;
+  }
+  if(vqOpen){
+    const g=document.createElement("div");
+    g.className="vqopts";
+    for(const nm of q.opts){
+      const b=document.createElement("button");
+      b.type="button"; b.textContent=nm;
+      b.addEventListener("click",()=>dqAnswer(nm));
+      g.appendChild(b);
+    }
+    box.appendChild(g);
+    return;
+  }
+  box.querySelector("#vqplay").addEventListener("click",()=>{ vqOpen=true; vRenderQuestion(); });
+}
+
+/* one page, genuinely closest to full — never "los dit op" */
+function oneMove(){
+  const per=bPer(), pages=[];
+  for(let p=1;p<=bTotal();p++){
+    const miss=SLOTS.slice((p-1)*per,p*per).filter(s=>!owned.has(s.id));
+    if(miss.length) pages.push({page:p,miss});
+  }
+  if(!pages.length) return {kind:"done"};
+  const near=pages.filter(x=>x.miss.length<=2)
+                  .sort((a,b)=>a.miss.length-b.miss.length||a.page-b.page)[0];
+  if(near) return {kind:"page",page:near.page,miss:near.miss};
+  let cheap=null;
+  for(const x of pages) for(const s of x.miss){
+    const p=priceOf(s);
+    if(!cheap||p<cheap.p) cheap={kind:"cheap",s,p,page:x.page};
+  }
+  return cheap;
+}
+function vRenderMove(){
+  const b=document.getElementById("vmove"), m=oneMove();
+  const row=(icon,title,sub)=>
+    `<svg class="pi" aria-hidden="true"><use href="#${icon}"/></svg>`
+    +`<span class="vmtxt"><b>${title}</b><small>${sub}</small></span>`
+    +`<svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>`;
+  if(m.kind==="done"){
+    // no page left to name, so the row stops pretending and celebrates instead
+    b.innerHTML=row("i-medal","Je map is compleet",
+      `Alle ${SLOTS.length} vakjes gevuld · ${eur(HOMESTATS.haveV)}`);
+    b.onclick=()=>showMilestone("Je map is compleet!",null);
+    return;
+  }
+  if(m.kind==="page"){
+    const one=m.miss.length===1;
+    const price=m.miss.reduce((a,s)=>a+priceOf(s),0);
+    // the two gaps on a page are often #13 and #13 REV, so the REV has to show
+    const nr=s=>`#${pad3(s.num)}${s.rev?" REV":""}`;
+    b.innerHTML=row("i-grid-nine",
+      `Pagina ${m.page} mist nog ${one?"één kaart":"twee kaarten"}`,
+      one?`${nr(m.miss[0])} · ${eur(price)} — daarmee is die pagina vol`
+         :`${nr(m.miss[0])} en ${nr(m.miss[1])} · ${eur(price)} samen — dan is die pagina vol`);
+  }else{
+    b.innerHTML=row("i-grid-nine","De goedkoopste die je nog mist",
+      `#${pad3(m.s.num)}${m.s.rev?" REV":""} ${m.s.name} · ${eur(m.p)} — op pagina ${m.page}`);
+  }
+  b.onclick=()=>{ bView="page"; bPage=m.page; openFov("binder"); };
+}
+
 function renderVandaag(){
   if(homeView!=="1c"||!HOMESTATS) return;
-  // the same pick as the home block and the Ik row, with its story behind it
-  const cc=document.getElementById("cotdcard");
-  const draw=s=>{
-    cc.innerHTML=`<img alt="" src="${img(s.num)}">`
-      +`<div><span class="vkick">Kaart van de dag</span>`
-      +`<b>${s.num} ${s.name}${s.rev?" REV":""}</b>`
-      +`<small>Twilight Masquerade · ${eur(priceOf(s))}</small>`
-      +`<button class="nbtn nprim" id="cotdgo" type="button">Lees het verhaal</button></div>`;
-    cc.querySelector("#cotdgo").addEventListener("click",()=>openCotd());
-  };
-  ensureCotd().then(ok=>{
-    const s=ok?byId.get(cotdNumber()):cardOfDay();
-    if(s) draw(s);
-  });
-  const t=document.getElementById("vtasks");
-  t.innerHTML="";
-  const addTask=(icon,title,sub,fn)=>{
-    const b=document.createElement("button");
-    b.type="button"; b.className="ikrow";
-    b.innerHTML=`<svg class="pi" aria-hidden="true"><use href="#i-${icon}"/></svg>`
-      +`<span>${title}<small>${sub}</small></span>`
-      +`<svg class="pi ikc" aria-hidden="true"><use href="#i-caret-right"/></svg>`;
-    b.addEventListener("click",fn);
-    t.appendChild(b);
-  };
-  const S=HOMESTATS;
-  const toView=view=>()=>{
-    setHomeView("1a");
-    const b=document.querySelector(`#viewseg button[data-view="${view}"]`);
-    if(b&&b.getAttribute("aria-pressed")!=="true") b.click();
-    document.getElementById("grid").scrollIntoView({behavior:"smooth"});
-  };
-  if(S.wishN) addTask("sparkle",`${S.wishN} wenskaart${S.wishN>1?"en":""} nog te vinden`,
-    `Samen ${eur(S.wishV)}`,toView("wish"));
-  if(S.dupN) addTask("cards",`${S.dupN} dubbel${S.dupN>1?"s":""} om te ruilen`,
-    `Waarde ${eur(S.dupV)}`,toView("dup"));
-  let bestRar=null;
-  for(const r of RARITIES){
-    const list=SLOTS.filter(x=>x.rarity===r);
-    if(!list.length) continue;
-    const have=list.reduce((n,x)=>n+(owned.has(x.id)?1:0),0);
-    const pct=have/list.length;
-    if(pct>0&&pct<1&&(!bestRar||pct>bestRar.pct)) bestRar={r,pct,left:list.length-have};
-  }
-  if(bestRar) addTask("cards-fill",`Maak ${bestRar.r} af`,
-    `Nog ${bestRar.left} kaart${bestRar.left>1?"en":""} te gaan`,()=>{
-      const sel=document.getElementById("rarity");
-      sel.value=bestRar.r; sel.dispatchEvent(new Event("change"));
-      setHomeView("1a");
-      document.getElementById("grid").scrollIntoView({behavior:"smooth"});
-    });
-  addTask("game-controller","Dagelijkse quiz","Kunst, wazig of prijsduel",()=>openFov("quiz"));
-  addTask("gift","Pakje openen","Wat zit erin vandaag?",()=>openFov("pack"));
+  // a brand-new user has no history, no streak and no nearly-full page: one
+  // card and one invitation, not three empty boxes
+  const day1=HOMESTATS.haveN===0;
+  const vf=document.getElementById("vfirst");
+  vf.hidden=!day1;
+  if(day1) vf.textContent="Scan je eerste kaart — morgen staat hier hoeveel je map bewoog, "
+    +"met een vraag van de dag erbij.";
+  document.getElementById("vdeltacard").hidden=day1;
+  document.getElementById("vqcard").hidden=day1;
+  document.getElementById("vmove").hidden=day1;
+  vHero();
+  if(day1) return;
+  vRenderDelta(); vRenderQuestion(); vRenderMove();
 }
 /* the "Nog te vinden" preview and "Bijna compleet" rows follow the live
    collection: rebuilt by paint() via this hook */
